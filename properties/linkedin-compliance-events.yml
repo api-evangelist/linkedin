@@ -1,0 +1,167 @@
+openapi: 3.0.0
+info:
+  title: Compliance Events
+  description: >-
+    We are making updates to our collections. If you run into any issues pulling
+    the latest changes, simply fork the collection again.
+
+
+    LinkedIn provides Compliance API Guides for all monitoring, archiving, and
+    management of communications for enterprises in regulated industries. The
+    APIs will help your social interactions remain effective while ensuring
+    compliance with corporate governance policies and major regulations.
+
+
+    The Compliance Events API allows applications to archive all LinkedIn
+    activities from the past 30 days of a regulated, authenticated member. It
+    returns each monitored activity as an individual event record to provide
+    ease of archive and remediation if necessary.
+
+
+    All the variables used in this collection are defined in the `Compliance
+    Events` environment.
+
+
+    To know more, please refer
+    [here](https://docs.microsoft.com/en-us/linkedin/compliance/).
+  version: 1.0.0
+servers:
+  - url: https://api.linkedin.com
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+  - name: Use Cases > Compliance Authorization
+    description: >-
+      This folder contains APIs to opt-in and opt-out a member to be regulated
+      on LinkedIn.
+
+
+      To know more, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#compliance-authorization).
+  - name: Use Cases > Compliance Events
+    description: >-
+      This folder contains API to retrieve compliance events for a regulated
+      member.
+
+
+      To know more, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#compliance-events).
+paths:
+  /v2/memberComplianceAuthorizations:
+    post:
+      tags:
+        - Use Cases > Compliance Authorization
+      summary: Opt in a member to be regulated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Compliance Authorization
+      summary: Check a member's regulation status
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: member
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{developer_application_id}&member=urn:li:person:{person_id}:
+    delete:
+      tags:
+        - Use Cases > Compliance Authorization
+      summary: Opt out a member from being regulated
+      description: >-
+        Opt out a member from being regulated on LinkedIn.
+
+
+        **Note:** A member will not opt out of Compliance authorization due to
+        access token expiration. The only ways an opt out can happen are:
+
+        * Application invokes the DELETE API mentioned above
+
+        * The regulated member removes the application's authorization through
+        LinkedIn's Privacy Setting page. This can be found under the [Third
+        Parties section](https://www.linkedin.com/psettings/permitted-services).
+
+
+
+        To know more, please
+        [refer](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#sample-get-response).
+      parameters:
+        - name: developer_application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/complianceEvents:
+    get:
+      tags:
+        - Use Cases > Compliance Events
+      summary: Retrieve compliance events for a regulated member
+      description: >-
+        Once the member has authorized to be regulated, the compliance events
+        for the member can be retrieved using the `/v2/complianceEvents` API. 
+
+
+        To know more on the response schema, refer
+        [here](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#compliance-events-schema).
+
+
+        To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#compliance-events).
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: memberAndApplication
+        - name: projection
+          in: query
+          schema:
+            type: string
+          example: >-
+            (elements*(id,capturedAt,processedAt,configVersion,owner~(firstName,lastName,headline),actor~(firstName,lastName,headline),resourceName,resourceid,resourceUri,method,activity,processedActivity,siblingActivities,parentActivity,parentSiblingActivities),paging)
+        - name: startTime
+          in: query
+          schema:
+            type: string
+          example: '{{start_time_in_ms}}'
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '10'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

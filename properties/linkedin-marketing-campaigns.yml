@@ -1,0 +1,1701 @@
+openapi: 3.0.0
+info:
+  title: Campaign Management
+  description: >-
+    **You must apply for access to the Marketing Developer Platform in order to
+    use these APIs. See the** [**Developer
+    Portal**](https://developer.linkedin.com/product-catalog/marketing/campaign-management)
+    **on how to apply.**
+
+
+    This collection aims to focus on different Campaign Management use cases and
+    should be used with the **campaign-management-env-versioning** environment.
+
+
+    \--All requests for the Campaign Management API collection are in the Restli
+    2.0 format--
+
+
+    **Prerequisite:** Perform steps 1 & 2 from the [Generate An Access Token
+    using
+    Postman](https://docs.microsoft.com/linkedin/shared/authentication/generate-an-access-token?context=linkedin/marketing/context)
+    of our online documentation for this request to work.
+
+
+    This is an example for generating an access token with the necessary scope
+    to test the Campaign Management collection apis.
+
+
+    The full process your application will need to implement for 3-legged tokens
+    is described in [Authorization Code
+    Flow](https://docs.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow?context=linkedin/marketing/context&tabs=HTTPS)
+
+
+    AuthorizationOAuth 2.0
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+  - url: http://{{baseurl}}adaccounts
+  - url: http://{{upload_url}}
+  - url: http://{{video_uploadurl}}
+  - url: http://{{document_uploadurl}}
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+    description: >-
+      Campaign Manager is LinkedIn’s online tool for creating and managing ad
+      accounts and campaigns.
+  - name: Use Cases > Account structure
+  - name: Use Cases > Account structure > User Access
+    description: "View our\_[Public Documentation](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-account-users?tabs=http&view=li-lms-unversioned)\_to understand more on the Ad Account Users APIs.\n\n**For all LMS integrations, it is important to have the**\n\n1.  Ability to determine a user’s access level in all the Sponsored Account he/she is part of.\n2.  Ability to determine a user’s access level in all the Company Pages he/she is part of.\n    \n\n**Also, the Ad Account Users API enables advertisers to manage user access to Ad Accounts. Ad Account Users are members who have permissions to an Ad Account in Campaign Manager. Advertisers can manage what roles a user has in order to more finely control access.**\n\n1.  Fetch All the Ad Account and the Roles. within them for the authenticated user.\n2.  Fetch All the Roles that the Authenticated User has in Company Pages.\n3.  Get an Ad Account user from provided Account and Person Vale.\n4.  Find all the Ad Account Users for a given Sponsored Account.\n5.  Create an Ad Account User.\n6.  Update an existing Ad Account User.\n7.  Delete an Ad Account User."
+  - name: Use Cases > Account structure > Account Management
+    description: "LinkedIn allows advertisers to create multiple\_[Ad Accounts](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http&view=li-lms-unversioned), which is useful if you advertise on behalf of multiple organizations.\n\n**To create and manage ad campaigns, you must have an Enterprise or Business Ad Account with one authenticated user assigned as the account administrator.**"
+  - name: Use Cases > Account structure > Campaign Group Management
+    description: "[Campaign groups](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-campaign-groups?tabs=http&view=li-lms-unversioned)\_provide advertisers a way to manage status, budget, and performance across multiple related campaigns.\n\n**Whenever an Ad Account is created, a new campaign group is automatically created for it.**"
+  - name: Use Cases > Account structure > Campaign Mangement
+    description: "Campaigns define the ad schedule and budget (daily/total.) The campaign can be bound to a specific start and end date or run continuously until the budget is spent.\n\nCampaigns can be targeted for a specific selection of members (target audience) based on categories such as job title, job function, seniority, etc.\n\nView our\_[Public Documentation](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-campaigns?tabs=http&view=li-lms-unversioned)\_to understand more on the CampaignV2 APIs."
+  - name: Use Cases > Account structure > Creative Management
+    description: "An ad creative conceptually contains all the data for visually rendering the ad. There are several types of ad creatives that you can associate with campaigns including Text Ads, Sponsored Content, Message Ads, Sponsored Video, Sponsored Carousel Ads, and Dynamic Ads.\n\nView our\_[Public Documentation](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-creatives?tabs=http&view=li-lms-unversioned)\_to understand more on the CreativesV2 APIs."
+  - name: Use Cases > Advertising and Targeting
+  - name: Use Cases > Advertising and Targeting > Ads Targeting
+    description: "LinkedIn's\_[Ad Targeting API](https://docs.microsoft.com/linkedin/marketing/integrations/ads/advertising-targeting/ads-targeting?tabs=http&view=li-lms-unversioned)\_enables advertisers to better control which audiences see their ads. These controls include a variety of member demographics in the LinkedIn platform. Targeting is set at the campaign level, and applies to all creatives associated with that campaign.\n\n**The two core concepts for targeting are facets and entities.**\n\n\\*   Facets are high-level categories of the types of targeting available to you.\n\\*   Facets contain multiple entities which are the specific demographic values within that facet.\n    \n\nFor example, Industries is a facet. Specific industries such as Computer Software, Biotechnology, and Telecommunications are entities within the Industries facet."
+  - name: Use Cases > Advertising and Targeting > Ads Forecasting
+    description: "The\_[Ad Supply Forecasts API](https://docs.microsoft.com/linkedin/marketing/integrations/ads/advertising-targeting/ad-supply-forecasts?tabs=http&view=li-lms-unversioned)\_enables you to forecast impressions, spending, and other metrics based on:\n\n\\*   Targeting criteria\n\\*   Campaign settings such as campaign type and objective type\n\\*   Bid and spending settings\n\\*   Time period\n    \n\nTo calculate the forecast, we analyze these data points for your campaign, take into account campaign performance from similar campaigns/advertisers, and simulate the ad auction and serving processes. While we aim for utmost accuracy in our forecasts, it’s important to remember that forecasted results are an estimate and do not guarantee the actual performance of your campaign."
+  - name: Use Cases > Advertising and Targeting > Ad Creation
+    description: "View our\_[Public Documentation](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-creatives?tabs=http&view=li-lms-unversioned)\_to understand more on the Ad creatives APIs.  \nAn ad creative conceptually contains all the data for visually rendering the ad. There are several types of ad creatives that you can associate with campaigns including Text Ads, Sponsored Content, Message Ads, Sponsored Video, Sponsored Carousel Ads, and Dynamic Ads.\n\nThe following conditions apply:\n\nAn ad account can have a maximum of 15,000 creatives.  \nA campaign can have a maximum of 100 creatives.  \nCreative types must match their campaign's ad format. If the campaign has no ad format set, it will be set by the first creative created under that campaign. Dynamic, carousel, and video ad campaigns must have their format set upon creation."
+  - name: Use Cases > Advertising and Targeting > Ad Creation > Image Ad Creation
+    description: >-
+      Single Image Ads are Sponsored Content posts that appear in the LinkedIn
+      feed. Deliver your message to a targeted audience beyond your
+      organization's LinkedIn Page with these native ads.
+
+
+      **Advertisers can create Sponsored Content Image Ads in two different
+      ways:**
+
+
+      1.  Sponsored Content - Post images on a Company Page as organic content
+      and then sponsor the image post to reach more than just Company Page
+      followers.
+
+      2.  Direct Sponsored Content (dark shares) - Create image posts that do
+      not appear to Company Page followers, but can be directly sponsored to
+      target LinkedIn members' news feed.
+  - name: >-
+      Use Cases > Advertising and Targeting > Ad Creation > Image Ad Creation >
+      Sponsored Content
+    description: >-
+      1.  Obtain user authorization (access token)
+
+      2.  Register an upload and retrieve an URL for uploading the actual image.
+
+      3.  Upload the image file synchronously, successfully, to proceed in
+      creating a post or share.
+
+      4.  Retrieve the status of the image upload and confirm whether or not the
+      image asset is available for use.
+
+      5.  Create an organic image share on the Company Page referencing the
+      image asset uploaded in Step 3.
+
+      6.  Create a Sponsored Content Campaign.
+
+      7.  Create a Sponsored Content Ad Creative referencing the Campaign and
+      previously created image share in step 5.
+  - name: >-
+      Use Cases > Advertising and Targeting > Ad Creation > Image Ad Creation >
+      Direct Sponsored Content (dark shares)
+    description: >-
+      **This use case for creating an image ad differs from the previous as the
+      image posts do not appear to Company Page followers.****However, these
+      posts can be directly sponsored to target LinkedIn members' news feed.
+      These types of posts are known as Direct Sponsored Content (DSC) or Dark
+      Shares.**
+
+
+      1.  Obtain user authorization (access token)
+
+      2.  Register an upload and retrieve an URL for uploading the actual image.
+
+      3.  Upload the image file synchronously, successfully, to proceed in
+      creating a post or share.
+
+      4.  Retrieve the status of the image upload and confirm whether or not the
+      image asset is available for use.
+
+      5.  Create a dark image share on the Company Page referencing the image
+      asset uploaded in step 3.
+
+      6.  Create a Sponsored Content Campaign.
+
+      7.  Create a Sponsored Content Ad Creative referencing the Campaign and
+      previously created image share in step 5.
+  - name: Use Cases > Advertising and Targeting > Ad Creation > Video Ad Creation
+    description: >-
+      Video Ads are the next generation of our Sponsored Content products that
+      help marketers engage business decision-makers on LinkedIn's mobile and
+      desktop news feed. Incorporating LinkedIn's video functionality into your
+      platform can help improve engagement for LinkedIn advertisers. Marketers
+      can create video ads in two ways
+  - name: >-
+      Use Cases > Advertising and Targeting > Ad Creation > Video Ad Creation >
+      Sponsored Content
+    description: >-
+      Video Ads are the next generation of our Sponsored Content products that
+      help marketers engage business decision-makers on LinkedIn's mobile and
+      desktop news feed. Incorporating LinkedIn's video functionality into your
+      platform can help improve engagement for LinkedIn advertisers. Marketers
+      can create video ads in two ways
+  - name: Use Cases > Advertising and Targeting > Ad Creation > Document Ad Creation
+  - name: Use Cases > Advertising and Targeting > Audience Counts
+    description: "The\_[Audience Count API](https://docs.microsoft.com/linkedin/marketing/integrations/ads/advertising-targeting/audience-counts?view=li-lms-unversioned&tabs=http)\_provides the number of member accounts that fit your targeting criteria. As your campaign serves ads, the number of member accounts that you reach will be lower than the target audience size.\n\nSince 300 is the minimum audience size in order to run a campaign, this endpoint is also useful to ensure your target audience is large enough. For more information, see\_[Recommendations for Increasing Audience Size](https://www.linkedin.com/help/linkedin/answer/61007?query=targeting%20reach)."
+paths:
+  /adAccountUsers/(account:urn:li:sponsoredAccount:{sponsoredaccount_id},user:urn:li:person:{person_id}):
+    put:
+      tags:
+        - Use Cases > Account structure > User Access
+      summary: Create Ad Account User
+      description: "This API example\_[creates an Ad Account User](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-account-users?tabs=http#create-ad-account-user). Creating Ad Account Users grants a member access to an Ad Account."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+                role: VIEWER
+                user: urn:li:person:{{person_id}}
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: sponsoredaccount_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Account structure > User Access
+      summary: Fetch an Ad Account User
+      description: "This API example\_[fetches an Ad Account User](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-account-users?tabs=http#get-ad-account-user). Fetching an existing Ad Account User requires both account and user parameters.\n\nThe person id can also be retrieved from the\_[/me](https://docs.microsoft.com/linkedin/shared/integrations/people/profile-api#retrieve-current-members-profile)\_endpoint."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: sponsoredaccount_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Account structure > User Access
+      summary: Update Existing Ad Account User
+      description: "This API example\_[updates an Ad Account User](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-account-users?tabs=http#update-existing-ad-account-user). An Ad Account User's role can be updated by using this endpoint."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patch:
+                  $set:
+                    account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+                    role: VIEWER
+                    user: urn:li:person:{{person_id}}
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: sponsoredaccount_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Account structure > User Access
+      summary: Delete an Ad Account User
+      description: "This API example\_[deletes an Ad Account User](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-account-users?tabs=http#delete-an-ad-account-user). Members can be removed from Ad Account access by using the delete Ad Account User endpoint. Deletion requires both account and user parameters to look up the appropriate Ad Account User."
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: sponsoredaccount_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccountUsers:
+    get:
+      tags:
+        - Use Cases > Account structure > User Access
+      summary: Fetch the Authenticated User's Ad Accounts
+      description: "This API example retrieves all Ad Accounts that an authenticated user has access to. Specifically, this api call will return the Ad Accounts associated with the member whose access token is being used! The only required parameter is q=authenticatedUser.\n\nTo understand more about verifying Ad Account Access visit our public documentation\_[here](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-account-users?tabs=http#find-ad-accounts-by-authenticated-user)."
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: authenticatedUser
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /organizationAcls:
+    get:
+      tags:
+        - Use Cases > Account structure > User Access
+      summary: Fetch the Authenticated User's Organization Roles
+      description: "To understand more about verifying Company Page Access visit our public documentation\_[here](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-access-control-by-role?tabs=http#find-a-members-organization-access-control-information).\n\nA role defines the privileges that a member has within the organization. You must be an authenticated member with role type\_**ADMINISTRATOR**\_of an organization to use many of the Organization APIs."
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: roleAssignee
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts:
+    post:
+      tags:
+        - Use Cases > Account structure > Account Management
+      summary: Create a Test Ad Account
+      description: "This API example\_[creates a\_\"test\"\_ad account](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#creating-a-test-ad-account)\_by including an additional boolean\_`test`\_flag to\_`true`\_on the payload."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                currency: USD
+                name: XYZ Company
+                notifiedOnCampaignOptimization: true
+                notifiedOnCreativeApproval: true
+                notifiedOnCreativeRejection: true
+                notifiedOnEndOfCampaign: true
+                reference: urn:li:organization:{{organization_id}}
+                type: BUSINESS
+                test: true
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Account structure > Account Management
+      summary: Search Account by Type
+      description: "Use the\_`q=search`\_parameter with the adAccountsV2 API to\_[search for accounts](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#search-for-accounts)\_by ID, name, reference, type, and status fields. Search criteria can be chained together for increased granularity. If a search query is omitted, all accounts the caller has access to are returned in the response. This example searches for accounts by the type(BUSINESS)."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: search
+        - name: search
+          in: query
+          schema:
+            type: string
+          example: (type:(values:List(BUSINESS)))
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts/{sponsoredaccount_id}:
+    get:
+      tags:
+        - Use Cases > Account structure > Account Management
+      summary: Fetch the Ad Account by ID
+      description: "[Fetch an ad Account](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#fetch-ad-account)\_by sponsored account ID."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: sponsoredaccount_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Account structure > Account Management
+      summary: Update Ad Account Name
+      description: "Ad Accounts can be updated through a partial update by patching the fields you want to change. The following example changes the name field only.\n\nSee our public documentation\_[here](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#update-ad-account)\_for more information."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patch:
+                  $set:
+                    name: Updated Ad Acount name
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: sponsoredaccount_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts/{adAccountsId}/adCampaignGroups:
+    post:
+      tags:
+        - Use Cases > Account structure > Campaign Group Management
+      summary: Update Multiple Campaign Groups
+      description: "Multiple campaign groups can be updated with a partial update. This example updates the amount and currencyCode for one Campaign Group and status for another Campaign Group using the RestLi method BATCH_PARTIAL_UPDATE.\n\nView our public documentation\_[here](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-campaign-groups?tabs=http#batch-update-campaign-groups)\_to learn more."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                entities:
+                  '{{campaigngroup_id1}}':
+                    patch:
+                      $set:
+                        totalBudget:
+                          amount: '1000'
+                          currencyCode: USD
+                  '{{campaigngroup_id2}}':
+                    patch:
+                      $set:
+                        status: PAUSED
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_PARTIAL_UPDATE
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{campaigngroup_id1}},{{campaigngroup_id2}})
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Account structure > Campaign Group Management
+      summary: Search for Campaign Groups
+      description: "Use the\_`q=search`\_parameter to\_[search for campaign groups](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-campaign-groups?tabs=http#search-for-campaign-groups)\_by ID, account, name, and status fields. Search criteria can be chained together for increased granularity. If a search query is omitted, all campaign groups the caller has access to is returned in a paginated response. this example fetches campaign groups by the status values DRAFT or ACTIVE and orders it by ID descending."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: search
+        - name: search
+          in: query
+          schema:
+            type: string
+          example: (status:(values:List(ACTIVE,DRAFT)))
+        - name: sort
+          in: query
+          schema:
+            type: string
+          example: (field:ID,order:DESCENDING)
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Account structure > Campaign Group Management
+      summary: Delete Multiple Campaign Groups
+      description: "Multiple Campaign Group can be deleted as shown in this example call. View our online documentation\_[here](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-campaign-groups?tabs=http#batch-delete-campaign-groups)\_to learn more.\n\nOnly campaign groups which are in DRAFT status are allowed to be deleted. Once deleted, a campaign group can't be retrieved or recovered."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{campaigngroup_id1}},{{campaigngroup_id2}})
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts/{adAccountsId}/adCampaignGroups/{campaigngroup_id1}:
+    get:
+      tags:
+        - Use Cases > Account structure > Campaign Group Management
+      summary: Fetch a Campaign Group by ID
+      description: "A Campaign Group can be fetched by the campaign group id as shown in this example call. See our public documentation\_[here](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-campaign-groups?tabs=http#get-a-campaign-group)\_for more information."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: campaigngroup_id1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Account structure > Campaign Group Management
+      summary: Update Campaign Group
+      description: "Campaign groups can be updated with a partial update. This example updates the amount and currencyCode for a Campaign Group. View our public documentation\_[here](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-campaign-groups?tabs=http#update-a-campaign-group)\_to learn more."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patch:
+                  $set:
+                    totalBudget:
+                      amount: '3000'
+                      currencyCode: USD
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: campaigngroup_id1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Account structure > Campaign Group Management
+      summary: Delete a Campaign Group
+      description: "This example call\_[deletes a Campaign Group](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-campaign-groups?tabs=http#delete-a-campaign-group).\n\nOnly campaign groups which are in DRAFT status are allowed to be deleted. Once deleted, a campaign group can't be retrieved or recovered."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: campaigngroup_id1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts/{adAccountsId}/adCampaigns/{campaignId1}:
+    get:
+      tags:
+        - Use Cases > Account structure > Campaign Mangement
+      summary: Fetch a Campaign using Campaign ID
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: campaignId1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Account structure > Campaign Mangement
+      summary: Update Campaign Using campaignId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patch:
+                  $set:
+                    runSchedule:
+                      start: 1647927789001
+                      end: 1648186989000
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: campaignId1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts/{adAccountsId}/adCampaigns:
+    post:
+      tags:
+        - Use Cases > Account structure > Campaign Mangement
+      summary: Update multiple campaigns using BATCH
+      requestBody:
+        content: {}
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_PARTIAL_UPDATE
+        - name: ids[0]
+          in: query
+          schema:
+            type: string
+          example: '{{campaign_id1}}'
+        - name: ids[1]
+          in: query
+          schema:
+            type: string
+          example: '{{campaign_id2}}'
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Account structure > Campaign Mangement
+      summary: Search for Campaign using criteria
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: search
+        - name: search.campaignGroup.values[0]
+          in: query
+          schema:
+            type: string
+          example: urn:li:sponsoredCampaignGroup:{{campaigngroup_id1}}
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Account structure > Campaign Mangement
+      summary: Delete multiple campaigns using BATCH
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{campaign_id1}},{{campaign_id2}})
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts/{adAccountsId}/adCampaigns/{campaign_id1}:
+    post:
+      tags:
+        - Use Cases > Account structure > Campaign Mangement
+      summary: Archive a Campaign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patch:
+                  $set:
+                    status: ARCHIVED
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: campaign_id1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Account structure > Campaign Mangement
+      summary: Delete campaign Using campaign Id
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: campaign_id1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts/{adAccountsId}/creatives/{creative_Id1}:
+    get:
+      tags:
+        - Use Cases > Account structure > Creative Management
+      summary: Fetch a Creative using Creative ID
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: creative_Id1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Account structure > Creative Management
+      summary: Update Creative Using Creative Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patch:
+                  $set:
+                    variables:
+                      data:
+                        com.linkedin.ads.SponsoredUpdateCreativeVariables:
+                          sponsoredStatusUpdateContentType: ARTICLE
+                          mediaAspectRatio:
+                            widthAspect: 2.8565217
+                            heightAspect: 1
+                          share: urn:li:share:{{share_id}}
+                          activity: urn:li:activity:445566
+                          callToActionEnabled: false
+                          directSponsoredContent: false
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: creative_Id1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Account structure > Creative Management
+      summary: Delete Creative Using Creative Id
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: creative_Id1
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /{adAccountsId}/creatives:
+    get:
+      tags:
+        - Use Cases > Account structure > Creative Management
+      summary: Fetch multiple Creatives using BATCH
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{creative_Id1}})
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts/{adAccountsId}/creatives:
+    post:
+      tags:
+        - Use Cases > Account structure > Creative Management
+      summary: Create multiple Creatives using BATCH
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                elements:
+                  - campaign: urn:li:sponsoredCampaign:{{campaign_id1}}
+                    status: ACTIVE
+                    type: TEXT_AD
+                    variables:
+                      clickUri: https://www.linkedin.com
+                      data:
+                        com.linkedin.ads.TextAdCreativeVariables:
+                          text: >-
+                            This is a test ad description that links to LinkedIn
+                            1 Batch 1 
+                          title: This is Test Ad!
+                  - campaign: urn:li:sponsoredCampaign:{{campaign_id1}}
+                    status: ACTIVE
+                    type: TEXT_AD
+                    variables:
+                      clickUri: https://www.linkedin.com
+                      data:
+                        com.linkedin.ads.TextAdCreativeVariables:
+                          text: >-
+                            This is a test ad description that links to LinkedIn
+                            2 Batch 1
+                          title: This is Test Ad!
+      parameters:
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_CREATE
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Account structure > Creative Management
+      summary: Search Creative using Criteria
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: search
+        - name: search.campaign.values[0]
+          in: query
+          schema:
+            type: string
+          example: urn:li:sponsoredCampaign:{{campaign_id1}}
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Account structure > Creative Management
+      summary: Delete multiple Creatives using BATCH
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_DELETE
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{creative_Id1}})
+        - name: adAccountsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adTargetingFacets:
+    get:
+      tags:
+        - Use Cases > Advertising and Targeting > Ads Targeting
+      summary: Fetch the Ad Targeting Facets
+      description: "View our\_[Public Documentation](https://docs.microsoft.com/linkedin/marketing/integrations/ads/advertising-targeting/ads-targeting?tabs=http&view=li-lms-unversioned)\_to understand more on Ads Targeting APIs.\n\nFacets are high-level categories of the types of targeting available to you. Use facets to narrow down your intended audience. The adTargetingFacets API returns available targeting facets."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adTargetingEntities:
+    get:
+      tags:
+        - Use Cases > Advertising and Targeting > Ads Targeting
+      summary: Find Entities by URNs
+      description: "To understand more about the Ad Targeting Entities refer to our public documentation\_[here](https://docs.microsoft.com/linkedin/shared/references/v2/ads/adtargetingentities?context=linkedin/marketing/contex&view=li-lms-unversioned).  \nOnce you've identified the facet type(s) you'd like to target, you can fetch their entity values. This API example fetches the Entities by URNs."
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: urns
+        - name: queryVersion
+          in: query
+          schema:
+            type: string
+          example: QUERY_USES_URNS
+        - name: urns
+          in: query
+          schema:
+            type: string
+          example: List(urn%3Ali%3Ageo%3A102095887)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adSupplyForecasts:
+    get:
+      tags:
+        - Use Cases > Advertising and Targeting > Ads Forecasting
+      summary: Ad Supply Forecast API
+      description: >-
+        The Ad Supply Forecasts API enables you to forecast impressions,
+        spending, and other metrics based on:
+
+
+        \*   Targeting criteria
+
+        \*   Campaign settings such as campaign type and objective type
+
+        \*   Bid and spending settings
+
+        \*   Time period
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: criteriaV2
+        - name: account
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}}
+        - name: timeRange
+          in: query
+          schema:
+            type: string
+          example: (start:1631790775000,end:1632136375000)
+        - name: campaignType
+          in: query
+          schema:
+            type: string
+          example: SPONSORED_UPDATES
+        - name: totalBudget
+          in: query
+          schema:
+            type: string
+          example: (amount:100.00,currencyCode:USD)
+        - name: competingBid
+          in: query
+          schema:
+            type: string
+          example: (bidType:CPM,bidPrice:(currencyCode:USD,amount:10))
+        - name: targetingCriteria
+          in: query
+          schema:
+            type: string
+          example: >-
+            (include:(and:List((or:(urn%3Ali%3AadTargetingFacet%3Alocations:List(urn%3Ali%3Ageo%3A101165590))))),exclude:(or:(urn%3Ali%3AadTargetingFacet%3AstaffCountRanges:List(urn%3Ali%3AstaffCountRange%3A%2810001%2C2147483647%29))))
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /assets:
+    post:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Video Ad
+          Creation > Sponsored Content
+      summary: 2. Register Video Upload
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                registerUploadRequest:
+                  owner: urn:li:organization:{{organization_id}}
+                  recipes:
+                    - urn:li:digitalmediaRecipe:feedshare-video
+                  serviceRelationships:
+                    - identifier: urn:li:userGeneratedContent
+                      relationshipType: OWNER
+                  supportedUploadMechanism:
+                    - SYNCHRONOUS_UPLOAD
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: registerUpload
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /:
+    put:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Document Ad
+          Creation
+      summary: >-
+        3. Upload the Document file (select a document file in the Body for
+        postman to use)
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /assets/{asset_id}:
+    get:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Image Ad
+          Creation > Direct Sponsored Content (dark shares)
+      summary: 4. Check the status of the upload
+      description: "View our\_[Public Documentation](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/shares/vector-asset-api?tabs=http&view=li-lms-unversioned#check-status-of-upload)\_to understand more on this API.\n\nThis API examples retrieves the status of the Image File uploaded in the previous step by using the asset ID. The recipe upload status must be\_**'AVAILABLE'**\_in order to move on to the next step!"
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: asset_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /shares:
+    post:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Image Ad
+          Creation > Direct Sponsored Content (dark shares)
+      summary: 5. Create a dark share
+      description: "View our\_[Public Documentation](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/shares/share-api?tabs=http&view=li-lms-unversioned#direct-sponsored-content-share)\_to understand more on creating a direct sponsored content share (dark share).\n\nThis API example creates a dark image share on the Company Page (organization) referencing referencing the Image file that was uploaded in Step 3.\n\nA Direct Sponsored Content Share allows an advertiser to sponsor content without first publishing the content on the Organization page. It is very similar to a Sponsored Content Share except the share is not organic. This is otherwise known as a\_\"dark\"\_share and can only be viewed by the administrators of the organization's page."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                agent: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+                content:
+                  contentEntities:
+                    - entity: urn:li:digitalmediaAsset:{{asset_id}}
+                  title: Test Share with Content title
+                  shareMediaCategory: IMAGE
+                distribution:
+                  linkedInDistributionTarget: {}
+                owner: urn:li:organization:{{organization_id}}
+                subject: Test Share Subject
+                text:
+                  text: Test Share!
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adCampaigns:
+    post:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Document Ad
+          Creation
+      summary: 6. Create a Campaign for the Document Ad
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"account\":
+                \"urn:li:sponsoredAccount:{{sponsoredaccount_id}}\",\n 
+                \"campaignGroup\":
+                \"urn:li:sponsoredCampaignGroup:{{campaigngroup_id1}}\",\n 
+                \"audienceExpansionEnabled\": false,\n  \"costType\":
+                \"CPV\",\n  \"objectiveType\":
+                \"SPONSORED_UPDATE_NATIVE_DOCUMENT\",\n  \"creativeSelection\":
+                \"OPTIMIZED\",\n  \"locale\": {\"language\": \"en\",\"country\":
+                \"US\"},\n  \"name\": \"Video campaign Sponsored Update\",\n 
+                \"format\":\"SINGLE_VIDEO\",\n  \"offsiteDeliveryEnabled\":
+                false,\n  \"runSchedule\": {\n    \"start\": 1520890990333,\n   
+                \"end\": 1637971200000\n  },\n  \"targetingCriteria\": {\n     
+                \"include\": {\n          \"and\": [\n             
+                {\n                  \"or\": {\n                     
+                \"urn:li:adTargetingFacet:interfaceLocales\":
+                [\n                         
+                \"urn:li:locale:en_US\"\n                     
+                ]\n                  }\n              },\n             
+                {\n                  \"or\": {\n                     
+                \"urn:li:adTargetingFacet:locations\":
+                [\n                         
+                \"urn:li:geo:103644278\"\n                     
+                ]\n                  }\n              }\n          ]\n      }\n 
+                },\n  \"type\": \"SPONSORED_UPDATES\",\n    \"dailyBudget\":
+                {\n    \"currencyCode\": \"USD\",\n    \"amount\": \"18\"\n 
+                },\n  \"unitCost\": {\n    \"amount\": \"15\",\n   
+                \"currencyCode\": \"USD\"\n  },\n  \"status\": \"ACTIVE\"\n}"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adCreatives:
+    post:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Image Ad
+          Creation > Sponsored Content
+      summary: 7. Create a Creative for the Image Ad
+      description: "View our\_[Public Documentation](https://docs.microsoft.com/linkedin/marketing/integrations/ads/account-structure/create-and-manage-creatives?tabs=http&view=li-lms-unversioned#create-a-sponsored-content-share)\_to understand more on creating a Sponsored Content Ad Creative.\n\nThis API example creates a Sponsored Content Ad Creative referencing the previously created image share in step 5. This Creative will be created under the Campaign created in the previous step."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                campaign: urn:li:sponsoredCampaign:{{campaign_id1}}
+                reference: urn:li:share:{{share_id}}
+                status: ACTIVE
+                type: SPONSORED_STATUS_UPDATE
+                variables:
+                  data:
+                    com.linkedin.ads.SponsoredUpdateCreativeVariables: {}
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /assets/{video_asset_id}:
+    get:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Video Ad
+          Creation > Sponsored Content
+      summary: 4. Check the status of the upload
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: video_asset_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /posts:
+    post:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Document Ad
+          Creation
+      summary: 5. Create Post
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"author\":
+                \"urn:li:organization:{{organization_id}}\",\n 
+                \"lifecycleState\": \"PUBLISHED\",\n  \"specificContent\":
+                {\n    \"com.linkedin.ugc.ShareContent\": {\n      \"media\":
+                [\n        {\n          \"title\": {\n           
+                \"attributes\": [],\n            \"text\": \"Sample Video
+                Create\"\n          },\n          \"description\":
+                {\n            \"attributes\": [],\n            \"text\":
+                \"Sample Description\"\n          },\n          \"media\":
+                \"urn:li:digitalmediaAsset:{{document_asset_id}}\",\n         
+                \"thumbnails\": [],\n          \"status\": \"READY\"\n       
+                }\n      ],\n      \"shareCommentary\": {\n       
+                \"attributes\": [],\n        \"text\": \"Some share
+                text\"\n      },\n      \"shareMediaCategory\": \"VIDEO\"\n   
+                }\n  },\n  \"visibility\": {\n   
+                \"com.linkedin.ugc.MemberNetworkVisibility\": \"PUBLIC\"\n 
+                }\n}"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /creatives:
+    post:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Document Ad
+          Creation
+      summary: 7. Create a Creative for the Document Ad
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    \"campaign\":
+                \"urn:li:sponsoredCampaign:{{campaign_id1}}\",\n   
+                \"reference\": \"urn:li:ugcPost:{{post_id1}}\",\n    \"status\":
+                \"ACTIVE\",\n    \"type\": \"SPONSORED_VIDEO\",\n   
+                \"variables\": {\n        \"data\": {\n           
+                \"com.linkedin.ads.SponsoredVideoCreativeVariables\":
+                {}\n        }\n    }\n}"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /documents:
+    post:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Document Ad
+          Creation
+      summary: 2. Register Document Upload
+      requestBody:
+        content: {}
+      parameters:
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: initializeUpload
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /assets/{document_asset_id}:
+    get:
+      tags:
+        - >-
+          Use Cases > Advertising and Targeting > Ad Creation > Document Ad
+          Creation
+      summary: 4. Check the status of the upload
+      parameters:
+        - name: document_asset_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /audienceCounts:
+    get:
+      tags:
+        - Use Cases > Advertising and Targeting > Audience Counts
+      summary: Find audience count by targeting criteria
+      description: "View our\_[Public Documentation](https://docs.microsoft.com/linkedin/marketing/integrations/ads/advertising-targeting/ads-targeting?tabs=http&view=li-lms-unversioned)\_to understand more on Ads Targeting APIs.\n\nFacets are high-level categories of the types of targeting available to you. Use facets to narrow down your intended audience. The adTargetingFacets API returns available targeting facets."
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: targetingCriteriaV2
+        - name: targetingCriteria
+          in: query
+          schema:
+            type: string
+          example: >-
+            (include:(and:List((or:({encoded facet_URN_1}:List({encoded
+            facet_URN_1_value_1}, {encoded facet_URN_1_value_2}))),(or:({encoded
+            facet_URN_2}:List({encoded facet_URN_2_value_1},{encoded
+            facet_URN_2_value_2}))))))
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

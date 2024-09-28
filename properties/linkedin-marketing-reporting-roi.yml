@@ -1,0 +1,228 @@
+openapi: 3.0.0
+info:
+  title: Reporting & ROI
+  description: >-
+    **You must apply for access to the LinkedIn Advertising APIs in order to
+    gain access to these APIs. See the** [**Developer
+    Platform**](https://developer.linkedin.com/product-catalog/marketing/reporting-and-roi)
+    **on how to apply.**
+
+
+    [LinkedIn's Reporting & ROI
+    APIs](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/getting-started)
+    enable you to leverage LinkedIn marketing data to automate internal
+    reporting and gain valuable insights. Partners can integrate LinkedIn data
+    into their solutions to retrieve performance data, targeting information,
+    audience insights, and much more.
+
+
+    This collection aims to focus on different Reporting & ROI use cases and
+    should be used with the **reporting-roi-env-versioning** environment.
+
+
+    \--All requests for the Reporting & ROI API collection are in the Restli 2.0
+    format--
+
+
+    AuthorizationOAuth 2.0
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+    description: "LinkedIn's Reporting & ROI APIs enable you to leverage\_LinkedIn marketing data\_to\_automate internal reporting and gain valuable insights. Partners can integrate LinkedIn data into their solutions to retrieve performance data, targeting information,\_audience insights, and much more. This guide provides a brief look at how these APIs can be used to provide valuable insights into audiences, impressions, targeting, and budgeting data."
+  - name: Use Cases > Ad Analytics
+    description: >-
+      [Ad Analytics
+      APIs](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/ads-reporting)
+      provide key insights on performance such as clicks, impressions, and ad
+      spend, and demographics information such as metrics by demographic values
+      at the account, campaign, and creative levels.
+
+
+      The /adAnalytics endpoint supports two finder methods: Analytics and
+      Statistics. The [Analytics
+      Finder](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/ads-reporting#analytics-finder)
+      should be used when grouping by one element (known as a pivot). The
+      [Statistics
+      Finder](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/ads-reporting#statistics-finder)
+      should be used when grouping by up to three elements.
+
+
+      The /adAnalytics endpoint will require you to define [Field
+      Projections](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/projections?context=linkedin/marketing/context)
+      using the &fields= query parameter and narrowed by providing a
+      comma-separated list of field names that you want to return. You can
+      specify up to 20 fields in the response.
+
+
+      The response may contain URNs referencing the different types of objects
+      provided by LinkedIn's services. You can use the [Response
+      Decoration](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/decoration?context=linkedin/marketing/context)
+      to fetch data belonging to a URN object without having to make an extra
+      call to that object's API.
+  - name: Use Cases > B2B Templates
+    description: >-
+      This is LinkedIn’s scaled solution enabling partners and direct
+      advertisers to pull B2B-relevant performance metrics so advertisers can
+      better understand performance, optimize, and manage time spent on
+      analytics.
+  - name: Use Cases > B2B Templates > Standard Metrics
+    description: >-
+      This template provides performance deep dive with detailed analysis by ad
+      format + objective, ideal for check-in calls + QBRs
+  - name: Use Cases > B2B Templates > ABM Metrics
+    description: >-
+      This template provides a snapshot of account engagement, ideal for
+      in-flight optimization
+  - name: Use Cases > B2B Templates > Conversions Deep Dive
+    description: >-
+      This template provides detailed conversion analyses, ideal for in-flight
+      optimization, check-ins, QBRs
+paths:
+  /adAnalytics:
+    get:
+      tags:
+        - Use Cases > B2B Templates > Conversions Deep Dive
+      summary: Conversions by Member Company Size
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{insert_token}}
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: analytics
+        - name: pivot
+          in: query
+          schema:
+            type: string
+          example: MEMBER_COMPANY_SIZE
+        - name: dateRange
+          in: query
+          schema:
+            type: string
+          example: (start:(day:1,month:1,year:2022),end:(day:31,month:12,year:2022))
+        - name: timeGranularity
+          in: query
+          schema:
+            type: string
+          example: (value:ALL)
+        - name: accounts
+          in: query
+          schema:
+            type: string
+          example: List(urn%3Ali%3AsponsoredAccount%3A{{sponsoredAccount}})
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: externalWebsiteConversions,pivotValues
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Fri, 09 Jun 2023 08:34:51 GMT
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-ltx1
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAX9rj4N6JgsAjUFoNOkWw==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=TB52:s=T:r=T:a=T:p=T:g=3861:u=592:x=1:i=1686299691:t=1686305165:v=2:sig=AQGuOtz49pASmSKUoFg-lXHMZbMOAgmM"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=TB52:s=T:r=T:a=T:p=T:g=3861:u=592:x=1:i=1686299691:t=1686305165:v=2:sig=AQGuOtz49pASmSKUoFg-lXHMZbMOAgmM"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links: []
+                elements:
+                  - pivotValues:
+                      - SIZE_11_TO_50
+                    externalWebsiteConversions: 49
+                  - pivotValues:
+                      - SIZE_201_TO_500
+                    externalWebsiteConversions: 6
+                  - pivotValues:
+                      - SIZE_51_TO_200
+                    externalWebsiteConversions: 17
+                  - pivotValues:
+                      - SIZE_2_TO_10
+                    externalWebsiteConversions: 85
+                  - pivotValues:
+                      - SIZE_10001_OR_MORE
+                    externalWebsiteConversions: 4
+                  - pivotValues:
+                      - SIZE_1001_TO_5000
+                    externalWebsiteConversions: 8
+                  - pivotValues:
+                      - SIZE_501_TO_1000
+                    externalWebsiteConversions: 7
+                  - pivotValues:
+                      - SIZE_1
+                    externalWebsiteConversions: 12

@@ -1,0 +1,1210 @@
+openapi: 3.0.0
+info:
+  title: Media Planning
+  description: >-
+    ## Overview
+
+
+    Media Planning API can help Media Planners understand the reach and ROI that
+    LinkedIn can offer to their client. It allows them to make budget allocation
+    recommendations with confidence and know how to improve the results, even
+    before spending the first dollar. Media Planning API helps Media Planners
+    make that decision by giving the forecasted reach, impressions (and more in
+    future, like clicks, leads) curve over the budget, based on inputs provided
+    like targeted audience, campaign start/end date and more.
+
+
+    Note: This is a private API that is available to qualified developers who
+    meet additional criteria for access. To learn more about eligibility
+    qualifications and how to request access, please see the
+    [FAQ](https://learn.microsoft.com/en-us/linkedin/marketing/lms-faq#how-do-i-get-access-to-media-planning-api-product).
+    If you wish to apply for access, please submit a [Zendesk support
+    ticket](https://linkedin.zendesk.com/).
+
+
+    ## Permissions
+
+
+    Media Planning API requires a [3-legged
+    OAuth](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)
+    member token and your developer application needs to be provisioned with the
+    Media Planning API product. Once you have been approved to access, you can
+    use any valid member access token associated with the authenticated user
+    with any valid scope permissions for member authentication. If there is no
+    valid member token for the relevant user from any previous integration, we
+    recommend using the bare minimum scope permissions like `r_ads` which will
+    be required to fetch authenticated user's ad accounts.  
+
+    Note: This API is application-specific; hence, explicit member consent is
+    not required. Any valid member access token associated with the
+    authenticated user can be used, and you do not need to add any additional
+    permission in the scope of your Oauth2 flow for authorization.
+
+
+    This collection aims to focus on different Media Planning use cases and
+    should be used with the **media-planning-env-versioning** environment.
+
+
+    \--All requests for the Media Planning API collection are in the Restli 2.0
+    format--
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+tags:
+  - name: Ad Targeting Entities
+    description: >-
+      The LinkedIn ads platform allows advertisers to target different types of
+      audiences on the professional network. The two core concepts for targeting
+      are facets and entities.
+
+
+      Facets are high-level categories of the types of targeting available to
+      you. Facets contain multiple entities which are the specific demographic
+      values within that facet. For example, Industries is a facet. Specific
+      industries such as Computer Software, Biotechnology, and
+      Telecommunications are entities within the Industries facet.
+
+
+      Use facets to narrow down your intended audience. Refer to [Targeting
+      Criteria Facet
+      URNs](https://learn.microsoft.com/en-us/linkedin/shared/references/v2/ads/targeting-criteria-facet-urns?view=li-lms-2023-09)
+      for the list of available facets and their URNs. The `adTargetingFacets`
+      API returns available targeting facets.
+
+
+      Once you've identified the facet type(s) you'd like to target, you can
+      fetch their entity values. Use the `adTargetingEntities` API to fetch
+      available options for each facet type. To learn more, see [Ad Targeting
+      Entities](https://learn.microsoft.com/en-us/linkedin/shared/references/v2/ads/adtargetingentities?context=linkedin%2Fmarketing%2Fcontex&view=li-lms-2023-09).
+
+
+      ### Permissions
+
+
+      Any application approved for the LinkedIn Marketing API Program can make
+      these API calls using any 3-legged access token. No additional permissions
+      need to be requested during the OAuth flow.
+  - name: Fetch Media Plan
+    description: >-
+      Media Planning API can help Media Planners understand the reach and ROI
+      that LinkedIn can offer to their client. It allows them to make budget
+      allocation recommendations with confidence and know how to improve the
+      results, even before spending the first dollar. Media Planning API helps
+      Media Planners make that decision by giving the forecasted reach,
+      impressions (and more in future, like clicks, leads) curve over the
+      budget, based on inputs provided like targeted audience, campaign
+      start/end date and more.
+paths:
+  /adTargetingFacets:
+    get:
+      tags:
+        - Ad Targeting Entities
+      summary: Get a list of available Ad Targeting Facets
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Tue, 22 Aug 2023 01:34:20 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYDeP50GndIRiDUNqZFNA==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=VB52:s=V:r=V:a=V:p=V:g=3817:u=1714:x=1:i=1692668060:t=1692748247:v=2:sig=AQEExcZ9-g2kMBwFJV4hRYBz8S5UhRNr"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=VB52:s=V:r=V:a=V:p=V:g=3817:u=1714:x=1:i=1692668060:t=1692748247:v=2:sig=AQEExcZ9-g2kMBwFJV4hRYBz8S5UhRNr"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links: []
+                elements:
+                  - entityTypes:
+                      - FUNCTION
+                    facetName: jobFunctions
+                    $URN: urn:li:adTargetingFacet:jobFunctions
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - AGE
+                    facetName: ageRanges
+                    $URN: urn:li:adTargetingFacet:ageRanges
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - GROUP
+                    facetName: groups
+                    $URN: urn:li:adTargetingFacet:groups
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - COMPANY
+                    facetName: employers
+                    $URN: urn:li:adTargetingFacet:employers
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - $UNKNOWN
+                    facetName: dynamicSegments
+                    $URN: urn:li:adTargetingFacet:dynamicSegments
+                    availableEntityFinders:
+                      - $UNKNOWN
+                  - entityTypes:
+                      - COUNTRY_GROUP
+                      - COUNTRY
+                      - STATE
+                      - REGION
+                    facetName: profileLocations
+                    $URN: urn:li:adTargetingFacet:profileLocations
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - GENDER
+                    facetName: genders
+                    $URN: urn:li:adTargetingFacet:genders
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - COMPANY
+                    facetName: firstDegreeConnectionCompanies
+                    $URN: urn:li:adTargetingFacet:firstDegreeConnectionCompanies
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - FIRMOGRAPHIC
+                    facetName: companyCategory
+                    $URN: urn:li:adTargetingFacet:companyCategory
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - TITLE
+                    facetName: titlesAll
+                    $URN: urn:li:adTargetingFacet:titlesAll
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - LOCALE
+                    facetName: interfaceLocales
+                    $URN: urn:li:adTargetingFacet:interfaceLocales
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - FIRMOGRAPHIC
+                    facetName: growthRate
+                    $URN: urn:li:adTargetingFacet:growthRate
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - INDUSTRY
+                    facetName: industries
+                    $URN: urn:li:adTargetingFacet:industries
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - TITLE
+                    facetName: titles
+                    $URN: urn:li:adTargetingFacet:titles
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - COMPANY
+                    facetName: followedCompanies
+                    $URN: urn:li:adTargetingFacet:followedCompanies
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - SCHOOL
+                    facetName: schools
+                    $URN: urn:li:adTargetingFacet:schools
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - COMPANY_SIZE
+                    facetName: staffCountRanges
+                    $URN: urn:li:adTargetingFacet:staffCountRanges
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - COMPANY
+                    facetName: employersPast
+                    $URN: urn:li:adTargetingFacet:employersPast
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - SKILL
+                    facetName: skills
+                    $URN: urn:li:adTargetingFacet:skills
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - MEMBER_BEHAVIOR
+                    facetName: memberBehaviors
+                    $URN: urn:li:adTargetingFacet:memberBehaviors
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - $UNKNOWN
+                    facetName: audienceMatchingSegments
+                    $URN: urn:li:adTargetingFacet:audienceMatchingSegments
+                    availableEntityFinders:
+                      - $UNKNOWN
+                  - entityTypes:
+                      - FIELD_OF_STUDY
+                    facetName: fieldsOfStudy
+                    $URN: urn:li:adTargetingFacet:fieldsOfStudy
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - YEARS_OF_EXPERIENCE
+                    facetName: yearsOfExperienceRanges
+                    $URN: urn:li:adTargetingFacet:yearsOfExperienceRanges
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - DEGREE
+                    facetName: degrees
+                    $URN: urn:li:adTargetingFacet:degrees
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - SENIORITY
+                    facetName: seniorities
+                    $URN: urn:li:adTargetingFacet:seniorities
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - COUNTRY_GROUP
+                      - COUNTRY
+                      - STATE
+                      - REGION
+                    facetName: locations
+                    $URN: urn:li:adTargetingFacet:locations
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - TITLE
+                    facetName: titlesPast
+                    $URN: urn:li:adTargetingFacet:titlesPast
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - COMPANY
+                    facetName: employersAll
+                    $URN: urn:li:adTargetingFacet:employersAll
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - FIRMOGRAPHIC
+                    facetName: revenue
+                    $URN: urn:li:adTargetingFacet:revenue
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - INTEREST
+                    facetName: interests
+                    $URN: urn:li:adTargetingFacet:interests
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - AD_TARGETING_FACET
+  /adTargetingEntities:
+    get:
+      tags:
+        - Ad Targeting Entities
+      summary: Get Bing Geo locations using search typeahead
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: typeahead
+        - name: query
+          in: query
+          schema:
+            type: string
+          example: united%20states
+        - name: facet
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3AadTargetingFacet%3Alocations
+        - name: queryVersion
+          in: query
+          schema:
+            type: string
+          example: QUERY_USES_URNS
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '10'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Tue, 22 Aug 2023 19:18:41 GMT
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-ltx1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-ltx1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYDh9zhVpvVljNr6Bd2Lw==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3439:u=1715:x=1:i=1692731921:t=1692736001:v=2:sig=AQG3v245ve1coreRexh5O2dpV2Gnfhpa"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB52:s=O:r=O:a=O:p=O:g=3439:u=1715:x=1:i=1692731921:t=1692736001:v=2:sig=AQG3v245ve1coreRexh5O2dpV2Gnfhpa"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links:
+                    - type: application/json
+                      rel: next
+                      href: >-
+                        /rest/adTargetingEntities?q=typeahead&query=united%20states&start=10&count=10&facet=urn%3Ali%3AadTargetingFacet%3Alocations&queryVersion=QUERY_USES_URNS
+                elements:
+                  - name: United States
+                    urn: urn:li:geo:103644278
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: California, United States
+                    urn: urn:li:geo:102095887
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Texas, United States
+                    urn: urn:li:geo:102748797
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: New York, United States
+                    urn: urn:li:geo:105080838
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Florida, United States
+                    urn: urn:li:geo:101318387
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Los Angeles County, California, United States
+                    urn: urn:li:geo:103104382
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: New York, New York, United States
+                    urn: urn:li:geo:102571732
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Illinois, United States
+                    urn: urn:li:geo:101949407
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Pennsylvania, United States
+                    urn: urn:li:geo:102986501
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Georgia, United States
+                    urn: urn:li:geo:103950076
+                    facetUrn: urn:li:adTargetingFacet:locations
+  /mediaPlanning:
+    post:
+      tags:
+        - Fetch Media Plan
+      summary: Forecast Avg Lifetime Frequency
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                request:
+                  sponsoredAccountUrn: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+                  targetingCriteria:
+                    include:
+                      and:
+                        - or:
+                            urn:li:adTargetingFacet:ageRanges:
+                              - urn:li:ageRange:(18,24)
+                        - or:
+                            urn:li:adTargetingFacet:locations:
+                              - urn:li:geo:103644278
+                  targetBudgetMicros: 300000000
+                  optimizationType: MAX_REACH
+                  objectiveType: BRAND_AWARENESS
+                  enableAudienceExpansion: true
+                  enableAudienceNetwork: true
+                  startDateOn:
+                    day: 1
+                    month: 4
+                    year: 2024
+                  endDateOn:
+                    day: 1
+                    month: 5
+                    year: 2024
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{Access_Token}}
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: Linkedin-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: forecastImpressions
+      responses:
+        undefined:
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "value": {
+                        "averageFrequency": {
+                            "metricCurve": [],
+                            "singlePointMetric": {
+                                "metricValue": 1.8164758594903745,
+                                "budgetMicros": 300000000
+                            }
+                        },
+                        "impressionCurve": {
+                            "metricCurve": [
+                                {
+                                    "metricUpper": 41043.86773686674,
+                                    "metricValue": 34203.22265625,
+                                    "budgetMicros": 100000000,
+                                    "metricLower": 27362.57781168749
+                                },
+                                {
+                                    "metricUpper": 44137.06060459373,
+                                    "metricValue": 36780.8828125,
+                                    "budgetMicros": 108898986,
+                                    "metricLower": 29424.706338958636
+                                },
+                                {
+                                    "metricUpper": 47193.100333790324,
+                                    "metricValue": 39327.58203125,
+                                    "budgetMicros": 117797981,
+                                    "metricLower": 31462.06610782465
+                                },
+                                {
+                                    "metricUpper": 50215.1916253171,
+                                    "metricValue": 41845.9921875,
+                                    "budgetMicros": 126696968,
+                                    "metricLower": 33476.793585472864
+                                },
+                                {
+                                    "metricUpper": 53206.06663343318,
+                                    "metricValue": 44338.38671875,
+                                    "budgetMicros": 135595962,
+                                    "metricLower": 35470.7102080308
+                                },
+                                {
+                                    "metricUpper": 56168.063824241995,
+                                    "metricValue": 46806.71875,
+                                    "budgetMicros": 144494949,
+                                    "metricLower": 37445.37495286201
+                                },
+                                {
+                                    "metricUpper": 59103.22017574705,
+                                    "metricValue": 49252.6796875,
+                                    "budgetMicros": 153393936,
+                                    "metricLower": 39402.14580526844
+                                },
+                                {
+                                    "metricUpper": 62013.31725117974,
+                                    "metricValue": 51677.76171875,
+                                    "budgetMicros": 162292922,
+                                    "metricLower": 41342.210474041545
+                                },
+                                {
+                                    "metricUpper": 64899.932261183494,
+                                    "metricValue": 54083.2734375,
+                                    "budgetMicros": 171191925,
+                                    "metricLower": 43266.62043291748
+                                },
+                                {
+                                    "metricUpper": 67764.4524833402,
+                                    "metricValue": 56470.375,
+                                    "budgetMicros": 180090911,
+                                    "metricLower": 45176.30053359452
+                                },
+                                {
+                                    "metricUpper": 70608.13213893079,
+                                    "metricValue": 58840.10546875,
+                                    "budgetMicros": 188989898,
+                                    "metricLower": 47072.08692357255
+                                },
+                                {
+                                    "metricUpper": 73432.09443938629,
+                                    "metricValue": 61193.41015625,
+                                    "budgetMicros": 197888885,
+                                    "metricLower": 48954.72841045364
+                                },
+                                {
+                                    "metricUpper": 76237.35436244348,
+                                    "metricValue": 63531.125,
+                                    "budgetMicros": 206787872,
+                                    "metricLower": 50824.90164604551
+                                },
+                                {
+                                    "metricUpper": 79024.8380503867,
+                                    "metricValue": 65854.03125,
+                                    "budgetMicros": 215686874,
+                                    "metricLower": 52683.22405852238
+                                },
+                                {
+                                    "metricUpper": 81795.37585541926,
+                                    "metricValue": 68162.8125,
+                                    "budgetMicros": 224585861,
+                                    "metricLower": 54530.24921600606
+                                },
+                                {
+                                    "metricUpper": 84549.74115724923,
+                                    "metricValue": 70458.1171875,
+                                    "budgetMicros": 233484848,
+                                    "metricLower": 56366.49270495576
+                                },
+                                {
+                                    "metricUpper": 87288.6397573277,
+                                    "metricValue": 72740.53125,
+                                    "budgetMicros": 242383834,
+                                    "metricLower": 58192.425059660556
+                                },
+                                {
+                                    "metricUpper": 90012.72191610772,
+                                    "metricValue": 75010.6015625,
+                                    "budgetMicros": 251282821,
+                                    "metricLower": 60008.47978707836
+                                },
+                                {
+                                    "metricUpper": 92722.59316814205,
+                                    "metricValue": 77268.8203125,
+                                    "budgetMicros": 260181823,
+                                    "metricLower": 61815.060576900985
+                                },
+                                {
+                                    "metricUpper": 95418.80106550577,
+                                    "metricValue": 79515.6640625,
+                                    "budgetMicros": 269080810,
+                                    "metricLower": 63612.532463836105
+                                },
+                                {
+                                    "metricUpper": 98101.86763386156,
+                                    "metricValue": 81751.5546875,
+                                    "budgetMicros": 277979797,
+                                    "metricLower": 65401.24346498351
+                                },
+                                {
+                                    "metricUpper": 100772.27473456184,
+                                    "metricValue": 83976.890625,
+                                    "budgetMicros": 286878784,
+                                    "metricLower": 67181.51482123685
+                                },
+                                {
+                                    "metricUpper": 103430.47218435147,
+                                    "metricValue": 86192.0546875,
+                                    "budgetMicros": 295777770,
+                                    "metricLower": 68953.64641041857
+                                },
+                                {
+                                    "metricUpper": 106076.88078523756,
+                                    "metricValue": 88397.3984375,
+                                    "budgetMicros": 304676757,
+                                    "metricLower": 70717.91876719311
+                                },
+                                {
+                                    "metricUpper": 108711.89498782855,
+                                    "metricValue": 90593.2421875,
+                                    "budgetMicros": 313575744,
+                                    "metricLower": 72474.59485862624
+                                },
+                                {
+                                    "metricUpper": 111335.8942216552,
+                                    "metricValue": 92779.90625,
+                                    "budgetMicros": 322474761,
+                                    "metricLower": 74223.92763773221
+                                },
+                                {
+                                    "metricUpper": 113949.20902064291,
+                                    "metricValue": 94957.671875,
+                                    "budgetMicros": 331373748,
+                                    "metricLower": 75966.13746045575
+                                },
+                                {
+                                    "metricUpper": 116552.17686262178,
+                                    "metricValue": 97126.8125,
+                                    "budgetMicros": 340272735,
+                                    "metricLower": 77701.44931201139
+                                },
+                                {
+                                    "metricUpper": 119145.10778851826,
+                                    "metricValue": 99287.5859375,
+                                    "budgetMicros": 349171722,
+                                    "metricLower": 79430.06988634494
+                                },
+                                {
+                                    "metricUpper": 121728.29489511793,
+                                    "metricValue": 101440.2421875,
+                                    "budgetMicros": 358070709,
+                                    "metricLower": 81152.19458130863
+                                },
+                                {
+                                    "metricUpper": 124302.01565869885,
+                                    "metricValue": 103585.0078125,
+                                    "budgetMicros": 366969696,
+                                    "metricLower": 82868.00838108321
+                                },
+                                {
+                                    "metricUpper": 126866.53312570408,
+                                    "metricValue": 105722.109375,
+                                    "budgetMicros": 375868682,
+                                    "metricLower": 84577.68664995971
+                                },
+                                {
+                                    "metricUpper": 129422.09698663955,
+                                    "metricValue": 107851.7421875,
+                                    "budgetMicros": 384767669,
+                                    "metricLower": 86281.39584827129
+                                },
+                                {
+                                    "metricUpper": 131968.94454708393,
+                                    "metricValue": 109974.1171875,
+                                    "budgetMicros": 393666656,
+                                    "metricLower": 87979.2941797331
+                                },
+                                {
+                                    "metricUpper": 134507.3016077688,
+                                    "metricValue": 112089.4140625,
+                                    "budgetMicros": 402565643,
+                                    "metricLower": 89671.53217816251
+                                },
+                                {
+                                    "metricUpper": 137037.39192660234,
+                                    "metricValue": 114197.8203125,
+                                    "budgetMicros": 411464660,
+                                    "metricLower": 91358.25901549454
+                                },
+                                {
+                                    "metricUpper": 139559.40326904142,
+                                    "metricValue": 116299.5,
+                                    "budgetMicros": 420363647,
+                                    "metricLower": 93039.59986869738
+                                },
+                                {
+                                    "metricUpper": 142073.54012999576,
+                                    "metricValue": 118394.609375,
+                                    "budgetMicros": 429262634,
+                                    "metricLower": 94715.69106770742
+                                },
+                                {
+                                    "metricUpper": 144579.9896073259,
+                                    "metricValue": 120483.3203125,
+                                    "budgetMicros": 438161621,
+                                    "metricLower": 96386.6573444286
+                                },
+                                {
+                                    "metricUpper": 147078.93064832062,
+                                    "metricValue": 122565.7734375,
+                                    "budgetMicros": 447060607,
+                                    "metricLower": 98052.61799705052
+                                },
+                                {
+                                    "metricUpper": 149570.53455976973,
+                                    "metricValue": 124642.109375,
+                                    "budgetMicros": 455959594,
+                                    "metricLower": 99713.68723009682
+                                },
+                                {
+                                    "metricUpper": 152054.96547679233,
+                                    "metricValue": 126712.46875,
+                                    "budgetMicros": 464858581,
+                                    "metricLower": 101369.97446697755
+                                },
+                                {
+                                    "metricUpper": 154532.38079448088,
+                                    "metricValue": 128776.9765625,
+                                    "budgetMicros": 473757568,
+                                    "metricLower": 103021.58463775172
+                                },
+                                {
+                                    "metricUpper": 157002.93156595255,
+                                    "metricValue": 130835.7734375,
+                                    "budgetMicros": 482656555,
+                                    "metricLower": 104668.61844449499
+                                },
+                                {
+                                    "metricUpper": 159466.76286999346,
+                                    "metricValue": 132888.96875,
+                                    "budgetMicros": 491555541,
+                                    "metricLower": 106311.17260639564
+                                },
+                                {
+                                    "metricUpper": 161924.02256672797,
+                                    "metricValue": 134936.671875,
+                                    "budgetMicros": 500454559,
+                                    "metricLower": 107949.34569686753
+                                },
+                                {
+                                    "metricUpper": 164374.82792834207,
+                                    "metricValue": 136979.015625,
+                                    "budgetMicros": 509353546,
+                                    "metricLower": 109583.21589736595
+                                },
+                                {
+                                    "metricUpper": 166819.30811870715,
+                                    "metricValue": 139016.078125,
+                                    "budgetMicros": 518252502,
+                                    "metricLower": 111212.86931713649
+                                },
+                                {
+                                    "metricUpper": 169257.60424598938,
+                                    "metricValue": 141048.0,
+                                    "budgetMicros": 527151489,
+                                    "metricLower": 112838.40002828748
+                                },
+                                {
+                                    "metricUpper": 171689.82775588235,
+                                    "metricValue": 143074.84375,
+                                    "budgetMicros": 536050476,
+                                    "metricLower": 114459.88232794618
+                                },
+                                {
+                                    "metricUpper": 174116.11084045368,
+                                    "metricValue": 145096.75,
+                                    "budgetMicros": 544949523,
+                                    "metricLower": 116077.40434415545
+                                },
+                                {
+                                    "metricUpper": 176536.53174077353,
+                                    "metricValue": 147113.765625,
+                                    "budgetMicros": 553848510,
+                                    "metricLower": 117691.01823762749
+                                },
+                                {
+                                    "metricUpper": 178951.21479601107,
+                                    "metricValue": 149126.0,
+                                    "budgetMicros": 562747497,
+                                    "metricLower": 119300.80690113964
+                                },
+                                {
+                                    "metricUpper": 181360.26403087392,
+                                    "metricValue": 151133.546875,
+                                    "budgetMicros": 571646484,
+                                    "metricLower": 120906.83968449528
+                                },
+                                {
+                                    "metricUpper": 183763.77999568728,
+                                    "metricValue": 153136.484375,
+                                    "budgetMicros": 580545471,
+                                    "metricLower": 122509.18362124286
+                                },
+                                {
+                                    "metricUpper": 186161.85993386965,
+                                    "metricValue": 155134.875,
+                                    "budgetMicros": 589444458,
+                                    "metricLower": 124107.90354032649
+                                },
+                                {
+                                    "metricUpper": 188554.59793893123,
+                                    "metricValue": 157128.828125,
+                                    "budgetMicros": 598343444,
+                                    "metricLower": 125703.06217075135
+                                },
+                                {
+                                    "metricUpper": 190942.08510179608,
+                                    "metricValue": 159118.390625,
+                                    "budgetMicros": 607242431,
+                                    "metricLower": 127294.72023979864
+                                },
+                                {
+                                    "metricUpper": 193324.40964917772,
+                                    "metricValue": 161103.671875,
+                                    "budgetMicros": 616141418,
+                                    "metricLower": 128882.93656527596
+                                },
+                                {
+                                    "metricUpper": 195701.65707367274,
+                                    "metricValue": 163084.703125,
+                                    "budgetMicros": 625040405,
+                                    "metricLower": 130467.76814224626
+                                },
+                                {
+                                    "metricUpper": 198073.91025617882,
+                                    "metricValue": 165061.578125,
+                                    "budgetMicros": 633939392,
+                                    "metricLower": 132049.27022463994
+                                },
+                                {
+                                    "metricUpper": 200441.2495811911,
+                                    "metricValue": 167034.375,
+                                    "budgetMicros": 642838378,
+                                    "metricLower": 133627.49640211914
+                                },
+                                {
+                                    "metricUpper": 202803.75304548448,
+                                    "metricValue": 169003.125,
+                                    "budgetMicros": 651737365,
+                                    "metricLower": 135202.49867253247
+                                },
+                                {
+                                    "metricUpper": 205161.496360646,
+                                    "metricValue": 170967.90625,
+                                    "budgetMicros": 660636352,
+                                    "metricLower": 136774.32751027
+                                },
+                                {
+                                    "metricUpper": 207514.5530498834,
+                                    "metricValue": 172928.78125,
+                                    "budgetMicros": 669535339,
+                                    "metricLower": 138343.0319308024
+                                },
+                                {
+                                    "metricUpper": 209862.99453950126,
+                                    "metricValue": 174885.828125,
+                                    "budgetMicros": 678434326,
+                                    "metricLower": 139908.65955166487
+                                },
+                                {
+                                    "metricUpper": 212206.89024540473,
+                                    "metricValue": 176839.0625,
+                                    "budgetMicros": 687333312,
+                                    "metricLower": 141471.25665012634
+                                },
+                                {
+                                    "metricUpper": 214546.3076549613,
+                                    "metricValue": 178788.578125,
+                                    "budgetMicros": 696232299,
+                                    "metricLower": 143030.86821776401
+                                },
+                                {
+                                    "metricUpper": 216881.31240452663,
+                                    "metricValue": 180734.421875,
+                                    "budgetMicros": 705131286,
+                                    "metricLower": 144587.53801214724
+                                },
+                                {
+                                    "metricUpper": 219211.96835291517,
+                                    "metricValue": 182676.640625,
+                                    "budgetMicros": 714030273,
+                                    "metricLower": 146141.30860581793
+                                },
+                                {
+                                    "metricUpper": 221538.3535922993,
+                                    "metricValue": 184615.28125,
+                                    "budgetMicros": 722929321,
+                                    "metricLower": 147692.23206022306
+                                },
+                                {
+                                    "metricUpper": 223860.4967206563,
+                                    "metricValue": 186550.40625,
+                                    "budgetMicros": 731828308,
+                                    "metricLower": 149240.32744068038
+                                },
+                                {
+                                    "metricUpper": 226178.47263864023,
+                                    "metricValue": 188482.046875,
+                                    "budgetMicros": 740727294,
+                                    "metricLower": 150785.64468095795
+                                },
+                                {
+                                    "metricUpper": 228492.33875719862,
+                                    "metricValue": 190410.28125,
+                                    "budgetMicros": 749626281,
+                                    "metricLower": 152328.2220550199
+                                },
+                                {
+                                    "metricUpper": 230802.1510247141,
+                                    "metricValue": 192335.125,
+                                    "budgetMicros": 758525268,
+                                    "metricLower": 153868.09686178702
+                                },
+                                {
+                                    "metricUpper": 233107.96398097326,
+                                    "metricValue": 194256.625,
+                                    "budgetMicros": 767424255,
+                                    "metricLower": 155405.30546111614
+                                },
+                                {
+                                    "metricUpper": 235409.8308085415,
+                                    "metricValue": 196174.84375,
+                                    "budgetMicros": 776323242,
+                                    "metricLower": 156939.88330805
+                                },
+                                {
+                                    "metricUpper": 237707.8033816974,
+                                    "metricValue": 198089.828125,
+                                    "budgetMicros": 785222229,
+                                    "metricLower": 158471.86498544004
+                                },
+                                {
+                                    "metricUpper": 240001.93231306836,
+                                    "metricValue": 200001.609375,
+                                    "budgetMicros": 794121215,
+                                    "metricLower": 160001.2842350372
+                                },
+                                {
+                                    "metricUpper": 242292.26699810033,
+                                    "metricValue": 201910.21875,
+                                    "budgetMicros": 803020202,
+                                    "metricLower": 161528.17398713776
+                                },
+                                {
+                                    "metricUpper": 244578.85565748473,
+                                    "metricValue": 203815.703125,
+                                    "budgetMicros": 811919189,
+                                    "metricLower": 163052.56638886864
+                                },
+                                {
+                                    "metricUpper": 246861.74537765826,
+                                    "metricValue": 205718.109375,
+                                    "budgetMicros": 820818176,
+                                    "metricLower": 164574.4928311869
+                                },
+                                {
+                                    "metricUpper": 249140.98214948268,
+                                    "metricValue": 207617.484375,
+                                    "budgetMicros": 829717163,
+                                    "metricLower": 166093.98397466622
+                                },
+                                {
+                                    "metricUpper": 251416.6109052052,
+                                    "metricValue": 209513.828125,
+                                    "budgetMicros": 838616149,
+                                    "metricLower": 167611.06977413732
+                                },
+                                {
+                                    "metricUpper": 253688.675553793,
+                                    "metricValue": 211407.21875,
+                                    "budgetMicros": 847515136,
+                                    "metricLower": 169125.77950224432
+                                },
+                                {
+                                    "metricUpper": 255957.21901473028,
+                                    "metricValue": 213297.671875,
+                                    "budgetMicros": 856414123,
+                                    "metricLower": 170638.14177197588
+                                },
+                                {
+                                    "metricUpper": 258222.2832503593,
+                                    "metricValue": 215185.234375,
+                                    "budgetMicros": 865313110,
+                                    "metricLower": 172148.1845582262
+                                },
+                                {
+                                    "metricUpper": 260483.9092968432,
+                                    "metricValue": 217069.921875,
+                                    "budgetMicros": 874212097,
+                                    "metricLower": 173655.93521843676
+                                },
+                                {
+                                    "metricUpper": 262742.13729382225,
+                                    "metricValue": 218951.765625,
+                                    "budgetMicros": 883111083,
+                                    "metricLower": 175161.420512367
+                                },
+                                {
+                                    "metricUpper": 264997.00651283126,
+                                    "metricValue": 220830.828125,
+                                    "budgetMicros": 892010070,
+                                    "metricLower": 176664.6666210395
+                                },
+                                {
+                                    "metricUpper": 267248.5708158581,
+                                    "metricValue": 222707.140625,
+                                    "budgetMicros": 900909118,
+                                    "metricLower": 178165.7094524452
+                                },
+                                {
+                                    "metricUpper": 269496.83693381876,
+                                    "metricValue": 224580.6875,
+                                    "budgetMicros": 909808105,
+                                    "metricLower": 179664.5534938615
+                                },
+                                {
+                                    "metricUpper": 271741.8571469351,
+                                    "metricValue": 226451.53125,
+                                    "budgetMicros": 918707092,
+                                    "metricLower": 181161.23359876857
+                                },
+                                {
+                                    "metricUpper": 273983.6675158626,
+                                    "metricValue": 228319.71875,
+                                    "budgetMicros": 927606079,
+                                    "metricLower": 182655.77380760296
+                                },
+                                {
+                                    "metricUpper": 276222.30335875484,
+                                    "metricValue": 230185.25,
+                                    "budgetMicros": 936505065,
+                                    "metricLower": 184148.1976657997
+                                },
+                                {
+                                    "metricUpper": 278457.7992734573,
+                                    "metricValue": 232048.15625,
+                                    "budgetMicros": 945404052,
+                                    "metricLower": 185638.52823858862
+                                },
+                                {
+                                    "metricUpper": 280690.18915883615,
+                                    "metricValue": 233908.484375,
+                                    "budgetMicros": 954303039,
+                                    "metricLower": 187126.78812521315
+                                },
+                                {
+                                    "metricUpper": 282919.5062352819,
+                                    "metricValue": 235766.25,
+                                    "budgetMicros": 963202026,
+                                    "metricLower": 188612.99947259983
+                                },
+                                {
+                                    "metricUpper": 285145.78306442837,
+                                    "metricValue": 237621.484375,
+                                    "budgetMicros": 972101013,
+                                    "metricLower": 190097.18398850405
+                                },
+                                {
+                                    "metricUpper": 287369.0515681234,
+                                    "metricValue": 239474.203125,
+                                    "budgetMicros": 981000000,
+                                    "metricLower": 191579.36295415703
+                                }
+                            ],
+                            "singlePointMetric": {
+                                "metricUpper": 104687.53540990874,
+                                "metricValue": 87239.609375,
+                                "budgetMicros": 300000000,
+                                "metricLower": 69791.68853997719
+                            }
+                        }
+                    }
+                }

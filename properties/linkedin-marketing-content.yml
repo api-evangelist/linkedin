@@ -1,0 +1,1390 @@
+openapi: 3.0.0
+info:
+  title: Content APIs
+  description: >-
+    Please note that these are versioned set of APIs and they are different than
+    the earlier one.
+
+
+    These must be used with the **content-api-env-versioning** environment.
+
+
+    Content APIs are the APIs that are published with the versioned release.
+    These APIs bring capabilities to partners/developers to create rich content
+    via LinkedIn Ads with minimal operational and technical overhead.
+
+
+    **You must apply for access to the Marketing Developer Platform in order to
+    use these APIs. See the** [**Developer
+    Portal**](https://developer.linkedin.com/product-catalog/marketing/campaign-management)
+    **on how to apply.**
+  version: 1.0.0
+servers:
+  - url: https://{{baseurl}}
+  - url: http://{{upload_url}}
+  - url: http://{{baseurl}}
+  - url: http://{{document_uploadurl}}
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+    description: >-
+      The schemas for the new APIs are more simplified and consistent when
+      compared to previous creative APIs. We recommend that you not map to
+      previous API schemas (e.g., Assets, ugcPosts, and others) as LinkedIn is
+      working towards onboarding for all types of ad formats.
+  - name: Use Cases > InMail Content
+    description: >-
+      You can set up the message contents sent to targeted LinkedIn members'
+      inbox, either as a Message Ad or a Conversation Ad.
+  - name: Use Cases > Image Ad
+    description: >-
+      Image ads help you engage business decision-makers on LinkedIn's mobile
+      and desktop news feed. You can create image ads in two ways:
+
+
+      \*   Post images to your Company Page and sponsor the post to reach more
+      than just followers. Your organization can share a first-hand look into
+      your company culture, products, news, and events with a company page image
+      to drive further engagement and conversation.
+
+      \*   Create image ads that bypass Company Page followers and go directly
+      to your news feed.
+  - name: Use Cases > Video Ad
+    description: >-
+      The Videos API is a new offering from LinkedIn that features the ability
+      to upload a captions file as well as thumbnail video functionality.
+  - name: Use Cases > Creatives
+    description: >-
+      The Creatives API contains all the data and information for visually
+      rendering an ad. There are several types of Ad Creatives that you can
+      associate with campaigns including:
+  - name: Use Cases > Posts
+    description: >-
+      The Posts API facilities the creation and retrieval of organic and
+      sponsored posts.
+  - name: Use Cases > Conversation Ad
+    description: >-
+      A Conversation Ad is a LinkedIn ad format that allows advertisers to
+      deliver pre-determined messages to an inbox of a targeted LinkedIn member.
+      It provides a chat-like experience between both the member and the
+      advertiser. The Conversation Ads API allows advertisers to deliver
+      customizable, branded messages directly to members' LinkedIn messaging
+      inboxes.
+  - name: Use Cases > Conversation Ad > Sponsored Conversations
+    description: "Linkedin is introducing its next generation of APIs to create and manage Conversation Ads, enabling advertisers to better deliver automated messages to a targeted LinkedIn member's inbox. This API replaces the previous\_[/sponsoredConversations](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/create-and-manage-conversation-ads?view=li-lms-2022-08)\_API."
+  - name: Use Cases > Conversation Ad > Sponsored Message Contents
+    description: >-
+      Within our API, Conversation Ads are represented by the Sponsored
+      Conversation entity. Sponsored Conversations are composed of Sponsored
+      Message Content.
+  - name: Use Cases > Dynamic Follower Ad
+    description: "Linkedin is introducing its next generation of APIs for the creation and management of Dynamic Follower Ads.\n\nThis ad format replaces the previous\_[/adCreativesV2](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-creatives?view=li-lms-2022-08#create-a-dynamic-follower-ad)\_ad format for follower ads."
+  - name: Use Cases > Spotlight Ad
+    description: "Spotlight Ads allow you to showcase your product, service, event, content, and more. Upon clicking your Ad, you navigate to the website or landing page of your choice. Learn more about\_[Spotlight Ads](https://www.linkedin.com/help/lms/answer/a420806).\n\n##"
+  - name: Use Cases > Document Ad
+paths:
+  /rest/inMailContents/:
+    post:
+      tags:
+        - Use Cases > InMail Content
+      summary: Create InMail Content
+      description: API to create an inMail Content.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n \"account\": \"<Account Number>\",\n \"name\": \"test
+                strings\",\n \"subject\": \"test subject\",\n \"sender\":
+                \"<person urn>\",\n \"customFooter\": \"terms and
+                conditions\",\n \"htmlBody\":\"sample body\",\n \"subContent\":
+                {\n   \"regular\": {\n     \"callToActionText\": \"sample
+                string\",\n    
+                \"callToActionLandingPageUrl\":\"http://www.linkedin.com\",\n    
+                \"rightRailAdPicture\": \"<image urn>\"\n   }\n }\n}"
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /rest/inMailContents/{adInMailContentId}:
+    get:
+      tags:
+        - Use Cases > InMail Content
+      summary: Get InMail Content
+      description: API to retrieve an inMail Content.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: adInMailContentId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > InMail Content
+      summary: Update InMail Content
+      description: API to update an inMail Content.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n \"patch\": {\n   \"$set\": {\n     \"name\": \"test strings
+                new\"\n   }\n }\n}\n"
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: adInMailContentId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /rest/inMailContents:
+    get:
+      tags:
+        - Use Cases > InMail Content
+      summary: Batch Get InMail Content
+      description: API to retrieve an inMail Content in Batches.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_CREATE
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: '{encoded adInMailContentId}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > InMail Content
+      summary: Send Test InMail
+      description: API to send/share an inMail Content.
+      requestBody:
+        content: {}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: sendTestInMail
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /:
+    put:
+      tags:
+        - Use Cases > Document Ad
+      summary: >-
+        Upload the Document file (select a document file in the Body for postman
+        to use)
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /images:
+    post:
+      tags:
+        - Use Cases > Image Ad
+      summary: Initialize Image Upload
+      description: "Use the\_`initializeUpload`\_action to register the upload. When you initialize, you declare the upcoming upload. Use the upload URL to upload the image."
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"initializeUploadRequest\": {\n        \"owner\":
+                \"urn:li:organization:5583111\"\n  }\n}\n"
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: initializeUpload
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Video Ad
+      summary: Get Multiple Videos
+      description: This API retrieves multiple videos.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{image_urn1}},{{image_urn2}})
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /rest/images/{image_urn}:
+    get:
+      tags:
+        - Use Cases > Image Ad
+      summary: Get a single Image
+      description: This API rerieve a single image.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: image_urn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /rest/images:
+    get:
+      tags:
+        - Use Cases > Document Ad
+      summary: Get multiple documents
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{document_urn1}},{{document_urn2}})
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /rest/posts:
+    get:
+      tags:
+        - Use Cases > Image Ad
+      summary: Fetch multiple Image Content
+      description: This API rerieve content from multiple images.
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({encoded postId},{encoded postId})
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /rest/posts/{postId}:
+    get:
+      tags:
+        - Use Cases > Image Ad
+      summary: Get Image Content
+      description: This API rerieve the content associated with a single image.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: postId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /videos:
+    post:
+      tags:
+        - Use Cases > Video Ad
+      summary: Initialize Video Upload
+      description: "Use the\_`initializeUpload`\_action to register the upload. When you initialize, you declare the upcoming upload. Use the upload URL from the\_`uploadInstructions`\_to upload the video."
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{ \"initializeUploadRequest\": {\n       \"owner\":
+                \"organization_urn\",\n       \"fileSizeBytes\": 1055736
+                ,\n       \"uploadCaptions\": false, //set to true to upload
+                video with caption\n       \"uploadThumbnail\": false //set to
+                true to upload video with thumbnail\n}}\n"
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: initializeUpload
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /images/{image_urn}:
+    get:
+      tags:
+        - Use Cases > Video Ad
+      summary: Get a single video
+      description: This API retrieves a single video.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: image_urn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /creatives:
+    post:
+      tags:
+        - Use Cases > Spotlight Ad
+      summary: Create a Dynamic Spotlight Ad
+      description: "Creates a Dynamic Spotlight Ad Creative.\n\nA successful response returns a\_`201 Created HTTP`\_status code and the ID in the\_`x-linkedin-id`\_response header. For example,\_`urn:li:sponsoredCreative:123456789`\n\n##"
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    \"content\": {\n        \"spotlight\": {\n           
+                \"callToAction\": \"Join Us Now\",\n            \"description\":
+                \"Check out this demo\",\n            \"headline\": \"Spotlight
+                Ad Demo\",\n            \"landingPage\":
+                \"http://www.linkedin.com\",\n            \"logo\":
+                \"urn:li:image:abc\",\n            \"organizationName\":
+                \"LinkedIn Demo\",\n            \"showMemberProfilePhoto\":
+                true\n        }\n     },\n     \"campaign\":
+                \"urn:li:sponsoredCampaign:123\",\n     \"intendedStatus\":
+                \"ACTIVE\"\n}\n"
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Creatives
+      summary: Search for Creative
+      description: "You can search for creative content in order to get a collection of creatives matching your search parameters. The Creative API currently supports search by\_`creative id`,\_`campaign`,\_`account`,\_`content reference`,\_`intendedStatus`,\_`leadgenCreativeCallToActionDestinations`\_and test fields. The API supports finding creatives from multiple accounts. The values within each field are displayed with 'or' (ORed) and values across fields are displayed with 'and' (ANDed)."
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: accounts
+          in: query
+          schema:
+            type: string
+          example: List(id1,id2,id3)
+        - name: campaigns
+          in: query
+          schema:
+            type: string
+          example: List(id1,id2,id3)
+        - name: contentReferences
+          in: query
+          schema:
+            type: string
+          example: List(id1,id2,id3)
+        - name: creatives
+          in: query
+          schema:
+            type: string
+          example: List(id1,id2,id3)
+        - name: intendedStatuses
+          in: query
+          schema:
+            type: string
+          example: List(ARCHIVED,CANCELED,ARCHIVED)
+        - name: isTestAccount
+          in: query
+          schema:
+            type: boolean
+          example: 'true'
+        - name: isTotalIncluded
+          in: query
+          schema:
+            type: boolean
+          example: 'false'
+        - name: leadgenCreativeCallToActionDestinations
+          in: query
+          schema:
+            type: string
+          example: List()
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: criteria
+        - name: sortOrder
+          in: query
+          schema:
+            type: string
+          example: ASCENDING
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /creatives/{urn_creatives}:
+    get:
+      tags:
+        - Use Cases > Creatives
+      summary: Get a  Sponsored Creative
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: urn_creatives
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /creatives/{creative ID}:
+    post:
+      tags:
+        - Use Cases > Creatives
+      summary: Update a Creative
+      description: "You can change the details of following Creatives fields:\n\n\\*   `intendedStatus`:\n\\*   `leadgenCallToAction`: field\_`adFormUrn`\_- The ad form that is a target destination for the\_`callToAction`\_button. It can only be modified when the creative is in DRAFT status. It is read only once it is set for a creative and once it transitions to any non-draft intended status.\n\\*   `leadgenCallToAction`: field label\_`-Label`\_for the\_`callToAction`\_button\n    \n\n  \nThis API updates a sponsored creative."
+      requestBody:
+        content: {}
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Creatives
+      summary: Delete a Creative
+      description: "A Creative can be deleted. Use DELETE method to delete a creative that meets one of the following conditions. To start the process of deleting other creative, update the status to\_`PENDING_DELETION`.\n\n\\*   It is in a DRAFT state.\n\\*   It is linked to a Campaign in a DRAFT state.\n\\*   It is a video ad creative and\_`processingState`\_is\_`PROCESSING_FAILED`.\n    \n\nThe header X-RestLi-Method must be included in the request and set to\_`DELETE`."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /posts:
+    post:
+      tags:
+        - Use Cases > Document Ad
+      summary: Create document content
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    \"author\":
+                \"urn:li:organization:{{organization_id}}\",\n   
+                \"commentary\": \"test strings!\",\n    \"visibility\":
+                \"PUBLIC\",\n    \"distribution\": {\n       
+                \"feedDistribution\": \"MAIN_FEED\",\n       
+                \"targetEntities\": [],\n       
+                \"thirdPartyDistributionChannels\": []\n    },\n    \"content\":
+                {\n        \"media\": {\n           
+                \"title\":\"Example.pdf\",\n            \"id\":
+                \"urn:li:document:{{document_asset_id}}\"\n        }\n   
+                },\n    \"lifecycleState\": \"PUBLISHED\",\n   
+                \"isReshareDisabledByAuthor\": false\n}"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Document Ad
+      summary: Fetch multiple document content
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({encoded postId},{encoded postId})
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /posts/{encoded ugcPostUrn|shareUrn}:
+    get:
+      tags:
+        - Use Cases > Posts
+      summary: Get Posts by URN
+      description: "Creating posts with image requires uploading an image asset to obtain a Image URN (urn:li:image:{id}) for creating the post. See the\_[Images API](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/images-api?view=li-lms-2022-08)\_for instructions on how to do this."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Posts
+      summary: Delete a Post
+      description: "Post deletions are idempotent. Deletion requests for a previously deleted UGC Post will return a\_`204`\_code - No Content.\n\n####"
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /posts/{shared ID}/{ugcPosts ID}:
+    post:
+      tags:
+        - Use Cases > Posts
+      summary: Update a Post
+      description: "The following\_`posts`\_field are available to update. Refer to\_[Schema](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/posts-api?view=li-lms-2022-08&tabs=http#post-schema)\_for complete field details.\n\n| Field | Description |\n| --- | --- |\n| commentary | String |\n| contentCallToActionLabel | contentCallToActionLabel text |\n| contentLandingPage | URL of the landing page |\n| reshareContext |  |\n| lifecycleState |  |\n| adContext | \\*   dscName: Update the name of the sponsored content<br>\\*   dscStatus: Update the status of the sponsored content |"
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"patch\": {\n    \"$set\": {\n      \"commentary\":
+                \"Update to the post\",\n      \"contentCallToActionLabel\":
+                \"LEARN_MORE\"\n    }\n  }\n}\n"
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /conversationAds:
+    post:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Conversations
+      summary: Create a Sponsored Conversation
+      description: "Successful response will have Status\_`201 Created`\_and the ID in the\_`x-linkedin-id`\_response header. For example,`urn:li:sponsoredConversation:164380864`"
+      requestBody:
+        content: {}
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Conversations
+      summary: Get Multiple Sponsored Conversations
+      description: >-
+        Makes a BATCH_GET request to let a list of conversations that are
+        created.
+
+
+        #### Sample Response
+
+
+        JSONCopy
+
+
+        ```
+
+        {
+            "statuses": {
+                "urn:li:sponsoredConversation:704255": 200,
+                "urn:li:sponsoredConversation:703695": 200
+            },
+            "results": {
+                "urn:li:sponsoredConversation:704255": 
+                 {
+                    "id": "urn:li:sponsoredConversation:704255",
+                    "parentAccount": "urn:li:sponsoredAccount:520866471"
+                    
+                },
+                "urn:li:sponsoredConversation:703695": 
+                {
+                    "id": "urn:li:sponsoredConversation:703695",
+                    "parentAccount": "urn:li:sponsoredAccount:520866471",
+                }
+            },
+            "errors": {}
+        }
+
+        ```
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_GET
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({conversation-urn1},{conversation-urn2})'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /conversationAds/{conversationUrn}:
+    get:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Conversations
+      summary: Get a Sponsored Conversation
+      description: |-
+        #### Sample Response
+
+        JSONCopy
+
+        ```
+        {
+          "id": "urn:li:sponsoredConversation:185204",
+          "parentAccount": "urn:li:sponsoredAccount:520866471"
+        }
+
+        ```
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: conversationUrn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Conversations
+      summary: Update a Sponsored Conversation
+      description: "In the following example, the\_`firstMessageContent`\_field is changed to point to the first message of the conversation."
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"patch\": {\n     \"$set\": {\n       
+                \"firstMessageContent\":
+                \"urn:li:sponsoredMessageContent:(urn:li:sponsoredConversation:185204:14253)”\n    
+                }\n  } \n}\n"
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: conversationUrn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /conversationAds/{conversationAdsId}/sponsoredMessageContents:
+    post:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: Batch create Sponsored Message Content
+      description: Creates Sponsored Message Content in Batches.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    \"elements\": [ {\n              \"bodySource\":
+                {\n         \"leadGenerationForm\":
+                \"urn:li:adForm:434835\"\n       },\n              
+                \"nextAction\":{\n                 
+                \"options\":[\n                    {\n                       
+                \"replyType\":
+                \"LEAD_GENERATION_THANK_YOU\",\n                       
+                \"optionText\": \"Visit website\"\n                   
+                },\n                    {\n                       
+                \"replyType\":
+                \"SIMPLE_REPLY\",\n                                               
+                \"nextContent\":
+                \"urn:li:sponsoredMessageContent:(urn:li:sponsoredConversation:186604,14253)\",\n                       
+                \"optionText\": \"Simple reply\"\n                   
+                },\n                    {\n                       
+                \"replyType\": \"EXTERNAL_WEBSITE\",\n                       
+                \"optionText\": \"Visit website\",\n                       
+                \"landingPage\":
+                \"http://www.linkedin.com\"\n                   
+                }\n                  ]\n               }\n       
+                },{\n            \"bodySource\": {\n        \"text\": \"Sample
+                text\"\n      },\n            
+                \"nextAction\":{\n                 
+                \"options\":[\n                    {\n                       
+                \"replyType\": \"EXTERNAL_WEBSITE\",\n                       
+                \"optionText\": \"Other website\",\n                       
+                \"landingPage\":
+                \"http://www.microsoft.com\"\n                   
+                }\n                  ]\n               }\n\n        }]\n}\n\n"
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_CREATE
+        - name: conversationAdsId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /conversationAds/{conversationUrn}/sponsoredMessageContents/{messageUrn}:
+    get:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: Get Sponsored Message Content
+      description: >-
+        Retrieves just a single message content from all the conversations in a
+        conversation Ad.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: conversationUrn
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: messageUrn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: Update Sponsored Message Content
+      description: >-
+        Updates the message contents from all the conversations in a
+        conversation Ad.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"patch\": {\n    \"$set\": {\n      \"bodySource\":
+                {\n         “text”: “New updated text”\n      }\n    }\n 
+                }\n}\n"
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: conversationUrn
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: messageUrn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /conversationAds/{conversationUrn}/sponsoredMessageContents:
+    get:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: Batch get Sponsored Message Content
+      description: Retrieves Sponsored Message Content in Batches.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_GET
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({message-urn1},{message-urn2})
+        - name: conversationUrn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: Batch update Sponsored Message Content
+      description: Updates Sponsored Message Content in Batches.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n       \"entities\": {\n       
+                \"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\":
+                {\n              \"patch\": {\n                  \"$set\":
+                {\n                      \"bodySource\":
+                {\n                         “text”: “New updated
+                text”\n                      }\n                  
+                }\n                }\n    },\n        
+                \"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\":
+                {\n              \"patch\": {\n                  \"$set\":
+                {\n                      \"bodySource\":
+                {\n                         “text”: “New updated
+                text2”\n                      }\n                  
+                }\n                }\n    }\n    }\n}\n\n"
+      parameters:
+        - name: '''Authorization'
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_UPDATE
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({message-urn1},{message-urn2})
+        - name: conversationUrn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: Batch delete Sponsored Message Content
+      description: Deletes Sponsored Message Content in Batches.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_DELETE
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({message-urn1},{message-urn2})'
+        - name: conversationUrn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /creatives/{sponsoredCreative-urn}:
+    get:
+      tags:
+        - Use Cases > Spotlight Ad
+      summary: Get a Dynamic Spotlight Ad
+      description: |-
+        Retrives a Dynamic Spotlight Ad.
+
+        #### Sample Response
+
+        JSONCopy
+
+        ```
+        {
+            "servingHoldReasons": [
+                "UNDER_REVIEW",
+                "CAMPAIGN_STOPPED"
+            ],
+            "lastModifiedAt": 1648512200000,
+            "lastModifiedBy": "urn:li:member:123",
+            "content": {
+                "spotlight": {
+                    "organizationName": "LinkedIn Demo",
+                    "showMemberProfilePhoto": true,
+                    "landingPage": "http://linkedin.com",
+                    "description": "Check out this demo",
+                    "logo": "urn:li:image:abc",
+                    "headline": "Spotlight Ad Demo",
+                    "callToAction": "Join Us Now"
+                }
+            },
+            "createdAt": 1648512200000,
+            "createdBy": "urn:li:member:123",
+            "isTest": false,
+            "review": {
+                "status": "PENDING"
+            },
+            "isServing": false,
+            "campaign": "urn:li:sponsoredCampaign:123",
+            "id": "urn:li:sponsoredCreative:123456789",
+            "intendedStatus": "ACTIVE",
+            "account": "urn:li:sponsoredAccount:123"
+        }
+        ```
+
+        ##
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: sponsoredCreative-urn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Spotlight Ad
+      summary: Update a Dynamic Spotlight Ad
+      description: "## Update a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_curl)\n    \n\nHTTPCopy\n\n```\nPOST https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nJSONCopy\n\n```\n{\n    \"patch\": {\n        \"$set\": {\n            \"content\": {\n                \"spotlight\": {\n                    \"callToAction\": \"New Action\",\n                    \"description\": \"New Description\",\n                    \"headline\": \"New Headline\",\n                    \"landingPage\": \"http://example.com\",                       \n                    \"organizationName\": \"New Organization Name\",\n                    \"logo\": \"urn:li:image:def\",\n                    \"showMemberProfilePhoto\": false\n                }\n            }\n        }\n    }\n}\n\n```\n\nA successful response returns a\_`204 No Content`."
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    \"patch\": {\n        \"$set\": {\n           
+                \"content\": {\n                \"spotlight\": {\n       
+                \"callToAction\": \"New Action\",\n        \"description\":
+                \"New Description\",\n        \"headline\": \"New
+                Headline\",\n        \"landingPage\":
+                \"http://example.com\",                      
+                \n                    \"organizationName\": \"New Organization
+                Name\",\n                    \"logo\":
+                \"urn:li:image:def\",\n\t        \"showMemberProfilePhoto\":
+                false\n                }\n            }\n        }\n    }\n}\n"
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: sponsoredCreative-urn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Use Cases > Spotlight Ad
+      summary: Delete a Dynamic Spotlight Ad
+      description: "## Delete a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_curl)\n    \n\nHTTPCopy\n\n```\nDELETE https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nA successful response returns a\_`204 No Content`."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: sponsoredCreative-urn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /documents:
+    post:
+      tags:
+        - Use Cases > Document Ad
+      summary: Initialize Document Upload
+      requestBody:
+        content: {}
+      parameters:
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: initializeUpload
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  //documents/{document_asset_id}:
+    get:
+      tags:
+        - Use Cases > Document Ad
+      summary: Get a single document
+      parameters:
+        - name: document_asset_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

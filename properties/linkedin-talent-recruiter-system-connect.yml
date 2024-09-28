@@ -1,0 +1,1818 @@
+openapi: 3.0.0
+info:
+  title: Recruiter System Connect
+  description: >-
+    We are making updates to our collections. If you run into any issues pulling
+    the latest changes, simply fork the collection again.
+  version: 1.0.0
+servers:
+  - url: https://www.linkedin.com
+  - url: https://api.linkedin.com
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+tags:
+  - name: Module 1 - Configure Customer Middleware Integrations (Partner Only )
+    description: >-
+      Configure Customer Applications and ATS Integrations. To know more, please
+      refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration)
+  - name: >-
+      Module 1 - Configure Customer Middleware Integrations (Partner Only ) >
+      Configure Customer Middleware Integrations
+  - name: >-
+      Module 1 - Configure Customer Middleware Integrations (Partner Only ) >
+      Configure Customer Middleware Integrations > Update Customer's
+      ATSIntegration (Mandatory)
+    description: >-
+      Once Customer requested for Integration, Partner has to update the
+      Integration for `One Click Export` , `IN_ATS Indicator` , `Profile 
+      Plugin` and `CSA_API` . To know more, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#3-update-customer-integrations)
+  - name: >-
+      Module 1 - Configure Customer Middleware Integrations (Partner Only ) >
+      Configure Customer Middleware Integrations > Sync Integration
+      Configurations (Mandatory)
+  - name: >-
+      Module 1 - Configure Customer Middleware Integrations (Partner Only ) >
+      Configure Customer Middleware Integrations > Retrieve PUSH Notification
+      Content
+  - name: >-
+      Module 1 - Configure Customer Middleware Integrations (Partner Only ) >
+      Configure Customer Middleware Integrations > Delete ATS Integrations for
+      Development App
+  - name: Module 2 - Sync data from ATS to Linkedin
+  - name: Module 2 - Sync data from ATS to Linkedin > Sync Jobs
+    description: >-
+      By using RSC JobPosting API, Customer can post both `PUBLIC` as well as
+      `PRIVATE_TO_ATS_INTEGRATION` Jobs.Customers can use `Recruiter System
+      Connect Extension Schema` to Sync RSC Jobs. To Know more, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-jobs)
+  - name: Module 2 - Sync data from ATS to Linkedin > Sync Candidates
+  - name: Module 2 - Sync data from ATS to Linkedin > Sync Candidate Notes
+  - name: Module 2 - Sync data from ATS to Linkedin > Sync Job Applications
+  - name: Module 2 - Sync data from ATS to Linkedin > Sync  Job Application Notes
+  - name: >-
+      Module 2 - Sync data from ATS to Linkedin > Sync Application Interview
+      Feedback
+  - name: Module 2 - Sync data from ATS to Linkedin > Sync Job Application Stages
+    description: >-
+      Endpoint to create and update application stages. To know more, please
+      refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-application-stages)
+  - name: Module 3 - Retrieve Data from Linkedin
+  - name: >-
+      Module 3 - Retrieve Data from Linkedin > Retrieve Exported Candidate from
+      PUSH Notification
+  - name: >-
+      Module 3 - Retrieve Data from Linkedin > Retrieve Recruiter Prospect
+      Interactions
+  - name: Module 4 - Define Permissions via ACLs
+  - name: Module 4 - Define Permissions via ACLs > Sync ACLs
+  - name: Module 4 - Define Permissions via ACLs > Sync ACL Assignees
+  - name: Module 5 - Delete Synced Data
+    description: >-
+      Customer can delete any synced except Jobs.To know more about Data
+      Deletion, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion)
+paths:
+  /oauth/v2/accessToken:
+    post:
+      tags:
+        - default
+      summary: Get Customer Application Access Token
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: client_credentials
+                client_id:
+                  type: string
+                  example: '{{customer_app_client_id}}'
+                client_secret:
+                  type: string
+                  example: '{{customer_app_client_secret}}'
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsIntegrations:
+    post:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Update Customer's
+          ATSIntegration (Mandatory)
+      summary: Update Customer ATSIntegration - CSA_API
+      description: >-
+        `/atsIntegrations` used to update the customer Integration. To enable
+        `CSA_API `, use `integrationType= CSA_API ` in the request body. Partner
+        can update other RSC Integrations by changing `integrationType`.`CSA_API
+        ` is Contract level Integration. To know more , please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#sample-request)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n   
+                \"integrationContext=urn:li:contract:{{contract_id}}&integrationType=CSA_API&tenantType=RECRUITER&dataProvider=ATS\":
+                {\n      \"patch\": {\n        \"$set\": {\n         
+                \"integrationName\": \"{{customer_name}} LinkedIn Recruiter
+                CSA_API Integration\"\n        }\n      }\n    }\n  }\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_partial_update
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:contract:{{contract_id}}
+        - name: ids[0].integrationType
+          in: query
+          schema:
+            type: string
+          example: CSA_API
+        - name: ids[0].tenantType
+          in: query
+          schema:
+            type: string
+          example: RECRUITER
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Retrieve PUSH
+          Notification Content
+      summary: GET Notification Type INTEGRATION_STATUS_CHANGE
+      description: >-
+        When a customer enables an integration, the onboarding status of that
+        integration changes from `Partner Ready` to `Enabled`. When that
+        happens, LinkedIn will send you a push notification with a unique ID.Use
+        this endpoint with the unique notification ID to retrieve more
+        information about the enabled integration.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#5-verify-customer-integrations-enablement)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: request
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          example: '{{Enter_Request_ID_obtained_from_POST_in_CallbackURL}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsIntegrations/integrationContext=urn:li:organization:{org_id}&integrationType=ONE_CLICK_EXPORT&tenantType=RECRUITER&dataProvider=ATS/configurations:
+    put:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Sync Integration
+          Configurations (Mandatory)
+      summary: Sync Integration Configuration - Job Posting Viewers (Optional)
+      description: >-
+        API governs who may view job postings within the One-Click Export
+        drop-down.Customers can use this API, if they are not using ACL's.To
+        know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/integration-types#integration-configuration-keys)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n    \"JOB_POSTING_VIEWERS\": {\n     
+                \"configurationValue\": {\n        \"string\":
+                \"ALL_PRODUCT_USERS\"\n      }\n    }\n  }\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: JOB_POSTING_VIEWERS
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Sync Integration
+          Configurations (Mandatory)
+      summary: Delete Integration Configuration - Job Posting Viewers
+      description: >-
+        Customer can delete `JOB_POSTING_VIEWERS` Integration using this API. To
+        know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/integration-types#delete-integration-configurations)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: JOB_POSTING_VIEWERS
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Sync Integration
+          Configurations (Mandatory)
+      summary: Verify Customer Integrations - Configs
+      description: >-
+        API used to retrieve the Customer Integration Configurations.To know
+        more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/integration-types#verify-integration-configurations)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: CALLBACK_URL
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsIntegrations/integrationContext=urn:li:organization:{org_id}&integrationType=IN_ATS_INDICATOR&tenantType=RECRUITER&dataProvider=ATS/configurations:
+    put:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Sync Integration
+          Configurations (Mandatory)
+      summary: Sync Integration Configuration - Application Viewers (Optional)
+      description: >-
+        API governs who may view job-related data (Interview Feedback, Notes,
+        Applications, and Stages) within the In-ATS indicator.To know more,
+        please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/integration-types#integration-configuration-keys)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n    \"APPLICATION_VIEWERS\": {\n     
+                \"configurationValue\": {\n        \"string\":
+                \"ALL_PRODUCT_USERS\"\n      }\n    }\n  }\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: APPLICATION_VIEWERS
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Sync Integration
+          Configurations (Mandatory)
+      summary: Delete Integration Configuration - Application Viewers
+      description: >-
+        Customer can delete `APPLICATION_VIEWERS` Integration using this API. To
+        know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/integration-types#delete-integration-configurations)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: APPLICATION_VIEWERS
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsIntegrations/integrationContext=urn:li:organization:{org_id}&integrationType=ONE_CLICK_EXPORT&tenantType=RECRUITER&dataProvider=ATS:
+    delete:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Delete ATS Integrations
+          for Development App
+      summary: Delete ATS Integration ONE_CLICK_EXPORT
+      parameters:
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsIntegrations/integrationContext=urn:li:organization:{org_id}&integrationType=IN_ATS_INDICATOR&tenantType=RECRUITER&dataProvider=ATS:
+    delete:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Delete ATS Integrations
+          for Development App
+      summary: Delete ATS Integration IN_ATS_INDICATOR
+      parameters:
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsIntegrations/integrationContext=urn:li:organization:{org_id}&integrationType=PROFILE_PLUGIN&tenantType=RECRUITER&dataProvider=ATS:
+    delete:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Delete ATS Integrations
+          for Development App
+      summary: Delete ATS Integration PROFILE_PLUGIN
+      parameters:
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsIntegrations/integrationContext=urn:li:contract:{contract_id}&integrationType=CAS_PROFILE&tenantType=RECRUITER&dataProvider=ATS:
+    delete:
+      tags:
+        - >-
+          Module 1 - Configure Customer Middleware Integrations (Partner Only )
+          > Configure Customer Middleware Integrations > Delete ATS Integrations
+          for Development App
+      summary: Delete ATS Integration CSA_PROFILE
+      parameters:
+        - name: contract_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/simpleJobPostings:
+    post:
+      tags:
+        - Module 2 - Sync data from ATS to Linkedin > Sync Jobs
+      summary: Create Private Job
+      description: >-
+        This call is for Syncing PUBLIC Jobs to LinkedIn from ATS.
+        `availability` field set to `PRIVATE_TO_ATS_INTEGRATION`. Please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/job-posting-api-schema#recruiter-system-connect-extension-schema)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    \"elements\": [\n        {\n           
+                \"integrationContext\":
+                \"urn:li:organization:{{org_id}}\",\n           
+                \"externalJobPostingId\":
+                \"{{private_externalJobPostingId}}\",\n            \"title\":
+                \"General Manager\",\n            \"description\": \"Lorem Ipsum
+                is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised
+                in the 1960s with the release of Letraset sheets containing
+                Lorem Ipsum passages, and more recently with desktop publishing
+                software like Aldus PageMaker including versions of Lorem
+                Ipsum.\",\n            \"location\": \"San Francisco,
+                CA\",\n            \"availability\":
+                \"PRIVATE_TO_ATS_INTEGRATION\",\n           
+                \"jobPostingOperationType\":\"CREATE\",\n           
+                \"companyApplyUrl\":
+                \"http://localhost:5000/jobs\",\n            \"listedAt\":
+                {{$timestamp}}000\n        }\n    ]\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_create
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/simpleJobPostingTasks:
+    get:
+      tags:
+        - Module 2 - Sync data from ATS to Linkedin > Sync Jobs
+      summary: Get Private Job Creation Task Status
+      description: >-
+        /SimpleJobPostingTasks used to track the Status of Jobs. To learn more
+        please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus)
+
+
+        Customers can check Private Jobs from One-Click export dropdown in
+        Recruiter as Private Jobs won't shows up in UI
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: '{{private_simplejobpostingtask_id}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsCandidates:
+    put:
+      tags:
+        - Module 2 - Sync data from ATS to Linkedin > Sync Candidates
+      summary: Sync Candidates
+      description: >-
+        Customers can use `/atsCandidates` to sync candidates. Use your
+        candidate identifier while syncing candidates via API. To know more,
+        please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#sync-candidates-1)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n   
+                \"atsCandidateId={{candidate_id}}&dataProvider=ATS&integrationContext=urn:li:organization:{{org_id}}\":
+                {\n      \"addresses\": [\n        {\n          \"line1\": \"31
+                Spooner St\",\n          \"city\": \"Quahog\",\n         
+                \"geographicArea\": \"RI\",\n          \"geographicAreaType\":
+                \"STATE\",\n          \"postalCode\": \"02802\",\n         
+                \"country\": \"us\"\n        }\n      ],\n     
+                \"atsCreatedAt\": {{$timestamp}}000,\n     
+                \"atsLastModifiedAt\": {{$timestamp}}000,\n     
+                \"currentCompanyName\": \"LinkedIn\",\n     
+                \"currentJobTitle\": \"MANAGER, SOFTWARE ENGINEERING\",\n     
+                \"emailAddresses\": [\n        \"pajain@linkedin.com\"\n     
+                ],\n      \"externalProfileUrl\":
+                \"https://example.com/p-griffin\",\n      \"firstName\":
+                \"Parul\",\n      \"lastName\": \"Jain\",\n     
+                \"middleInitial\": \"L\",\n      \"phoneNumbers\": [\n       
+                {\n          \"number\": \"555-555-5555\",\n         
+                \"extension\": \"1234\"\n        }\n      ],\n      \"prefix\":
+                \"Mr\",\n      \"suffix\": \"Jr\"\n    }\n  }\n}\t"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: ids[0].atsCandidateId
+          in: query
+          schema:
+            type: string
+          example: '{{candidate_id}}'
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Module 2 - Sync data from ATS to Linkedin > Sync Candidates
+      summary: Sync Candidates - Retrieve Candidate Matches
+      description: >-
+        Once customer Sync the candidates, customers can retrieve candidate
+        details, which will include any algorithmic and user-supplied matches
+        with LinkedIn members.
+
+        Candidate Match can be two types:
+
+        1.`matchedMembers`
+
+        2.`manualMatchedMember`
+
+        To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#retrieve-candidate-matches)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids[0].atsCandidateId
+          in: query
+          schema:
+            type: string
+          example: '{{candidate_id}}'
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Module 2 - Sync data from ATS to Linkedin > Sync Candidates
+      summary: One Click Export - Attach Person URN
+      description: >-
+        API used to attach a Person URN to a candidate.To know more, please
+        refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#attach-person-urn-to-candidate)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n   
+                \"atsCandidateId={{candidate_id}}&dataProvider=ATS&integrationContext=urn:li:organization:{{org_id}}\":
+                {\n      \"patch\": {\n        \"$set\": {\n         
+                \"manualMatchedMember\":
+                \"urn:li:person:{{person_id}}\"\n        }\n      }\n    }\n 
+                }\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_partial_update
+        - name: ids[0].atsCandidateId
+          in: query
+          schema:
+            type: string
+          example: '{{candidate_id}}'
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Module 5 - Delete Synced Data
+      summary: Sync Candidates - Delete
+      description: >-
+        Delete on the `/atsCandidates` endpoint to deletes records. To know
+        more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-candidates)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids[0].atsCandidateId
+          in: query
+          schema:
+            type: string
+          example: '{{candidate_id}}'
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsCandidates/atsCandidateId={candidate_id}&dataProvider=ATS&integrationContext=urn:li:organization:{org_id}/notes:
+    put:
+      tags:
+        - Module 2 - Sync data from ATS to Linkedin > Sync Candidate Notes
+      summary: Sync Candidate Notes
+      description: >-
+        Customer can use `/atsCandidates` endpoint to create and update
+        candidate notes.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidate-notes)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n    \"{{note_id}}\": {\n   
+                \"atsCreatedAt\": {{$timestamp}}000,\n      \"note\": \"This is
+                a candidate note.\",\n      \"author\": {\n       
+                \"firstName\": \"Rita\",\n        \"lastName\": \"Book\"\n     
+                }\n    }\n}\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: '{{note_id}}'
+        - name: candidate_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Module 5 - Delete Synced Data
+      summary: Sync Candidate Notes - Delete Note
+      description: >-
+        DELETE on `/atsCandidates/{CandidateIdentifier}/notes `endpoint to
+        delete candidate notes.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-candidate-notes)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: '{{note_id}}'
+        - name: candidate_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsApplications:
+    put:
+      tags:
+        - Module 2 - Sync data from ATS to Linkedin > Sync Job Applications
+      summary: Sync Job Applications
+      description: >-
+        `/atsApplications` to Sync Job Applications.Use Customer job application
+        identifier when syncing via the API.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n   
+                \"atsJobApplicationId={{application_id}}&dataProvider=ATS&integrationContext=urn:li:organization:{{org_id}}\":
+                {\n      \"atsCandidateId\": \"{{candidate_id}}\",\n     
+                \"atsCreatedAt\": {{$timestamp}}000,\n     
+                \"atsLastModifiedAt\": {{$timestamp}}000,\n     
+                \"atsJobPostingId\": \"{{public_externalJobPostingId}}\",\n     
+                \"atsJobPostingName\": \"Senior Software Engineer\",\n     
+                \"candidateEmail\": \"johndoe999986@outlook.com\",\n     
+                \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n     
+                \"source\": \"Referral\",\n      \"dispositionReason\":
+                \"\"\n    }\n  }\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: ids[0].atsJobApplicationId
+          in: query
+          schema:
+            type: string
+          example: '{{application_id}}'
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Module 5 - Delete Synced Data
+      summary: Sync Job Applications - Delete
+      description: >-
+        DELETE on `/atsApplications` endpoint to delete Application records. To
+        know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-applications)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids[0].atsJobApplicationId
+          in: query
+          schema:
+            type: string
+          example: '{{application_id}}'
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/hireMediaUrl:
+    post:
+      tags:
+        - Module 2 - Sync data from ATS to Linkedin > Sync Job Applications
+      summary: Create Upload Resume URL
+      description: >-
+        `/hireMediaUrl` to create signed URL from LinkedIn and then use for
+        uploading the file. please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications#resume-upload)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n   \"usageParameters\":     \n   {\n     
+                \"recruiterSystemConnectResumeParameters\" : {}\n   },\n  
+                \"contentType\": \"text/plain\",\n   \"fileName\":
+                \"resume.txt\",\n   \"blobTtl\": {\"duration\" : 72, \"unit\" :
+                \"HOUR\"},\n   \"hiringContext\":
+                \"urn:li:contract:{{contract_id}}\"\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: x-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsApplications/atsJobApplicationId={application_id}&dataProvider=ATS&integrationContext=urn:li:organization:{org_id}/resumes:
+    put:
+      tags:
+        - Module 2 - Sync data from ATS to Linkedin > Sync Job Applications
+      summary: Sync Job Applications Resume
+      description: >-
+        `/atsApplications` to Sync Job Applications.Use Customer job application
+        identifier when syncing via the API.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n    \"APPL_RESUME123\": {\n     
+                \"atsCreatedAt\": {{$timestamp}},\n      \"resumeFile\":
+                \"urn:li:ambryBlob:/AAYUAgCvAAkAAQAAAAJFyLgwRkz_TmebRMrAixANdQ.txt\"\n   
+                }\n  }\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: '{{resume_ID}}'
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsApplications/atsJobApplicationId={application_id}&dataProvider=ATS&integrationContext=urn:li:organization:{org_id}/notes:
+    put:
+      tags:
+        - >-
+          Module 2 - Sync data from ATS to Linkedin > Sync  Job Application
+          Notes
+      summary: Sync Job Application Notes
+      description: >-
+        `/atsApplications` to create or update Application Notes.To know more,
+        please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-application-notes)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n    \"APPL_NOTE_0001\": {\n     
+                \"atsCreatedAt\": {{$timestamp}}000,\n      \"note\": \"Great
+                resume, we should review.\",\n      \"author\": {\n       
+                \"firstName\": \"Rita\",\n        \"lastName\": \"Book\"\n     
+                }\n    }\n}\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: APPL_NOTE_0001
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Module 5 - Delete Synced Data
+      summary: Sync Job Application Notes - Delete
+      description: >-
+        DELETE on the endpoint
+        `/atsApplications/{JobApplicationIdentifier}/notes` to delete
+        application notes. To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-application-notes)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: APPL_NOTE_0001
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsApplications/atsJobApplicationId={application_id}&dataProvider=ATS&integrationContext=urn:li:organization:{org_id}/interviewFeedback:
+    put:
+      tags:
+        - >-
+          Module 2 - Sync data from ATS to Linkedin > Sync Application Interview
+          Feedback
+      summary: Sync Application Interview Feedback
+      description: >-
+        Endpoint to create and update application interview feedbacK. To know
+        more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-application-interview-feedback)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n    \"APPL_INTERVIEW_0001\": {\n     
+                \"atsCreatedAt\": {{$timestamp}}000,\n      \"evaluations\":
+                [\n        {\n          \"attribute\": \"Verbal
+                Communication\",\n          \"result\": \"4/5\"\n       
+                }\n      ],\n      \"feedback\": \"Great interview!\",\n     
+                \"interviewer\": {\n        \"firstName\": \"Rita\",\n       
+                \"lastName\": \"Book\"\n      }\n    }\n }\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: APPL_INTERVIEW_0001
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Module 5 - Delete Synced Data
+      summary: Sync Application Interview Feedback - Delete
+      description: >-
+        DELETE on the endpoint
+        `/atsApplications/{JobApplicationIdentifier}/interviewFeedback` to
+        delete interviews.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-application-interview-feedback)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: APPL_INTERVIEW_0001
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsApplications/atsJobApplicationId={application_id}&dataProvider=ATS&integrationContext=urn:li:organization:{org_id}/stages:
+    put:
+      tags:
+        - >-
+          Module 2 - Sync data from ATS to Linkedin > Sync Job Application
+          Stages
+      summary: Sync Application Stages
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n  \t\"STAGE001\": {\n   
+                \"atsCreatedAt\": {{$timestamp}}000,\n    \"stage\": \"New\"\n 
+                \t},\n    \"STAGE002\": {\n    \"atsCreatedAt\":
+                {{$timestamp}}000,\n    \"stage\": \"Phone Interview\"\n   
+                },\n    \"STAGE003\": {\n    \"atsCreatedAt\":
+                {{$timestamp}}000,\n    \"stage\": \"TPS\"\n  }\n}\n}\n"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: STAGE001
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Module 5 - Delete Synced Data
+      summary: Sync Application Stages - Delete
+      description: >-
+        DELETE on the endpoint
+        `/atsApplications/{JobApplicationIdentifier}/stages` to delete Job
+        Application Stages.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-application-stages)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: STAGE001
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: org_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/exportedCandidates:
+    get:
+      tags:
+        - >-
+          Module 3 - Retrieve Data from Linkedin > Retrieve Exported Candidate
+          from PUSH Notification
+      summary: GET Notification Type EXPORT_CANDIDATE_PROFILE
+      description: >-
+        When the callback URL has received a notification event of
+        `EXPORT_CANDIDATE_PROFILE` type after `One_Click_Export`, you should
+        then make an API call to retrieve the limited profile information of the
+        exported candidate.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/retrieve-exported-candidates#retrieving-exported-candidate-information)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: request
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          example: '{{Enter_Request_ID_obtained_from_POST_in_CallbackURL}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/seats:
+    get:
+      tags:
+        - >-
+          Module 3 - Retrieve Data from Linkedin > Retrieve Recruiter Prospect
+          Interactions
+      summary: Retrieve Recruiter Seatholders
+      description: >-
+        `/seats` used to retrieve the details of Contract Seat holders including
+        name, email Id and unique ID.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/recruiter-seatholders#seats-deprecation-set-for-april-1-2022)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: seatsByAttributes
+        - name: active
+          in: query
+          schema:
+            type: boolean
+          example: 'true'
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '100'
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+        - name: contracts
+          in: query
+          schema:
+            type: string
+          example: urn:li:contract:{{contract_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/conversationEvents:
+    get:
+      tags:
+        - >-
+          Module 3 - Retrieve Data from Linkedin > Retrieve Recruiter Prospect
+          Interactions
+      summary: Retrieve InMail History
+      description: >-
+        InMail History API allows you to retrieve InMail activity, both sent and
+        received, that occurred on a given LinkedIn Recruiter contract.To know
+        more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/inmail-history#api-endpoint)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: criteria
+        - name: viewer
+          in: query
+          schema:
+            type: string
+          example: >-
+            urn:li:seat:{{Enter_ID_Value_Present_In_Response_of_Retrieve_Recruiter_Seatholders_API}}
+        - name: timeRange.end
+          in: query
+          schema:
+            type: string
+          example: '{{Epoch in milliseconds}}'
+        - name: timeRange.start
+          in: query
+          schema:
+            type: string
+          example: '{{Epoch in milliseconds}}'
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '50'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/mailStubs:
+    get:
+      tags:
+        - >-
+          Module 3 - Retrieve Data from Linkedin > Retrieve Recruiter Prospect
+          Interactions
+      summary: Retrieve InMail Stub Profiles
+      description: >-
+        InMail Stub Profile API allows you to retrieve basic profile data of
+        LinkedIn members that have replied to InMails sent from Recruiter seat
+        holders.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/inmail-stub-profiles)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: contract
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '50'
+        - name: contract
+          in: query
+          schema:
+            type: string
+          example: urn:li:contract:{{contract_id}}
+        - name: createdDateStart
+          in: query
+          schema:
+            type: string
+          example: '{{Epoch in milliseconds}}'
+        - name: createdDateEnd
+          in: query
+          schema:
+            type: string
+          example: '{{Epoch in milliseconds}}'
+        - name: owners
+          in: query
+          schema:
+            type: string
+          example: >-
+            urn:li:seat:{{Enter_ID_Value_Present_In_Response_of_Retrieve_Recruiter_Seatholders_API}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/prospectNotes:
+    get:
+      tags:
+        - >-
+          Module 3 - Retrieve Data from Linkedin > Retrieve Recruiter Prospect
+          Interactions
+      summary: Retrieve Prospect Notes
+      description: >-
+        Prospect Notes API allows you to retrieve notes that were created about
+        prospects on a given Recruiter contract.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/prospect-notes)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: criteria
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+        - name: contract
+          in: query
+          schema:
+            type: string
+          example: urn:li:contract:{{contract_id}}
+        - name: cutoffDate
+          in: query
+          schema:
+            type: string
+          example: '{{Epoch in milliseconds}}'
+        - name: beforeDate
+          in: query
+          schema:
+            type: string
+          example: '{{Epoch in milliseconds}}'
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '100'
+        - name: owners
+          in: query
+          schema:
+            type: string
+          example: >-
+            urn:li:seat:{{Enter_ID_Value_Present_In_Response_of_Retrieve_Recruiter_Seatholders_API}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/me:
+    get:
+      tags:
+        - >-
+          Module 3 - Retrieve Data from Linkedin > Retrieve Recruiter Prospect
+          Interactions
+      summary: GET Person ID - With 3 legged OAuth Flow - r_liteprofile permission
+      security:
+        - oauth2Auth: []
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsEntityAcls:
+    put:
+      tags:
+        - Module 4 - Define Permissions via ACLs > Sync ACLs
+      summary: Upsert Entity ACL
+      description: >-
+        Visibility of your customer's synced entities within LinkedIn products
+        will depend on the ACLs you sync using `/atsEntityAcls`.To know more,
+        please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#sync-entity-acls)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n 
+                \t\t\"dataProvider=ATS&integrationContext=urn:li:organization:{{org_id}}&atsEntityType=JOB_POSTING&atsEntityId={{public_externalJobPostingId}}&atsEntityAclId=TEST_JOBS\":
+                {}\n      }\n}\n"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: ids[0].atsEntityAclId
+          in: query
+          schema:
+            type: string
+          example: TEST_JOBS
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+        - name: ids[0].atsEntityType
+          in: query
+          schema:
+            type: string
+          example: JOB_POSTING
+        - name: ids[0].atsEntityId
+          in: query
+          schema:
+            type: string
+          example: '{{public_externalJobPostingId}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Module 4 - Define Permissions via ACLs > Sync ACLs
+      summary: Retrieve Entity ACL
+      description: >-
+        API used to retrieve the details of already Sync ACL.To know more,
+        please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#retrieve-entity-acls)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: atsEntityId
+          in: query
+          schema:
+            type: string
+          example: '{{public_externalJobPostingId}}'
+        - name: atsEntityType
+          in: query
+          schema:
+            type: string
+          example: JOB_POSTING
+        - name: dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: criteria
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '100'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Module 4 - Define Permissions via ACLs > Sync ACLs
+      summary: Delete Entity ACL
+      description: >-
+        Endpoint used to delete already Synced ACL.To know more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#delete-entity-acls)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids[0].atsEntityAclId
+          in: query
+          schema:
+            type: string
+          example: TEST_JOBS
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+        - name: ids[0].atsEntityId
+          in: query
+          schema:
+            type: string
+          example: '{{public_externalJobPostingId}}'
+        - name: ids[0].atsEntityType
+          in: query
+          schema:
+            type: string
+          example: JOB_POSTING
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsEntityAclAssignees:
+    put:
+      tags:
+        - Module 4 - Define Permissions via ACLs > Sync ACL Assignees
+      summary: Upsert Entity ACL Assignees
+      description: >-
+        Endpoint to create and update ACL entities for assignees. To know more,
+        please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#upsert-entity-acl-assignees)
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n  \"entities\": {\n   
+                \"dataProvider=ATS&integrationContext=urn:li:organization:{{org_id}}&atsEntityType=JOB_POSTING&atsEntityAclId=TEST_JOBS&assignee=urn:li:person:iyxQ2ZcEAd\":
+                {}\n  }\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_update
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: ids[0].atsEntityAclId
+          in: query
+          schema:
+            type: string
+          example: TEST_JOBS
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: 'urn:li:organization:{{org_id}} '
+        - name: ids[0].assignee
+          in: query
+          schema:
+            type: string
+          example: '{{person URN}}'
+        - name: ids[0].atsEntityType
+          in: query
+          schema:
+            type: string
+          example: JOB_POSTING
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Module 4 - Define Permissions via ACLs > Sync ACL Assignees
+      summary: Retrieve Entity ACL Assignees
+      description: >-
+        Endpoint to retrieve details of already synced ACL Assignees. To know
+        more, please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#retrieve-entity-acl-assignee)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: criteria
+        - name: assignee
+          in: query
+          schema:
+            type: string
+          example: urn:li:person:{{person_id}}
+        - name: dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Module 4 - Define Permissions via ACLs > Sync ACL Assignees
+      summary: Delete Entity ACL Assignees
+      description: >-
+        Endpoint to delete already synced ACL Assignees. To know more, please
+        refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#delete-entity-acl-assignees)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids[0].atsEntityAclId
+          in: query
+          schema:
+            type: string
+          example: TEST_JOBS
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{org_id}}
+        - name: ids[0].assignee
+          in: query
+          schema:
+            type: string
+          example: urn:li:person:{{person_id}}
+        - name: ids[0].atsEntityType
+          in: query
+          schema:
+            type: string
+          example: JOB_POSTING
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

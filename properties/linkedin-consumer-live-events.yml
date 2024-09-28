@@ -1,0 +1,340 @@
+openapi: 3.0.0
+info:
+  title: LinkedIn Live Events
+  description: >-
+    Use the Live Events API to stream and manage Live Events with your LinkedIn
+    network.
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+  - name: Use Cases > Member
+    description: >-
+      Go live to a LinkedIn member profile using [Live Video
+      APIs](https://docs.microsoft.com/en-us/linkedin/consumer/integrations/live-video/).
+  - name: Use Cases > Organization Page
+    description: >-
+      Go live to a LinkedIn organization page using [Live Video
+      APIs](https://docs.microsoft.com/en-us/linkedin/consumer/integrations/live-video/).
+  - name: Use Cases > Scheduled Live Events
+    description: >-
+      Use the [Scheduled Live
+      Events](https://docs.microsoft.com/en-us/linkedin/consumer/integrations/live-video/live-video-scheduled-live?context=linkedin/consumer/context)
+      feature to promote your event on and off LinkedIn.
+  - name: Use Cases > Scheduled Live Events > Member
+    description: >-
+      This flow outlines the APIs needed to schedule a live event to a member
+      profile.
+  - name: Use Cases > Scheduled Live Events > Organization
+    description: >-
+      This flow outlines the APIs needed to schedule a live event to an
+      organization page.
+paths:
+  /v2/me:
+    get:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /me
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/contentAccess/(entity:(member:urn:li:person:{abcde}),featureType:LIVE_VIDEO):
+    get:
+      tags:
+        - Use Cases > Scheduled Live Events > Member
+      summary: /contentAccess
+      parameters:
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: abcde
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/liveAssetActions:
+    post:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /liveAssetActions end
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                asset: urn:li:digitalmediaAsset:{{abcde12345}}
+      parameters:
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: action
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: end
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/assets/{abcde12345}:
+    get:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /assets?projection=(recipes) get
+      parameters:
+        - name: projection
+          in: query
+          schema:
+            type: string
+          example: (recipes)
+        - name: abcde12345
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/ugcPosts:
+    post:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /ugcPosts
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    \"author\": \"urn:li:organization:{{12345}}\",\n   
+                \"lifecycleState\": \"PUBLISHED\",\n    \"specificContent\":
+                {\n        \"com.linkedin.ugc.ShareContent\": {\n           
+                \"media\": [\n                {\n                    \"media\":
+                \"urn:li:liveVideo:{{123456789}}\",\n                   
+                \"status\": \"READY\"\n                }\n           
+                ],\n            \"shareCommentary\": {\n               
+                \"attributes\": [],\n                \"text\": \"Let's go live
+                on LinkedIn!\"\n            },\n           
+                \"shareMediaCategory\": \"URN_REFERENCE\"\n        }\n   
+                },\n    \"visibility\": {\n       
+                \"com.linkedin.ugc.MemberNetworkVisibility\": \"PUBLIC\"\n   
+                },\n    \"distribution\": {\n        \"feedDistribution\":
+                \"MAIN_FEED\",\n        \"externalDistributionChannels\":
+                [],\n        \"distributedViaFollowFeed\": true\n    }\n}'"
+      parameters:
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: create
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/organizationAcls:
+    get:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /organizationAcls
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: roleAssignee
+        - name: projection
+          in: query
+          schema:
+            type: string
+          example: (elements*(organization~))
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/contentAccess/(entity:(company:urn:li:organization:{12345}),admin:(member:urn:li:person:{abcde}),featureType:LIVE_VIDEO):
+    get:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /contentAccess
+      parameters:
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: '12345'
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: abcde
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/liveVideos:
+    get:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /liveVideos?q=author
+      parameters:
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: author
+        - name: author
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3Aorganization%3A{{12345}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /liveVideos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                author:
+                  organization: urn:li:organization:{{12345}}
+                scheduledAt: 1591892529000
+                announcementImage:
+                  media: urn:li:digitalmediaAsset:{{C5F22AQEUvl4IOBjE2g}}
+                  title:
+                    text: Image Title
+                    inferredLocale: en_US
+                name: Scheduled Live Event Title
+      parameters:
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/assets:
+    post:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /assets (optional announcement image)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                registerUploadRequest:
+                  recipes:
+                    - urn:li:digitalmediaRecipe:video-liveannouncement-image
+                  owner: urn:li:person:{{abcde}}
+                  serviceRelationships:
+                    - relationshipType: OWNER
+                      identifier: urn:li:userGeneratedContent
+      parameters:
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: registerUpload
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/liveVideos/{123456789}:
+    post:
+      tags:
+        - Use Cases > Scheduled Live Events > Organization
+      summary: /liveVideos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patch:
+                  $set:
+                    liveVideoAsset:
+                      media: urn:li:digitalmediaAsset:{{abcde12345}}
+      parameters:
+        - name: X-RestLi-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: '123456789'
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
