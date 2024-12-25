@@ -1,0 +1,257 @@
+openapi: 3.0.0
+info:
+  title: Learning Activity Reports
+  description: >-
+    We are making updates to our collections. If you run into any issues pulling
+    the latest changes, simply fork the collection again.
+
+
+    The 2 main uses for the externalized LinkedIn Learning APIs are for Learning
+    Content and Learning Activity Reports.
+
+
+    *Access to LinkedIn Learning APIs is available to members of our* [*Partner
+    Program*](https://learning.linkedin.com/partners) *and organizations that
+    have purchased LinkedIn Learning site licenses.*
+
+
+    Overview:
+    [https://docs.microsoft.com/en-us/linkedin/learning/overview/](https://docs.microsoft.com/en-us/linkedin/learning/overview/)
+
+
+    * * *
+
+
+    Use this collection with the **LinkedIn Learning Solutions** environment
+
+
+    * * *
+  version: 1.0.0
+servers:
+  - url: https://api.linkedin.com
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+  - name: Use Cases > Learning Activity Reports
+paths:
+  /v2/learningActivityReports:
+    get:
+      tags:
+        - Use Cases > Learning Activity Reports
+      summary: Learning Activity Reports
+      description: >-
+        Learning Activity Reports API
+
+
+        This resource represents LinkedIn Learning activity reports like course
+        completions, seconds of content viewed and learner logins. You can use
+        these methods to aggregate activity data by account, group, individual
+        or content.
+
+
+        Documentation:
+        [https://docs.microsoft.com/en-us/linkedin/learning/reference/learning-activity-reports-reference#definitions](https://docs.microsoft.com/en-us/linkedin/learning/reference/learning-activity-reports-reference#definitionsParameters)
+
+
+        *Access to LinkedIn Learning APIs is available to members of our
+        [Partner Program](https://learning.linkedin.com/partners) and
+        organizations that have purchased LinkedIn Learning site licenses.*
+      parameters:
+        - name: referer
+          in: header
+          schema:
+            type: string
+          example: '{{referrer_urn}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: criteria
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: startedAt
+          in: query
+          schema:
+            type: integer
+          example: '1627267600000'
+        - name: timeOffset.unit
+          in: query
+          schema:
+            type: string
+          example: DAY
+        - name: timeOffset.duration
+          in: query
+          schema:
+            type: integer
+          example: '7'
+        - name: aggregationCriteria.primary
+          in: query
+          schema:
+            type: string
+          example: ACCOUNT
+        - name: contentSource
+          in: query
+          schema:
+            type: string
+          example: ALL_SOURCES
+        - name: locale.language
+          in: query
+          schema:
+            type: string
+          example: en
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                elements:
+                  - latestDataAt: 1632207540000
+                    activities:
+                      - engagementType: LOGINS
+                        engagementValue: 88
+                        engagementMetricQualifier: UNIQUE
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 12
+                        engagementMetricQualifier: UNIQUE
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: SECONDS_VIEWED
+                        engagementValue: 2505
+                        engagementMetricQualifier: TOTAL
+                        assetType: VIDEO
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: ARTICLE
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: COMPLETIONS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: ARTICLE
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: AUDIO
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: COMPLETIONS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: AUDIO
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: BOOK
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: COMPLETIONS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: BOOK
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: LEARNING_COLLECTION
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: COMPLETIONS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: LEARNING_COLLECTION
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 16
+                        engagementMetricQualifier: TOTAL
+                        assetType: COURSE
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: COMPLETIONS
+                        engagementValue: 1
+                        engagementMetricQualifier: TOTAL
+                        assetType: COURSE
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: DOCUMENT
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: COMPLETIONS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: DOCUMENT
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: EVENT
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: COMPLETIONS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: EVENT
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 2
+                        engagementMetricQualifier: TOTAL
+                        assetType: LEARNING_PATH
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: COMPLETIONS
+                        engagementValue: 0
+                        engagementMetricQualifier: TOTAL
+                        assetType: LEARNING_PATH
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: VIEWS
+                        engagementValue: 66
+                        engagementMetricQualifier: TOTAL
+                        assetType: VIDEO
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                      - engagementType: COMPLETIONS
+                        engagementValue: 22
+                        engagementMetricQualifier: TOTAL
+                        assetType: VIDEO
+                        firstEngagedAt: 1627267600000
+                        lastEngagedAt: 1627354000000
+                    learnerDetails:
+                      entity:
+                        accountUrn: urn:li:enterpriseAccount:999
+                paging:
+                  total: 1
+                  count: 1
+                  start: 0
+                  links:
+                    - rel: next
+                      href: >-
+                        /v2/learningActivityReports?aggregationCriteria.primary=ACCOUNT&count=1&q=criteria&start=1&startedAt=1627267600000&timeOffset.duration=7&timeOffset.unit=DAY
+                      type: application/json

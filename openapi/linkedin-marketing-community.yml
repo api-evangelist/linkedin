@@ -1,0 +1,1256 @@
+openapi: 3.0.0
+info:
+  title: Community Management
+  description: >-
+    **You must apply for access to the Marketing Developer Platform in order to
+    use these APIs. See the** [**Developer
+    Portal**](https://developer.linkedin.com/product-catalog/marketing/page-management)
+    **on how to apply.**
+
+
+    This collection aims to focus on different Community Management use cases,
+    for example, social action notifications, and should be used with the
+    **community-management-env-versioning** environment.
+
+
+    \--All requests for the Community Management API collection are in the
+    Restli 2.0 format--
+
+
+    AuthorizationOAuth 2.0
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+  - name: Use Cases > Social Actions Notifications
+    description: >-
+      The Organization Social Actions Notifications API enables your app to
+      notify members about activity on their LinkedIn Company Pages. Use this
+      API to build real-time streams for activity on LinkedIn Company Pages.
+  - name: >-
+      Use Cases > Social Actions Notifications > Organization Social Actions
+      Notifications - Push Workflow
+    description: >-
+      Registered webhook URLs will receive notifications from LinkedIn for
+      subscribed events.
+  - name: >-
+      Use Cases > Social Actions Notifications > Organization Social Actions
+      Notifications - Pull Workflow
+    description: >-
+      Notifications for the authenticated member’s organizations can be queried
+      using a criteria finder. Notifications are retained and available to pull
+      for 60 days.
+  - name: Use Cases > Statistics APIs
+    description: This API gets the statistics for Organization, Page and for Share.
+  - name: Use Cases > Statistics APIs > Organization Follower Statistics
+    description: "This API describes usage of Organization Follower Statistics. Fore more details, check\_[here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/follower-statistics?tabs=http&view=li-lms-unversioned)."
+  - name: Use Cases > Statistics APIs > Organization Page Statistics
+    description: "This API describes usage of Organization Page Statistics. Fore more details, check\_[here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/page-statistics?tabs=http&view=li-lms-unversioned)."
+  - name: Use Cases > Statistics APIs > Organization Share Statistics
+    description: "This API describes usage of Organization Share Statistics. Fore more details, check\_[here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/share-statistics?tabs=http)."
+  - name: Use Cases > Organization Followers
+  - name: Use Cases > Organization Lookup
+    description: >-
+      This API's helps to get and lookup the Organization, Organization's brand
+      details.
+
+
+      For more details, please visit the documentation
+      [here](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/organization-lookup-api?view=li-lms-2022-11&tabs=http).
+  - name: Use Cases > Organization Lookup > Organizations
+  - name: Use Cases > Organization Lookup > Organization Brands
+  - name: Use Cases > Organization Access Controls
+paths:
+  /shares:
+    post:
+      tags:
+        - >-
+          Use Cases > Social Actions Notifications > Organization Social Actions
+          Notifications - Pull Workflow
+      summary: 2. Create a share with a Company Mention
+      description: "Mention a company name by using the annotations.\_[Learn more](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/share-api?tabs=http#share-text-and-mentions)\_by viewing our public documentation.\n\nThis example uses the LinkedIn organization."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                owner: urn:li:organization:{{organization_id}}
+                text:
+                  annotations:
+                    - entity: urn:li:organization:1337
+                      length: 8
+                      start: 6
+                  text: Hello LinkedIn world!
+                subject: Test Share Subject
+                distribution:
+                  linkedInDistributionTarget: {}
+                content:
+                  contentEntities:
+                    - entityLocation: https://www.example.com
+                      thumbnails:
+                        - resolvedUrl: https://www.example.com/image.jpg
+                  title: Test Share with Content title
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /eventSubscriptions/(developerApplication:urn:li:developerApplication:{application_id},user:urn:li:person:{person_id},entity:urn:li:organization:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS):
+    put:
+      tags:
+        - >-
+          Use Cases > Social Actions Notifications > Organization Social Actions
+          Notifications - Push Workflow
+      summary: 3. Create a subscription request
+      description: "[Create a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#creating-and-updating-subscriptions)\_record to include the webhook URL where your app will receive notifications. The subscription request will only succeed if the subscribing member is an administrator of the organization being subscribed to."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                webhook: https://www.example.com/callback
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: Linkedin-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: organization_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - >-
+          Use Cases > Social Actions Notifications > Organization Social Actions
+          Notifications - Push Workflow
+      summary: 5. Retrieve Subscription by Key
+      description: "Retrieve all the subscriptions details such as webhook url and expiration for the logged in user.\_[Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#retrieve-subscriptions-for-an-authenticated-member)\_by viewing our online documentation."
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: organization_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /eventSubscriptions:
+    get:
+      tags:
+        - >-
+          Use Cases > Social Actions Notifications > Organization Social Actions
+          Notifications - Pull Workflow
+      summary: 3. Retrieve Notifications for the authenticated member's organization
+      description: "[Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#pull-organizational-notifications)\_by viewing our public documentation."
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: Linkedin-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: subscriberAndEventType
+        - name: eventType
+          in: query
+          schema:
+            type: string
+          example: ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /eventSubscriptions/(developerApplication:{application_id},user:{person_id},entity:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS):
+    delete:
+      tags:
+        - >-
+          Use Cases > Social Actions Notifications > Organization Social Actions
+          Notifications - Push Workflow
+      summary: 6. Remove a Subscription
+      description: "[Remove a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#remove-a-subscription)\_for a your developer application and Organization."
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: application_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: person_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: organization_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /organizationalEntityFollowerStatistics:
+    get:
+      tags:
+        - Use Cases > Statistics APIs > Organization Follower Statistics
+      summary: Time-Bound follower statistics
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: organizationalEntity
+        - name: organizationalEntity
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3Aorganization%3A2414183
+        - name: timeIntervals.timeGranularityType
+          in: query
+          schema:
+            type: string
+          example: DAY
+        - name: timeIntervals.timeRange.start
+          in: query
+          schema:
+            type: integer
+          example: '1634018799000'
+        - name: timeIntervals.timeRange.end
+          in: query
+          schema:
+            type: integer
+          example: '1634623599000'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /organizationPageStatistics:
+    get:
+      tags:
+        - Use Cases > Statistics APIs > Organization Page Statistics
+      summary: Lifetime Page Statistics
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: organization
+        - name: organization
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3Aorganization%3A2414183
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /organizationalEntityShareStatistics:
+    get:
+      tags:
+        - Use Cases > Statistics APIs > Organization Share Statistics
+      summary: Time Bound Share Statistics
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: organizationalEntity
+        - name: organizationalEntity
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3Aorganization%3A2414183
+        - name: timeIntervals.timeGranularityType
+          in: query
+          schema:
+            type: string
+          example: DAY
+        - name: timeIntervals.timeRange.start
+          in: query
+          schema:
+            type: integer
+          example: '1634018799000'
+        - name: timeIntervals.timeRange.end
+          in: query
+          schema:
+            type: integer
+          example: '1634623599000'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /peopleTypeahead:
+    get:
+      tags:
+        - Use Cases > Organization Followers
+      summary: Search By Keyword
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: organizationFollowers
+        - name: keywords
+          in: query
+          schema:
+            type: string
+          example: chris
+        - name: organization
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3Aorganization%3A{{organization_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /vanityUrl:
+    get:
+      tags:
+        - Use Cases > Organization Followers
+      summary: Search By Vanity URL
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: vanityUrlAsOrganization
+        - name: vanityUrl
+          in: query
+          schema:
+            type: string
+          example: https%3A//www.linkedin.com/in/vanityName/
+        - name: organization
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3Aorganization%3A{{organization_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /organizations:
+    get:
+      tags:
+        - Use Cases > Organization Lookup > Organization Brands
+      summary: Find Administered Organization Brands by Parent Org
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: parentOrganization
+        - name: parent
+          in: query
+          schema:
+            type: string
+          example: urn:li:organization:{{organization_id}}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:25:11 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 1.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '554'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZZHGIBuhMvA/BMwKtQ==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693911:t=1671775286:v=2:sig=AQHFo_iP3NTosWNgRAmvCALCbNy0sSET"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693911:t=1671775286:v=2:sig=AQHFo_iP3NTosWNgRAmvCALCbNy0sSET"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links: []
+                  total: 2
+                elements:
+                  - name:
+                      localized:
+                        en_US: Internal_EI_Demo
+                      preferredLocale:
+                        country: US
+                        language: en
+                    primaryOrganizationType: BRAND
+                    vanityName: internal-ei-demo
+                    locations: []
+                    localizedName: Internal_EI_Demo
+                    id: 89758488
+                  - name:
+                      localized:
+                        en_US: Internal_EI_TestCompany
+                      preferredLocale:
+                        country: US
+                        language: en
+                    primaryOrganizationType: BRAND
+                    vanityName: internal-ei-testcompany
+                    locations: []
+                    localizedName: Internal_EI_TestCompany
+                    id: 89757515
+  /organizations/{organization_id}:
+    get:
+      tags:
+        - Use Cases > Organization Lookup > Organizations
+      summary: Lookup by Organization Primary Type
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: projection
+          in: query
+          schema:
+            type: string
+          example: (primaryOrganizationType)
+        - name: organization_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:20:52 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '34'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZYJXnc/8Zp667Zwp2w==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693652:t=1671775286:v=2:sig=AQHsRg1CU_Z5pEdUEduKGxHDb8kz7ihJ"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693652:t=1671775286:v=2:sig=AQHsRg1CU_Z5pEdUEduKGxHDb8kz7ihJ"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                primaryOrganizationType: NONE
+  /organizationsLookup:
+    get:
+      tags:
+        - Use Cases > Organization Lookup > Organizations
+      summary: Find Non-Administered Organization
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{organization_id}},{{organization_id1}})
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:21:19 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '677'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZYPro52d92kEmROl/w==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693679:t=1671775286:v=2:sig=AQE-fhpSOZouoPwPC-a8jtqO3DIDX2_x"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693679:t=1671775286:v=2:sig=AQE-fhpSOZouoPwPC-a8jtqO3DIDX2_x"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                results:
+                  '3803':
+                    name:
+                      localized:
+                        en_US: New Century
+                      preferredLocale:
+                        country: US
+                        language: en
+                    primaryOrganizationType: NONE
+                    vanityName: new-century
+                    locations:
+                      - staffCountRange: SIZE_1
+                        locationType: HEADQUARTERS
+                        address:
+                          country: US
+                      - staffCountRange: SIZE_1
+                        locationType: OTHER
+                        address: {}
+                    localizedName: New Century
+                    id: 3803
+                  '79988552':
+                    name:
+                      localized:
+                        en_US: FirstDemoCompany
+                      preferredLocale:
+                        country: US
+                        language: en
+                    primaryOrganizationType: NONE
+                    vanityName: firstdemocompany
+                    locations: []
+                    localizedName: FirstDemoCompany
+                    id: 79988552
+                statuses:
+                  '3803': 200
+                  '79988552': 200
+                errors: {}
+  /networkSizes/urn:li:organization:{organization_id}:
+    get:
+      tags:
+        - Use Cases > Organization Lookup > Organizations
+      summary: Retrieve Organization Follower Count
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: edgeType
+          in: query
+          schema:
+            type: string
+          example: CompanyFollowedByMember
+        - name: organization_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            x-restli-protocol-version:
+              schema:
+                type: string
+                example: 1.0.0
+            x-source:
+              schema:
+                type: string
+                example: RULE
+            Content-Length:
+              schema:
+                type: integer
+                example: '21'
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:21:30 GMT
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZYSU7YcaYlLpJpOzOw==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693690:t=1671775286:v=2:sig=AQEj5sBudl4cE2faxgSGmXR8LuaJ3zBE"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693690:t=1671775286:v=2:sig=AQEj5sBudl4cE2faxgSGmXR8LuaJ3zBE"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                firstDegreeSize: 0
+  /organizationBrands:
+    get:
+      tags:
+        - Use Cases > Organization Lookup > Organization Brands
+      summary: Batch GET on Administered Organization Brands
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{organizationBrand_id}},{{organizationBrand_id1}})
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:23:55 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '917'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZY06+GcGRTyaDTTN+g==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693835:t=1671775286:v=2:sig=AQFCBSUN6_0zsTtMP91RSb64EL4GnqtY"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693835:t=1671775286:v=2:sig=AQFCBSUN6_0zsTtMP91RSb64EL4GnqtY"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                results:
+                  '89758488':
+                    vanityName: internal-ei-demo
+                    localizedName: Internal_EI_Demo
+                    website:
+                      localized:
+                        en_US: https://internal-ei-test-company.com
+                      preferredLocale:
+                        country: US
+                        language: en
+                    groups: []
+                    versionTag: '3061199585'
+                    defaultLocale:
+                      country: US
+                      language: en
+                    alternativeNames: []
+                    specialties: []
+                    parentRelationship:
+                      relationshipStatus: ACTIVE
+                      parent: urn:li:organization:79988552
+                    localizedSpecialties: []
+                    industries:
+                      - urn:li:industry:84
+                    name:
+                      localized:
+                        en_US: Internal_EI_Demo
+                      preferredLocale:
+                        country: US
+                        language: en
+                    primaryOrganizationType: BRAND
+                    id: 89758488
+                    autoCreated: false
+                    localizedWebsite: https://internal-ei-test-company.com
+                statuses:
+                  '35625943': 403
+                  '89758488': 200
+                errors:
+                  '35625943':
+                    message: >-
+                      Viewer don't have permission to the ADMIN_ONLY
+                      VisibilityReduction for urn:li:organization:35625943
+                    status: 403
+  /organizationBrands/{organizationBrand_id}:
+    get:
+      tags:
+        - Use Cases > Organization Lookup > Organization Brands
+      summary: Retrieve an Administered Organization Brand
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: organizationBrand_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:23:45 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 1.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '743'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZYypmttHzdbszOY7xA==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693825:t=1671775286:v=2:sig=AQGoeeGwjTLn5Unyu-Q6VKPlP6HXDx0P"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693825:t=1671775286:v=2:sig=AQGoeeGwjTLn5Unyu-Q6VKPlP6HXDx0P"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                vanityName: internal-ei-demo
+                localizedName: Internal_EI_Demo
+                website:
+                  localized:
+                    en_US: https://internal-ei-test-company.com
+                  preferredLocale:
+                    country: US
+                    language: en
+                groups: []
+                versionTag: '3061199585'
+                defaultLocale:
+                  country: US
+                  language: en
+                alternativeNames: []
+                specialties: []
+                parentRelationship:
+                  relationshipStatus: ACTIVE
+                  parent: urn:li:organization:79988552
+                localizedSpecialties: []
+                industries:
+                  - urn:li:industry:84
+                name:
+                  localized:
+                    en_US: Internal_EI_Demo
+                  preferredLocale:
+                    country: US
+                    language: en
+                primaryOrganizationType: BRAND
+                id: 89758488
+                $URN: urn:li:organizationBrand:89758488
+                autoCreated: false
+                localizedWebsite: https://internal-ei-test-company.com
+  /organizationBrandsLookup:
+    get:
+      tags:
+        - Use Cases > Organization Lookup > Organization Brands
+      summary: Batch GET on Non-Administered Organization Brands
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: List({{organizationBrand_id}},{{organizationBrand_id1}})
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:24:08 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '596'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZY4BjcseAexl6rVsFQ==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693848:t=1671775286:v=2:sig=AQFAdBFZKRnFsc0gzQXACtwVuGqOLl06"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693848:t=1671775286:v=2:sig=AQFAdBFZKRnFsc0gzQXACtwVuGqOLl06"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                results:
+                  '35625943':
+                    name:
+                      localized:
+                        en_US: Company LGF Showcase
+                      preferredLocale:
+                        country: US
+                        language: en
+                    primaryOrganizationType: BRAND
+                    vanityName: company-lgf-showcase
+                    localizedName: Company LGF Showcase
+                    id: 35625943
+                  '89758488':
+                    name:
+                      localized:
+                        en_US: Internal_EI_Demo
+                      preferredLocale:
+                        country: US
+                        language: en
+                    primaryOrganizationType: BRAND
+                    vanityName: internal-ei-demo
+                    localizedName: Internal_EI_Demo
+                    id: 89758488
+                    localizedWebsite: https://internal-ei-test-company.com
+                statuses:
+                  '35625943': 200
+                  '89758488': 200
+                errors: {}
+  /organizationAcls:
+    get:
+      tags:
+        - Use Cases > Organization Access Controls
+      summary: Find Organization Access Control
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: Linkedin-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: organization
+        - name: organization
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3Aorganization%3A{{organization_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

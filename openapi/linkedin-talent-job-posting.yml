@@ -1,0 +1,372 @@
+openapi: 3.0.0
+info:
+  title: Job Posting
+  description: >-
+    We are making updates to our collections. If you run into any issues pulling
+    the latest changes, simply fork the collection again.
+
+
+    LinkedIn's Job Posting API enables authorized third parties such as clients,
+    ATS systems, and Job Distributors to post jobs directly to LinkedIn on
+    behalf of customers. This guide details on how to integrate with LinkedIn's
+    Jobs Posting API.
+
+
+    The use of these APIs is restricted to developers approved by LinkedIn.
+    Please reach out to your LinkedIn Relationship Manager or Business
+    Development contact as you will need to meet certain criteria and sign an
+    API agreement with data restrictions in order to use this integration.  
+
+    If you are not yet a LinkedIn Talent Solutions Partner, please complete the
+    [LinkedIn Talent Solutions Partner Request
+    Form](https://business.linkedin.com/talent-solutions/ats-partners/partner-application).
+  version: 1.0.0
+servers:
+  - url: https://api.linkedin.com
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+    description: >-
+      Jobs that are already created externally on ATS, company site, or job
+      board can be automatically ingested by LinkedIn. LinkedIn provides various
+      solutions to ingest such jobs to our customers, partner ATSs' and Job
+      Distributors.
+
+
+      The following two job categories broadly define the ways to post jobs in
+      LinkedIn:
+
+
+      `Basic Jobs` - These are free job posts gathered by LinkedIn from external
+      sources such as ATS, job boards, distributors and aggregators across the
+      web to create a comprehensive job-seeking experience for LinkedIn
+      members. 
+
+
+      `Promoted Jobs` - These are paid job postings. You can directly post
+      promoted jobs using Job Postings API. For customers with paid job slots,
+      the API allows posting jobs directly into their job slots.
+
+
+      To Know more , please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/job-posting-overview)
+  - name: Use Cases > Sync Basic or Promoted Jobs
+    description: >-
+      The LinkedIn's Job Posting API allows members to automatically post jobs
+      to LinkedIn from their Applicant Tracking System (ATS), instead of
+      manually posting using the website. This API enables partners to post and
+      manage lifecycle for both `BASIC` or `PROMOTED` jobs. To Know more about
+      the Job Postings, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/sync-job-postings)
+  - name: Use Cases > Sync Basic or Promoted Jobs > Create and manage jobs
+    description: >-
+      API's used to Create Basic Jobs with `Foundation Scheme` , `Promoted Jobs
+      Extension Schema` and `RSC Extension Schema`
+
+      For more detail, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/create-jobs)
+  - name: >-
+      Use Cases > Sync Basic or Promoted Jobs > Create and manage jobs > Create
+      basic job with foundation schema
+    description: >-
+      Using this API, Customer can create `BASIC` Jobs using `Foundation
+      Schema`. T0 know more about Foundation Schema, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/job-posting-api-schema#foundation-schema)
+  - name: >-
+      Use Cases > Sync Basic or Promoted Jobs > Create and manage jobs > Create
+      promoted job with promoted jobs extension schema
+    description: >-
+      In order to post a Jobs as `PREMIUM`, Customer needs to provide
+      `listingType` as `PREMIUM` and also include the Contract ID in the request
+      body. To know more, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/create-jobs#sample-request-for-promoted-jobs)
+  - name: >-
+      Use Cases > Sync Basic or Promoted Jobs > Create and manage jobs > Create
+      basic job with RSC entension schema
+    description: >-
+      RSC Extension Schema Jobs can be used for Syncing Private and Public Jobs
+      to LinkedIn. Customer can set `availability` field as `PUBLIC` or
+      `PRIVATE_TO_ATS_INTEGRATION` depends up on the requirement. Jobs posted
+      through this API will be reflecting in One-Click Export.Please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/job-posting-api-schema#recruiter-system-connect-extension-schema)
+  - name: >-
+      Use Cases > Sync Basic or Promoted Jobs > Create and manage jobs > Manage
+      job lifecycle
+  - name: Use Cases > Sync Basic or Promoted Jobs > Batch jobs example
+  - name: Use Cases > Sync Apply Connect Enabled Jobs
+    description: >-
+      This API utilizes the onsiteApplyConfiguration field that you can use to
+      specify the questions that need to be answered to complete the job
+      application and host the application experience entirely on LinkedIn. In
+      addition to the questions, you should specify a Webhook URL against field
+      jobApplicationCallbackUrl where LinkedIn will POST job applications.
+  - name: >-
+      Use Cases > Sync Apply Connect Enabled Jobs > Create apply connect job
+      postings
+    description: >-
+      As part of LinkedIn's Apply Connect offering, the SimpleJobPostings API is
+      used to create a new job posting. This API also allows the client to
+      enable onsite application collection via Webhook based mechanism.To know
+      more about Apply Connect, please refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/sync-jobs-onsite-apply)
+  - name: Use Cases > Sync Apply Connect Enabled Jobs > Manage job lifecycle
+  - name: Use Cases > Customer applications for premium job posting
+paths:
+  /v2/simpleJobPostings:
+    post:
+      tags:
+        - Use Cases > Sync Apply Connect Enabled Jobs > Manage job lifecycle
+      summary: Close apply connect job posting
+      description: >-
+        In order to update a job posting, you can just re-post the job with any
+        changed information and `jobPostingOperationType` field value set as
+        `CLOSE` .Please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/sync-jobs-onsite-apply#apply-connect-jobs-lifecycle)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: |-
+                {
+                    "elements": [
+                        {
+                            "externalJobPostingId": "{{external_job_posting_id}}",
+                            "title": "Software Developer in Test",
+                            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n",
+                            "integrationContext": "urn:li:organization:{{company_id}}",
+                            "jobPostingOperationType": "CLOSE",
+                            "listingType": "BASIC",
+                            "listedAt": {{$timestamp}},
+                            "location": "San Francisco, CA",
+                            "companyApplyUrl": "http://company.com/careers",
+                            "onsiteApplyConfiguration": {
+                                "jobApplicationWebhookUrl": "{{job_application_webhook_url}}",
+                                "questions": {
+                                    "resumeQuestions": {
+                                        "resumeQuestionRequirement": "REQUIRED"
+                                    },
+                                    "coverLetterQuestions": {
+                                        "coverLetterQuestionRequirement": "REQUIRED"
+                                    },
+                                    "voluntarySelfIdentificationQuestions": {},
+                                    "educationQuestions": {
+                                        "educationExperienceQuestionSet": {}
+                                    },
+                                    "workQuestions": {
+                                        "workExperienceQuestionSet": {}
+                                    },
+                                    "additionalQuestions": {
+                                        "customQuestionSets": [
+                                            {
+                                                "questions": [
+                                                    {
+                                                        "partnerQuestionIdentifier": "question-0001",
+                                                        "questionDetails": {
+                                                            "multipleChoiceQuestionDetails": {
+                                                                "choices": [
+                                                                    {
+                                                                        "symbolicName": "yes",
+                                                                        "displayValue": "Yes"
+                                                                    },
+                                                                    {
+                                                                        "symbolicName": "no",
+                                                                        "displayValue": "No"
+                                                                    }
+                                                                ],
+                                                                "preferredFormComponent": "RADIO_BUTTONS",
+                                                                "selectMultiple": false
+                                                            }
+                                                        },
+                                                        "required": false,
+                                                        "questionText": "Do you want to work here?"
+                                                    },
+                                                    {
+                                                        "partnerQuestionIdentifier": "question-0002",
+                                                        "questionDetails": {
+                                                            "multipleChoiceQuestionDetails": {
+                                                                "choices": [
+                                                                    {
+                                                                        "symbolicName": "yes",
+                                                                        "displayValue": "Yes"
+                                                                    },
+                                                                    {
+                                                                        "symbolicName": "no",
+                                                                        "displayValue": "No"
+                                                                    }
+                                                                ],
+                                                                "preferredFormComponent": "RADIO_BUTTONS",
+                                                                "selectMultiple": false
+                                                            }
+                                                        },
+                                                        "required": false,
+                                                        "questionText": "Are you okay with late night shifts?"
+                                                    },
+                                                    {
+                                                        "required": true,
+                                                        "partnerQuestionIdentifier": "question-0003",
+                                                        "questionText": "How often do you switch jobs",
+                                                        "questionDetails": {
+                                                            "multipleChoiceQuestionDetails": {
+                                                                "choices": [
+                                                                    {
+                                                                        "symbolicName": "Wrong",
+                                                                        "displayValue": "Every year"
+                                                                    },
+                                                                    {
+                                                                        "symbolicName": "Right Answer",
+                                                                        "displayValue": "Once every 2 -3 years"
+                                                                    },
+                                                                    {
+                                                                        "symbolicName": "Best Answer",
+                                                                        "displayValue": "Once every 4-5 years"
+                                                                    }
+                                                                ],
+                                                                "selectMultiple": false,
+                                                                "defaultValueSymbolicName": "Right Answer",
+                                                                "preferredFormComponent": "DROPDOWN",
+                                                                "favorableMultipleChoiceAnswer": {
+                                                                    "favorableSymbolicNames": [
+                                                                        "Right Answer",
+                                                                        "Best Answer"
+                                                                    ]
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+      parameters:
+        - name: x-restli-method
+          in: header
+          schema:
+            type: string
+          example: batch_create
+        - name: ''
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/simpleJobPostingTasks:
+    get:
+      tags:
+        - Use Cases > Sync Apply Connect Enabled Jobs > Manage job lifecycle
+      summary: Check close apply connect job operation status
+      description: >-
+        `/SimpleJobPostingTasks` used to track the Status of Jobs. To learn more
+        please refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus)
+
+
+        To test and view the Jobs that you successfully posted , use
+        https://www.linkedin.com/jobs/view/ { jobPosting ID }
+
+        jobPosting ID can be get from the response of /SimpleJobpostingtask
+
+
+        eg:https://www.linkedin.com/jobs/view/2722131308/
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
+          example: '{{close_apply_connect_job_task_urn}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/atsIntegrations:
+    post:
+      tags:
+        - Use Cases > Customer applications for premium job posting
+      summary: Update Customer Integrations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                entities:
+                  integrationContext=urn:li:contract:{{contract_id}}&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
+                    patch:
+                      $set:
+                        integrationName: >-
+                          customer_name -LinkedIn LTS Premium Job Posting
+                          Integration
+      parameters:
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:contract:{{contract_id}}
+        - name: ids[0].integrationType
+          in: query
+          schema:
+            type: string
+          example: PREMIUM_JOB_POSTING
+        - name: ids[0].tenantType
+          in: query
+          schema:
+            type: string
+          example: JOBS
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Customer applications for premium job posting
+      summary: Check Customer Integration
+      parameters:
+        - name: ids[0].integrationContext
+          in: query
+          schema:
+            type: string
+          example: urn:li:contract:{{contract_id}}
+        - name: ids[0].integrationType
+          in: query
+          schema:
+            type: string
+          example: PREMIUM_JOB_POSTING
+        - name: ids[0].tenantType
+          in: query
+          schema:
+            type: string
+          example: JOBS
+        - name: ids[0].dataProvider
+          in: query
+          schema:
+            type: string
+          example: ATS
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

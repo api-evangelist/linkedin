@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  title: Ads Transparency API
+  version: 1.0.0
+servers:
+  - url: https://api.linkedin.com
+paths:
+  /rest/advertiserTransparencyData/urn:li:sponsoredAccount:{sponsoredaccount_id}:
+    get:
+      tags:
+        - default
+      summary: Advertiser Transparency Data
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{insert_token}}'
+        - name: month
+          in: query
+          schema:
+            type: integer
+          example: '202312'
+        - name: sponsoredaccount_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

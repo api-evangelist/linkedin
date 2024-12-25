@@ -1,0 +1,658 @@
+openapi: 3.0.0
+info:
+  title: Audience Insights
+  description: >-
+    ## Overview
+
+
+    Audience Insights API enables you to discover and identify the audience
+    segments that meet your target persona, demonstrate interest and engagement
+    in relevant customer products/offerings, uncover insights about the
+    companies the target audience works for, and activate audience for targeting
+    in sponsored ad campaigns on LinkedIn. This enables advertisers to use
+    LinkedIn data and insights as a part of their broader audience discovery,
+    planning, activation and optimization processes by delivering on the
+    “Audience first” approach.
+
+
+    Note: This is a private API that is available to qualified developers who
+    meet additional criteria for access. To learn more about eligibility
+    qualifications and how to request access, please see the
+    [FAQ](https://learn.microsoft.com/en-us/linkedin/marketing/lms-faq#how-do-i-get-access-to-audience-insights-api-product).
+    If you wish to apply for access, please submit a [Zendesk support
+    ticket](https://linkedin.zendesk.com/).
+
+
+    ## Permissions
+
+
+    Audience Insights API requires a [3-legged
+    OAuth](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)
+    member token and your developer application needs to be provisioned with the
+    Audience Insights API product. Once you have been approved to access, you
+    can use any valid member access token associated with the authenticated user
+    with any valid scope permissions for member authentication. If there is no
+    valid member token for the relevant user from any previous integration, we
+    recommend using the bare minimum scope permissions like `r_ads` which will
+    be required to fetch authenticated user's ad accounts.  
+
+    Note: This API is application-specific; hence, explicit member consent is
+    not required. Any valid member access token associated with the
+    authenticated user can be used, and you do not need to add any additional
+    permission in the scope of your Oauth2 flow for authorization.
+
+
+    This collection aims to focus on different Audience Insights use cases and
+    should be used with the **audience-insights-env-versioning** environment.
+
+
+    \--All requests for the Audience Insights API collection are in the Restli
+    2.0 format--
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Ad Targeting Entities
+    description: >-
+      The LinkedIn ads platform allows advertisers to target different types of
+      audiences on the professional network. The two core concepts for targeting
+      are facets and entities.
+
+
+      Facets are high-level categories of the types of targeting available to
+      you. Facets contain multiple entities which are the specific demographic
+      values within that facet. For example, Industries is a facet. Specific
+      industries such as Computer Software, Biotechnology, and
+      Telecommunications are entities within the Industries facet.
+
+
+      Use facets to narrow down your intended audience. Refer to [Targeting
+      Criteria Facet
+      URNs](https://learn.microsoft.com/en-us/linkedin/shared/references/v2/ads/targeting-criteria-facet-urns?view=li-lms-2023-09)
+      for the list of available facets and their URNs. The `adTargetingFacets`
+      API returns available targeting facets.
+
+
+      Once you've identified the facet type(s) you'd like to target, you can
+      fetch their entity values. Use the `adTargetingEntities` API to fetch
+      available options for each facet type. To learn more, see [Ad Targeting
+      Entities](https://learn.microsoft.com/en-us/linkedin/shared/references/v2/ads/adtargetingentities?context=linkedin%2Fmarketing%2Fcontex&view=li-lms-2023-09).
+
+
+      ### Permissions
+
+
+      Any application approved for the LinkedIn Marketing API Program can make
+      these API calls using any 3-legged access token. No additional permissions
+      need to be requested during the OAuth flow.
+  - name: Fetch Audience Insights
+    description: >-
+      Audience Insights API provides aggregated demographic insights,
+      firmographic details, location and interests / behaviors of a target
+      audience. The insights are primarily comprised of the below categories :
+
+
+      - Member Insights (Job Function, Title, Seniority, Years Of Experience,
+      Skills)
+          
+      - Company Insights (Company Name, Industry, Size, Growth rate)
+          
+      - Location Insights (City, State, Country/Region, Continent)
+          
+      - Member Interests (General and Product Interest categories derived from
+      engagement behaviors and profile information)
+paths:
+  /adTargetingFacets:
+    get:
+      tags:
+        - Ad Targeting Entities
+      summary: Get a list of available Ad Targeting Facets
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Tue, 22 Aug 2023 01:34:20 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYDeP50GndIRiDUNqZFNA==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=VB52:s=V:r=V:a=V:p=V:g=3817:u=1714:x=1:i=1692668060:t=1692748247:v=2:sig=AQEExcZ9-g2kMBwFJV4hRYBz8S5UhRNr"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=VB52:s=V:r=V:a=V:p=V:g=3817:u=1714:x=1:i=1692668060:t=1692748247:v=2:sig=AQEExcZ9-g2kMBwFJV4hRYBz8S5UhRNr"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links: []
+                elements:
+                  - entityTypes:
+                      - FUNCTION
+                    facetName: jobFunctions
+                    $URN: urn:li:adTargetingFacet:jobFunctions
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - AGE
+                    facetName: ageRanges
+                    $URN: urn:li:adTargetingFacet:ageRanges
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - GROUP
+                    facetName: groups
+                    $URN: urn:li:adTargetingFacet:groups
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - COMPANY
+                    facetName: employers
+                    $URN: urn:li:adTargetingFacet:employers
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - $UNKNOWN
+                    facetName: dynamicSegments
+                    $URN: urn:li:adTargetingFacet:dynamicSegments
+                    availableEntityFinders:
+                      - $UNKNOWN
+                  - entityTypes:
+                      - COUNTRY_GROUP
+                      - COUNTRY
+                      - STATE
+                      - REGION
+                    facetName: profileLocations
+                    $URN: urn:li:adTargetingFacet:profileLocations
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - GENDER
+                    facetName: genders
+                    $URN: urn:li:adTargetingFacet:genders
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - COMPANY
+                    facetName: firstDegreeConnectionCompanies
+                    $URN: urn:li:adTargetingFacet:firstDegreeConnectionCompanies
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - FIRMOGRAPHIC
+                    facetName: companyCategory
+                    $URN: urn:li:adTargetingFacet:companyCategory
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - TITLE
+                    facetName: titlesAll
+                    $URN: urn:li:adTargetingFacet:titlesAll
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - LOCALE
+                    facetName: interfaceLocales
+                    $URN: urn:li:adTargetingFacet:interfaceLocales
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - FIRMOGRAPHIC
+                    facetName: growthRate
+                    $URN: urn:li:adTargetingFacet:growthRate
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - INDUSTRY
+                    facetName: industries
+                    $URN: urn:li:adTargetingFacet:industries
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - TITLE
+                    facetName: titles
+                    $URN: urn:li:adTargetingFacet:titles
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - COMPANY
+                    facetName: followedCompanies
+                    $URN: urn:li:adTargetingFacet:followedCompanies
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - SCHOOL
+                    facetName: schools
+                    $URN: urn:li:adTargetingFacet:schools
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - COMPANY_SIZE
+                    facetName: staffCountRanges
+                    $URN: urn:li:adTargetingFacet:staffCountRanges
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - COMPANY
+                    facetName: employersPast
+                    $URN: urn:li:adTargetingFacet:employersPast
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - SKILL
+                    facetName: skills
+                    $URN: urn:li:adTargetingFacet:skills
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - MEMBER_BEHAVIOR
+                    facetName: memberBehaviors
+                    $URN: urn:li:adTargetingFacet:memberBehaviors
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - $UNKNOWN
+                    facetName: audienceMatchingSegments
+                    $URN: urn:li:adTargetingFacet:audienceMatchingSegments
+                    availableEntityFinders:
+                      - $UNKNOWN
+                  - entityTypes:
+                      - FIELD_OF_STUDY
+                    facetName: fieldsOfStudy
+                    $URN: urn:li:adTargetingFacet:fieldsOfStudy
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - YEARS_OF_EXPERIENCE
+                    facetName: yearsOfExperienceRanges
+                    $URN: urn:li:adTargetingFacet:yearsOfExperienceRanges
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - DEGREE
+                    facetName: degrees
+                    $URN: urn:li:adTargetingFacet:degrees
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - SENIORITY
+                    facetName: seniorities
+                    $URN: urn:li:adTargetingFacet:seniorities
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - COUNTRY_GROUP
+                      - COUNTRY
+                      - STATE
+                      - REGION
+                    facetName: locations
+                    $URN: urn:li:adTargetingFacet:locations
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                  - entityTypes:
+                      - TITLE
+                    facetName: titlesPast
+                    $URN: urn:li:adTargetingFacet:titlesPast
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - COMPANY
+                    facetName: employersAll
+                    $URN: urn:li:adTargetingFacet:employersAll
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - SIMILAR_ENTITIES
+                  - entityTypes:
+                      - FIRMOGRAPHIC
+                    facetName: revenue
+                    $URN: urn:li:adTargetingFacet:revenue
+                    availableEntityFinders:
+                      - AD_TARGETING_FACET
+                  - entityTypes:
+                      - INTEREST
+                    facetName: interests
+                    $URN: urn:li:adTargetingFacet:interests
+                    availableEntityFinders:
+                      - TYPEAHEAD
+                      - AD_TARGETING_FACET
+  /adTargetingEntities:
+    get:
+      tags:
+        - Ad Targeting Entities
+      summary: Get Bing Geo locations using search typeahead
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: typeahead
+        - name: query
+          in: query
+          schema:
+            type: string
+          example: united%20states
+        - name: facet
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3AadTargetingFacet%3Alocations
+        - name: queryVersion
+          in: query
+          schema:
+            type: string
+          example: QUERY_USES_URNS
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '10'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Tue, 22 Aug 2023 19:18:41 GMT
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-ltx1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-ltx1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYDh9zhVpvVljNr6Bd2Lw==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3439:u=1715:x=1:i=1692731921:t=1692736001:v=2:sig=AQG3v245ve1coreRexh5O2dpV2Gnfhpa"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB52:s=O:r=O:a=O:p=O:g=3439:u=1715:x=1:i=1692731921:t=1692736001:v=2:sig=AQG3v245ve1coreRexh5O2dpV2Gnfhpa"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links:
+                    - type: application/json
+                      rel: next
+                      href: >-
+                        /rest/adTargetingEntities?q=typeahead&query=united%20states&start=10&count=10&facet=urn%3Ali%3AadTargetingFacet%3Alocations&queryVersion=QUERY_USES_URNS
+                elements:
+                  - name: United States
+                    urn: urn:li:geo:103644278
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: California, United States
+                    urn: urn:li:geo:102095887
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Texas, United States
+                    urn: urn:li:geo:102748797
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: New York, United States
+                    urn: urn:li:geo:105080838
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Florida, United States
+                    urn: urn:li:geo:101318387
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Los Angeles County, California, United States
+                    urn: urn:li:geo:103104382
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: New York, New York, United States
+                    urn: urn:li:geo:102571732
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Illinois, United States
+                    urn: urn:li:geo:101949407
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Pennsylvania, United States
+                    urn: urn:li:geo:102986501
+                    facetUrn: urn:li:adTargetingFacet:locations
+                  - name: Georgia, United States
+                    urn: urn:li:geo:103950076
+                    facetUrn: urn:li:adTargetingFacet:locations
+  /targetingAudienceInsights:
+    post:
+      tags:
+        - Fetch Audience Insights
+      summary: What are the top interests of Directors in Finance and in the US?
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                request:
+                  requestMetaData:
+                    sponsoredAccount: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+                  targetingCriteria:
+                    include:
+                      and:
+                        - or:
+                            urn:li:adTargetingFacet:locations:
+                              - urn:li:geo:103644278
+                        - or:
+                            urn:li:adTargetingFacet:interfaceLocales:
+                              - urn:li:locale:en_US
+                        - or:
+                            urn:li:adTargetingFacet:jobFunctions:
+                              - urn:li:function:10
+                  groupBy: urn:li:adTargetingFacet:interests
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: action
+          in: query
+          schema:
+            type: string
+          example: audienceInsights
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Thu, 24 Aug 2023 08:58:45 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYDp296rwY7thBD9EdvCg==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=VB52:s=V:r=V:a=V:p=V:g=3819:u=1718:x=1:i=1692867525:t=1692952165:v=2:sig=AQGthfCDBP1VghxS2iQMyhy8L9JVIhuS"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=VB52:s=V:r=V:a=V:p=V:g=3819:u=1718:x=1:i=1692867525:t=1692952165:v=2:sig=AQGthfCDBP1VghxS2iQMyhy8L9JVIhuS"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                value:
+                  audienceInsight:
+                    segmentations:
+                      - entityCount: 4900000
+                        entityPercentage: 89
+                        value: urn:li:interest:71363
+                      - entityCount: 4500000
+                        entityPercentage: 82
+                        value: urn:li:interest:420
+                      - entityCount: 4500000
+                        entityPercentage: 82
+                        value: urn:li:interest:2689786
+                      - entityCount: 4400000
+                        entityPercentage: 80
+                        value: urn:li:interest:3440
+                      - entityCount: 4300000
+                        entityPercentage: 78
+                        value: urn:li:interest:1537154
+                    groupedBy: urn:li:adTargetingFacet:interests
+                  totalAudienceCount: 5500000

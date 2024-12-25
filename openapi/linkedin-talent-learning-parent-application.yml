@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Parent Application Management
+  description: >-
+    We are making updates to our collections. If you run into any issues pulling
+    the latest changes, simply fork the collection again.
+
+
+    LinkedIn's Provisioning APIs allow partners to create and configure
+    developer applications on behalf of their customers. This is an initial step
+    to manage and enable customer integrations. Refer
+    [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api)
+    for more information.  
+
+    Ensure that you select Partner Application Management environment while
+    executing use cases.
+  version: 1.0.0
+servers:
+  - url: https://api.linkedin.com
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+    description: >-
+      Make things Make things easier for your teammates with a complete folder
+      description.easier for your teammates with a complete folder description.
+  - name: Use Cases > Provision Customer (Child) Applications
+    description: >-
+      With the help of Partner Application, partners have to provision child
+      applications for mutual customers. Refer
+      [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api)
+      for more information
+paths:
+  /v2/provisionedApplications:
+    post:
+      tags:
+        - Use Cases > Provision Customer (Child) Applications
+      summary: Provision Child Application
+      description: >-
+        Use this API Endpoint when partner wants to create a child application
+        for any of mutual customer. Refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#create-application)
+        for more information.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                description: TEST APP FOR {{customer_name}}
+                name: '{{customer_name}}'
+                uniqueForeignId: '{{unique_foreign_id}}'
+                oauth2AuthorizedCallbackUrls:
+                  - https://app.getpostman.com/oauth2/callback
+                validJsSdkDomains:
+                  - http://localhost:5000
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Use Cases > Provision Customer (Child) Applications
+      summary: Get Child Application
+      description: >-
+        Use this API Endpoint when partner wants to fetch a child application
+        for any of our mutual customer. Refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#get-application)
+        for more information.
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: credentialsByUniqueForeignId
+        - name: uniqueForeignId
+          in: query
+          schema:
+            type: string
+          example: '{{unique_foreign_id}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v2/provisionedApplications/{customer_application_urn}:
+    post:
+      tags:
+        - Use Cases > Provision Customer (Child) Applications
+      summary: Update OAuth2.0 Authorized CallBack URL for Child Application
+      description: >-
+        Use this API Endpoint when partner wants to update OAuth2.0 Authorized
+        CallBack URL for child application for any of mutual customer. Refer
+        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#update-application)
+        for more information.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patch:
+                  $set:
+                    oauth2AuthorizedCallbackUrls:
+                      - https://app.getpostman.com/oauth2/callback
+      parameters:
+        - name: customer_application_urn
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

@@ -1,0 +1,1333 @@
+openapi: 3.0.0
+info:
+  title: Lead Sync
+  description: >-
+    This collection aims to focus on different lead syncing use cases and should
+    be used with the **lead-sync-env-versioning** environment.
+
+
+    _All requests for the Lead Sync collection are in the Restli 2.0 format and
+    uses OAuth 2.0_
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Use Cases
+  - name: Use Cases > Organic
+    description: >-
+      In order to support collecting leads for organic use cases
+      (company/showcase page, events, or product pages), a partner app needs to
+      build a UX where a user is able to select the organizations and forms to
+      collect leads for.
+
+
+      ###### Step 1: Obtain user authorization to access their leads
+
+
+      ###### Step 2: Ask the user what lead types they would like to sync -
+      Events (EVENT), company/showcase pages (COMPANY), Product pages
+      (ORGANIZATION_PRODUCT)
+
+
+      ###### Step 3: Get the user's Organization(s) and validate their role to
+      sync leads
+
+
+      ###### Step 4: Ask the user to select the organization(s) whose leads they
+      are interested in syncing
+
+
+      ###### Step 5: Retrieve forms for the user's selected organization
+
+
+      ###### Step 6: Ask the user to select and map fields to the target
+      destination (e.g. a CRM)
+
+
+      ###### Step 7: Allow the user to do a one time pull of all form responses
+      looking back up to 365 days to grab any missed leads for the chosen lead
+      types
+
+
+      ###### Step 8: \[PULL\] Schedule periodic form response pulls to collect
+      leads
+
+
+      ###### Step 8: \[PUSH\] Allow the user to subscribe for lead notification
+      webhooks
+
+
+      ###### Step 9: \[PUSH\] Fetch full lead data after a webhook notification
+      is received
+  - name: Use Cases > Sponsored
+    description: >-
+      In order to support collecting leads for sponsored use cases, a partner
+      app needs to build a UX where a user is able to select the sponsored
+      accounts and forms to collect leads for.
+
+
+      ###### Step 1: Obtain user authorization to access their leads
+
+
+      ###### Step 2: Get the user's sponsored accounts
+
+
+      ###### Step 3: Ask the user to select the sponsored account(s) whose leads
+      they are interested in syncing
+
+
+      ###### Step 4: Validate the user's organization role tied to the chosen
+      sponsored account
+
+
+      ###### Step 5: Retrieve forms for the user's selected sponsored account
+
+
+      ###### Step 6: Ask the user to select and map fields to the target
+      destination (e.g. a CRM)
+
+
+      ###### Step 7: Allow the user to do a one time pull of all form responses
+      looking back up to 365 days to grab any missed leads
+
+
+      ###### Step 8: \[PULL\] Schedule periodic form response pulls to collect
+      leads
+
+
+      ###### Step 8: \[PUSH\] Allow the user to subscribe for lead notification
+      webhooks
+
+
+      ###### Step 9: \[PUSH\] Fetch full lead data after a webhook notification
+      is received
+paths:
+  /organizationAcls:
+    get:
+      tags:
+        - Use Cases > Sponsored
+      summary: 4. Validate the user's organization role
+      description: >-
+        View the [Organization Access
+        Control](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-access-control-by-role?tabs=http#organization-roles)
+        documentation.
+
+
+        Take note of the organization (company page) from the previous request
+        (`referenceInfo.organization.id`). A member must have access to not only
+        the Sponsored Account (step 2) but also have one of the roles mentioned
+        in our
+        [permissions](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#permissions)
+        table for the associated company page to successfully sync leads.
+
+
+        If the user's role is not one of the approved roles for pulling leads,
+        or the ad account does not have a company page associated to it (empty
+        `referenceInfo` object in previous request) you should display a helpful
+        message to the user guiding them on next steps.
+
+
+        Below are two resources to better understand Page Admin vs Paid Media
+        Admin:
+
+
+        - [Permissions for Lead Gen
+        Forms](https://www.linkedin.com/help/lms/answer/a421620/permissions-for-lead-gen-forms?lang=en)
+            
+        - [LinkedIn Page Admiin Roles -
+        Overview](https://www.linkedin.com/help/lms/answer/4783)
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: roleAssignee
+        - name: state
+          in: query
+          schema:
+            type: string
+          example: APPROVED
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Wed, 03 May 2023 00:02:38 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAX6vsYdZ5H4tUsf+cOOmw==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB05:s=O:r=O:a=O:p=O:g=5005:u=1258:x=1:i=1683072158:t=1683155872:v=2:sig=AQGPZ1ePhNBON7apSXcQgZo360QqxGG0"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB05:s=O:r=O:a=O:p=O:g=5005:u=1258:x=1:i=1683072158:t=1683155872:v=2:sig=AQGPZ1ePhNBON7apSXcQgZo360QqxGG0"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links: []
+                elements:
+                  - roleAssignee: urn:li:person:BcLKbjuipL
+                    state: APPROVED
+                    lastModified:
+                      actor: urn:li:person:BcLKbjuipL
+                      impersonator: urn:li:servicePrincipal:organization
+                      time: 1683063892716
+                    role: LEAD_GEN_FORMS_MANAGER
+                    created:
+                      actor: urn:li:person:BcLKbjuipL
+                      impersonator: urn:li:servicePrincipal:organization
+                      time: 1655913677098
+                    organization: urn:li:organization:11223344
+  /leadForms:
+    get:
+      tags:
+        - Use Cases > Sponsored
+      summary: 5. Get forms for the chosen Sponsored Account
+      description: >-
+        At this point, the user has picked the sponsored account they are trying
+        to collect leads for and you have validated they have proper access to
+        the ad account and associated company page. This step will retrieve the
+        form(s) associated with the selected sponsored account.
+
+
+        ---
+
+
+        **6\. Map Lead Gen Form fields to destination fields**
+
+
+        Using the API response data from the previous step, your application
+        should ask the user to map questions, consents, and hidden fields to the
+        appropriate fields in the destination system (e.g. a CRM). All
+        questions, consents, and hidden fields from the form should be mappable.
+        `predefinedField` fields may be mapped automatically for the user, but
+        all others will require the user to map them manually. Optionally, allow
+        the user to map the ad account id, ad account name, campaign id,
+        campaign name, creative id, creative name, form id, and form name (this
+        additional metadata can be pulled back via the `leadFormResponses`
+        endpoint in the next step). This additional metadata helps your
+        customers with lead attribution.
+
+
+        **Quick tip:** When it comes to mapping the `predefinedField` fields
+        that are auto populated from the member’s profile, it's important to
+        understand that the localized language of the form could be a language
+        other than English. Due to this, you should use the `predefinedField`
+        field so the user doesn't have to map the same field in different form
+        languages separately. For custom questions you will need to use the
+        `question` field as there is no predefinedField for custom questions.
+
+
+        | **Field** | **Language Information** |
+
+        | --- | --- |
+
+        | name | This value will be translated to the localized language of the
+        user who created the form (which could be different than the localized
+        language of the form) |
+
+        | predefinedField | ENUM for the pre-populated field |
+
+        | question | This value will be translated to the localized form
+        language |
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: owner
+        - name: owner
+          in: query
+          schema:
+            type: string
+          example: >-
+            (sponsoredAccount:urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}})
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Sat, 02 Sep 2023 16:28:52 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lor1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYEYsXLJrWbIXOYZ3541w==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693672132:t=1693676563:v=2:sig=AQHJKR3ozyeM8s9oUsu7Qq-fch5CveYt"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693672132:t=1693676563:v=2:sig=AQHJKR3ozyeM8s9oUsu7Qq-fch5CveYt"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links: []
+                  total: 4
+                elements:
+                  - reviewInfo:
+                      rejectionReasons: []
+                      lastUpdated: 1690422364241
+                      reviewStatus: NEEDS_REVIEW
+                    owner:
+                      sponsoredAccount: urn:li:sponsoredAccount:1234567
+                    hiddenFields: []
+                    versionId: 1
+                    created: 1691014589690
+                    creationLocale:
+                      country: SE
+                      language: sv
+                    name: swedish - Jul 26, 2023
+                    id: 7992706
+                    lastModified: 1691014589690
+                    state: PUBLISHED
+                    content:
+                      questions:
+                        - questionId: 10107992706
+                          question:
+                            localized:
+                              sv_SE: Förnamn
+                          responseEditable: true
+                          name: First name
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: FIRST_NAME
+                          responseRequired: true
+                        - questionId: 10207992706
+                          question:
+                            localized:
+                              sv_SE: Efternamn
+                          responseEditable: true
+                          name: Last name
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: LAST_NAME
+                          responseRequired: true
+                        - questionId: 10307992706
+                          question:
+                            localized:
+                              sv_SE: E-postadress
+                          responseEditable: true
+                          name: Email address
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: EMAIL
+                          responseRequired: true
+                        - questionId: 10407992706
+                          question:
+                            localized:
+                              sv_SE: Jobbtitel
+                          responseEditable: true
+                          name: Job title
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: JOB_TITLE
+                          responseRequired: true
+                      description:
+                        localized:
+                          sv_SE: testing swedish
+                      postSubmissionInfo:
+                        message:
+                          localized:
+                            sv_SE: testing swedish
+                        callToAction:
+                          callToActionTarget:
+                            landingPageUrl: https://www.linkedin.com
+                          callToActionLabel: VISIT_COMPANY_WEBSITE
+                      legalInfo:
+                        consents: []
+                        legalInfoId: 1007992706
+                        privacyPolicyUrl: http://example.com/privacy
+                        legalDisclaimer:
+                          localized:
+                            sv_SE: testing swedish
+                      headline:
+                        localized:
+                          sv_SE: testing swedish
+                  - reviewInfo:
+                      rejectionReasons: []
+                      lastUpdated: 1677209409563
+                      reviewStatus: NEEDS_REVIEW
+                    owner:
+                      sponsoredAccount: urn:li:sponsoredAccount:1234567
+                    hiddenFields:
+                      - name: hidden_field
+                        value: abc678
+                      - name: campo_escondido
+                        value: def789
+                    versionId: 1
+                    created: 1677209077832
+                    creationLocale:
+                      country: ES
+                      language: es
+                    name: Form with written spanish
+                    id: 7234246
+                    lastModified: 1677209424470
+                    state: PUBLISHED
+                    content:
+                      questions:
+                        - questionId: 107234246
+                          question:
+                            localized:
+                              es_ES: Nombre
+                          responseEditable: true
+                          name: First name
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: FIRST_NAME
+                          responseRequired: true
+                        - questionId: 207234246
+                          question:
+                            localized:
+                              es_ES: Apellidos
+                          responseEditable: true
+                          name: Last name
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: LAST_NAME
+                          responseRequired: true
+                        - questionId: 307234246
+                          question:
+                            localized:
+                              es_ES: Correo electrónico
+                          responseEditable: true
+                          name: Email address
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: EMAIL
+                          responseRequired: true
+                        - questionId: 407234246
+                          question:
+                            localized:
+                              es_ES: Cargo
+                          responseEditable: true
+                          name: Job title
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: JOB_TITLE
+                          responseRequired: true
+                        - questionId: 507234246
+                          question:
+                            localized:
+                              es_ES: Función
+                          responseEditable: true
+                          name: Function
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: JOB_FUNCTION
+                          responseRequired: true
+                        - questionId: 607234246
+                          question:
+                            localized:
+                              es_ES: Correo electrónico del trabajo
+                          responseEditable: true
+                          name: Work email
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: WORK_EMAIL
+                          responseRequired: true
+                        - name: Custom question 0
+                          questionDetails:
+                            multipleChoiceQuestionDetails:
+                              options:
+                                - text:
+                                    localized:
+                                      es_ES: Rojo
+                                  id: 0
+                                - text:
+                                    localized:
+                                      es_ES: Azul
+                                  id: 1
+                          questionId: 707234246
+                          question:
+                            localized:
+                              es_ES: Cuál es tu color favorito
+                          responseEditable: true
+                          responseRequired: true
+                        - name: Custom question 1
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          questionId: 807234246
+                          question:
+                            localized:
+                              es_ES: ¿Dónde creciste?
+                          responseEditable: true
+                          responseRequired: true
+                      description:
+                        localized:
+                          es_ES: Mis detalles de súper gran oferta!
+                      postSubmissionInfo:
+                        message:
+                          localized:
+                            es_ES: muchas gracias!
+                        callToAction:
+                          callToActionTarget:
+                            landingPageUrl: https://www.linkedin.com
+                          callToActionLabel: VISIT_COMPANY_WEBSITE
+                      legalInfo:
+                        consents:
+                          - consent:
+                              localized:
+                                es_ES: ' marque mi casilla de verificación personalizada!'
+                            checkRequired: true
+                            id: 0
+                        legalInfoId: 107234246
+                        privacyPolicyUrl: http://example.com/privacy
+                        legalDisclaimer:
+                          localized:
+                            es_ES: tanto texto de política
+                      headline:
+                        localized:
+                          es_ES: mi super gran titular
+                  - reviewInfo:
+                      rejectionReasons: []
+                      lastUpdated: 1675881696317
+                      reviewStatus: NEEDS_REVIEW
+                    owner:
+                      sponsoredAccount: urn:li:sponsoredAccount:1234567
+                    hiddenFields: []
+                    versionId: 1
+                    created: 1675881726023
+                    creationLocale:
+                      country: ES
+                      language: es
+                    name: spanish with custom questions and consent
+                    id: 7157016
+                    lastModified: 1675881726023
+                    state: PUBLISHED
+                    content:
+                      questions:
+                        - questionId: 107157016
+                          question:
+                            localized:
+                              es_ES: Nombre
+                          responseEditable: true
+                          name: First name
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: FIRST_NAME
+                          responseRequired: true
+                        - questionId: 207157016
+                          question:
+                            localized:
+                              es_ES: Apellidos
+                          responseEditable: true
+                          name: Last name
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: LAST_NAME
+                          responseRequired: true
+                        - questionId: 307157016
+                          question:
+                            localized:
+                              es_ES: Correo electrónico
+                          responseEditable: true
+                          name: Email address
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: EMAIL
+                          responseRequired: true
+                        - questionId: 407157016
+                          question:
+                            localized:
+                              es_ES: Cargo
+                          responseEditable: true
+                          name: Job title
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: JOB_TITLE
+                          responseRequired: true
+                        - questionId: 507157016
+                          question:
+                            localized:
+                              es_ES: Función
+                          responseEditable: true
+                          name: Function
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: JOB_FUNCTION
+                          responseRequired: true
+                        - questionId: 607157016
+                          question:
+                            localized:
+                              es_ES: Correo electrónico del trabajo
+                          responseEditable: true
+                          name: Work email
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: WORK_EMAIL
+                          responseRequired: true
+                        - name: Custom question 0
+                          questionDetails:
+                            multipleChoiceQuestionDetails:
+                              options:
+                                - text:
+                                    localized:
+                                      es_ES: red
+                                  id: 0
+                                - text:
+                                    localized:
+                                      es_ES: blue
+                                  id: 1
+                          questionId: 707157016
+                          question:
+                            localized:
+                              es_ES: What's your favorite color?
+                          responseEditable: true
+                          responseRequired: true
+                        - name: Custom question 1
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          questionId: 807157016
+                          question:
+                            localized:
+                              es_ES: Where did you grow up?
+                          responseEditable: true
+                          responseRequired: true
+                      description:
+                        localized:
+                          es_ES: My great offer detials
+                      postSubmissionInfo:
+                        message:
+                          localized:
+                            es_ES: Thanks!
+                        callToAction:
+                          callToActionTarget:
+                            landingPageUrl: https://www.linkedin.com
+                          callToActionLabel: VISIT_COMPANY_WEBSITE
+                      legalInfo:
+                        consents:
+                          - consent:
+                              localized:
+                                es_ES: check my custom checkbox!
+                            checkRequired: true
+                            id: 0
+                        legalInfoId: 107157016
+                        privacyPolicyUrl: http://example.com/privacy
+                        legalDisclaimer:
+                          localized:
+                            es_ES: this is my policy text
+                      headline:
+                        localized:
+                          es_ES: A fabulous headline
+                  - reviewInfo:
+                      rejectionReasons: []
+                      lastUpdated: 1675795969949
+                      reviewStatus: NEEDS_REVIEW
+                    owner:
+                      sponsoredAccount: urn:li:sponsoredAccount:1234567
+                    hiddenFields: []
+                    versionId: 1
+                    created: 1675795978299
+                    creationLocale:
+                      country: US
+                      language: en
+                    name: custom questions
+                    id: 7149246
+                    lastModified: 1675795978299
+                    state: PUBLISHED
+                    content:
+                      questions:
+                        - questionId: 107149246
+                          question:
+                            localized:
+                              en_US: First name
+                          responseEditable: true
+                          name: First name
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: FIRST_NAME
+                          responseRequired: true
+                        - questionId: 207149246
+                          question:
+                            localized:
+                              en_US: Last name
+                          responseEditable: true
+                          name: Last name
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: LAST_NAME
+                          responseRequired: true
+                        - questionId: 307149246
+                          question:
+                            localized:
+                              en_US: Email address
+                          responseEditable: true
+                          name: Email address
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: EMAIL
+                          responseRequired: true
+                        - questionId: 407149246
+                          question:
+                            localized:
+                              en_US: Seniority
+                          responseEditable: true
+                          name: Seniority
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: SENIORITY
+                          responseRequired: true
+                        - questionId: 507149246
+                          question:
+                            localized:
+                              en_US: Industry
+                          responseEditable: true
+                          name: Industry
+                          questionDetails:
+                            textQuestionDetails:
+                              maxResponseLength: 300
+                          predefinedField: INDUSTRY
+                          responseRequired: true
+                        - name: Custom question 0
+                          questionDetails:
+                            multipleChoiceQuestionDetails:
+                              options:
+                                - text:
+                                    localized:
+                                      en_US: blue
+                                  id: 0
+                                - text:
+                                    localized:
+                                      en_US: red
+                                  id: 1
+                          questionId: 607149246
+                          question:
+                            localized:
+                              en_US: favorite color
+                          responseEditable: true
+                          responseRequired: true
+                      description:
+                        localized:
+                          en_US: offer
+                      postSubmissionInfo:
+                        message:
+                          localized:
+                            en_US: thanks
+                        callToAction:
+                          callToActionTarget:
+                            landingPageUrl: https://www.linkedin.com
+                          callToActionLabel: VISIT_COMPANY_WEBSITE
+                      legalInfo:
+                        consents: []
+                        legalInfoId: 107149246
+                        privacyPolicyUrl: http://example.com/privacy
+                        legalDisclaimer:
+                          localized:
+                            en_US: nada
+                      headline:
+                        localized:
+                          en_US: custom questions
+  /leadFormResponses:
+    get:
+      tags:
+        - Use Cases > Sponsored
+      summary: 8. Schedule periodic form response (lead) pulls
+      description: >-
+        This example pulls back all form responses (leads) for the chosen
+        sponsored account. It also uses [field
+        projection](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/projections?context=linkedin/marketing/context)
+        to pull back specific fields in the response and the
+        `submittedAtTimeRange` field to pull back leads up to 365 days in the
+        past.
+
+
+        Currently the only sponsored leadType is `SPONSORED`
+
+
+        LinkedIn will store form response (lead) data for up to 365 days. It is
+        a best practice to allow the user to do a one time pull upon integration
+        setup to ensure no leads are missed.
+
+
+        Refer to [Lead Form
+        Responses](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses)
+        documentation for more information.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: owner
+        - name: owner
+          in: query
+          schema:
+            type: string
+          example: >-
+            (sponsoredAccount:urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}})
+        - name: leadType
+          in: query
+          schema:
+            type: string
+          example: (leadType:{{leadtype_sponsored}})
+        - name: limitedToTestLeads
+          in: query
+          schema:
+            type: boolean
+          example: 'false'
+        - name: submittedAtTimeRange
+          in: query
+          schema:
+            type: string
+          example: (start:{{timerange_start}},end:{{timerange_end}})
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: >-
+            ownerInfo,associatedEntityInfo,leadMetadataInfo,owner,leadType,versionedLeadGenFormUrn,id,submittedAt,testLead,formResponse,form:(hiddenFields,creationLocale,name,id,content)
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /leadNotifications:
+    post:
+      tags:
+        - Use Cases > Sponsored
+      summary: 8. Subscribe for lead notification webhooks
+      description: >-
+        [Register a lead notification
+        webhook](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#lead-notification-subscriptions)
+        to receive notifications for new leads. Lead notifications can also be
+        subscribed at a more granular level - see the linked documentation.
+
+
+        This example registers the webhook url,
+        [https://www.example.com](https://www.example.com/), at the Ad Account
+        level (sponsoredAccount). For any new lead submitted for campaigns that
+        live within this Ad Account, a webhook notification will be sent.
+
+
+        **Listen for lead notifications**
+
+
+        As leads flow into the user's ad account, LinkedIn will send your
+        webhook endpoint a notification for each lead. The notification body
+        will contain content as laid out in our documentation
+        [here.](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                webhook: https://www.example.com
+                owner:
+                  sponsoredAccount: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+                leadType: '{{leadtype_sponsored}}'
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /leadFormResponses/{lead_id}:
+    get:
+      tags:
+        - Use Cases > Sponsored
+      summary: 9. Fetch full lead data after a lead notification is received
+      description: >-
+        [Responses can be
+        fetched](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses)
+        for a single form response, multiple form responses, or at the form or
+        Ad Account level.
+
+
+        When a lead notification event is received, the form response id exists
+        in the lead notification
+        [content](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event).
+
+
+        This example pulls back data for a single form response (lead) by ID and
+        uses field projection to pull back specific fields in the request
+        response.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: null
+          in: query
+          schema:
+            type: string
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: >-
+            ownerInfo,associatedEntityInfo,leadMetadataInfo,owner,leadType,versionedLeadGenFormUrn,id,submittedAt,testLead,formResponse,form:(hiddenFields,creationLocale,name,id,content)
+        - name: lead_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Sun, 03 Sep 2023 00:56:45 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lor1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYEad4i/cczw/xzb6uK4Q==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693702605:t=1693784804:v=2:sig=AQF2lXKW3JuyKC8eiTiIfScGy1CoyI0Q"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693702605:t=1693784804:v=2:sig=AQF2lXKW3JuyKC8eiTiIfScGy1CoyI0Q"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                owner:
+                  sponsoredAccount: urn:li:sponsoredAccount:1234567
+                submitter: urn:li:person:BcLKblgopR
+                leadType: SPONSORED
+                leadMetadata:
+                  sponsoredLeadMetadata:
+                    campaign: urn:li:sponsoredCampaign:198356826
+                versionedLeadGenFormUrn: urn:li:versionedLeadGenForm:(urn:li:leadGenForm:7234246,1)
+                id: 249592fc-d272-44ba-a7db-c2bdce579507-6
+                submittedAt: 1689894599288
+                testLead: true
+                associatedEntity:
+                  associatedCreative: urn:li:sponsoredCreative:241257736
+                formResponse:
+                  consentResponses:
+                    - accepted: true
+                      consentId: 0
+                  answers:
+                    - answerDetails:
+                        textQuestionAnswer:
+                          answer: kevjohonson@email.com
+                      questionId: 307234246
+                    - answerDetails:
+                        textQuestionAnswer:
+                          answer: kjohonson@email.com
+                      questionId: 607234246
+                    - answerDetails:
+                        multipleChoiceAnswer:
+                          options:
+                            - 0
+                      questionId: 707234246
+                    - answerDetails:
+                        textQuestionAnswer:
+                          answer: Mexico
+                      questionId: 807234246
+                    - answerDetails:
+                        textQuestionAnswer:
+                          answer: Kevin
+                      questionId: 107234246
+                    - answerDetails:
+                        textQuestionAnswer:
+                          answer: Johonson
+                      questionId: 207234246
+                    - answerDetails:
+                        textQuestionAnswer:
+                          answer: Senior Engineer
+                      questionId: 407234246
+                    - answerDetails:
+                        textQuestionAnswer:
+                          answer: Ingeniería
+                      questionId: 507234246
+  /leadnotifications/<webhook id>:
+    delete:
+      tags:
+        - Use Cases > Sponsored
+      summary: '[PUSH] Delete a registered webhook by id'
+      description: >-
+        [Delete a lead notification
+        subsription](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#delete-lead-notification-url)
+
+
+        When an integration is deleted, the associated webhooks should also be
+        deleted to ensure that lead notifications are not unnecessarily being
+        sent.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /adAccounts:
+    get:
+      tags:
+        - Use Cases > Sponsored
+      summary: 2. Get the user's sponsored accounts (ad accounts)
+      description: >-
+        View [Search for
+        Accounts](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#search-for-accounts)
+        documentation for more information.
+
+
+        This API call pulls back Ad Accounts that the member has access to where
+        the status = ACTIVE and test = false (NOT a test Ad Account).
+
+
+        Learn more about Test Ad Accounts
+        [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#working-with-test-ad-accounts).
+
+
+        For testing purposes, if you wish to use this example api to pull back a
+        Test Ad Account, simply remove `test:false` from the search parameter.
+
+
+        ---
+
+
+        **3\. Allow the user to select an Ad Account**
+      parameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: search
+        - name: search
+          in: query
+          schema:
+            type: string
+          example: (status:(values:List(ACTIVE)),test:false)
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: id,name,test,referenceInfo
+        - name: count
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: start
+          in: query
+          schema:
+            type: integer
+          example: '0'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Sat, 02 Sep 2023 23:46:44 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lor1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYEaOPCVPCH8cztJX/9lw==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693698404:t=1693784804:v=2:sig=AQHu1AiyYtvva0ZoA063AajzXMZkjXiD"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693698404:t=1693784804:v=2:sig=AQHu1AiyYtvva0ZoA063AajzXMZkjXiD"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links: []
+                  total: 2
+                elements:
+                  - name: Ad Account A
+                    id: 1234567
+                    test: false
+                    referenceInfo:
+                      organization:
+                        name:
+                          localized:
+                            en_US: Highlander Cranberries LLC
+                          preferredLocale:
+                            country: US
+                            language: en
+                        vanityName: highlander-cranberries-llc
+                        localizedName: Highlander Cranberries LLC
+                        id: 11223344
+                  - name: New Ad Account B
+                    id: 5678910
+                    test: false
+                    referenceInfo:
+                      organization:
+                        name:
+                          localized:
+                            en_US: Highlander Cranberries LLC
+                          preferredLocale:
+                            country: US
+                            language: en
+                        vanityName: highlander-cranberries-llc
+                        localizedName: Highlander Cranberries LLC
+                        id: 11223344

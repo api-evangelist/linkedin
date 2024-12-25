@@ -1,0 +1,793 @@
+openapi: 3.0.0
+info:
+  title: Conversions API
+  description: >-
+    **See the** [Getting
+    Access](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/conversions/getting-access-conversions)
+    guide **on how to apply.**
+
+
+    [LinkedIn's Conversion
+    API](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/conversions-api)
+    is a conversion tracking tool that creates a direct connection between
+    marketing data from an advertiser’s server and LinkedIn. This API enables
+    advertisers to measure the performance of their LinkedIn marketing campaigns
+    no matter where the conversion happens and use this data to power campaign
+    optimization.
+
+
+    This collection aims to focus on the new Conversions API and should be used
+    with the **conversions-env-versioning** environment.
+
+
+    There are two conditions for successful calls: (1) Scope permissions to
+    `rw_conversions`, `r_ads` and (2) the user assigning permission holding one
+    of the following roles in the Ad Account.
+
+
+    Scope permissions for [3-legged
+    Oauth](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)
+
+
+    - `rw_conversions` (Read/Write)
+
+    - `r_ads` (Read)
+        
+
+    Ad Account Roles:
+
+
+    - `ACCOUNT_BILLING_ADMIN`
+
+    - `ACCOUNT_MANAGER`
+
+    - `CAMPAIGN_MANAGER`
+
+    - `CREATIVE_MANAGER`
+        
+
+    \--All requests for the Conversions collection are in the Restli 2.0
+    format--
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+security:
+  - oauth2Auth: []
+tags:
+  - name: Conversion Events Streaming Workflow
+    description: >-
+      1. Obtain user authorization with consent to create and manage conversions
+      using `rw_conversions`, `r_ads` permissions in the scope.
+
+      2. Retrieve authenticated user's sponsored Ad Accounts where user has a
+      non-viewer user role.
+
+      3. Ask the user to select one of their Ad Account where conversion events
+      would be streamed.
+
+      4. Fetch existing Conversion Rules for CAPI in the selected Ad Account
+
+      5. Allow the user to choose if they want to create a new Conversion Rule
+      or update an existing one
+
+      6. Create a new Conversion Rule (skip this step if the user chose to
+      update an existing Conversion Rule)
+
+      7. Fetch active campaign URNs to associate with conversion rule
+
+      8. Associate campaigns to conversion rule for campaign attribution and
+      optimization
+
+      9. Stream conversion event to the conversion rule
+          
+      10. Stream multiple conversion events to the conversion rule
+paths:
+  /adAccountUsers:
+    get:
+      tags:
+        - Conversion Events Streaming Workflow
+      summary: 2. Retrieve authenticated user's Sponsored Ad Accounts
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: authenticatedUser
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: role,account,user
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 1.0.0
+            Date:
+              schema:
+                type: string
+                example: Wed, 14 Jun 2023 18:36:33 GMT
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAX+GzsjqgSHmQZ8fFBRbA==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1682:x=1:i=1686767793:t=1686813748:v=2:sig=AQFd2BBoXo4jGhMI0VSlCcsx5Q-0dR64"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1682:x=1:i=1686767793:t=1686813748:v=2:sig=AQFd2BBoXo4jGhMI0VSlCcsx5Q-0dR64"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 2147483647
+                  links: []
+                  total: 3
+                elements:
+                  - user: urn:li:person:abcd
+                    account: urn:li:sponsoredAccount:5000123
+                    role: VIEWER
+                  - user: urn:li:person:abcd
+                    account: urn:li:sponsoredAccount:5000234
+                    role: ACCOUNT_BILLING_ADMIN
+                  - user: urn:li:person:abcd
+                    account: urn:li:sponsoredAccount:5000345
+                    role: ACCOUNT_BILLING_ADMIN
+  /conversions:
+    get:
+      tags:
+        - Conversion Events Streaming Workflow
+      summary: 4. Fetch existing Conversion Rules for CAPI in the selected ad account
+      description: >-
+        Fetch existing conversion rules in the selected ad account with this
+        endpoint and parse the response to filter elements with
+        `conversionMethod` to `CONVERSIONS_API` for streaming conversions
+        through API.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: account
+        - name: account
+          in: query
+          schema:
+            type: string
+          example: urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}}
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: conversionMethod,enabled,type,name,id,campaigns,attributionType
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Thu, 15 Jun 2023 08:51:41 GMT
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAX+Jy1X+zsm945WHNt5HQ==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1684:x=1:i=1686819101:t=1686883294:v=2:sig=AQG9PJifKDndXPzy7_WniIlif5-4vsdz"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1684:x=1:i=1686819101:t=1686883294:v=2:sig=AQG9PJifKDndXPzy7_WniIlif5-4vsdz"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links: []
+                  total: -1
+                elements:
+                  - name: Conversion API Segment 1
+                    conversionMethod: CONVERSIONS_API
+                    id: 1403456
+                    type: LEAD
+                    campaigns: []
+                    enabled: true
+                  - name: Conversion API Segment 4
+                    conversionMethod: CONVERSIONS_API
+                    id: 1103890
+                    type: LEAD
+                    campaigns:
+                      - urn:li:sponsoredCampaign:435
+                      - urn:li:sponsoredCampaign:675
+                      - urn:li:sponsoredCampaign:342
+                    enabled: true
+                  - name: Online Test
+                    conversionMethod: INSIGHT_TAG_URL_MATCH_RULES
+                    id: 10991460
+                    type: BOOK_APPOINTMENT
+                    campaigns:
+                      - urn:li:sponsoredCampaign:876786
+                      - urn:li:sponsoredCampaign:536478
+                    enabled: true
+                  - name: Demo requests
+                    conversionMethod: INSIGHT_TAG_JAVASCRIPT_EVENT
+                    id: 4886884
+                    type: REQUEST_QUOTE
+                    campaigns: []
+                    enabled: false
+    post:
+      tags:
+        - Conversion Events Streaming Workflow
+      summary: 6. Create a new Conversion Rule
+      description: "Create one or more conversion rules with this endpoint and set\_`conversionMethod`\_to\_`CONVERSIONS_API`\_for streaming conversions through API."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Conversion API Segment 5
+                account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+                conversionMethod: CONVERSIONS_API
+                postClickAttributionWindowSize: 90
+                viewThroughAttributionWindowSize: 30
+                attributionType: LAST_TOUCH_BY_CAMPAIGN
+                type: LEAD
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+      responses:
+        '201':
+          description: Created
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Location:
+              schema:
+                type: string
+                example: /conversions/14488340
+            x-restli-id:
+              schema:
+                type: integer
+                example: '14488340'
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Tue, 24 Oct 2023 02:47:51 GMT
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Report-To:
+              schema:
+                type: string
+                example: >-
+                  {"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}
+            NEL:
+              schema:
+                type: string
+                example: >-
+                  {"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYIbV1fUy9lNvosbDYsmQ==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115671:t=1698121131:v=2:sig=AQH9Ek4NjI_HRcW2-y6FXmJ_MnU6czll"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115671:t=1698121131:v=2:sig=AQH9Ek4NjI_HRcW2-y6FXmJ_MnU6czll"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                postClickAttributionWindowSize: 90
+                conversionMethod: CONVERSIONS_API
+                viewThroughAttributionWindowSize: 30
+                created: 1698115671440
+                type: LEAD
+                enabled: true
+                associatedCampaigns: []
+                campaigns: []
+                name: Conversion API Segment 5
+                id: 14488340
+                lastModified: 1698115671440
+                attributionType: LAST_TOUCH_BY_CAMPAIGN
+                urlRules: []
+                account: urn:li:sponsoredAccount:5012345
+  /adAccounts/{sponsoredaccount_id}/adCampaigns:
+    get:
+      tags:
+        - Conversion Events Streaming Workflow
+      summary: 7. Fetch active campaigns
+      description: >-
+        Fetch existing conversion rules in the selected ad account with this
+        endpoint and parse the response to filter elements with
+        `conversionMethod` to `CONVERSIONS_API` for streaming conversions
+        through API.
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: search
+        - name: search
+          in: query
+          schema:
+            type: string
+          example: (status:(values:List(ACTIVE,DRAFT)))
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: id,name
+        - name: sponsoredaccount_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Tue, 17 Oct 2023 01:50:46 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            Report-To:
+              schema:
+                type: string
+                example: >-
+                  {"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}
+            NEL:
+              schema:
+                type: string
+                example: >-
+                  {"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYH38BSGn+zS5gvrvSuEg==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697507446:t=1697509914:v=2:sig=AQG1F5DDw_-Cvyww_R4RWc8KPvLXx2sz"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697507446:t=1697509914:v=2:sig=AQG1F5DDw_-Cvyww_R4RWc8KPvLXx2sz"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                paging:
+                  start: 0
+                  count: 10
+                  links:
+                    - type: application/json
+                      rel: next
+                      href: >-
+                        /rest/adAccounts/5012345/adCampaigns?q=search&search=(status:(values:List(ACTIVE,DRAFT)))&start=10&count=10&fields=name,id
+                  total: 4
+                elements:
+                  - name: Website visits - May 4, 2021
+                    id: 12345
+                  - name: Brand awareness - Jul 14, 2022
+                    id: 14567
+                  - name: Lead generation - Dec 5, 2022
+                    id: 789090
+                  - name: Website conversions - Dec 6, 2022
+                    id: 899887
+  /campaignConversions/(campaign:urn:li:sponsoredCampaign:{campaign_id},conversion:urn:lla:llaPartnerConversion:{conversion_id}):
+    put:
+      tags:
+        - Conversion Events Streaming Workflow
+      summary: 8. Associate campaigns to conversion rule
+      description: "Create one or more conversion rules with this endpoint and set\_`conversionMethod`\_to\_`CONVERSIONS_API`\_for streaming conversions through API."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                campaign: urn:li:sponsoredCampaign:{{campaign_id}}
+                conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: campaign_id
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: conversion_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: No Content
+          headers:
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Tue, 17 Oct 2023 02:01:02 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            Report-To:
+              schema:
+                type: string
+                example: >-
+                  {"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}
+            NEL:
+              schema:
+                type: string
+                example: >-
+                  {"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYH3+UKX//t+2JU8QjBgg==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697508062:t=1697509914:v=2:sig=AQEuCMMAxhHSzyZlkupPJUKXiy1LEjWz"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697508062:t=1697509914:v=2:sig=AQEuCMMAxhHSzyZlkupPJUKXiy1LEjWz"
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: null
+  /conversionEvents:
+    post:
+      tags:
+        - Conversion Events Streaming Workflow
+      summary: 10. Stream multiple conversion events to the conversion rule
+      description: "Create one or more conversion rules with this endpoint and set\_`conversionMethod`\_to\_`CONVERSIONS_API`\_for streaming conversions through API."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                elements:
+                  - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+                    conversionHappenedAt: 1695739275000
+                    conversionValue:
+                      currencyCode: USD
+                      amount: '1500.0'
+                    user:
+                      userIds:
+                        - idType: SHA256_EMAIL
+                          idValue: >-
+                            bad8677b6c86f5d308ee82786c183482a5995f066694246c58c4df37b0cc41f1
+                        - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
+                          idValue: df5gf5-gh6t7-ph4j7h-fgf6n1
+                      userInfo:
+                        firstName: mike
+                        lastName: smith
+                        title: software engineer
+                        companyName: microsoft
+                        countryCode: US
+                    eventId: abc12345
+                  - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+                    conversionHappenedAt: 1695950057000
+                    conversionValue:
+                      currencyCode: USD
+                      amount: '2000.0'
+                    user:
+                      userIds:
+                        - idType: SHA256_EMAIL
+                          idValue: dsfgrtg56u767ujy982fgnbmcsdocl46c58c56b650cik230bb9
+                        - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
+                          idValue: ufh8h5-gh6t7-ph4j7h-mkl86n1
+                      userInfo:
+                        firstName: jason
+                        lastName: bourne
+                        title: tech lead
+                        companyName: linkedin
+                        countryCode: US
+                    eventId: xyz345
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          schema:
+            type: string
+          example: '{{insert_version}}'
+        - name: X-Restli-Protocol-Version
+          in: header
+          schema:
+            type: string
+          example: 2.0.0
+        - name: X-RestLi-Method
+          in: header
+          schema:
+            type: string
+          example: BATCH_CREATE
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            x-restli-protocol-version:
+              schema:
+                type: string
+                example: 2.0.0
+            Date:
+              schema:
+                type: string
+                example: Tue, 24 Oct 2023 02:51:55 GMT
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Report-To:
+              schema:
+                type: string
+                example: >-
+                  {"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}
+            NEL:
+              schema:
+                type: string
+                example: >-
+                  {"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAYIbWvmBmkoHhcx9SVCSA==
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115914:t=1698121131:v=2:sig=AQHzEIPucPFVAH_DkGU-T6ZaVmFk6Mxe"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: >-
+                  "b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115914:t=1698121131:v=2:sig=AQHzEIPucPFVAH_DkGU-T6ZaVmFk6Mxe"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                elements:
+                  - status: 201
+                  - status: 201
