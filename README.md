@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/api-search/social/main/_apis/linkedin/apis.md)
 ## Timestamps
 
 - **Created:** 2024/04/14 
-- **Modified:** 2025-01-01 
+- **Modified:** 2025-02-09 
 
 ## APIs
 
@@ -147,8 +147,18 @@ regulations.
 - [Documentation](https://learn.microsoft.com/en-us/linkedin/compliance/)
 - [Release Notes](https://learn.microsoft.com/en-us/linkedin/compliance/release-notes)
 - [OpenAPI](openapi/linkedin-compliance-events.yml)
-- [Postman Workspace](
-https://www.postman.com/linkedin-developer-apis/workspace/linkedin-compliance-solutions/overview)
+- [Postman Workspace](https://www.postman.com/linkedin-developer-apis/workspace/linkedin-compliance-solutions/overview)
+### LinkedIn Sales Navigator API
+LinkedIn Sales Navigator is a leading social selling tool that builds and nurtures customer relationships to lead to increased sales performance. By leveraging the power of LinkedIn's Sales Navigator, you can add exposure to sales leaders who are already engaged on LinkedIn and increase your product's engagement by integrating LinkedIn Sales Navigator seamlessly into your customers' workflow.
+
+**Human URL:** [https://learn.microsoft.com/en-us/linkedin/sales/](https://learn.microsoft.com/en-us/linkedin/sales/)
+
+
+
+#### Properties
+
+- [Documentation](https://learn.microsoft.com/en-us/linkedin/sales/)
+- [OpenAPI](properties/linkedin-sales-navigator-api-openapi.yml)
 
 ## Common Properties
 
@@ -161,8 +171,7 @@ https://learn.microsoft.com/en-us/linkedin/shared/api-guide/best-practices/overv
 https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts?context=linkedin/consumer/context)
 - [Errors](
 https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/error-handling?context=linkedin/consumer/context)
-- [Plugin](
-https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/plugins?context=linkedin/consumer/context)
+- [Plugin](https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/plugins?context=linkedin/consumer/context)
 - [Portal](lihttps://learn.microsoft.com/en-us/linkedin/nk)
 
 ## Maintainers
