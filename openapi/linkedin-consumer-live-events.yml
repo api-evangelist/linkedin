@@ -1,340 +1,486 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  title: LinkedIn Live Events
-  description: >-
-    Use the Live Events API to stream and manage Live Events with your LinkedIn
-    network.
+  title: LinkedIn Sales Navigator API
   version: 1.0.0
+  description: API for accessing LinkedIn Sales Navigator sales contracts.
 servers:
-  - url: http://{{baseurl}}
-components:
-  securitySchemes:
-    oauth2Auth:
-      type: http
-      scheme: oauth2
-security:
-  - oauth2Auth: []
-tags:
-  - name: Use Cases
-  - name: Use Cases > Member
-    description: >-
-      Go live to a LinkedIn member profile using [Live Video
-      APIs](https://docs.microsoft.com/en-us/linkedin/consumer/integrations/live-video/).
-  - name: Use Cases > Organization Page
-    description: >-
-      Go live to a LinkedIn organization page using [Live Video
-      APIs](https://docs.microsoft.com/en-us/linkedin/consumer/integrations/live-video/).
-  - name: Use Cases > Scheduled Live Events
-    description: >-
-      Use the [Scheduled Live
-      Events](https://docs.microsoft.com/en-us/linkedin/consumer/integrations/live-video/live-video-scheduled-live?context=linkedin/consumer/context)
-      feature to promote your event on and off LinkedIn.
-  - name: Use Cases > Scheduled Live Events > Member
-    description: >-
-      This flow outlines the APIs needed to schedule a live event to a member
-      profile.
-  - name: Use Cases > Scheduled Live Events > Organization
-    description: >-
-      This flow outlines the APIs needed to schedule a live event to an
-      organization page.
+  - url: https://api.linkedin.com/v2
 paths:
-  /v2/me:
+  /salesContracts:
     get:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /me
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /v2/contentAccess/(entity:(member:urn:li:person:{abcde}),featureType:LIVE_VIDEO):
-    get:
-      tags:
-        - Use Cases > Scheduled Live Events > Member
-      summary: /contentAccess
-      parameters:
-        - name: X-RestLi-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: abcde
-          in: path
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /v2/liveAssetActions:
-    post:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /liveAssetActions end
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                asset: urn:li:digitalmediaAsset:{{abcde12345}}
-      parameters:
-        - name: X-RestLi-Method
-          in: header
-          schema:
-            type: string
-          example: action
-        - name: X-RestLi-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: action
-          in: query
-          schema:
-            type: string
-          example: end
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /v2/assets/{abcde12345}:
-    get:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /assets?projection=(recipes) get
-      parameters:
-        - name: projection
-          in: query
-          schema:
-            type: string
-          example: (recipes)
-        - name: abcde12345
-          in: path
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /v2/ugcPosts:
-    post:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /ugcPosts
-      requestBody:
-        content:
-          '*/*':
-            schema:
-              type: string
-              example: >-
-                "{\n    \"author\": \"urn:li:organization:{{12345}}\",\n   
-                \"lifecycleState\": \"PUBLISHED\",\n    \"specificContent\":
-                {\n        \"com.linkedin.ugc.ShareContent\": {\n           
-                \"media\": [\n                {\n                    \"media\":
-                \"urn:li:liveVideo:{{123456789}}\",\n                   
-                \"status\": \"READY\"\n                }\n           
-                ],\n            \"shareCommentary\": {\n               
-                \"attributes\": [],\n                \"text\": \"Let's go live
-                on LinkedIn!\"\n            },\n           
-                \"shareMediaCategory\": \"URN_REFERENCE\"\n        }\n   
-                },\n    \"visibility\": {\n       
-                \"com.linkedin.ugc.MemberNetworkVisibility\": \"PUBLIC\"\n   
-                },\n    \"distribution\": {\n        \"feedDistribution\":
-                \"MAIN_FEED\",\n        \"externalDistributionChannels\":
-                [],\n        \"distributedViaFollowFeed\": true\n    }\n}'"
-      parameters:
-        - name: X-RestLi-Method
-          in: header
-          schema:
-            type: string
-          example: create
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-          example: application/json
-        - name: X-RestLi-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /v2/organizationAcls:
-    get:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /organizationAcls
+      summary: Find all contracts where user has an active seat.
+      operationId: contractsByMember
       parameters:
         - name: q
           in: query
-          schema:
-            type: string
-          example: roleAssignee
-        - name: projection
-          in: query
-          schema:
-            type: string
-          example: (elements*(organization~))
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /v2/contentAccess/(entity:(company:urn:li:organization:{12345}),admin:(member:urn:li:person:{abcde}),featureType:LIVE_VIDEO):
-    get:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /contentAccess
-      parameters:
-        - name: X-RestLi-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: '12345'
-          in: path
-          schema:
-            type: string
           required: true
-        - name: abcde
-          in: path
           schema:
             type: string
-          required: true
+            enum:
+              - contractsByMember
+          description: Query parameter to fetch contracts for the member.
       responses:
         '200':
-          description: Successful response
+          description: A list of sales contracts.
           content:
-            application/json: {}
-  /v2/liveVideos:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractsResponse'
+      security:
+        - bearerAuth: []
+  /salesAnalyticsExportJobs/{jobId}:
     get:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /liveVideos?q=author
+      summary: Fetch the SalesAnalyticsExportJob object by job ID.
+      operationId: getSalesAnalyticsExportJob
       parameters:
-        - name: X-RestLi-Protocol-Version
-          in: header
+        - name: jobId
+          in: path
+          required: true
           schema:
-            type: string
-          example: 2.0.0
-        - name: q
+            type: integer
+          description: The ID of the export job.
+        - name: contract
           in: query
+          required: true
           schema:
             type: string
-          example: author
-        - name: author
-          in: query
-          schema:
-            type: string
-          example: urn%3Ali%3Aorganization%3A{{12345}}
+          description: Sales Navigator contract URN.
       responses:
         '200':
-          description: Successful response
+          description: Details of the export job.
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesAnalyticsExportJob'
+      security:
+        - bearerAuth: []
+  /salesAnalyticsExportJobs:
     post:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /liveVideos
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                author:
-                  organization: urn:li:organization:{{12345}}
-                scheduledAt: 1591892529000
-                announcementImage:
-                  media: urn:li:digitalmediaAsset:{{C5F22AQEUvl4IOBjE2g}}
-                  title:
-                    text: Image Title
-                    inferredLocale: en_US
-                name: Scheduled Live Event Title
+      summary: Create a new Sales Analytics Export Job.
+      operationId: createSalesAnalyticsExportJob
       parameters:
-        - name: X-RestLi-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /v2/assets:
-    post:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /assets (optional announcement image)
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                registerUploadRequest:
-                  recipes:
-                    - urn:li:digitalmediaRecipe:video-liveannouncement-image
-                  owner: urn:li:person:{{abcde}}
-                  serviceRelationships:
-                    - relationshipType: OWNER
-                      identifier: urn:li:userGeneratedContent
-      parameters:
-        - name: X-RestLi-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
         - name: action
           in: query
+          required: true
           schema:
             type: string
-          example: registerUpload
+            enum:
+              - exportSeatData
+              - exportActivityOutcomeData
+              - exportActivityData
+          description: The type of export job to create.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesAnalyticsExportJobRequest'
       responses:
         '200':
-          description: Successful response
+          description: Export job successfully created.
           content:
-            application/json: {}
-  /v2/liveVideos/{123456789}:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesAnalyticsExportJobResponse'
+      security:
+        - bearerAuth: []
+  /salesAccessTokens:
+    get:
+      summary: Retrieve a Sales Access Token for authenticated iframe sessions.
+      operationId: getSalesAccessToken
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - viewerAndDeveloperApp
+          description: Query parameter for retrieving a Sales Access Token.
+      responses:
+        '200':
+          description: A list of Sales Access Tokens.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesAccessTokenResponse'
+      security:
+        - bearerAuth: []
+  /salesNavigatorProfileAssociations/{instanceId},{partner},{recordId}:
+    get:
+      summary: >-
+        Fetches the corresponding match when provided with a
+        SalesNavigatorProfileAssociationKey.
+      parameters:
+        - name: instanceId
+          in: path
+          required: true
+          description: ID of the CRM instance that synced with Sales Navigator
+          schema:
+            type: string
+        - name: partner
+          in: path
+          required: true
+          description: ID of the CRM partner that synced with Sales Navigator
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          required: true
+          description: ID of the CRM record
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved Sales Navigator Profile Association
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesNavigatorProfileAssociation'
+        '400':
+          description: Bad request, missing parameter
+        '401':
+          description: Unauthorized, invalid token
+        '403':
+          description: Insufficient application access
+        '404':
+          description: Match unavailable
+        '429':
+          description: Too many requests
+        '500':
+          description: Unhandled service error
+  /salesNavigatorProfileAssociations:
+    get:
+      summary: >-
+        Batch fetches matches when provided with multiple
+        SalesNavigatorProfileAssociationKeys.
+      parameters:
+        - name: ids
+          in: query
+          required: true
+          description: >-
+            List of association keys in the format
+            List((instanceId,partner,recordId))
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved batch Sales Navigator Profile Associations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statuses:
+                    type: object
+                  results:
+                    type: object
+                    additionalProperties:
+                      $ref: '#/components/schemas/SalesNavigatorProfileAssociation'
+                  errors:
+                    type: object
+        '400':
+          description: Bad request, missing parameter
+        '401':
+          description: Unauthorized, invalid token
+        '403':
+          description: Insufficient application access
+        '404':
+          description: Match unavailable
+        '429':
+          description: Too many requests
+        '500':
+          description: Unhandled service error
+  /crmDataValidationExportJobs:
     post:
-      tags:
-        - Use Cases > Scheduled Live Events > Organization
-      summary: /liveVideos
+      summary: Create a CRM Data Validation Export Job
+      operationId: createCrmDataValidationExportJob
+      parameters:
+        - name: crmInstanceId
+          in: query
+          required: true
+          description: >-
+            An URN containing the instance ID of the CRM to execute against. The
+            URN must be URL encoded.
+          schema:
+            type: string
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
-              example:
-                patch:
-                  $set:
-                    liveVideoAsset:
-                      media: urn:li:digitalmediaAsset:{{abcde12345}}
+              properties:
+                exportStartAt:
+                  type: integer
+                  format: int64
+                  description: Time at which export was started.
+      responses:
+        '201':
+          description: Export job created successfully.
+          headers:
+            Location:
+              description: Resource location of created job.
+              schema:
+                type: string
+            X-RestLi-Id:
+              description: Job ID.
+              schema:
+                type: integer
+                format: int64
+        '400':
+          description: Bad request, missing or invalid parameter.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden, insufficient access.
+        '500':
+          description: Internal server error.
+  /crmDataValidationExportJobs/{jobId}:
+    get:
+      summary: Get CRM Data Validation Export Job Status
+      operationId: getCrmDataValidationExportJob
       parameters:
-        - name: X-RestLi-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: '123456789'
+        - name: jobId
           in: path
+          required: true
+          description: The ID of the export job.
+          schema:
+            type: integer
+            format: int64
+        - name: crmInstanceId
+          in: query
+          required: true
+          description: >-
+            An URN containing the instance ID of the CRM. The URN must be URL
+            encoded.
           schema:
             type: string
-          required: true
       responses:
         '200':
-          description: Successful response
+          description: Export job status returned successfully.
           content:
-            application/json: {}
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    type: integer
+                    format: int64
+                  exportStartAt:
+                    type: integer
+                    format: int64
+                  exportEndAt:
+                    type: integer
+                    format: int64
+                    nullable: true
+                  status:
+                    type: string
+                    enum:
+                      - PROCESSING
+                      - COMPLETED
+                      - FAILED_DUE_TO_INTERNAL_ERROR
+                  downloadUrls:
+                    type: array
+                    items:
+                      type: string
+                    nullable: true
+                  nextExportStartAt:
+                    type: integer
+                    format: int64
+                    nullable: true
+                  expireAt:
+                    type: integer
+                    format: int64
+                    nullable: true
+        '400':
+          description: Bad request, missing or invalid parameter.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden, insufficient access.
+        '404':
+          description: Job ID not found.
+        '500':
+          description: Internal server error.
+components:
+  schemas:
+    ContractsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contract'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Contract:
+      type: object
+      properties:
+        contract:
+          type: string
+          description: The urn of this Sales Navigator contract
+        name:
+          type: string
+          description: The name of this contract, appropriate for display to an end-user
+        description:
+          type: string
+          description: A description providing additional information about the contract
+          nullable: true
+        hasReportingAccess:
+          type: boolean
+          description: Indicates whether the user can export data for this contract
+      required:
+        - contract
+        - name
+        - hasReportingAccess
+    SalesAccessTokenResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesAccessToken'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    SalesAccessToken:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Short-lived, limited-scope OAuth token.
+        expiryTime:
+          type: integer
+          description: Time at which this token will become invalid (seconds since epoch).
+      required:
+        - token
+        - expiryTime
+    Paging:
+      type: object
+      properties:
+        count:
+          type: integer
+        start:
+          type: integer
+        links:
+          type: array
+          items:
+            type: string
+    SalesAnalyticsExportJob:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: A unique identifier for the job.
+        status:
+          type: string
+          enum:
+            - ENQUEUED
+            - PROCESSING
+            - COMPLETED
+            - FAILED_DUE_TO_EXCEEDED_FILE_SIZE_ERROR
+            - FAILED_DUE_TO_TIMED_OUT
+            - FAILED_DUE_TO_DATA_DELAY
+            - FAILED_DUE_TO_INTERNAL_ERROR
+          description: Current status of the export job.
+        downloadUrl:
+          type: string
+          nullable: true
+          description: URL for downloading the exported data when the job is completed.
+        expireAt:
+          type: integer
+          nullable: true
+          description: Expiration timestamp of the download URL.
+        rowCount:
+          type: integer
+          nullable: true
+          description: Number of rows in the exported data.
+      required:
+        - id
+        - status
+    SalesAnalyticsExportJobRequest:
+      type: object
+      properties:
+        contract:
+          type: string
+          description: Sales Navigator contract URN.
+        startAt:
+          type: integer
+          description: Start date of the exported data (milliseconds since epoch).
+        endAt:
+          type: integer
+          description: End date of the exported data (milliseconds since epoch).
+      required:
+        - contract
+        - startAt
+        - endAt
+    SalesAnalyticsExportJobResponse:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/SalesAnalyticsExportJob'
+    SalesNavigatorProfileAssociation:
+      type: object
+      properties:
+        member:
+          type: string
+          description: LinkedIn Person URN
+        profile:
+          type: string
+          format: url
+          description: Absolute URL of the Sales Navigator profile
+        profilePhoto:
+          type: string
+          format: url
+          description: Absolute URL of the LinkedIn profile photo (optional)
+    SalesNavigatorProfileAssociationKey:
+      type: object
+      properties:
+        partner:
+          type: string
+          description: ID of the CRM partner that synced with Sales Navigator
+        instanceId:
+          type: string
+          description: ID of the CRM instance that synced with Sales Navigator
+        recordId:
+          type: string
+          description: ID of the CRM record
+    CrmDataValidationExportJob:
+      type: object
+      properties:
+        jobId:
+          type: integer
+          format: int64
+          description: Export job ID.
+        exportStartAt:
+          type: integer
+          format: int64
+          description: Start time of the export.
+        exportEndAt:
+          type: integer
+          format: int64
+          nullable: true
+          description: End time of the export.
+        status:
+          type: string
+          enum:
+            - PROCESSING
+            - COMPLETED
+            - FAILED_DUE_TO_INTERNAL_ERROR
+        downloadUrls:
+          type: array
+          items:
+            type: string
+          nullable: true
+        nextExportStartAt:
+          type: integer
+          format: int64
+          nullable: true
+        expireAt:
+          type: integer
+          format: int64
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
