@@ -1,167 +1,468 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  title: Compliance Events
+  title: LinkedIn Compliance Events API
   description: >-
-    We are making updates to our collections. If you run into any issues pulling
-    the latest changes, simply fork the collection again.
-
-
-    LinkedIn provides Compliance API Guides for all monitoring, archiving, and
-    management of communications for enterprises in regulated industries. The
-    APIs will help your social interactions remain effective while ensuring
-    compliance with corporate governance policies and major regulations.
-
-
+    LinkedIn provides Compliance API Guides for monitoring, archiving, and
+    management of communications for enterprises in regulated industries.
     The Compliance Events API allows applications to archive all LinkedIn
-    activities from the past 30 days of a regulated, authenticated member. It
-    returns each monitored activity as an individual event record to provide
-    ease of archive and remediation if necessary.
-
-
-    All the variables used in this collection are defined in the `Compliance
-    Events` environment.
-
-
-    To know more, please refer
-    [here](https://docs.microsoft.com/en-us/linkedin/compliance/).
+    activities from the past 30 days of a regulated, authenticated member.
   version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
 servers:
   - url: https://api.linkedin.com
+    description: LinkedIn Production API Server
 components:
   securitySchemes:
-    oauth2Auth:
-      type: http
-      scheme: oauth2
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data
+  schemas:
+    ComplianceAuthorization:
+      type: object
+      properties:
+        developerApplication:
+          type: string
+          description: URN of the developer application
+          example: "urn:li:developerApplication:12345678"
+        member:
+          type: string
+          description: URN of the regulated member
+          example: "urn:li:person:ABC123def"
+        status:
+          type: string
+          enum:
+            - AUTHORIZED
+            - UNAUTHORIZED
+          description: Authorization status of the member
+          example: "AUTHORIZED"
+        createdAt:
+          type: integer
+          format: int64
+          description: Timestamp when authorization was created
+          example: 1640000000000
+      required:
+        - developerApplication
+        - member
+        - status
+    ComplianceAuthorizationRequest:
+      type: object
+      properties:
+        member:
+          type: string
+          description: URN of the member to regulate
+          example: "urn:li:person:ABC123def"
+      required:
+        - member
+    ComplianceAuthorizationResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceAuthorization'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ComplianceEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the compliance event
+          example: "evt_123456789"
+        capturedAt:
+          type: integer
+          format: int64
+          description: Timestamp when the event was captured
+          example: 1640000000000
+        processedAt:
+          type: integer
+          format: int64
+          description: Timestamp when the event was processed
+          example: 1640000001000
+        configVersion:
+          type: string
+          description: Configuration version
+          example: "1.0"
+        owner:
+          $ref: '#/components/schemas/MemberProfile'
+        actor:
+          $ref: '#/components/schemas/MemberProfile'
+        resourceName:
+          type: string
+          description: Name of the resource
+          example: "MESSAGE"
+        resourceId:
+          type: string
+          description: Identifier of the resource
+          example: "res_987654321"
+        resourceUri:
+          type: string
+          description: URI of the resource
+          example: "urn:li:message:987654321"
+        method:
+          type: string
+          enum:
+            - CREATE
+            - UPDATE
+            - DELETE
+          description: Action method performed
+          example: "CREATE"
+        activity:
+          type: object
+          description: Activity details
+          additionalProperties: true
+        processedActivity:
+          type: object
+          description: Processed activity details
+          additionalProperties: true
+        siblingActivities:
+          type: array
+          items:
+            type: object
+          description: Related sibling activities
+        parentActivity:
+          type: object
+          description: Parent activity if applicable
+          additionalProperties: true
+        parentSiblingActivities:
+          type: array
+          items:
+            type: object
+          description: Parent sibling activities
+      required:
+        - id
+        - capturedAt
+        - resourceName
+        - method
+    ComplianceEventsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceEvent'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    MemberProfile:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the member
+          example: "John"
+        lastName:
+          type: string
+          description: Last name of the member
+          example: "Doe"
+        headline:
+          type: string
+          description: Professional headline
+          example: "Software Engineer at Tech Corp"
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of elements returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of elements available
+          example: 100
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: "next"
+        href:
+          type: string
+          example: "/v2/complianceEvents?start=10&count=10"
+        type:
+          type: string
+          example: "application/json"
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: "Invalid request parameters"
+        code:
+          type: string
+          description: Error code
+          example: "INVALID_PARAMS"
+  examples:
+    ComplianceAuthorizationOptInExample:
+      summary: Opt-in member for compliance monitoring
+      value:
+        member: "urn:li:person:ABC123def"
+    ComplianceAuthorizationResponseExample:
+      summary: Successful authorization response
+      value:
+        elements:
+          - developerApplication: "urn:li:developerApplication:12345678"
+            member: "urn:li:person:ABC123def"
+            status: "AUTHORIZED"
+            createdAt: 1640000000000
+        paging:
+          start: 0
+          count: 10
+          total: 1
+          links: []
+    ComplianceEventsResponseExample:
+      summary: Compliance events response
+      value:
+        elements:
+          - id: "evt_123456789"
+            capturedAt: 1640000000000
+            processedAt: 1640000001000
+            configVersion: "1.0"
+            owner:
+              firstName: "John"
+              lastName: "Doe"
+              headline: "Software Engineer at Tech Corp"
+            actor:
+              firstName: "Jane"
+              lastName: "Smith"
+              headline: "Product Manager at Innovation Inc"
+            resourceName: "MESSAGE"
+            resourceId: "res_987654321"
+            resourceUri: "urn:li:message:987654321"
+            method: "CREATE"
+            activity: {}
+            processedActivity: {}
+            siblingActivities: []
+        paging:
+          start: 0
+          count: 10
+          total: 25
+          links:
+            - rel: "next"
+              href: "/v2/complianceEvents?start=10&count=10"
+              type: "application/json"
 security:
-  - oauth2Auth: []
+  - OAuth2Auth:
+      - r_compliance
 tags:
-  - name: Use Cases
-  - name: Use Cases > Compliance Authorization
-    description: >-
-      This folder contains APIs to opt-in and opt-out a member to be regulated
-      on LinkedIn.
-
-
-      To know more, please refer
-      [here](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#compliance-authorization).
-  - name: Use Cases > Compliance Events
-    description: >-
-      This folder contains API to retrieve compliance events for a regulated
-      member.
-
-
-      To know more, please refer
-      [here](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#compliance-events).
+  - name: Compliance Authorization
+    description: APIs to opt-in and opt-out members for compliance monitoring on LinkedIn
+  - name: Compliance Events
+    description: APIs to retrieve compliance events for regulated members
 paths:
   /v2/memberComplianceAuthorizations:
     post:
       tags:
-        - Use Cases > Compliance Authorization
-      summary: Opt in a member to be regulated
+        - Compliance Authorization
+      summary: Opt In Member For Compliance Monitoring
+      description: >-
+        Opt in a member to be regulated on LinkedIn for compliance monitoring.
+        Once authorized, the member's activities can be retrieved using the
+        Compliance Events API.
+      operationId: optInMemberForCompliance
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              type: object
-              example: {}
+              $ref: '#/components/schemas/ComplianceAuthorizationRequest'
+            examples:
+              OptInRequest:
+                $ref: '#/components/examples/ComplianceAuthorizationOptInExample'
       responses:
         '200':
-          description: Successful response
+          description: Member successfully opted in for compliance monitoring
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceAuthorization'
+              examples:
+                SuccessResponse:
+                  value:
+                    developerApplication: "urn:li:developerApplication:12345678"
+                    member: "urn:li:person:ABC123def"
+                    status: "AUTHORIZED"
+                    createdAt: 1640000000000
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     get:
       tags:
-        - Use Cases > Compliance Authorization
-      summary: Check a member's regulation status
+        - Compliance Authorization
+      summary: Check Member Regulation Status
+      description: >-
+        Check if a member is currently opted in for compliance monitoring.
+      operationId: checkMemberRegulationStatus
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
       parameters:
         - name: q
           in: query
+          required: true
           schema:
             type: string
+            enum:
+              - member
+          description: Query type for member lookup
           example: member
       responses:
         '200':
-          description: Successful response
+          description: Successfully retrieved member compliance authorization status
           content:
-            application/json: {}
-  /v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{developer_application_id}&member=urn:li:person:{person_id}:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceAuthorizationResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ComplianceAuthorizationResponseExample'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{DeveloperApplicationId}&member=urn:li:person:{PersonId}:
     delete:
       tags:
-        - Use Cases > Compliance Authorization
-      summary: Opt out a member from being regulated
+        - Compliance Authorization
+      summary: Opt Out Member From Compliance Monitoring
       description: >-
-        Opt out a member from being regulated on LinkedIn.
-
-
-        **Note:** A member will not opt out of Compliance authorization due to
-        access token expiration. The only ways an opt out can happen are:
-
-        * Application invokes the DELETE API mentioned above
-
-        * The regulated member removes the application's authorization through
-        LinkedIn's Privacy Setting page. This can be found under the [Third
-        Parties section](https://www.linkedin.com/psettings/permitted-services).
-
-
-
-        To know more, please
-        [refer](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#sample-get-response).
+        Opt out a member from being regulated on LinkedIn. A member will not
+        opt out due to access token expiration. Opt out occurs when the
+        application invokes this DELETE API or the member removes authorization
+        through LinkedIn's Privacy Settings.
+      operationId: optOutMemberFromCompliance
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
       parameters:
-        - name: developer_application_id
+        - name: DeveloperApplicationId
           in: path
+          required: true
           schema:
             type: string
-          required: true
-        - name: person_id
+          description: Developer application ID
+          example: "12345678"
+        - name: PersonId
           in: path
+          required: true
           schema:
             type: string
-          required: true
+          description: Person ID of the member
+          example: "ABC123def"
       responses:
-        '200':
-          description: Successful response
+        '204':
+          description: Member successfully opted out from compliance monitoring
+        '401':
+          description: Unauthorized
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Authorization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /v2/complianceEvents:
     get:
       tags:
-        - Use Cases > Compliance Events
-      summary: Retrieve compliance events for a regulated member
+        - Compliance Events
+      summary: Retrieve Compliance Events For Regulated Member
       description: >-
-        Once the member has authorized to be regulated, the compliance events
-        for the member can be retrieved using the `/v2/complianceEvents` API. 
-
-
-        To know more on the response schema, refer
-        [here](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#compliance-events-schema).
-
-
-        To know more, please refer
-        [here](https://docs.microsoft.com/en-us/linkedin/compliance/integrations/compliance-events/?context=linkedin/compliance/context#compliance-events).
+        Retrieve compliance events for a regulated member. Returns monitored
+        activities as individual event records for archiving and remediation.
+      operationId: getComplianceEvents
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
       parameters:
         - name: q
           in: query
+          required: true
           schema:
             type: string
+            enum:
+              - memberAndApplication
+          description: Query type
           example: memberAndApplication
         - name: projection
           in: query
+          required: false
           schema:
             type: string
-          example: >-
-            (elements*(id,capturedAt,processedAt,configVersion,owner~(firstName,lastName,headline),actor~(firstName,lastName,headline),resourceName,resourceid,resourceUri,method,activity,processedActivity,siblingActivities,parentActivity,parentSiblingActivities),paging)
+          description: Fields to include in the response
+          example: "(elements*(id,capturedAt,processedAt,configVersion,owner~(firstName,lastName,headline),actor~(firstName,lastName,headline),resourceName,resourceId,resourceUri,method,activity,processedActivity,siblingActivities,parentActivity,parentSiblingActivities),paging)"
         - name: startTime
           in: query
-          schema:
-            type: string
-          example: '{{start_time_in_ms}}'
-        - name: count
-          in: query
+          required: false
           schema:
             type: integer
-          example: '10'
+            format: int64
+          description: Start time in milliseconds since epoch
+          example: 1640000000000
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+          description: Number of events to retrieve
+          example: 10
       responses:
         '200':
-          description: Successful response
+          description: Successfully retrieved compliance events
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceEventsResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ComplianceEventsResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

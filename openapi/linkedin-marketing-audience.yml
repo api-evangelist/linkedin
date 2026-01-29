@@ -1,564 +1,838 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  title: Audiences
+  title: LinkedIn Marketing Audiences API
   description: >-
-    This collection aims to focus on different Audiences use cases and should be
-    used with the **audiences-env-versioning** environment.
-
-
-    \--All requests for the Audiences API collection are in the Restli 2.0
-    format--
-
-
-    AuthorizationOAuth 2.0
+    LinkedIn Audiences API enables combining LinkedIn's data with your own data
+    to reach the right audiences on LinkedIn. This includes streaming companies
+    for account targeting, streaming users for contact targeting, and CSV list
+    uploads for both account and contact targeting.
   version: 1.0.0
+  contact:
+    name: LinkedIn Marketing API Support
+    url: https://docs.microsoft.com/en-us/linkedin/marketing/
 servers:
-  - url: http://{{baseurl}}
+  - url: https://api.linkedin.com/rest
+    description: LinkedIn REST API Server
 components:
   securitySchemes:
-    oauth2Auth:
-      type: http
-      scheme: oauth2
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            rw_ads: Read and write advertising data
+  schemas:
+    AdAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the ad account
+          example: 123456
+        name:
+          type: string
+          description: Display name of the ad account
+          example: "Test ad account"
+        reference:
+          type: string
+          description: Reference URN (organization) for the ad account
+          example: "urn:li:organization:11223344"
+        test:
+          type: boolean
+          description: Whether this is a test ad account
+          example: false
+      required:
+        - id
+        - name
+        - test
+    AdAccountsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdAccount'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    DmpSegment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the DMP segment
+          example: 987654321
+        name:
+          type: string
+          description: Display name of the segment
+          example: "DMP segment for CSV uploads"
+        account:
+          type: string
+          description: URN of the sponsore account
+          example: "urn:li:sponsoredAccount:123456"
+        accessPolicy:
+          type: string
+          enum:
+            - PRIVATE
+            - PUBLIC
+          description: Access policy for the segment
+          example: "PRIVATE"
+        type:
+          type: string
+          enum:
+            - COMPANY_LIST_UPLOAD
+            - USER_LIST_UPLOAD
+            - COMPANY_STREAMING
+            - USER_STREAMING
+          description: Type of DMP segment
+          example: "COMPANY_LIST_UPLOAD"
+        sourcePlatform:
+          type: string
+          enum:
+            - LIST_UPLOAD
+            - STREAMING
+          description: Source platform for the segment data
+          example: "LIST_UPLOAD"
+        status:
+          type: string
+          enum:
+            - PROCESSING
+            - READY
+            - EXPIRED
+            - FAILED
+          description: Current status of the segment
+          example: "READY"
+        matchedCount:
+          type: integer
+          description: Number of matched records
+          example: 5000
+        inputCount:
+          type: integer
+          description: Total number of input records
+          example: 6000
+        audienceSize:
+          type: integer
+          description: Size of the audience
+          example: 4500
+        destinations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentDestination'
+      required:
+        - name
+        - account
+        - type
+        - sourcePlatform
+    SegmentDestination:
+      type: object
+      properties:
+        destination:
+          type: string
+          enum:
+            - LINKEDIN
+          description: Destination platform
+          example: "LINKEDIN"
+    DmpSegmentCreateRequest:
+      type: object
+      properties:
+        accessPolicy:
+          type: string
+          enum:
+            - PRIVATE
+            - PUBLIC
+          description: Access policy for the segment
+          example: "PRIVATE"
+        account:
+          type: string
+          description: URN of the sponsored account
+          example: "urn:li:sponsoredAccount:123456"
+        destinations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentDestination'
+        name:
+          type: string
+          description: Display name for the segment
+          example: "DMP segment for CSV uploads"
+        sourcePlatform:
+          type: string
+          enum:
+            - LIST_UPLOAD
+            - STREAMING
+          description: Source platform
+          example: "LIST_UPLOAD"
+        type:
+          type: string
+          enum:
+            - COMPANY_LIST_UPLOAD
+            - USER_LIST_UPLOAD
+            - COMPANY_STREAMING
+            - USER_STREAMING
+          description: Type of segment
+          example: "COMPANY_LIST_UPLOAD"
+      required:
+        - accessPolicy
+        - account
+        - destinations
+        - name
+        - sourcePlatform
+        - type
+    DmpSegmentsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/DmpSegment'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    CompanyStreamRequest:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyStreamElement'
+      required:
+        - elements
+    CompanyStreamElement:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+            - ADD
+            - REMOVE
+          description: Action to perform
+          example: "ADD"
+        companyName:
+          type: string
+          description: Company name to add or remove
+          example: "LinkedIn"
+        companyDomain:
+          type: string
+          description: Company domain (optional)
+          example: "linkedin.com"
+        companyPageUrl:
+          type: string
+          description: Company LinkedIn page URL (optional)
+          example: "https://www.linkedin.com/company/linkedin"
+      required:
+        - action
+        - companyName
+    UserStreamRequest:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserStreamElement'
+      required:
+        - elements
+    UserStreamElement:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+            - ADD
+            - REMOVE
+          description: Action to perform
+          example: "ADD"
+        userIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserId'
+      required:
+        - action
+        - userIds
+    UserId:
+      type: object
+      properties:
+        idType:
+          type: string
+          enum:
+            - SHA256_EMAIL
+            - GOOGLE_AID
+            - APPLE_IDFA
+          description: Type of user identifier
+          example: "SHA256_EMAIL"
+        idValue:
+          type: string
+          description: Hashed or identifier value
+          example: "6b56c85c1ce461e7ef77e3a52f13a6bc09feb93a04ce0670f9909e8ffde01f3a"
+      required:
+        - idType
+        - idValue
+    StreamResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamResultElement'
+    StreamResultElement:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code for this element
+          example: 201
+    ListUploadRequest:
+      type: object
+      properties:
+        inputFile:
+          type: string
+          description: Media URN of the uploaded file
+          example: "urn:li:digitalmediaAsset:C5605AQH2..."
+      required:
+        - inputFile
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of results returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of results
+          example: 2
+        links:
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: "Invalid request parameters"
+        code:
+          type: string
+          description: Error code
+          example: "INVALID_PARAMS"
+  examples:
+    AdAccountsResponseExample:
+      summary: List of ad accounts
+      value:
+        paging:
+          start: 0
+          count: 10
+          total: 2
+          links: []
+        elements:
+          - name: "Test ad account"
+            reference: "urn:li:organization:11223344"
+            id: 123456
+            test: false
+          - name: "MDO ad account"
+            reference: "urn:li:organization:2355689"
+            id: 456789
+            test: false
+    DmpSegmentCreateRequestExample:
+      summary: Create list upload DMP segment
+      value:
+        accessPolicy: "PRIVATE"
+        account: "urn:li:sponsoredAccount:123456"
+        destinations:
+          - destination: "LINKEDIN"
+        name: "DMP segment for CSV uploads"
+        sourcePlatform: "LIST_UPLOAD"
+        type: "COMPANY_LIST_UPLOAD"
+    CompanyStreamRequestExample:
+      summary: Add multiple companies to segment
+      value:
+        elements:
+          - action: "ADD"
+            companyName: "LinkedIn"
+          - action: "ADD"
+            companyName: "Microsoft"
+    UserStreamRequestExample:
+      summary: Add multiple users to segment
+      value:
+        elements:
+          - action: "ADD"
+            userIds:
+              - idType: "SHA256_EMAIL"
+                idValue: "6b56c85c1ce461e7ef77e3a52f13a6bc09feb93a04ce0670f9909e8ffde01f3a"
+          - action: "ADD"
+            userIds:
+              - idType: "SHA256_EMAIL"
+                idValue: "0100c74de9670c6bf2882502a486ec9e9d259fd090f19895974bae7efdc87913"
+          - action: "ADD"
+            userIds:
+              - idType: "SHA256_EMAIL"
+                idValue: "89147c81369d80ff259ed23a7d6949f2ce34b5e62619d7e00e880db0495bbed0"
+          - action: "ADD"
+            userIds:
+              - idType: "SHA256_EMAIL"
+                idValue: "4f123dc421f679369532452374c003dd9e825273e9929bd61060a65cd8587bb3"
+    StreamResponseExample:
+      summary: Successful stream response
+      value:
+        elements:
+          - status: 201
+          - status: 201
+          - status: 201
+          - status: 201
+    ListUploadRequestExample:
+      summary: Attach uploaded list to segment
+      value:
+        inputFile: "urn:li:digitalmediaAsset:C5605AQH2..."
 security:
-  - oauth2Auth: []
+  - OAuth2Auth:
+      - rw_ads
 tags:
-  - name: Use Cases
-    description: >-
-      LinkedIn Audiences is a set of targeting capabilities to combine
-      LinkedIn’s data with your own data to reach the right audiences on
-      LinkedIn.
-  - name: Use Cases > Streaming Companies - Account Targeting
-    description: >-
-      1.  Obtain user authorization to create and manage audiences.
-
-      2.  Retrieve the user's Ad Accounts (sponsored accounts)
-
-      3.  Ask the user to select the Ad Account where the audience should be
-      created or dynamically updated
-
-      4.  Fetch existing Audiences for the chosen Ad Account
-
-      5.  Allow the user to choose if they want to create a new Audience or
-      update an existing one
-
-      6.  Create a Company DMP segment (skip this step if the user chose to
-      update an existing Audience)
-
-      7.  Stream company data - add or remove multiple companies
-
-      8.  Monitor Status of the Company DMP segments and display match rate,
-      audience size, and segment status to the user
-  - name: Use Cases > Streaming Users - Contact Targeting
-    description: >-
-      1.  Obtain user authorization to create and manage audiences
-
-      2.  Retrieve the user's Ad Accounts (sponsored accounts)
-
-      3.  Ask the user to select the Ad Account where the audience should be
-      created or dynamically updated
-
-      4.  Fetch existing Audiences for the chosen Ad Account
-
-      5.  Allow the user to choose if they want to create a new Audience or
-      update an existing one
-
-      6.  Create a User DMP segment (skip this step if the user chose to update
-      an existing Audience)
-
-      7.  Stream User data - add or remove multiple users
-
-      8.  Monitor Status of the User DMP segments and display match rate,
-      audience size, and segment status to the user
-  - name: Use Cases > CSV list upload - Account & Contact Targeting
-    description: >-
-      1.  Obtain user authorization to create and manage audiences
-
-      2.  Retrieve the user's Ad Accounts (sponsored accounts)
-
-      3.  Ask the user to select the Ad Account where the audience should be
-      created
-
-      4.  Create a CSV list file to be uploaded to LinkedIn in step 5
-
-      5.  Upload the CSV list file
-
-      6.  Create a List Upload DMP Segment
-
-      7.  Attach the Uploaded List to the List Upload DMP Segment
-
-      8.  Monitor Status of the DMP Segments
+  - name: Ad Accounts
+    description: APIs to retrieve and manage ad accounts
+  - name: DMP Segments
+    description: APIs to create and manage DMP segments for audience targeting
+  - name: Company Streaming
+    description: APIs to stream company data for account targeting
+  - name: User Streaming
+    description: APIs to stream user data for contact targeting
+  - name: List Uploads
+    description: APIs to upload and attach CSV lists to DMP segments
 paths:
   /adAccounts:
     get:
       tags:
-        - Use Cases > CSV list upload - Account & Contact Targeting
-      summary: 2. Retrieve the user's Ad Accounts (sponsoredAccount)
+        - Ad Accounts
+      summary: Retrieve User Ad Accounts
       description: >-
-        View [Search for
-        Accounts](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#search-for-accounts)
-        documentation for more information.
-
-
-        This API call pulls back Ad Accounts that the member has access to where
-        the status = ACTIVE, type = BUSINESS, and test = false (NOT a test Ad
-        Account).
-
-
-        Learn more about Test Ad Accounts
-        [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#working-with-test-ad-accounts).
-
-
-        For testing purposes, if you wish to use this example api to pull back a
-        Test Ad Account, simply remove `test:false` from the search parameter.
-
-
-        **3\. Ask the user to select the Ad Account where the audience should be
-        created**
-
-
-        **4\. Create a CSV file to upload**
-
-
-        **5\. Upload the CSV file using the below curl command**
-
-
-        curl --form "fileupload=@filename.csv;type=text/csv" -H 'Authorization:
-        Bearer '
-        [https://api.linkedin.com/media/upload?media_type=ad_segments](https://api.linkedin.com/media/upload?media_type=ad_segments)
-
-
-        See our online documentation for [example CSV file
-        templates](https://desktop.postman.com/?desktopVersion=10.13.0&userId=16069442&teamId=1986404).
-        See [Upload List
-        File](https://desktop.postman.com/?desktopVersion=10.13.0&userId=16069442&teamId=1986404)
-        in our online documentation for details on this API.
+        Retrieve the authenticated user's ad accounts. Filter by type, status,
+        and test flag to get relevant accounts.
+      operationId: getAdAccounts
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
       parameters:
         - name: X-Restli-Protocol-Version
           in: header
+          required: true
           schema:
             type: string
-          example: 2.0.0
+          description: RestLi protocol version
+          example: "2.0.0"
         - name: LinkedIn-Version
           in: header
+          required: true
           schema:
             type: string
-          example: '{{insert_version}}'
+          description: LinkedIn API version
+          example: "202401"
         - name: q
           in: query
+          required: true
           schema:
             type: string
-          example: search
+            enum:
+              - search
+          description: Query type
+          example: "search"
         - name: search
           in: query
+          required: false
           schema:
             type: string
-          example: >-
-            (type:(values:List(BUSINESS)),status:(values:List(ACTIVE)),test:false)
+          description: Search criteria
+          example: "(type:(values:List(BUSINESS)),status:(values:List(ACTIVE)),test:false)"
         - name: fields
           in: query
+          required: false
           schema:
             type: string
-          example: id,name,test,reference
+          description: Fields to include in response
+          example: "id,name,test,reference"
       responses:
         '200':
-          description: OK
-          headers:
-            Content-Type:
-              schema:
-                type: string
-                example: application/json
-            X-RestLi-Protocol-Version:
-              schema:
-                type: string
-                example: 2.0.0
-            Date:
-              schema:
-                type: string
-                example: Tue, 02 May 2023 23:11:41 GMT
-            Transfer-Encoding:
-              schema:
-                type: string
-                example: chunked
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            X-Li-Fabric:
-              schema:
-                type: string
-                example: prod-lva1
-            X-Li-Pop:
-              schema:
-                type: string
-                example: prod-lva1-x
-            X-LI-Proto:
-              schema:
-                type: string
-                example: http/1.1
-            X-LI-UUID:
-              schema:
-                type: string
-                example: AAX6vg/t5z6XRQmuvoZgzw==
-            Set-Cookie:
-              schema:
-                type: string
-                example: >-
-                  lidc="b=VB05:s=V:r=V:a=V:p=V:g=5510:u=1257:x=1:i=1683069101:t=1683073047:v=2:sig=AQHiOoxfX4z9r50gSjH5aubpt36gagD8"
-            X-LI-Route-Key:
-              schema:
-                type: string
-                example: >-
-                  "b=VB05:s=V:r=V:a=V:p=V:g=5510:u=1257:x=1:i=1683069101:t=1683073047:v=2:sig=AQHiOoxfX4z9r50gSjH5aubpt36gagD8"
+          description: Successfully retrieved ad accounts
           content:
             application/json:
               schema:
-                type: object
-              example:
-                paging:
-                  start: 0
-                  count: 10
-                  links: []
-                  total: 2
-                elements:
-                  - name: Test ad account
-                    reference: urn:li:organization:11223344
-                    id: 123456
-                    test: false
-                  - name: MDO ad account
-                    reference: urn:li:organization:2355689
-                    id: 456789
-                    test: false
+                $ref: '#/components/schemas/AdAccountsResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/AdAccountsResponseExample'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /dmpSegments:
     get:
       tags:
-        - Use Cases > CSV list upload - Account & Contact Targeting
-      summary: 8. Monitor Status of the List Upload DMP Segments
-      description: "The api call\_[fetches all DMP segments for a specific ad account](https://docs.microsoft.com/linkedin/marketing/integrations/matched-audiences/create-and-manage-segments?tabs=http#find-dmp-segments-by-account)\_that are List Upload segments.\n\nInitial processing can take up to 48 hours. The API should be periodically polled to fetch the latest match rate, audience size, and segment status. Match Rate is calculated by rounding matchedCount / inputCount. Review our online documentation for more information on\_[audienceSize vs matchedCount](https://docs.microsoft.com/linkedin/marketing/integrations/matched-audiences/create-and-manage-segment-destinations?tabs=http#differences-between-audience-size-and-matched-count-fields)."
+        - DMP Segments
+      summary: Monitor DMP Segment Status
+      description: >-
+        Retrieve DMP segments for a specific ad account. Monitor status, match rate,
+        and audience size.
+      operationId: getDmpSegments
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
       parameters:
         - name: X-Restli-Protocol-Version
           in: header
+          required: true
           schema:
             type: string
-          example: 2.0.0
+          example: "2.0.0"
         - name: LinkedIn-Version
           in: header
+          required: true
           schema:
             type: string
-          example: '{{insert_version}}'
+          example: "202401"
         - name: q
           in: query
+          required: true
           schema:
             type: string
-          example: account
+            enum:
+              - account
+          description: Query type
+          example: "account"
         - name: account
           in: query
+          required: true
           schema:
             type: string
-          example: urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}}
+          description: Sponsored account URN (URL encoded)
+          example: "urn%3Ali%3AsponsoredAccount%3A123456"
         - name: sourcePlatform
           in: query
+          required: false
           schema:
             type: string
-          example: LIST_UPLOAD
+            enum:
+              - LIST_UPLOAD
+              - STREAMING
+          description: Filter by source platform
+          example: "LIST_UPLOAD"
       responses:
         '200':
-          description: Successful response
+          description: Successfully retrieved DMP segments
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DmpSegmentsResponse'
+              examples:
+                SuccessResponse:
+                  value:
+                    paging:
+                      start: 0
+                      count: 10
+                      total: 1
+                      links: []
+                    elements:
+                      - id: 987654321
+                        name: "DMP segment for CSV uploads"
+                        account: "urn:li:sponsoredAccount:123456"
+                        accessPolicy: "PRIVATE"
+                        type: "COMPANY_LIST_UPLOAD"
+                        sourcePlatform: "LIST_UPLOAD"
+                        status: "READY"
+                        matchedCount: 5000
+                        inputCount: 6000
+                        audienceSize: 4500
+                        destinations:
+                          - destination: "LINKEDIN"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
-        - Use Cases > CSV list upload - Account & Contact Targeting
-      summary: 6. Create list upload DMP Segment
+        - DMP Segments
+      summary: Create DMP Segment
       description: >-
-        Here we create the CSV List Upload DMP segment. See our [online
-        documentation](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/matched-audiences/create-and-manage-list-uploads?tabs=http#sample-request-1)
-        for more information.
-
-
-        **NOTE:** there must be at least a 5 second delay between step 6
-        (creating the segment) and step 7 (attaching the uploaded list file) or
-        the segment may not be populated.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                accessPolicy: PRIVATE
-                account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
-                destinations:
-                  - destination: LINKEDIN
-                name: DMP segment for CSV uploads
-                sourcePlatform: LIST_UPLOAD
-                type: COMPANY_LIST_UPLOAD
+        Create a new DMP segment for list upload or streaming. Note: There must be
+        at least a 5 second delay between creating the segment and attaching data.
+      operationId: createDmpSegment
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
       parameters:
         - name: X-Restli-Protocol-Version
           in: header
+          required: true
           schema:
             type: string
-          example: 2.0.0
+          example: "2.0.0"
         - name: LinkedIn-Version
           in: header
+          required: true
           schema:
             type: string
-          example: '{{insert_version}}'
+          example: "202401"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DmpSegmentCreateRequest'
+            examples:
+              CreateSegment:
+                $ref: '#/components/examples/DmpSegmentCreateRequestExample'
       responses:
-        '200':
-          description: Successful response
+        '201':
+          description: DMP segment created successfully
+          headers:
+            X-RestLi-Id:
+              description: ID of the created segment
+              schema:
+                type: integer
           content:
-            application/json: {}
-  /dmpSegments/{company_segment_id}/companies:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DmpSegment'
+              examples:
+                SuccessResponse:
+                  value:
+                    id: 987654321
+                    name: "DMP segment for CSV uploads"
+                    account: "urn:li:sponsoredAccount:123456"
+                    accessPolicy: "PRIVATE"
+                    type: "COMPANY_LIST_UPLOAD"
+                    sourcePlatform: "LIST_UPLOAD"
+                    status: "PROCESSING"
+                    destinations:
+                      - destination: "LINKEDIN"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /dmpSegments/{CompanySegmentId}/companies:
     post:
       tags:
-        - Use Cases > Streaming Companies - Account Targeting
-      summary: 7.  Stream company data - add or remove multiple companies
-      description: "This example adds multiple companies to the DMP segment created in step 2.\n\nTo see what other fields can also be added/removed, review the\_[schema section](https://docs.microsoft.com/linkedin/marketing/integrations/matched-audiences/create-and-manage-segment-companies?tabs=http#add-or-remove-a-company)\_of our online documentation.\n\nThe more information on a company that is provided, the better chance of a higher match rate."
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                elements:
-                  - action: ADD
-                    companyName: LinkedIn
-                  - action: ADD
-                    companyName: Microsoft
+        - Company Streaming
+      summary: Stream Company Data To Segment
+      description: >-
+        Add or remove multiple companies from a DMP segment. The more information
+        provided on a company, the better chance of a higher match rate.
+      operationId: streamCompaniesToSegment
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
       parameters:
         - name: X-Restli-Protocol-Version
           in: header
+          required: true
           schema:
             type: string
-          example: 2.0.0
+          example: "2.0.0"
         - name: LinkedIn-Version
           in: header
+          required: true
           schema:
             type: string
-          example: '{{insert_version}}'
+          example: "202401"
         - name: X-RestLi-Method
           in: header
-          schema:
-            type: string
-          example: BATCH_CREATE
-        - name: company_segment_id
-          in: path
-          schema:
-            type: string
           required: true
+          schema:
+            type: string
+          example: "BATCH_CREATE"
+        - name: CompanySegmentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the company DMP segment
+          example: "987654321"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyStreamRequest'
+            examples:
+              AddCompanies:
+                $ref: '#/components/examples/CompanyStreamRequestExample'
       responses:
         '200':
-          description: OK
-          headers:
-            Content-Type:
+          description: Companies streamed successfully
+          content:
+            application/json:
               schema:
-                type: string
-                example: application/json
-            X-RestLi-Protocol-Version:
+                $ref: '#/components/schemas/StreamResponse'
+              examples:
+                SuccessResponse:
+                  value:
+                    elements:
+                      - status: 201
+                      - status: 201
+        '400':
+          description: Bad request
+          content:
+            application/json:
               schema:
-                type: string
-                example: 2.0.0
-            Date:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
               schema:
-                type: string
-                example: Tue, 02 May 2023 22:56:46 GMT
-            Transfer-Encoding:
+                $ref: '#/components/schemas/ErrorResponse'
+  /dmpSegments/{UserSegmentId}/users:
+    post:
+      tags:
+        - User Streaming
+      summary: Stream User Data To Segment
+      description: >-
+        Add or remove multiple users from a DMP segment. The more information
+        provided on a user, the better chance of a higher match rate.
+      operationId: streamUsersToSegment
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          required: true
+          schema:
+            type: string
+          example: "202401"
+        - name: X-Restli-Protocol-Version
+          in: header
+          required: true
+          schema:
+            type: string
+          example: "2.0.0"
+        - name: X-RestLi-Method
+          in: header
+          required: true
+          schema:
+            type: string
+          example: "BATCH_CREATE"
+        - name: UserSegmentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the user DMP segment
+          example: "987654322"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserStreamRequest'
+            examples:
+              AddUsers:
+                $ref: '#/components/examples/UserStreamRequestExample'
+      responses:
+        '200':
+          description: Users streamed successfully
+          content:
+            application/json:
               schema:
-                type: string
-                example: chunked
-            Connection:
+                $ref: '#/components/schemas/StreamResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/StreamResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/json:
               schema:
-                type: string
-                example: keep-alive
-            X-Li-Fabric:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
               schema:
-                type: string
-                example: prod-lva1
-            X-Li-Pop:
-              schema:
-                type: string
-                example: prod-lva1-x
-            X-LI-Proto:
-              schema:
-                type: string
-                example: http/1.1
-            X-LI-UUID:
-              schema:
-                type: string
-                example: AAX6vdqLsYwB+tXouQO1cA==
-            Set-Cookie:
-              schema:
-                type: string
-                example: >-
-                  lidc="b=VB05:s=V:r=V:a=V:p=V:g=5510:u=1257:x=1:i=1683068205:t=1683069447:v=2:sig=AQFEEXdqcMCtFkgBba-GCvayrtzWiB6L"
-            X-LI-Route-Key:
-              schema:
-                type: string
-                example: >-
-                  "b=VB05:s=V:r=V:a=V:p=V:g=5510:u=1257:x=1:i=1683068205:t=1683069447:v=2:sig=AQFEEXdqcMCtFkgBba-GCvayrtzWiB6L"
+                $ref: '#/components/schemas/ErrorResponse'
+  /dmpSegments/{ListUploadSegmentId}/listUploads:
+    post:
+      tags:
+        - List Uploads
+      summary: Attach Uploaded List To DMP Segment
+      description: >-
+        Attach an uploaded CSV list file to a DMP segment. Use the media URN
+        returned from the file upload step.
+      operationId: attachListToSegment
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: LinkedIn-Version
+          in: header
+          required: true
+          schema:
+            type: string
+          example: "202401"
+        - name: X-Restli-Protocol-Version
+          in: header
+          required: true
+          schema:
+            type: string
+          example: "2.0.0"
+        - name: ListUploadSegmentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID of the list upload DMP segment
+          example: "987654323"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListUploadRequest'
+            examples:
+              AttachList:
+                $ref: '#/components/examples/ListUploadRequestExample'
+      responses:
+        '200':
+          description: List attached successfully
           content:
             application/json:
               schema:
                 type: object
-              example:
-                elements:
-                  - status: 201
-                  - status: 201
-  /dmpSegments/{user_segment_id}/users:
-    post:
-      tags:
-        - Use Cases > Streaming Users - Contact Targeting
-      summary: 7. Stream user data - add or remove multiple users
-      description: "This example adds multiple users to the DMP segment created in step 2.\n\nTo see what other fields can also be added/removed, review the\_[schema section](https://docs.microsoft.com/linkedin/marketing/integrations/matched-audiences/create-and-manage-segment-users?tabs=http#add-or-remove-a-user)\_of our online documentation.\n\nThe more information on a user that is provided, the better chance of a higher match rate."
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                elements:
-                  - action: ADD
-                    userIds:
-                      - idType: SHA256_EMAIL
-                        idValue: >-
-                          6b56c85c1ce461e7ef77e3a52f13a6bc09feb93a04ce0670f9909e8ffde01f3a
-                  - action: ADD
-                    userIds:
-                      - idType: SHA256_EMAIL
-                        idValue: >-
-                          0100c74de9670c6bf2882502a486ec9e9d259fd090f19895974bae7efdc87913
-                  - action: ADD
-                    userIds:
-                      - idType: SHA256_EMAIL
-                        idValue: >-
-                          89147c81369d80ff259ed23a7d6949f2ce34b5e62619d7e00e880db0495bbed0
-                  - action: ADD
-                    userIds:
-                      - idType: SHA256_EMAIL
-                        idValue: >-
-                          4f123dc421f679369532452374c003dd9e825273e9929bd61060a65cd8587bb3
-      parameters:
-        - name: LinkedIn-Version
-          in: header
-          schema:
-            type: string
-          example: '{{insert_version}}'
-        - name: X-Restli-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: X-RestLi-Method
-          in: header
-          schema:
-            type: string
-          example: BATCH_CREATE
-        - name: user_segment_id
-          in: path
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: OK
-          headers:
-            Content-Type:
-              schema:
-                type: string
-                example: application/json
-            x-restli-protocol-version:
-              schema:
-                type: string
-                example: 2.0.0
-            Date:
-              schema:
-                type: string
-                example: Mon, 01 Apr 2024 22:26:54 GMT
-            X-Li-Fabric:
-              schema:
-                type: string
-                example: prod-ltx1
-            Transfer-Encoding:
-              schema:
-                type: string
-                example: chunked
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            X-Li-Source-Fabric:
-              schema:
-                type: string
-                example: prod-lva1
-            X-Li-Pop:
-              schema:
-                type: string
-                example: prod-lva1-x
-            X-LI-Proto:
-              schema:
-                type: string
-                example: http/1.1
-            X-LI-UUID:
-              schema:
-                type: string
-                example: AAYVEHycvNA1RmXDtYiFuA==
-            Set-Cookie:
-              schema:
-                type: string
-                example: >-
-                  lidc="b=TB05:s=T:r=T:a=T:p=T:g=7217:u=1774:x=1:i=1712010414:t=1712082317:v=2:sig=AQEIk4zdz3K6oVRcSUulM-SLt_PUpEZr"
-            X-LI-Route-Key:
-              schema:
-                type: string
-                example: >-
-                  "b=TB05:s=T:r=T:a=T:p=T:g=7217:u=1774:x=1:i=1712010414:t=1712082317:v=2:sig=AQEIk4zdz3K6oVRcSUulM-SLt_PUpEZr"
+                properties:
+                  status:
+                    type: string
+                    example: "SUCCESS"
+              examples:
+                SuccessResponse:
+                  value:
+                    status: "SUCCESS"
+        '400':
+          description: Bad request
           content:
             application/json:
               schema:
-                type: object
-              example:
-                elements:
-                  - status: 201
-                  - status: 201
-                  - status: 201
-                  - status: 201
-  /dmpSegments/{listupload_segment_id}/listUploads:
-    post:
-      tags:
-        - Use Cases > CSV list upload - Account & Contact Targeting
-      summary: 7. Attach the Uploaded List to the List Upload DMP Segment
-      description: >-
-        This call attaches the uploaded CSV list file (using the media URN
-        returned in step 5) to the DMP segment created in step 6.
-
-
-        For more detail on [attaching an uploaded list to a DMP
-        segment](https://docs.microsoft.com/linkedin/marketing/integrations/matched-audiences/create-and-manage-list-uploads?tabs=http#attach-list-to-dmp-segment),
-        see our online documentation.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                inputFile: <media urn returned from step 5 curl call>
-      parameters:
-        - name: LinkedIn-Version
-          in: header
-          schema:
-            type: string
-          example: '{{insert_version}}'
-        - name: X-Restli-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: listupload_segment_id
-          in: path
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Successful response
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

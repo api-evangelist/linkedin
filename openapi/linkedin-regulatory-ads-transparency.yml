@@ -1,43 +1,205 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  title: Ads Transparency API
+  title: LinkedIn Ads Transparency API
+  description: >-
+    The LinkedIn Ads Transparency API provides access to advertiser transparency data,
+    enabling regulatory compliance and transparency reporting for sponsored accounts.
   version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/
+
 servers:
   - url: https://api.linkedin.com
+    description: LinkedIn Production API Server
+
+tags:
+  - name: Advertiser Transparency
+    description: Operations for retrieving advertiser transparency data for sponsored accounts
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer Token authentication
+
+  schemas:
+    AdvertiserTransparencyRequest:
+      type: object
+      properties:
+        sponsoredAccountId:
+          type: string
+          description: The unique identifier for the sponsored account
+          example: "123456789"
+        month:
+          type: integer
+          description: The month for transparency data in YYYYMM format
+          example: 202312
+
+    AdvertiserTransparencyResponse:
+      type: object
+      properties:
+        sponsoredAccountUrn:
+          type: string
+          description: The URN of the sponsored account
+          example: "urn:li:sponsoredAccount:123456789"
+        month:
+          type: integer
+          description: The month of the transparency data
+          example: 202312
+        totalSpend:
+          type: number
+          format: double
+          description: Total advertising spend for the month
+          example: 15000.50
+        impressions:
+          type: integer
+          description: Total impressions delivered
+          example: 500000
+        currency:
+          type: string
+          description: Currency code for spend amounts
+          example: "USD"
+        advertiserName:
+          type: string
+          description: Name of the advertiser
+          example: "Acme Corporation"
+        country:
+          type: string
+          description: Country of the advertiser
+          example: "United States"
+      required:
+        - sponsoredAccountUrn
+        - month
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: "Invalid sponsored account ID"
+        serviceErrorCode:
+          type: integer
+          description: LinkedIn service error code
+          example: 100
+
+  examples:
+    AdvertiserTransparencyResponseExample:
+      summary: Successful advertiser transparency response
+      value:
+        sponsoredAccountUrn: "urn:li:sponsoredAccount:123456789"
+        month: 202312
+        totalSpend: 15000.50
+        impressions: 500000
+        currency: "USD"
+        advertiserName: "Acme Corporation"
+        country: "United States"
+
+    ErrorResponseExample:
+      summary: Error response example
+      value:
+        status: 400
+        message: "Invalid sponsored account ID"
+        serviceErrorCode: 100
+
+  parameters:
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version
+      schema:
+        type: string
+      example: "202312"
+
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: "2.0.0"
+
+    SponsoredAccountIdPath:
+      name: sponsoredaccount_id
+      in: path
+      required: true
+      description: The sponsored account identifier
+      schema:
+        type: string
+      example: "123456789"
+
+    MonthQuery:
+      name: month
+      in: query
+      required: false
+      description: Month for transparency data in YYYYMM format
+      schema:
+        type: integer
+      example: 202312
+
+security:
+  - BearerAuth: []
+
 paths:
   /rest/advertiserTransparencyData/urn:li:sponsoredAccount:{sponsoredaccount_id}:
     get:
+      operationId: getAdvertiserTransparencyData
       tags:
-        - default
-      summary: Advertiser Transparency Data
+        - Advertiser Transparency
+      summary: Get Advertiser Transparency Data
+      description: >-
+        Retrieves transparency data for a specific sponsored account. This endpoint
+        provides information about advertising spend, impressions, and advertiser
+        details for regulatory compliance and transparency reporting purposes.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: |
+          {
+            "dispatcher": "FALLBACK",
+            "dispatcherRules": ""
+          }
+        delay: 100
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          schema:
-            type: string
-          example: '{{insert_version}}'
-        - name: X-Restli-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: '{{insert_token}}'
-        - name: month
-          in: query
-          schema:
-            type: integer
-          example: '202312'
-        - name: sponsoredaccount_id
-          in: path
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/LinkedInVersionHeader'
+        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+        - $ref: '#/components/parameters/SponsoredAccountIdPath'
+        - $ref: '#/components/parameters/MonthQuery'
       responses:
         '200':
-          description: Successful response
+          description: Successfully retrieved advertiser transparency data
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertiserTransparencyResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/AdvertiserTransparencyResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                BadRequestError:
+                  $ref: '#/components/examples/ErrorResponseExample'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Sponsored account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

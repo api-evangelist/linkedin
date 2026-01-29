@@ -1,128 +1,457 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  title: Parent Application Management
+  title: LinkedIn Parent Application Management API
   description: >-
-    We are making updates to our collections. If you run into any issues pulling
-    the latest changes, simply fork the collection again.
-
-
-    LinkedIn's Provisioning APIs allow partners to create and configure
-    developer applications on behalf of their customers. This is an initial step
-    to manage and enable customer integrations. Refer
-    [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api)
-    for more information.  
-
-    Ensure that you select Partner Application Management environment while
-    executing use cases.
+    LinkedIn's Provisioning APIs allow partners to create and configure developer
+    applications on behalf of their customers. This is an initial step to manage
+    and enable customer integrations.
+    
+    For more information, refer to the
+    [Provisioning API documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api).
   version: 1.0.0
+  contact:
+    name: LinkedIn Talent Solutions
+    url: https://docs.microsoft.com/en-us/linkedin/talent/
+
 servers:
   - url: https://api.linkedin.com
+    description: LinkedIn Production API Server
+
+tags:
+  - name: Child Application Provisioning
+    description: APIs for provisioning and managing customer (child) applications
+  - name: Application Retrieval
+    description: APIs for retrieving child application details
+  - name: Application Updates
+    description: APIs for updating child application configurations
+
 components:
   securitySchemes:
-    oauth2Auth:
-      type: http
-      scheme: oauth2
+    OAuth2Auth:
+      type: oauth2
+      description: OAuth 2.0 authentication for partner applications
+      flows:
+        clientCredentials:
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_liteprofile: Read basic profile data
+            w_member_social: Post, comment and like posts
+
+  schemas:
+    ProvisionApplicationRequest:
+      type: object
+      description: Request body for provisioning a new child application
+      required:
+        - name
+        - uniqueForeignId
+        - oauth2AuthorizedCallbackUrls
+      properties:
+        name:
+          type: string
+          description: Name of the customer application
+          example: "Acme Corporation"
+        description:
+          type: string
+          description: Description of the application
+          example: "Test application for Acme Corporation"
+        uniqueForeignId:
+          type: string
+          description: Unique identifier for the customer in the partner's system
+          example: "acme-corp-12345"
+        oauth2AuthorizedCallbackUrls:
+          type: array
+          description: List of authorized OAuth 2.0 callback URLs
+          items:
+            type: string
+            format: uri
+          example:
+            - "https://app.acme.com/oauth2/callback"
+            - "https://staging.acme.com/oauth2/callback"
+        validJsSdkDomains:
+          type: array
+          description: List of valid JavaScript SDK domains
+          items:
+            type: string
+          example:
+            - "https://app.acme.com"
+            - "http://localhost:5000"
+
+    ProvisionApplicationResponse:
+      type: object
+      description: Response containing provisioned application details
+      properties:
+        applicationUrn:
+          type: string
+          description: URN of the provisioned application
+          example: "urn:li:developerApplication:12345678"
+        clientId:
+          type: string
+          description: OAuth 2.0 client ID for the application
+          example: "78abc123def456"
+        clientSecret:
+          type: string
+          description: OAuth 2.0 client secret for the application
+          example: "secretXYZ789"
+        name:
+          type: string
+          description: Name of the application
+          example: "Acme Corporation"
+        uniqueForeignId:
+          type: string
+          description: Partner's unique identifier for the customer
+          example: "acme-corp-12345"
+        oauth2AuthorizedCallbackUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          example:
+            - "https://app.acme.com/oauth2/callback"
+        validJsSdkDomains:
+          type: array
+          items:
+            type: string
+          example:
+            - "https://app.acme.com"
+        createdAt:
+          type: integer
+          format: int64
+          description: Timestamp of application creation
+          example: 1702693664000
+
+    UpdateCallbackUrlRequest:
+      type: object
+      description: Request body for updating OAuth 2.0 callback URLs
+      required:
+        - patch
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              type: object
+              properties:
+                oauth2AuthorizedCallbackUrls:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+                  example:
+                    - "https://app.acme.com/oauth2/callback"
+                    - "https://new-domain.acme.com/oauth2/callback"
+
+    GetApplicationResponse:
+      type: object
+      description: Response containing application credentials and details
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationCredentials'
+
+    ApplicationCredentials:
+      type: object
+      properties:
+        applicationUrn:
+          type: string
+          description: URN of the application
+          example: "urn:li:developerApplication:12345678"
+        clientId:
+          type: string
+          description: OAuth 2.0 client ID
+          example: "78abc123def456"
+        clientSecret:
+          type: string
+          description: OAuth 2.0 client secret
+          example: "secretXYZ789"
+        uniqueForeignId:
+          type: string
+          description: Partner's unique identifier
+          example: "acme-corp-12345"
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: "Invalid request parameters"
+        serviceErrorCode:
+          type: integer
+          description: LinkedIn service-specific error code
+          example: 100
+
+  examples:
+    ProvisionApplicationRequestExample:
+      summary: Example request to provision a child application
+      value:
+        name: "Acme Corporation"
+        description: "Test application for Acme Corporation"
+        uniqueForeignId: "acme-corp-12345"
+        oauth2AuthorizedCallbackUrls:
+          - "https://app.acme.com/oauth2/callback"
+        validJsSdkDomains:
+          - "https://app.acme.com"
+          - "http://localhost:5000"
+
+    ProvisionApplicationResponseExample:
+      summary: Example response for provisioned application
+      value:
+        applicationUrn: "urn:li:developerApplication:12345678"
+        clientId: "78abc123def456"
+        clientSecret: "secretXYZ789"
+        name: "Acme Corporation"
+        uniqueForeignId: "acme-corp-12345"
+        oauth2AuthorizedCallbackUrls:
+          - "https://app.acme.com/oauth2/callback"
+        validJsSdkDomains:
+          - "https://app.acme.com"
+        createdAt: 1702693664000
+
+    GetApplicationResponseExample:
+      summary: Example response for retrieving application credentials
+      value:
+        elements:
+          - applicationUrn: "urn:li:developerApplication:12345678"
+            clientId: "78abc123def456"
+            clientSecret: "secretXYZ789"
+            uniqueForeignId: "acme-corp-12345"
+
+    UpdateCallbackUrlRequestExample:
+      summary: Example request to update callback URLs
+      value:
+        patch:
+          $set:
+            oauth2AuthorizedCallbackUrls:
+              - "https://app.acme.com/oauth2/callback"
+              - "https://new-domain.acme.com/oauth2/callback"
+
+    ErrorResponseExample:
+      summary: Example error response
+      value:
+        status: 400
+        message: "Invalid request parameters"
+        serviceErrorCode: 100
+
+  parameters:
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of the request body
+      schema:
+        type: string
+      example: "application/json"
+
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for retrieving applications
+      schema:
+        type: string
+        enum:
+          - credentialsByUniqueForeignId
+      example: "credentialsByUniqueForeignId"
+
+    UniqueForeignIdParameter:
+      name: uniqueForeignId
+      in: query
+      required: true
+      description: Partner's unique identifier for the customer
+      schema:
+        type: string
+      example: "acme-corp-12345"
+
+    CustomerApplicationUrnPath:
+      name: customer_application_urn
+      in: path
+      required: true
+      description: URN of the customer application to update
+      schema:
+        type: string
+      example: "urn:li:developerApplication:12345678"
+
 security:
-  - oauth2Auth: []
-tags:
-  - name: Use Cases
-    description: >-
-      Make things Make things easier for your teammates with a complete folder
-      description.easier for your teammates with a complete folder description.
-  - name: Use Cases > Provision Customer (Child) Applications
-    description: >-
-      With the help of Partner Application, partners have to provision child
-      applications for mutual customers. Refer
-      [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api)
-      for more information
+  - OAuth2Auth: []
+
 paths:
   /v2/provisionedApplications:
     post:
+      operationId: provisionChildApplication
       tags:
-        - Use Cases > Provision Customer (Child) Applications
+        - Child Application Provisioning
       summary: Provision Child Application
       description: >-
-        Use this API Endpoint when partner wants to create a child application
-        for any of mutual customer. Refer
-        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#create-application)
-        for more information.
+        Creates a new child application for a mutual customer. Partners use this
+        endpoint to provision developer applications that enable customer integrations
+        with LinkedIn services.
+        
+        For more information, refer to the
+        [Create Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#create-application).
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: |
+          {
+            "dispatcher": "FALLBACK",
+            "dispatcherRules": ""
+          }
+        delay: 100
+      parameters:
+        - $ref: '#/components/parameters/ContentTypeHeader'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              type: object
-              example:
-                description: TEST APP FOR {{customer_name}}
-                name: '{{customer_name}}'
-                uniqueForeignId: '{{unique_foreign_id}}'
-                oauth2AuthorizedCallbackUrls:
-                  - https://app.getpostman.com/oauth2/callback
-                validJsSdkDomains:
-                  - http://localhost:5000
-      parameters:
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-          example: application/json
+              $ref: '#/components/schemas/ProvisionApplicationRequest'
+            examples:
+              ProvisionRequest:
+                $ref: '#/components/examples/ProvisionApplicationRequestExample'
       responses:
         '200':
-          description: Successful response
+          description: Successfully provisioned the child application
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionApplicationResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ProvisionApplicationResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                BadRequestError:
+                  $ref: '#/components/examples/ErrorResponseExample'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict - application with uniqueForeignId already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     get:
+      operationId: getChildApplication
       tags:
-        - Use Cases > Provision Customer (Child) Applications
+        - Application Retrieval
       summary: Get Child Application
       description: >-
-        Use this API Endpoint when partner wants to fetch a child application
-        for any of our mutual customer. Refer
-        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#get-application)
-        for more information.
+        Retrieves the credentials and details of a child application for a mutual
+        customer using the partner's unique foreign identifier.
+        
+        For more information, refer to the
+        [Get Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#get-application).
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: |
+          {
+            "dispatcher": "FALLBACK",
+            "dispatcherRules": ""
+          }
+        delay: 100
       parameters:
-        - name: q
-          in: query
-          schema:
-            type: string
-          example: credentialsByUniqueForeignId
-        - name: uniqueForeignId
-          in: query
-          schema:
-            type: string
-          example: '{{unique_foreign_id}}'
+        - $ref: '#/components/parameters/QueryTypeParameter'
+        - $ref: '#/components/parameters/UniqueForeignIdParameter'
       responses:
         '200':
-          description: Successful response
+          description: Successfully retrieved application details
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetApplicationResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/GetApplicationResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /v2/provisionedApplications/{customer_application_urn}:
     post:
+      operationId: updateChildApplicationCallbackUrls
       tags:
-        - Use Cases > Provision Customer (Child) Applications
-      summary: Update OAuth2.0 Authorized CallBack URL for Child Application
+        - Application Updates
+      summary: Update OAuth 2.0 Callback URLs For Child Application
       description: >-
-        Use this API Endpoint when partner wants to update OAuth2.0 Authorized
-        CallBack URL for child application for any of mutual customer. Refer
-        [here](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#update-application)
-        for more information.
+        Updates the OAuth 2.0 authorized callback URLs for a child application.
+        Partners use this endpoint to modify the callback URLs configuration
+        for customer applications.
+        
+        For more information, refer to the
+        [Update Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#update-application).
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: |
+          {
+            "dispatcher": "FALLBACK",
+            "dispatcherRules": ""
+          }
+        delay: 100
+      parameters:
+        - $ref: '#/components/parameters/CustomerApplicationUrnPath'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              type: object
-              example:
-                patch:
-                  $set:
-                    oauth2AuthorizedCallbackUrls:
-                      - https://app.getpostman.com/oauth2/callback
-      parameters:
-        - name: customer_application_urn
-          in: path
-          schema:
-            type: string
-          required: true
+              $ref: '#/components/schemas/UpdateCallbackUrlRequest'
+            examples:
+              UpdateCallbackRequest:
+                $ref: '#/components/examples/UpdateCallbackUrlRequestExample'
       responses:
         '200':
-          description: Successful response
+          description: Successfully updated the application callback URLs
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionApplicationResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ProvisionApplicationResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

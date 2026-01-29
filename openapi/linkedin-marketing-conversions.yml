@@ -1,118 +1,361 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
   title: Conversions API
-  description: >-
-    **See the** [Getting
-    Access](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/conversions/getting-access-conversions)
-    guide **on how to apply.**
-
-
-    [LinkedIn's Conversion
-    API](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/conversions-api)
-    is a conversion tracking tool that creates a direct connection between
-    marketing data from an advertiser’s server and LinkedIn. This API enables
-    advertisers to measure the performance of their LinkedIn marketing campaigns
-    no matter where the conversion happens and use this data to power campaign
-    optimization.
-
-
-    This collection aims to focus on the new Conversions API and should be used
-    with the **conversions-env-versioning** environment.
-
-
-    There are two conditions for successful calls: (1) Scope permissions to
-    `rw_conversions`, `r_ads` and (2) the user assigning permission holding one
-    of the following roles in the Ad Account.
-
-
-    Scope permissions for [3-legged
-    Oauth](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)
-
-
-    - `rw_conversions` (Read/Write)
-
-    - `r_ads` (Read)
-        
-
-    Ad Account Roles:
-
-
-    - `ACCOUNT_BILLING_ADMIN`
-
-    - `ACCOUNT_MANAGER`
-
-    - `CAMPAIGN_MANAGER`
-
-    - `CREATIVE_MANAGER`
-        
-
-    \--All requests for the Conversions collection are in the Restli 2.0
-    format--
+  description: "**See the** [Getting Access](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/conversions/getting-access-conversions)\
+    \ guide **on how to apply.**\n\n[LinkedIn's Conversion API](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/conversions-api)\
+    \ is a conversion tracking tool that creates a direct connection between marketing data from an advertiser’s server and\
+    \ LinkedIn. This API enables advertisers to measure the performance of their LinkedIn marketing campaigns no matter where\
+    \ the conversion happens and use this data to power campaign optimization.\n\nThis collection aims to focus on the new\
+    \ Conversions API and should be used with the **conversions-env-versioning** environment.\n\nThere are two conditions\
+    \ for successful calls: (1) Scope permissions to `rw_conversions`, `r_ads` and (2) the user assigning permission holding\
+    \ one of the following roles in the Ad Account.\n\nScope permissions for [3-legged Oauth](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)\n\
+    \n- `rw_conversions` (Read/Write)\n- `r_ads` (Read)\n    \n\nAd Account Roles:\n\n- `ACCOUNT_BILLING_ADMIN`\n- `ACCOUNT_MANAGER`\n\
+    - `CAMPAIGN_MANAGER`\n- `CREATIVE_MANAGER`\n    \n\n\\--All requests for the Conversions collection are in the Restli\
+    \ 2.0 format--"
   version: 1.0.0
 servers:
-  - url: http://{{baseurl}}
+- url: https://api.linkedin.com
+  description: LinkedIn Marketing API Production Server
 components:
   securitySchemes:
     oauth2Auth:
       type: http
       scheme: oauth2
+  schemas:
+    RetrieveAuthenticatedUsersSponsoredResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+            total:
+              type: integer
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                type: string
+              account:
+                type: string
+              role:
+                type: string
+    FetchExistingConversionRulesResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+            total:
+              type: integer
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              conversionMethod:
+                type: string
+              id:
+                type: integer
+              type:
+                type: string
+              campaigns:
+                type: array
+                items: {}
+              enabled:
+                type: boolean
+    CreateANewConversionRequest:
+      type: object
+      example:
+        name: Conversion API Segment 5
+        account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+        conversionMethod: CONVERSIONS_API
+        postClickAttributionWindowSize: 90
+        viewThroughAttributionWindowSize: 30
+        attributionType: LAST_TOUCH_BY_CAMPAIGN
+        type: LEAD
+    CreateANewConversionResponse201:
+      type: object
+      properties:
+        postClickAttributionWindowSize:
+          type: integer
+        conversionMethod:
+          type: string
+        viewThroughAttributionWindowSize:
+          type: integer
+        created:
+          type: integer
+        type:
+          type: string
+        enabled:
+          type: boolean
+        associatedCampaigns:
+          type: array
+          items: {}
+        campaigns:
+          type: array
+          items: {}
+        name:
+          type: string
+        id:
+          type: integer
+        lastModified:
+          type: integer
+        attributionType:
+          type: string
+        urlRules:
+          type: array
+          items: {}
+        account:
+          type: string
+    FetchActiveCampaignsResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  rel:
+                    type: string
+                  href:
+                    type: string
+            total:
+              type: integer
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              id:
+                type: integer
+    AssociateCampaignsToConversionRequest:
+      type: object
+      example:
+        campaign: urn:li:sponsoredCampaign:{{campaign_id}}
+        conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+    AssociateCampaignsToConversionResponse204:
+      type: string
+    StreamMultipleConversionEventsRequest:
+      type: object
+      example:
+        elements:
+        - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+          conversionHappenedAt: 1695739275000
+          conversionValue:
+            currencyCode: USD
+            amount: '1500.0'
+          user:
+            userIds:
+            - idType: SHA256_EMAIL
+              idValue: bad8677b6c86f5d308ee82786c183482a5995f066694246c58c4df37b0cc41f1
+            - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
+              idValue: df5gf5-gh6t7-ph4j7h-fgf6n1
+            userInfo:
+              firstName: mike
+              lastName: smith
+              title: software engineer
+              companyName: microsoft
+              countryCode: US
+          eventId: abc12345
+        - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+          conversionHappenedAt: 1695950057000
+          conversionValue:
+            currencyCode: USD
+            amount: '2000.0'
+          user:
+            userIds:
+            - idType: SHA256_EMAIL
+              idValue: dsfgrtg56u767ujy982fgnbmcsdocl46c58c56b650cik230bb9
+            - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
+              idValue: ufh8h5-gh6t7-ph4j7h-mkl86n1
+            userInfo:
+              firstName: jason
+              lastName: bourne
+              title: tech lead
+              companyName: linkedin
+              countryCode: US
+          eventId: xyz345
+    StreamMultipleConversionEventsResponse200:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: integer
+  examples:
+    RetrieveAuthenticatedUsersSponsoredResponse200Example:
+      summary: Example 200 response for RetrieveAuthenticatedUsersSponsored
+      value:
+        paging:
+          start: 0
+          count: 2147483647
+          links: []
+          total: 3
+        elements:
+        - user: urn:li:person:abcd
+          account: urn:li:sponsoredAccount:5000123
+          role: VIEWER
+        - user: urn:li:person:abcd
+          account: urn:li:sponsoredAccount:5000234
+          role: ACCOUNT_BILLING_ADMIN
+        - user: urn:li:person:abcd
+          account: urn:li:sponsoredAccount:5000345
+          role: ACCOUNT_BILLING_ADMIN
+    FetchExistingConversionRulesResponse200Example:
+      summary: Example 200 response for FetchExistingConversionRules
+      value:
+        paging:
+          start: 0
+          count: 10
+          links: []
+          total: -1
+        elements:
+        - name: Conversion API Segment 1
+          conversionMethod: CONVERSIONS_API
+          id: 1403456
+          type: LEAD
+          campaigns: []
+          enabled: true
+        - name: Conversion API Segment 4
+          conversionMethod: CONVERSIONS_API
+          id: 1103890
+          type: LEAD
+          campaigns:
+          - urn:li:sponsoredCampaign:435
+          - urn:li:sponsoredCampaign:675
+          - urn:li:sponsoredCampaign:342
+          enabled: true
+        - name: Online Test
+          conversionMethod: INSIGHT_TAG_URL_MATCH_RULES
+          id: 10991460
+          type: BOOK_APPOINTMENT
+          campaigns:
+          - urn:li:sponsoredCampaign:876786
+          - urn:li:sponsoredCampaign:536478
+          enabled: true
+        - name: Demo requests
+          conversionMethod: INSIGHT_TAG_JAVASCRIPT_EVENT
+          id: 4886884
+          type: REQUEST_QUOTE
+          campaigns: []
+          enabled: false
+    CreateANewConversionResponse201Example:
+      summary: Example 201 response for CreateANewConversion
+      value:
+        postClickAttributionWindowSize: 90
+        conversionMethod: CONVERSIONS_API
+        viewThroughAttributionWindowSize: 30
+        created: 1698115671440
+        type: LEAD
+        enabled: true
+        associatedCampaigns: []
+        campaigns: []
+        name: Conversion API Segment 5
+        id: 14488340
+        lastModified: 1698115671440
+        attributionType: LAST_TOUCH_BY_CAMPAIGN
+        urlRules: []
+        account: urn:li:sponsoredAccount:5012345
+    FetchActiveCampaignsResponse200Example:
+      summary: Example 200 response for FetchActiveCampaigns
+      value:
+        paging:
+          start: 0
+          count: 10
+          links:
+          - type: application/json
+            rel: next
+            href: /rest/adAccounts/5012345/adCampaigns?q=search&search=(status:(values:List(ACTIVE,DRAFT)))&start=10&count=10&fields=name,id
+          total: 4
+        elements:
+        - name: Website visits - May 4, 2021
+          id: 12345
+        - name: Brand awareness - Jul 14, 2022
+          id: 14567
+        - name: Lead generation - Dec 5, 2022
+          id: 789090
+        - name: Website conversions - Dec 6, 2022
+          id: 899887
+    AssociateCampaignsToConversionResponse204Example:
+      summary: Example 204 response for AssociateCampaignsToConversion
+      value: null
+    StreamMultipleConversionEventsResponse200Example:
+      summary: Example 200 response for StreamMultipleConversionEvents
+      value:
+        elements:
+        - status: 201
+        - status: 201
 security:
-  - oauth2Auth: []
+- oauth2Auth: []
 tags:
-  - name: Conversion Events Streaming Workflow
-    description: >-
-      1. Obtain user authorization with consent to create and manage conversions
-      using `rw_conversions`, `r_ads` permissions in the scope.
-
-      2. Retrieve authenticated user's sponsored Ad Accounts where user has a
-      non-viewer user role.
-
-      3. Ask the user to select one of their Ad Account where conversion events
-      would be streamed.
-
-      4. Fetch existing Conversion Rules for CAPI in the selected Ad Account
-
-      5. Allow the user to choose if they want to create a new Conversion Rule
-      or update an existing one
-
-      6. Create a new Conversion Rule (skip this step if the user chose to
-      update an existing Conversion Rule)
-
-      7. Fetch active campaign URNs to associate with conversion rule
-
-      8. Associate campaigns to conversion rule for campaign attribution and
-      optimization
-
-      9. Stream conversion event to the conversion rule
-          
-      10. Stream multiple conversion events to the conversion rule
+- name: Conversion Events Streaming Workflow
+  description: "1. Obtain user authorization with consent to create and manage conversions using `rw_conversions`, `r_ads`\
+    \ permissions in the scope.\n2. Retrieve authenticated user's sponsored Ad Accounts where user has a non-viewer user role.\n\
+    3. Ask the user to select one of their Ad Account where conversion events would be streamed.\n4. Fetch existing Conversion\
+    \ Rules for CAPI in the selected Ad Account\n5. Allow the user to choose if they want to create a new Conversion Rule\
+    \ or update an existing one\n6. Create a new Conversion Rule (skip this step if the user chose to update an existing Conversion\
+    \ Rule)\n7. Fetch active campaign URNs to associate with conversion rule\n8. Associate campaigns to conversion rule for\
+    \ campaign attribution and optimization\n9. Stream conversion event to the conversion rule\n    \n10. Stream multiple\
+    \ conversion events to the conversion rule"
 paths:
   /adAccountUsers:
     get:
       tags:
-        - Conversion Events Streaming Workflow
+      - Conversion Events Streaming Workflow
       summary: 2. Retrieve authenticated user's Sponsored Ad Accounts
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          schema:
-            type: string
-          example: '{{insert_version}}'
-        - name: X-Restli-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: q
-          in: query
-          schema:
-            type: string
-          example: authenticatedUser
-        - name: fields
-          in: query
-          schema:
-            type: string
-          example: role,account,user
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: authenticatedUser
+      - name: fields
+        in: query
+        schema:
+          type: string
+        example: role,account,user
       responses:
         '200':
           description: OK
@@ -160,69 +403,56 @@ paths:
             Set-Cookie:
               schema:
                 type: string
-                example: >-
-                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1682:x=1:i=1686767793:t=1686813748:v=2:sig=AQFd2BBoXo4jGhMI0VSlCcsx5Q-0dR64"
+                example: lidc="b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1682:x=1:i=1686767793:t=1686813748:v=2:sig=AQFd2BBoXo4jGhMI0VSlCcsx5Q-0dR64"
             X-LI-Route-Key:
               schema:
                 type: string
-                example: >-
-                  "b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1682:x=1:i=1686767793:t=1686813748:v=2:sig=AQFd2BBoXo4jGhMI0VSlCcsx5Q-0dR64"
+                example: '"b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1682:x=1:i=1686767793:t=1686813748:v=2:sig=AQFd2BBoXo4jGhMI0VSlCcsx5Q-0dR64"'
           content:
             application/json:
               schema:
-                type: object
-              example:
-                paging:
-                  start: 0
-                  count: 2147483647
-                  links: []
-                  total: 3
-                elements:
-                  - user: urn:li:person:abcd
-                    account: urn:li:sponsoredAccount:5000123
-                    role: VIEWER
-                  - user: urn:li:person:abcd
-                    account: urn:li:sponsoredAccount:5000234
-                    role: ACCOUNT_BILLING_ADMIN
-                  - user: urn:li:person:abcd
-                    account: urn:li:sponsoredAccount:5000345
-                    role: ACCOUNT_BILLING_ADMIN
+                $ref: '#/components/schemas/RetrieveAuthenticatedUsersSponsoredResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/RetrieveAuthenticatedUsersSponsoredResponse200Example'
+      operationId: getRetrieveAuthenticatedUsersSponsored
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
   /conversions:
     get:
       tags:
-        - Conversion Events Streaming Workflow
+      - Conversion Events Streaming Workflow
       summary: 4. Fetch existing Conversion Rules for CAPI in the selected ad account
-      description: >-
-        Fetch existing conversion rules in the selected ad account with this
-        endpoint and parse the response to filter elements with
-        `conversionMethod` to `CONVERSIONS_API` for streaming conversions
-        through API.
+      description: Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to
+        filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          schema:
-            type: string
-          example: '{{insert_version}}'
-        - name: X-Restli-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: q
-          in: query
-          schema:
-            type: string
-          example: account
-        - name: account
-          in: query
-          schema:
-            type: string
-          example: urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}}
-        - name: fields
-          in: query
-          schema:
-            type: string
-          example: conversionMethod,enabled,type,name,id,campaigns,attributionType
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: account
+      - name: account
+        in: query
+        schema:
+          type: string
+        example: urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}}
+      - name: fields
+        in: query
+        schema:
+          type: string
+        example: conversionMethod,enabled,type,name,id,campaigns,attributionType
       responses:
         '200':
           description: OK
@@ -270,82 +500,45 @@ paths:
             Set-Cookie:
               schema:
                 type: string
-                example: >-
-                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1684:x=1:i=1686819101:t=1686883294:v=2:sig=AQG9PJifKDndXPzy7_WniIlif5-4vsdz"
+                example: lidc="b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1684:x=1:i=1686819101:t=1686883294:v=2:sig=AQG9PJifKDndXPzy7_WniIlif5-4vsdz"
             X-LI-Route-Key:
               schema:
                 type: string
-                example: >-
-                  "b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1684:x=1:i=1686819101:t=1686883294:v=2:sig=AQG9PJifKDndXPzy7_WniIlif5-4vsdz"
+                example: '"b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1684:x=1:i=1686819101:t=1686883294:v=2:sig=AQG9PJifKDndXPzy7_WniIlif5-4vsdz"'
           content:
             application/json:
               schema:
-                type: object
-              example:
-                paging:
-                  start: 0
-                  count: 10
-                  links: []
-                  total: -1
-                elements:
-                  - name: Conversion API Segment 1
-                    conversionMethod: CONVERSIONS_API
-                    id: 1403456
-                    type: LEAD
-                    campaigns: []
-                    enabled: true
-                  - name: Conversion API Segment 4
-                    conversionMethod: CONVERSIONS_API
-                    id: 1103890
-                    type: LEAD
-                    campaigns:
-                      - urn:li:sponsoredCampaign:435
-                      - urn:li:sponsoredCampaign:675
-                      - urn:li:sponsoredCampaign:342
-                    enabled: true
-                  - name: Online Test
-                    conversionMethod: INSIGHT_TAG_URL_MATCH_RULES
-                    id: 10991460
-                    type: BOOK_APPOINTMENT
-                    campaigns:
-                      - urn:li:sponsoredCampaign:876786
-                      - urn:li:sponsoredCampaign:536478
-                    enabled: true
-                  - name: Demo requests
-                    conversionMethod: INSIGHT_TAG_JAVASCRIPT_EVENT
-                    id: 4886884
-                    type: REQUEST_QUOTE
-                    campaigns: []
-                    enabled: false
+                $ref: '#/components/schemas/FetchExistingConversionRulesResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/FetchExistingConversionRulesResponse200Example'
+      operationId: getFetchExistingConversionRules
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
     post:
       tags:
-        - Conversion Events Streaming Workflow
+      - Conversion Events Streaming Workflow
       summary: 6. Create a new Conversion Rule
-      description: "Create one or more conversion rules with this endpoint and set\_`conversionMethod`\_to\_`CONVERSIONS_API`\_for streaming conversions through API."
+      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for
+        streaming conversions through API.
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              example:
-                name: Conversion API Segment 5
-                account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
-                conversionMethod: CONVERSIONS_API
-                postClickAttributionWindowSize: 90
-                viewThroughAttributionWindowSize: 30
-                attributionType: LAST_TOUCH_BY_CAMPAIGN
-                type: LEAD
+              $ref: '#/components/schemas/CreateANewConversionRequest'
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          schema:
-            type: string
-          example: '{{insert_version}}'
-        - name: X-Restli-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
       responses:
         '201':
           description: Created
@@ -377,13 +570,11 @@ paths:
             Report-To:
               schema:
                 type: string
-                example: >-
-                  {"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}
+                example: '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}'
             NEL:
               schema:
                 type: string
-                example: >-
-                  {"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}
+                example: '{"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}'
             Transfer-Encoding:
               schema:
                 type: string
@@ -411,73 +602,61 @@ paths:
             Set-Cookie:
               schema:
                 type: string
-                example: >-
-                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115671:t=1698121131:v=2:sig=AQH9Ek4NjI_HRcW2-y6FXmJ_MnU6czll"
+                example: lidc="b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115671:t=1698121131:v=2:sig=AQH9Ek4NjI_HRcW2-y6FXmJ_MnU6czll"
             X-LI-Route-Key:
               schema:
                 type: string
-                example: >-
-                  "b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115671:t=1698121131:v=2:sig=AQH9Ek4NjI_HRcW2-y6FXmJ_MnU6czll"
+                example: '"b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115671:t=1698121131:v=2:sig=AQH9Ek4NjI_HRcW2-y6FXmJ_MnU6czll"'
           content:
             application/json:
               schema:
-                type: object
-              example:
-                postClickAttributionWindowSize: 90
-                conversionMethod: CONVERSIONS_API
-                viewThroughAttributionWindowSize: 30
-                created: 1698115671440
-                type: LEAD
-                enabled: true
-                associatedCampaigns: []
-                campaigns: []
-                name: Conversion API Segment 5
-                id: 14488340
-                lastModified: 1698115671440
-                attributionType: LAST_TOUCH_BY_CAMPAIGN
-                urlRules: []
-                account: urn:li:sponsoredAccount:5012345
+                $ref: '#/components/schemas/CreateANewConversionResponse201'
+              examples:
+                default:
+                  $ref: '#/components/examples/CreateANewConversionResponse201Example'
+      operationId: postCreateANewConversion
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
   /adAccounts/{sponsoredaccount_id}/adCampaigns:
     get:
       tags:
-        - Conversion Events Streaming Workflow
+      - Conversion Events Streaming Workflow
       summary: 7. Fetch active campaigns
-      description: >-
-        Fetch existing conversion rules in the selected ad account with this
-        endpoint and parse the response to filter elements with
-        `conversionMethod` to `CONVERSIONS_API` for streaming conversions
-        through API.
+      description: Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to
+        filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          schema:
-            type: string
-          example: '{{insert_version}}'
-        - name: X-Restli-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: q
-          in: query
-          schema:
-            type: string
-          example: search
-        - name: search
-          in: query
-          schema:
-            type: string
-          example: (status:(values:List(ACTIVE,DRAFT)))
-        - name: fields
-          in: query
-          schema:
-            type: string
-          example: id,name
-        - name: sponsoredaccount_id
-          in: path
-          schema:
-            type: string
-          required: true
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: search
+      - name: search
+        in: query
+        schema:
+          type: string
+        example: (status:(values:List(ACTIVE,DRAFT)))
+      - name: fields
+        in: query
+        schema:
+          type: string
+        example: id,name
+      - name: sponsoredaccount_id
+        in: path
+        schema:
+          type: string
+        required: true
       responses:
         '200':
           description: OK
@@ -509,13 +688,11 @@ paths:
             Report-To:
               schema:
                 type: string
-                example: >-
-                  {"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}
+                example: '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}'
             NEL:
               schema:
                 type: string
-                example: >-
-                  {"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}
+                example: '{"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}'
             X-Li-Pop:
               schema:
                 type: string
@@ -531,71 +708,56 @@ paths:
             Set-Cookie:
               schema:
                 type: string
-                example: >-
-                  lidc="b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697507446:t=1697509914:v=2:sig=AQG1F5DDw_-Cvyww_R4RWc8KPvLXx2sz"
+                example: lidc="b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697507446:t=1697509914:v=2:sig=AQG1F5DDw_-Cvyww_R4RWc8KPvLXx2sz"
             X-LI-Route-Key:
               schema:
                 type: string
-                example: >-
-                  "b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697507446:t=1697509914:v=2:sig=AQG1F5DDw_-Cvyww_R4RWc8KPvLXx2sz"
+                example: '"b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697507446:t=1697509914:v=2:sig=AQG1F5DDw_-Cvyww_R4RWc8KPvLXx2sz"'
           content:
             application/json:
               schema:
-                type: object
-              example:
-                paging:
-                  start: 0
-                  count: 10
-                  links:
-                    - type: application/json
-                      rel: next
-                      href: >-
-                        /rest/adAccounts/5012345/adCampaigns?q=search&search=(status:(values:List(ACTIVE,DRAFT)))&start=10&count=10&fields=name,id
-                  total: 4
-                elements:
-                  - name: Website visits - May 4, 2021
-                    id: 12345
-                  - name: Brand awareness - Jul 14, 2022
-                    id: 14567
-                  - name: Lead generation - Dec 5, 2022
-                    id: 789090
-                  - name: Website conversions - Dec 6, 2022
-                    id: 899887
-  /campaignConversions/(campaign:urn:li:sponsoredCampaign:{campaign_id},conversion:urn:lla:llaPartnerConversion:{conversion_id}):
-    put:
+                $ref: '#/components/schemas/FetchActiveCampaignsResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/FetchActiveCampaignsResponse200Example'
+      operationId: getFetchActiveCampaigns
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  ? /campaignConversions/(campaign:urn:li:sponsoredCampaign:{campaign_id},conversion:urn:lla:llaPartnerConversion:{conversion_id})
+  : put:
       tags:
-        - Conversion Events Streaming Workflow
+      - Conversion Events Streaming Workflow
       summary: 8. Associate campaigns to conversion rule
-      description: "Create one or more conversion rules with this endpoint and set\_`conversionMethod`\_to\_`CONVERSIONS_API`\_for streaming conversions through API."
+      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for
+        streaming conversions through API.
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              example:
-                campaign: urn:li:sponsoredCampaign:{{campaign_id}}
-                conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+              $ref: '#/components/schemas/AssociateCampaignsToConversionRequest'
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          schema:
-            type: string
-          example: '{{insert_version}}'
-        - name: X-Restli-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: campaign_id
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: conversion_id
-          in: path
-          schema:
-            type: string
-          required: true
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: campaign_id
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: conversion_id
+        in: path
+        schema:
+          type: string
+        required: true
       responses:
         '204':
           description: No Content
@@ -619,13 +781,11 @@ paths:
             Report-To:
               schema:
                 type: string
-                example: >-
-                  {"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}
+                example: '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}'
             NEL:
               schema:
                 type: string
-                example: >-
-                  {"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}
+                example: '{"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}'
             X-Li-Pop:
               schema:
                 type: string
@@ -641,84 +801,51 @@ paths:
             Set-Cookie:
               schema:
                 type: string
-                example: >-
-                  lidc="b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697508062:t=1697509914:v=2:sig=AQEuCMMAxhHSzyZlkupPJUKXiy1LEjWz"
+                example: lidc="b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697508062:t=1697509914:v=2:sig=AQEuCMMAxhHSzyZlkupPJUKXiy1LEjWz"
             X-LI-Route-Key:
               schema:
                 type: string
-                example: >-
-                  "b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697508062:t=1697509914:v=2:sig=AQEuCMMAxhHSzyZlkupPJUKXiy1LEjWz"
+                example: '"b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697508062:t=1697509914:v=2:sig=AQEuCMMAxhHSzyZlkupPJUKXiy1LEjWz"'
           content:
             text/plain:
+              examples:
+                default:
+                  $ref: '#/components/examples/AssociateCampaignsToConversionResponse204Example'
               schema:
-                type: string
-              example: null
+                $ref: '#/components/schemas/AssociateCampaignsToConversionResponse204'
+      operationId: putAssociateCampaignsToConversion
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
   /conversionEvents:
     post:
       tags:
-        - Conversion Events Streaming Workflow
+      - Conversion Events Streaming Workflow
       summary: 10. Stream multiple conversion events to the conversion rule
-      description: "Create one or more conversion rules with this endpoint and set\_`conversionMethod`\_to\_`CONVERSIONS_API`\_for streaming conversions through API."
+      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for
+        streaming conversions through API.
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              example:
-                elements:
-                  - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
-                    conversionHappenedAt: 1695739275000
-                    conversionValue:
-                      currencyCode: USD
-                      amount: '1500.0'
-                    user:
-                      userIds:
-                        - idType: SHA256_EMAIL
-                          idValue: >-
-                            bad8677b6c86f5d308ee82786c183482a5995f066694246c58c4df37b0cc41f1
-                        - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
-                          idValue: df5gf5-gh6t7-ph4j7h-fgf6n1
-                      userInfo:
-                        firstName: mike
-                        lastName: smith
-                        title: software engineer
-                        companyName: microsoft
-                        countryCode: US
-                    eventId: abc12345
-                  - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
-                    conversionHappenedAt: 1695950057000
-                    conversionValue:
-                      currencyCode: USD
-                      amount: '2000.0'
-                    user:
-                      userIds:
-                        - idType: SHA256_EMAIL
-                          idValue: dsfgrtg56u767ujy982fgnbmcsdocl46c58c56b650cik230bb9
-                        - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
-                          idValue: ufh8h5-gh6t7-ph4j7h-mkl86n1
-                      userInfo:
-                        firstName: jason
-                        lastName: bourne
-                        title: tech lead
-                        companyName: linkedin
-                        countryCode: US
-                    eventId: xyz345
+              $ref: '#/components/schemas/StreamMultipleConversionEventsRequest'
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          schema:
-            type: string
-          example: '{{insert_version}}'
-        - name: X-Restli-Protocol-Version
-          in: header
-          schema:
-            type: string
-          example: 2.0.0
-        - name: X-RestLi-Method
-          in: header
-          schema:
-            type: string
-          example: BATCH_CREATE
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: X-RestLi-Method
+        in: header
+        schema:
+          type: string
+        example: BATCH_CREATE
       responses:
         '200':
           description: OK
@@ -742,13 +869,11 @@ paths:
             Report-To:
               schema:
                 type: string
-                example: >-
-                  {"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}
+                example: '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://www.linkedin.com/li/rep"}],"include_subdomains":true}'
             NEL:
               schema:
                 type: string
-                example: >-
-                  {"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}
+                example: '{"report_to":"network-errors","max_age":1296000,"success_fraction":0.00066,"failure_fraction":1,"include_subdomains":true}'
             Transfer-Encoding:
               schema:
                 type: string
@@ -776,18 +901,20 @@ paths:
             Set-Cookie:
               schema:
                 type: string
-                example: >-
-                  lidc="b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115914:t=1698121131:v=2:sig=AQHzEIPucPFVAH_DkGU-T6ZaVmFk6Mxe"
+                example: lidc="b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115914:t=1698121131:v=2:sig=AQHzEIPucPFVAH_DkGU-T6ZaVmFk6Mxe"
             X-LI-Route-Key:
               schema:
                 type: string
-                example: >-
-                  "b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115914:t=1698121131:v=2:sig=AQHzEIPucPFVAH_DkGU-T6ZaVmFk6Mxe"
+                example: '"b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115914:t=1698121131:v=2:sig=AQHzEIPucPFVAH_DkGU-T6ZaVmFk6Mxe"'
           content:
             application/json:
               schema:
-                type: object
-              example:
-                elements:
-                  - status: 201
-                  - status: 201
+                $ref: '#/components/schemas/StreamMultipleConversionEventsResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/StreamMultipleConversionEventsResponse200Example'
+      operationId: postStreamMultipleConversionEvents
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0

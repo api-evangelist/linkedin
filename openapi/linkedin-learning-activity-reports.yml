@@ -1,257 +1,425 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  title: Learning Activity Reports
+  title: LinkedIn Learning Activity Reports API
   description: >-
-    We are making updates to our collections. If you run into any issues pulling
-    the latest changes, simply fork the collection again.
-
-
-    The 2 main uses for the externalized LinkedIn Learning APIs are for Learning
-    Content and Learning Activity Reports.
-
-
-    *Access to LinkedIn Learning APIs is available to members of our* [*Partner
-    Program*](https://learning.linkedin.com/partners) *and organizations that
-    have purchased LinkedIn Learning site licenses.*
-
-
-    Overview:
-    [https://docs.microsoft.com/en-us/linkedin/learning/overview/](https://docs.microsoft.com/en-us/linkedin/learning/overview/)
-
-
-    * * *
-
-
-    Use this collection with the **LinkedIn Learning Solutions** environment
-
-
-    * * *
+    The LinkedIn Learning APIs enable access to Learning Content and Learning Activity Reports.
+    This API provides learning activity reports including course completions, seconds of
+    content viewed, and learner logins. Activity data can be aggregated by account, group,
+    individual, or content.
+    
+    Access to LinkedIn Learning APIs is available to members of the Partner Program and
+    organizations that have purchased LinkedIn Learning site licenses.
   version: 1.0.0
+  contact:
+    name: LinkedIn Learning API Support
+    url: https://docs.microsoft.com/en-us/linkedin/learning/overview/
 servers:
   - url: https://api.linkedin.com
+    description: LinkedIn Production API Server
 components:
   securitySchemes:
-    oauth2Auth:
-      type: http
-      scheme: oauth2
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_lms_learning: Read learning management data
+  schemas:
+    LearningActivityReport:
+      type: object
+      properties:
+        latestDataAt:
+          type: integer
+          format: int64
+          description: Timestamp of the latest data included in this report
+          example: 1632207540000
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningActivity'
+        learnerDetails:
+          $ref: '#/components/schemas/LearnerDetails'
+    LearningActivity:
+      type: object
+      properties:
+        engagementType:
+          type: string
+          enum:
+            - LOGINS
+            - VIEWS
+            - SECONDS_VIEWED
+            - COMPLETIONS
+          description: Type of engagement activity
+          example: "LOGINS"
+        engagementValue:
+          type: integer
+          description: Numeric value of the engagement
+          example: 88
+        engagementMetricQualifier:
+          type: string
+          enum:
+            - UNIQUE
+            - TOTAL
+          description: Whether the metric is unique or total count
+          example: "UNIQUE"
+        assetType:
+          type: string
+          enum:
+            - VIDEO
+            - ARTICLE
+            - AUDIO
+            - BOOK
+            - LEARNING_COLLECTION
+            - COURSE
+            - DOCUMENT
+            - EVENT
+            - LEARNING_PATH
+          description: Type of learning asset
+          example: "VIDEO"
+        firstEngagedAt:
+          type: integer
+          format: int64
+          description: Timestamp of first engagement
+          example: 1627267600000
+        lastEngagedAt:
+          type: integer
+          format: int64
+          description: Timestamp of last engagement
+          example: 1627354000000
+      required:
+        - engagementType
+        - engagementValue
+        - engagementMetricQualifier
+    LearnerDetails:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/LearnerEntity'
+    LearnerEntity:
+      type: object
+      properties:
+        accountUrn:
+          type: string
+          description: URN of the enterprise account
+          example: "urn:li:enterpriseAccount:999"
+        groupUrn:
+          type: string
+          description: URN of the learner group (if grouped by group)
+          example: "urn:li:learnerGroup:456"
+        learnerUrn:
+          type: string
+          description: URN of the individual learner (if grouped by individual)
+          example: "urn:li:learner:789"
+        contentUrn:
+          type: string
+          description: URN of the content (if grouped by content)
+          example: "urn:li:learningCourse:123"
+    LearningActivityReportResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningActivityReport'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of results
+          example: 1
+        count:
+          type: integer
+          description: Number of results in this response
+          example: 1
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: "next"
+        href:
+          type: string
+          example: "/v2/learningActivityReports?aggregationCriteria.primary=ACCOUNT&count=1&q=criteria&start=1&startedAt=1627267600000&timeOffset.duration=7&timeOffset.unit=DAY"
+        type:
+          type: string
+          example: "application/json"
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: "Invalid request parameters"
+        code:
+          type: string
+          description: Error code
+          example: "INVALID_PARAMS"
+  examples:
+    LearningActivityReportResponseExample:
+      summary: Learning activity report aggregated by account
+      value:
+        elements:
+          - latestDataAt: 1632207540000
+            activities:
+              - engagementType: "LOGINS"
+                engagementValue: 88
+                engagementMetricQualifier: "UNIQUE"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "VIEWS"
+                engagementValue: 12
+                engagementMetricQualifier: "UNIQUE"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "SECONDS_VIEWED"
+                engagementValue: 2505
+                engagementMetricQualifier: "TOTAL"
+                assetType: "VIDEO"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "VIEWS"
+                engagementValue: 0
+                engagementMetricQualifier: "TOTAL"
+                assetType: "ARTICLE"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "COMPLETIONS"
+                engagementValue: 0
+                engagementMetricQualifier: "TOTAL"
+                assetType: "ARTICLE"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "VIEWS"
+                engagementValue: 16
+                engagementMetricQualifier: "TOTAL"
+                assetType: "COURSE"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "COMPLETIONS"
+                engagementValue: 1
+                engagementMetricQualifier: "TOTAL"
+                assetType: "COURSE"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "VIEWS"
+                engagementValue: 2
+                engagementMetricQualifier: "TOTAL"
+                assetType: "LEARNING_PATH"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "COMPLETIONS"
+                engagementValue: 0
+                engagementMetricQualifier: "TOTAL"
+                assetType: "LEARNING_PATH"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "VIEWS"
+                engagementValue: 66
+                engagementMetricQualifier: "TOTAL"
+                assetType: "VIDEO"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+              - engagementType: "COMPLETIONS"
+                engagementValue: 22
+                engagementMetricQualifier: "TOTAL"
+                assetType: "VIDEO"
+                firstEngagedAt: 1627267600000
+                lastEngagedAt: 1627354000000
+            learnerDetails:
+              entity:
+                accountUrn: "urn:li:enterpriseAccount:999"
+        paging:
+          total: 1
+          count: 1
+          start: 0
+          links:
+            - rel: "next"
+              href: "/v2/learningActivityReports?aggregationCriteria.primary=ACCOUNT&count=1&q=criteria&start=1&startedAt=1627267600000&timeOffset.duration=7&timeOffset.unit=DAY"
+              type: "application/json"
 security:
-  - oauth2Auth: []
+  - OAuth2Auth:
+      - r_lms_learning
 tags:
-  - name: Use Cases
-  - name: Use Cases > Learning Activity Reports
+  - name: Learning Activity Reports
+    description: APIs to retrieve learning activity reports including completions, views, and logins
 paths:
   /v2/learningActivityReports:
     get:
       tags:
-        - Use Cases > Learning Activity Reports
-      summary: Learning Activity Reports
+        - Learning Activity Reports
+      summary: Get Learning Activity Reports
       description: >-
-        Learning Activity Reports API
-
-
-        This resource represents LinkedIn Learning activity reports like course
-        completions, seconds of content viewed and learner logins. You can use
-        these methods to aggregate activity data by account, group, individual
-        or content.
-
-
-        Documentation:
-        [https://docs.microsoft.com/en-us/linkedin/learning/reference/learning-activity-reports-reference#definitions](https://docs.microsoft.com/en-us/linkedin/learning/reference/learning-activity-reports-reference#definitionsParameters)
-
-
-        *Access to LinkedIn Learning APIs is available to members of our
-        [Partner Program](https://learning.linkedin.com/partners) and
-        organizations that have purchased LinkedIn Learning site licenses.*
+        Retrieve LinkedIn Learning activity reports including course completions,
+        seconds of content viewed, and learner logins. Data can be aggregated by
+        account, group, individual, or content.
+      operationId: getLearningActivityReports
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
       parameters:
         - name: referer
           in: header
+          required: false
           schema:
             type: string
-          example: '{{referrer_urn}}'
+          description: Referrer URN for the request
+          example: "urn:li:enterpriseAccount:999"
         - name: q
           in: query
+          required: true
           schema:
             type: string
+            enum:
+              - criteria
+          description: Query type
           example: criteria
         - name: count
           in: query
+          required: false
           schema:
             type: integer
-          example: '1'
+            minimum: 1
+            maximum: 100
+            default: 10
+          description: Number of results to return
+          example: 1
         - name: startedAt
           in: query
+          required: true
           schema:
             type: integer
-          example: '1627267600000'
+            format: int64
+          description: Start timestamp in milliseconds since epoch
+          example: 1627267600000
         - name: timeOffset.unit
           in: query
+          required: true
           schema:
             type: string
-          example: DAY
+            enum:
+              - DAY
+              - WEEK
+              - MONTH
+          description: Time offset unit
+          example: "DAY"
         - name: timeOffset.duration
           in: query
+          required: true
           schema:
             type: integer
-          example: '7'
+            minimum: 1
+          description: Time offset duration
+          example: 7
         - name: aggregationCriteria.primary
           in: query
+          required: true
           schema:
             type: string
-          example: ACCOUNT
+            enum:
+              - ACCOUNT
+              - GROUP
+              - INDIVIDUAL
+              - CONTENT
+          description: Primary aggregation criteria
+          example: "ACCOUNT"
         - name: contentSource
           in: query
+          required: false
           schema:
             type: string
-          example: ALL_SOURCES
+            enum:
+              - ALL_SOURCES
+              - LINKEDIN_LEARNING
+              - CUSTOM_CONTENT
+          description: Source of learning content to include
+          example: "ALL_SOURCES"
         - name: locale.language
           in: query
+          required: false
           schema:
             type: string
-          example: en
+          description: Locale language code
+          example: "en"
+        - name: start
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+          description: Starting index for pagination
+          example: 0
       responses:
         '200':
-          description: OK
+          description: Successfully retrieved learning activity reports
           content:
             application/json:
               schema:
-                type: object
-              example:
-                elements:
-                  - latestDataAt: 1632207540000
-                    activities:
-                      - engagementType: LOGINS
-                        engagementValue: 88
-                        engagementMetricQualifier: UNIQUE
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 12
-                        engagementMetricQualifier: UNIQUE
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: SECONDS_VIEWED
-                        engagementValue: 2505
-                        engagementMetricQualifier: TOTAL
-                        assetType: VIDEO
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: ARTICLE
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: COMPLETIONS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: ARTICLE
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: AUDIO
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: COMPLETIONS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: AUDIO
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: BOOK
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: COMPLETIONS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: BOOK
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: LEARNING_COLLECTION
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: COMPLETIONS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: LEARNING_COLLECTION
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 16
-                        engagementMetricQualifier: TOTAL
-                        assetType: COURSE
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: COMPLETIONS
-                        engagementValue: 1
-                        engagementMetricQualifier: TOTAL
-                        assetType: COURSE
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: DOCUMENT
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: COMPLETIONS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: DOCUMENT
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: EVENT
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: COMPLETIONS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: EVENT
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 2
-                        engagementMetricQualifier: TOTAL
-                        assetType: LEARNING_PATH
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: COMPLETIONS
-                        engagementValue: 0
-                        engagementMetricQualifier: TOTAL
-                        assetType: LEARNING_PATH
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: VIEWS
-                        engagementValue: 66
-                        engagementMetricQualifier: TOTAL
-                        assetType: VIDEO
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                      - engagementType: COMPLETIONS
-                        engagementValue: 22
-                        engagementMetricQualifier: TOTAL
-                        assetType: VIDEO
-                        firstEngagedAt: 1627267600000
-                        lastEngagedAt: 1627354000000
-                    learnerDetails:
-                      entity:
-                        accountUrn: urn:li:enterpriseAccount:999
-                paging:
-                  total: 1
-                  count: 1
-                  start: 0
-                  links:
-                    - rel: next
-                      href: >-
-                        /v2/learningActivityReports?aggregationCriteria.primary=ACCOUNT&count=1&q=criteria&start=1&startedAt=1627267600000&timeOffset.duration=7&timeOffset.unit=DAY
-                      type: application/json
+                $ref: '#/components/schemas/LearningActivityReportResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/LearningActivityReportResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                BadRequestExample:
+                  value:
+                    status: 400
+                    message: "Invalid aggregation criteria"
+                    code: "INVALID_AGGREGATION_CRITERIA"
+        '401':
+          description: Unauthorized - invalid or missing access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                UnauthorizedExample:
+                  value:
+                    status: 401
+                    message: "Invalid access token"
+                    code: "UNAUTHORIZED"
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                ForbiddenExample:
+                  value:
+                    status: 403
+                    message: "Access to LinkedIn Learning APIs requires Partner Program membership"
+                    code: "FORBIDDEN"
+        '429':
+          description: Too many requests - rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                RateLimitExample:
+                  value:
+                    status: 429
+                    message: "Rate limit exceeded"
+                    code: "RATE_LIMIT_EXCEEDED"

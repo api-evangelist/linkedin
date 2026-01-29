@@ -1,0 +1,781 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Sales Navigator API
+  description: >-
+    API for accessing LinkedIn Sales Navigator features including sales contracts,
+    analytics export jobs, access tokens, profile associations, and CRM data validation.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/sales/
+servers:
+  - url: https://api.linkedin.com/v2
+    description: LinkedIn Production API Server
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Contract:
+      type: object
+      properties:
+        contract:
+          type: string
+          description: The URN of this Sales Navigator contract
+          example: "urn:li:salesContract:12345"
+        name:
+          type: string
+          description: The name of this contract, appropriate for display to an end-user
+          example: "Enterprise Sales Contract"
+        description:
+          type: string
+          nullable: true
+          description: Additional information about the contract
+          example: "Annual enterprise subscription for sales team"
+        hasReportingAccess:
+          type: boolean
+          description: Indicates whether the user can export data for this contract
+          example: true
+      required:
+        - contract
+        - name
+        - hasReportingAccess
+    ContractsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contract'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    SalesAccessToken:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Short-lived, limited-scope OAuth token
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        expiryTime:
+          type: integer
+          description: Time at which this token will become invalid (seconds since epoch)
+          example: 1640100000
+      required:
+        - token
+        - expiryTime
+    SalesAccessTokenResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesAccessToken'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    SalesAnalyticsExportJob:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: A unique identifier for the job
+          example: 987654321
+        status:
+          type: string
+          enum:
+            - ENQUEUED
+            - PROCESSING
+            - COMPLETED
+            - FAILED_DUE_TO_EXCEEDED_FILE_SIZE_ERROR
+            - FAILED_DUE_TO_TIMED_OUT
+            - FAILED_DUE_TO_DATA_DELAY
+            - FAILED_DUE_TO_INTERNAL_ERROR
+          description: Current status of the export job
+          example: "COMPLETED"
+        downloadUrl:
+          type: string
+          nullable: true
+          description: URL for downloading the exported data when job is completed
+          example: "https://media.licdn.com/exports/analytics_123.csv"
+        expireAt:
+          type: integer
+          nullable: true
+          description: Expiration timestamp of the download URL
+          example: 1640200000
+        rowCount:
+          type: integer
+          nullable: true
+          description: Number of rows in the exported data
+          example: 5000
+      required:
+        - id
+        - status
+    SalesAnalyticsExportJobRequest:
+      type: object
+      properties:
+        contract:
+          type: string
+          description: Sales Navigator contract URN
+          example: "urn:li:salesContract:12345"
+        startAt:
+          type: integer
+          description: Start date of the exported data (milliseconds since epoch)
+          example: 1638316800000
+        endAt:
+          type: integer
+          description: End date of the exported data (milliseconds since epoch)
+          example: 1640908800000
+      required:
+        - contract
+        - startAt
+        - endAt
+    SalesAnalyticsExportJobResponse:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/SalesAnalyticsExportJob'
+    SalesNavigatorProfileAssociation:
+      type: object
+      properties:
+        member:
+          type: string
+          description: LinkedIn Person URN
+          example: "urn:li:person:ABC123def"
+        profile:
+          type: string
+          format: uri
+          description: Absolute URL of the Sales Navigator profile
+          example: "https://www.linkedin.com/sales/people/ABC123def"
+        profilePhoto:
+          type: string
+          format: uri
+          description: Absolute URL of the LinkedIn profile photo (optional)
+          example: "https://media.licdn.com/dms/image/ABC123/profile.jpg"
+    SalesNavigatorProfileAssociationKey:
+      type: object
+      properties:
+        partner:
+          type: string
+          description: ID of the CRM partner that synced with Sales Navigator
+          example: "salesforce"
+        instanceId:
+          type: string
+          description: ID of the CRM instance that synced with Sales Navigator
+          example: "sf-instance-001"
+        recordId:
+          type: string
+          description: ID of the CRM record
+          example: "contact-12345"
+    BatchProfileAssociationResponse:
+      type: object
+      properties:
+        statuses:
+          type: object
+          additionalProperties:
+            type: integer
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SalesNavigatorProfileAssociation'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+    CrmDataValidationExportJob:
+      type: object
+      properties:
+        jobId:
+          type: integer
+          format: int64
+          description: Export job ID
+          example: 123456789
+        exportStartAt:
+          type: integer
+          format: int64
+          description: Start time of the export
+          example: 1640000000000
+        exportEndAt:
+          type: integer
+          format: int64
+          nullable: true
+          description: End time of the export
+          example: 1640001000000
+        status:
+          type: string
+          enum:
+            - PROCESSING
+            - COMPLETED
+            - FAILED_DUE_TO_INTERNAL_ERROR
+          description: Current status of the export job
+          example: "COMPLETED"
+        downloadUrls:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: URLs for downloading the exported data
+          example:
+            - "https://media.licdn.com/crm-validation/export_1.csv"
+            - "https://media.licdn.com/crm-validation/export_2.csv"
+        nextExportStartAt:
+          type: integer
+          format: int64
+          nullable: true
+          description: Suggested start time for next export
+          example: 1640001000000
+        expireAt:
+          type: integer
+          format: int64
+          nullable: true
+          description: Expiration timestamp for download URLs
+          example: 1640100000000
+    CrmDataValidationExportJobRequest:
+      type: object
+      properties:
+        exportStartAt:
+          type: integer
+          format: int64
+          description: Time at which export was started
+          example: 1640000000000
+    Paging:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 10
+        start:
+          type: integer
+          example: 0
+        links:
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: "Invalid request parameters"
+        code:
+          type: string
+          description: Error code
+          example: "INVALID_PARAMS"
+  examples:
+    ContractsResponseExample:
+      summary: List of sales contracts
+      value:
+        elements:
+          - contract: "urn:li:salesContract:12345"
+            name: "Enterprise Sales Contract"
+            description: "Annual enterprise subscription for sales team"
+            hasReportingAccess: true
+          - contract: "urn:li:salesContract:67890"
+            name: "Professional Sales Contract"
+            description: "Monthly professional subscription"
+            hasReportingAccess: false
+        paging:
+          count: 10
+          start: 0
+          links: []
+    SalesAccessTokenResponseExample:
+      summary: Sales access token response
+      value:
+        elements:
+          - token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            expiryTime: 1640100000
+        paging:
+          count: 1
+          start: 0
+          links: []
+    SalesAnalyticsExportJobExample:
+      summary: Completed export job
+      value:
+        id: 987654321
+        status: "COMPLETED"
+        downloadUrl: "https://media.licdn.com/exports/analytics_123.csv"
+        expireAt: 1640200000
+        rowCount: 5000
+    ProfileAssociationExample:
+      summary: Profile association response
+      value:
+        member: "urn:li:person:ABC123def"
+        profile: "https://www.linkedin.com/sales/people/ABC123def"
+        profilePhoto: "https://media.licdn.com/dms/image/ABC123/profile.jpg"
+    CrmDataValidationJobExample:
+      summary: CRM data validation export job
+      value:
+        jobId: 123456789
+        exportStartAt: 1640000000000
+        exportEndAt: 1640001000000
+        status: "COMPLETED"
+        downloadUrls:
+          - "https://media.licdn.com/crm-validation/export_1.csv"
+        nextExportStartAt: 1640001000000
+        expireAt: 1640100000000
+security:
+  - BearerAuth: []
+tags:
+  - name: Sales Contracts
+    description: Manage and retrieve Sales Navigator contracts
+  - name: Sales Analytics Export
+    description: Create and manage sales analytics export jobs
+  - name: Sales Access Tokens
+    description: Retrieve sales access tokens for authenticated iframe sessions
+  - name: Profile Associations
+    description: Fetch Sales Navigator profile associations from CRM records
+  - name: CRM Data Validation
+    description: Create and manage CRM data validation export jobs
+paths:
+  /salesContracts:
+    get:
+      tags:
+        - Sales Contracts
+      summary: Find All Contracts Where User Has Active Seat
+      description: >-
+        Retrieve all Sales Navigator contracts where the authenticated user
+        has an active seat.
+      operationId: getContractsByMember
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - contractsByMember
+          description: Query parameter to fetch contracts for the member
+          example: contractsByMember
+      responses:
+        '200':
+          description: A list of sales contracts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractsResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ContractsResponseExample'
+        '401':
+          description: Unauthorized, invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /salesAnalyticsExportJobs/{JobId}:
+    get:
+      tags:
+        - Sales Analytics Export
+      summary: Fetch Sales Analytics Export Job By Id
+      description: >-
+        Retrieve the status and details of a sales analytics export job by its ID.
+      operationId: getSalesAnalyticsExportJob
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: JobId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the export job
+          example: 987654321
+        - name: contract
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Sales Navigator contract URN
+          example: "urn:li:salesContract:12345"
+      responses:
+        '200':
+          description: Details of the export job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesAnalyticsExportJob'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/SalesAnalyticsExportJobExample'
+        '401':
+          description: Unauthorized, invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /salesAnalyticsExportJobs:
+    post:
+      tags:
+        - Sales Analytics Export
+      summary: Create New Sales Analytics Export Job
+      description: >-
+        Create a new sales analytics export job to export seat data,
+        activity outcome data, or activity data.
+      operationId: createSalesAnalyticsExportJob
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - exportSeatData
+              - exportActivityOutcomeData
+              - exportActivityData
+          description: The type of export job to create
+          example: exportSeatData
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesAnalyticsExportJobRequest'
+            examples:
+              ExportRequest:
+                value:
+                  contract: "urn:li:salesContract:12345"
+                  startAt: 1638316800000
+                  endAt: 1640908800000
+      responses:
+        '200':
+          description: Export job successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesAnalyticsExportJobResponse'
+              examples:
+                SuccessResponse:
+                  value:
+                    value:
+                      id: 987654321
+                      status: "ENQUEUED"
+                      downloadUrl: null
+                      expireAt: null
+                      rowCount: null
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /salesAccessTokens:
+    get:
+      tags:
+        - Sales Access Tokens
+      summary: Retrieve Sales Access Token For Authenticated Iframe Sessions
+      description: >-
+        Get a short-lived, limited-scope OAuth token for authenticated iframe sessions.
+      operationId: getSalesAccessToken
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - viewerAndDeveloperApp
+          description: Query parameter for retrieving a Sales Access Token
+          example: viewerAndDeveloperApp
+      responses:
+        '200':
+          description: A list of Sales Access Tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesAccessTokenResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/SalesAccessTokenResponseExample'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /salesNavigatorProfileAssociations/{InstanceId},{Partner},{RecordId}:
+    get:
+      tags:
+        - Profile Associations
+      summary: Fetch Profile Association By Key
+      description: >-
+        Fetch the corresponding match when provided with a SalesNavigatorProfileAssociationKey.
+      operationId: getProfileAssociation
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: ID of the CRM instance that synced with Sales Navigator
+          schema:
+            type: string
+          example: "sf-instance-001"
+        - name: Partner
+          in: path
+          required: true
+          description: ID of the CRM partner that synced with Sales Navigator
+          schema:
+            type: string
+          example: "salesforce"
+        - name: RecordId
+          in: path
+          required: true
+          description: ID of the CRM record
+          schema:
+            type: string
+          example: "contact-12345"
+      responses:
+        '200':
+          description: Successfully retrieved Sales Navigator Profile Association
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesNavigatorProfileAssociation'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ProfileAssociationExample'
+        '400':
+          description: Bad request, missing parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized, invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Insufficient application access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Match unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /salesNavigatorProfileAssociations:
+    get:
+      tags:
+        - Profile Associations
+      summary: Batch Fetch Profile Associations
+      description: >-
+        Batch fetch matches when provided with multiple SalesNavigatorProfileAssociationKeys.
+      operationId: batchGetProfileAssociations
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: ids
+          in: query
+          required: true
+          description: List of association keys in the format List((instanceId,partner,recordId))
+          schema:
+            type: string
+          example: "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))"
+      responses:
+        '200':
+          description: Successfully retrieved batch Sales Navigator Profile Associations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProfileAssociationResponse'
+              examples:
+                SuccessResponse:
+                  value:
+                    statuses:
+                      "(sf-instance-001,salesforce,contact-12345)": 200
+                      "(sf-instance-001,salesforce,contact-67890)": 200
+                    results:
+                      "(sf-instance-001,salesforce,contact-12345)":
+                        member: "urn:li:person:ABC123def"
+                        profile: "https://www.linkedin.com/sales/people/ABC123def"
+                        profilePhoto: "https://media.licdn.com/dms/image/ABC123/profile.jpg"
+                      "(sf-instance-001,salesforce,contact-67890)":
+                        member: "urn:li:person:XYZ789ghi"
+                        profile: "https://www.linkedin.com/sales/people/XYZ789ghi"
+                    errors: {}
+        '400':
+          description: Bad request, missing parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized, invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /crmDataValidationExportJobs:
+    post:
+      tags:
+        - CRM Data Validation
+      summary: Create CRM Data Validation Export Job
+      description: >-
+        Create a new CRM data validation export job to validate CRM data against LinkedIn.
+      operationId: createCrmDataValidationExportJob
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: crmInstanceId
+          in: query
+          required: true
+          description: >-
+            An URN containing the instance ID of the CRM to execute against.
+            The URN must be URL encoded.
+          schema:
+            type: string
+          example: "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmDataValidationExportJobRequest'
+            examples:
+              CreateJobRequest:
+                value:
+                  exportStartAt: 1640000000000
+      responses:
+        '201':
+          description: Export job created successfully
+          headers:
+            Location:
+              description: Resource location of created job
+              schema:
+                type: string
+            X-RestLi-Id:
+              description: Job ID
+              schema:
+                type: integer
+                format: int64
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDataValidationExportJob'
+              examples:
+                SuccessResponse:
+                  value:
+                    jobId: 123456789
+                    exportStartAt: 1640000000000
+                    status: "PROCESSING"
+        '400':
+          description: Bad request, missing or invalid parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden, insufficient access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /crmDataValidationExportJobs/{JobId}:
+    get:
+      tags:
+        - CRM Data Validation
+      summary: Get CRM Data Validation Export Job Status
+      description: >-
+        Retrieve the status and details of a CRM data validation export job.
+      operationId: getCrmDataValidationExportJob
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ""
+      parameters:
+        - name: JobId
+          in: path
+          required: true
+          description: The ID of the export job
+          schema:
+            type: integer
+            format: int64
+          example: 123456789
+        - name: crmInstanceId
+          in: query
+          required: true
+          description: >-
+            An URN containing the instance ID of the CRM. The URN must be URL encoded.
+          schema:
+            type: string
+          example: "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+      responses:
+        '200':
+          description: Export job status returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDataValidationExportJob'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/CrmDataValidationJobExample'
+        '400':
+          description: Bad request, missing or invalid parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden, insufficient access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Job ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
