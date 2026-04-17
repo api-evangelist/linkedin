@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-marketing-campaigns-ad-account-user-create-request-schema.json",
+  "title": "AdAccountUserCreateRequest",
+  "description": "AdAccountUserCreateRequest from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "account": {
+      "type": "string",
+      "description": "URN of the sponsored account",
+      "example": "urn:li:sponsoredAccount:123456"
+    },
+    "user": {
+      "type": "string",
+      "description": "URN of the person",
+      "example": "urn:li:person:ABC123def"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "ACCOUNT_BILLING_ADMIN",
+        "ACCOUNT_MANAGER",
+        "CAMPAIGN_MANAGER",
+        "CREATIVE_MANAGER",
+        "VIEWER"
+      ],
+      "description": "Role to assign",
+      "example": "VIEWER"
+    }
+  },
+  "required": [
+    "account",
+    "user",
+    "role"
+  ]
+}

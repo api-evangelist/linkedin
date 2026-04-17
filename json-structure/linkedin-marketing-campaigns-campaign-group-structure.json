@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-marketing-campaigns-campaign-group-structure.json",
+  "name": "CampaignGroup",
+  "description": "CampaignGroup from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int64",
+      "description": "Unique identifier",
+      "example": 111222333
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name",
+      "example": "Q1 2024 Campaign Group"
+    },
+    "account": {
+      "type": "string",
+      "description": "Parent account URN",
+      "example": "urn:li:sponsoredAccount:123456"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED",
+        "CANCELLED",
+        "DRAFT",
+        "PAUSED",
+        "PENDING_DELETION",
+        "REMOVED"
+      ],
+      "description": "Campaign group status",
+      "example": "ACTIVE"
+    },
+    "totalBudget": {
+      "$ref": "#/components/schemas/Budget"
+    },
+    "runSchedule": {
+      "$ref": "#/components/schemas/RunSchedule"
+    }
+  }
+}

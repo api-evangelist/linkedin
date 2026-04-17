@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-compliance-events-paging-structure.json",
+  "name": "Paging",
+  "description": "Paging from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "start": {
+      "type": "int32",
+      "description": "Starting index",
+      "example": 0
+    },
+    "count": {
+      "type": "int32",
+      "description": "Number of elements returned",
+      "example": 10
+    },
+    "total": {
+      "type": "int32",
+      "description": "Total number of elements available",
+      "example": 100
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PagingLink"
+      }
+    }
+  }
+}

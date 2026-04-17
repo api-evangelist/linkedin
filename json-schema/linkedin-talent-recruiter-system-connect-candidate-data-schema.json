@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-talent-recruiter-system-connect-candidate-data-schema.json",
+  "title": "CandidateData",
+  "description": "CandidateData from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "example": "John"
+    },
+    "lastName": {
+      "type": "string",
+      "example": "Doe"
+    },
+    "middleInitial": {
+      "type": "string",
+      "example": "M"
+    },
+    "prefix": {
+      "type": "string",
+      "example": "Mr"
+    },
+    "suffix": {
+      "type": "string",
+      "example": "Jr"
+    },
+    "emailAddresses": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "email"
+      },
+      "example": [
+        "john.doe@example.com"
+      ]
+    },
+    "phoneNumbers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PhoneNumber"
+      }
+    },
+    "addresses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Address"
+      }
+    },
+    "currentCompanyName": {
+      "type": "string",
+      "example": "Tech Corp"
+    },
+    "currentJobTitle": {
+      "type": "string",
+      "example": "Senior Software Engineer"
+    },
+    "externalProfileUrl": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://example.com/profile/johndoe"
+    },
+    "atsCreatedAt": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1702693664000
+    },
+    "atsLastModifiedAt": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1702693664000
+    }
+  }
+}

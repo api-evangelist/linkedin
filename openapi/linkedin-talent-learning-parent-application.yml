@@ -5,7 +5,7 @@ info:
     LinkedIn's Provisioning APIs allow partners to create and configure developer
     applications on behalf of their customers. This is an initial step to manage
     and enable customer integrations.
-    
+
     For more information, refer to the
     [Provisioning API documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api).
   version: 1.0.0
@@ -14,16 +14,16 @@ info:
     url: https://docs.microsoft.com/en-us/linkedin/talent/
 
 servers:
-  - url: https://api.linkedin.com
-    description: LinkedIn Production API Server
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
 
 tags:
-  - name: Child Application Provisioning
-    description: APIs for provisioning and managing customer (child) applications
-  - name: Application Retrieval
-    description: APIs for retrieving child application details
-  - name: Application Updates
-    description: APIs for updating child application configurations
+- name: Child Application Provisioning
+  description: APIs for provisioning and managing customer (child) applications
+- name: Application Retrieval
+  description: APIs for retrieving child application details
+- name: Application Updates
+  description: APIs for updating child application configurations
 
 components:
   securitySchemes:
@@ -42,9 +42,9 @@ components:
       type: object
       description: Request body for provisioning a new child application
       required:
-        - name
-        - uniqueForeignId
-        - oauth2AuthorizedCallbackUrls
+      - name
+      - uniqueForeignId
+      - oauth2AuthorizedCallbackUrls
       properties:
         name:
           type: string
@@ -65,16 +65,16 @@ components:
             type: string
             format: uri
           example:
-            - "https://app.acme.com/oauth2/callback"
-            - "https://staging.acme.com/oauth2/callback"
+          - "https://app.acme.com/oauth2/callback"
+          - "https://staging.acme.com/oauth2/callback"
         validJsSdkDomains:
           type: array
           description: List of valid JavaScript SDK domains
           items:
             type: string
           example:
-            - "https://app.acme.com"
-            - "http://localhost:5000"
+          - "https://app.acme.com"
+          - "http://localhost:5000"
 
     ProvisionApplicationResponse:
       type: object
@@ -106,13 +106,13 @@ components:
             type: string
             format: uri
           example:
-            - "https://app.acme.com/oauth2/callback"
+          - "https://app.acme.com/oauth2/callback"
         validJsSdkDomains:
           type: array
           items:
             type: string
           example:
-            - "https://app.acme.com"
+          - "https://app.acme.com"
         createdAt:
           type: integer
           format: int64
@@ -123,7 +123,7 @@ components:
       type: object
       description: Request body for updating OAuth 2.0 callback URLs
       required:
-        - patch
+      - patch
       properties:
         patch:
           type: object
@@ -137,8 +137,8 @@ components:
                     type: string
                     format: uri
                   example:
-                    - "https://app.acme.com/oauth2/callback"
-                    - "https://new-domain.acme.com/oauth2/callback"
+                  - "https://app.acme.com/oauth2/callback"
+                  - "https://new-domain.acme.com/oauth2/callback"
 
     GetApplicationResponse:
       type: object
@@ -193,10 +193,10 @@ components:
         description: "Test application for Acme Corporation"
         uniqueForeignId: "acme-corp-12345"
         oauth2AuthorizedCallbackUrls:
-          - "https://app.acme.com/oauth2/callback"
+        - "https://app.acme.com/oauth2/callback"
         validJsSdkDomains:
-          - "https://app.acme.com"
-          - "http://localhost:5000"
+        - "https://app.acme.com"
+        - "http://localhost:5000"
 
     ProvisionApplicationResponseExample:
       summary: Example response for provisioned application
@@ -207,19 +207,19 @@ components:
         name: "Acme Corporation"
         uniqueForeignId: "acme-corp-12345"
         oauth2AuthorizedCallbackUrls:
-          - "https://app.acme.com/oauth2/callback"
+        - "https://app.acme.com/oauth2/callback"
         validJsSdkDomains:
-          - "https://app.acme.com"
+        - "https://app.acme.com"
         createdAt: 1702693664000
 
     GetApplicationResponseExample:
       summary: Example response for retrieving application credentials
       value:
         elements:
-          - applicationUrn: "urn:li:developerApplication:12345678"
-            clientId: "78abc123def456"
-            clientSecret: "secretXYZ789"
-            uniqueForeignId: "acme-corp-12345"
+        - applicationUrn: "urn:li:developerApplication:12345678"
+          clientId: "78abc123def456"
+          clientSecret: "secretXYZ789"
+          uniqueForeignId: "acme-corp-12345"
 
     UpdateCallbackUrlRequestExample:
       summary: Example request to update callback URLs
@@ -227,8 +227,8 @@ components:
         patch:
           $set:
             oauth2AuthorizedCallbackUrls:
-              - "https://app.acme.com/oauth2/callback"
-              - "https://new-domain.acme.com/oauth2/callback"
+            - "https://app.acme.com/oauth2/callback"
+            - "https://new-domain.acme.com/oauth2/callback"
 
     ErrorResponseExample:
       summary: Example error response
@@ -255,7 +255,7 @@ components:
       schema:
         type: string
         enum:
-          - credentialsByUniqueForeignId
+        - credentialsByUniqueForeignId
       example: "credentialsByUniqueForeignId"
 
     UniqueForeignIdParameter:
@@ -277,20 +277,20 @@ components:
       example: "urn:li:developerApplication:12345678"
 
 security:
-  - OAuth2Auth: []
+- OAuth2Auth: []
 
 paths:
   /v2/provisionedApplications:
     post:
       operationId: provisionChildApplication
       tags:
-        - Child Application Provisioning
-      summary: Provision Child Application
+      - Child Application Provisioning
+      summary: LinkedIn Provision Child Application
       description: >-
         Creates a new child application for a mutual customer. Partners use this
         endpoint to provision developer applications that enable customer integrations
         with LinkedIn services.
-        
+
         For more information, refer to the
         [Create Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#create-application).
       x-microcks-operation:
@@ -302,7 +302,7 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/ContentTypeHeader'
       requestBody:
         required: true
         content:
@@ -347,12 +347,12 @@ paths:
     get:
       operationId: getChildApplication
       tags:
-        - Application Retrieval
-      summary: Get Child Application
+      - Application Retrieval
+      summary: LinkedIn Get Child Application
       description: >-
         Retrieves the credentials and details of a child application for a mutual
         customer using the partner's unique foreign identifier.
-        
+
         For more information, refer to the
         [Get Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#get-application).
       x-microcks-operation:
@@ -364,8 +364,8 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - $ref: '#/components/parameters/UniqueForeignIdParameter'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - $ref: '#/components/parameters/UniqueForeignIdParameter'
       responses:
         '200':
           description: Successfully retrieved application details
@@ -399,13 +399,13 @@ paths:
     post:
       operationId: updateChildApplicationCallbackUrls
       tags:
-        - Application Updates
-      summary: Update OAuth 2.0 Callback URLs For Child Application
+      - Application Updates
+      summary: LinkedIn Update OAuth 2.0 Callback URLs for Child Application
       description: >-
         Updates the OAuth 2.0 authorized callback URLs for a child application.
         Partners use this endpoint to modify the callback URLs configuration
         for customer applications.
-        
+
         For more information, refer to the
         [Update Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#update-application).
       x-microcks-operation:
@@ -417,7 +417,7 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/CustomerApplicationUrnPath'
+      - $ref: '#/components/parameters/CustomerApplicationUrnPath'
       requestBody:
         required: true
         content:

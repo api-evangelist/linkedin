@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-talent-job-posting-job-posting-element-structure.json",
+  "name": "JobPostingElement",
+  "description": "Individual job posting element",
+  "type": "object",
+  "properties": {
+    "externalJobPostingId": {
+      "type": "string",
+      "description": "External identifier for the job posting",
+      "example": "JOB-2024-001"
+    },
+    "title": {
+      "type": "string",
+      "description": "Job title",
+      "example": "Software Developer in Test"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full job description",
+      "example": "We are looking for a talented Software Developer in Test to join our engineering team..."
+    },
+    "integrationContext": {
+      "type": "string",
+      "description": "Organization URN for the job posting",
+      "example": "urn:li:organization:12345678"
+    },
+    "jobPostingOperationType": {
+      "type": "string",
+      "description": "Operation type for the job posting",
+      "enum": [
+        "CREATE",
+        "UPDATE",
+        "CLOSE"
+      ],
+      "example": "CREATE"
+    },
+    "listingType": {
+      "type": "string",
+      "description": "Type of job listing",
+      "enum": [
+        "BASIC",
+        "PREMIUM"
+      ],
+      "example": "BASIC"
+    },
+    "listedAt": {
+      "type": "int64",
+      "description": "Timestamp when the job was listed",
+      "example": 1702693664000
+    },
+    "location": {
+      "type": "string",
+      "description": "Job location",
+      "example": "San Francisco, CA"
+    },
+    "companyApplyUrl": {
+      "type": "uri",
+      "description": "URL for company's application page",
+      "example": "https://company.com/careers/apply"
+    },
+    "onsiteApplyConfiguration": {
+      "$ref": "#/components/schemas/OnsiteApplyConfiguration"
+    }
+  },
+  "required": [
+    "externalJobPostingId",
+    "title",
+    "description",
+    "integrationContext",
+    "listingType",
+    "location"
+  ]
+}

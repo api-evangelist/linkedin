@@ -11,8 +11,8 @@ info:
     name: LinkedIn API Support
     url: https://docs.microsoft.com/en-us/linkedin/compliance/
 servers:
-  - url: https://api.linkedin.com
-    description: LinkedIn Production API Server
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
 components:
   securitySchemes:
     OAuth2Auth:
@@ -38,8 +38,8 @@ components:
         status:
           type: string
           enum:
-            - AUTHORIZED
-            - UNAUTHORIZED
+          - AUTHORIZED
+          - UNAUTHORIZED
           description: Authorization status of the member
           example: "AUTHORIZED"
         createdAt:
@@ -48,9 +48,9 @@ components:
           description: Timestamp when authorization was created
           example: 1640000000000
       required:
-        - developerApplication
-        - member
-        - status
+      - developerApplication
+      - member
+      - status
     ComplianceAuthorizationRequest:
       type: object
       properties:
@@ -59,7 +59,7 @@ components:
           description: URN of the member to regulate
           example: "urn:li:person:ABC123def"
       required:
-        - member
+      - member
     ComplianceAuthorizationResponse:
       type: object
       properties:
@@ -109,9 +109,9 @@ components:
         method:
           type: string
           enum:
-            - CREATE
-            - UPDATE
-            - DELETE
+          - CREATE
+          - UPDATE
+          - DELETE
           description: Action method performed
           example: "CREATE"
         activity:
@@ -137,10 +137,10 @@ components:
             type: object
           description: Parent sibling activities
       required:
-        - id
-        - capturedAt
-        - resourceName
-        - method
+      - id
+      - capturedAt
+      - resourceName
+      - method
     ComplianceEventsResponse:
       type: object
       properties:
@@ -220,10 +220,10 @@ components:
       summary: Successful authorization response
       value:
         elements:
-          - developerApplication: "urn:li:developerApplication:12345678"
-            member: "urn:li:person:ABC123def"
-            status: "AUTHORIZED"
-            createdAt: 1640000000000
+        - developerApplication: "urn:li:developerApplication:12345678"
+          member: "urn:li:person:ABC123def"
+          status: "AUTHORIZED"
+          createdAt: 1640000000000
         paging:
           start: 0
           count: 10
@@ -233,47 +233,47 @@ components:
       summary: Compliance events response
       value:
         elements:
-          - id: "evt_123456789"
-            capturedAt: 1640000000000
-            processedAt: 1640000001000
-            configVersion: "1.0"
-            owner:
-              firstName: "John"
-              lastName: "Doe"
-              headline: "Software Engineer at Tech Corp"
-            actor:
-              firstName: "Jane"
-              lastName: "Smith"
-              headline: "Product Manager at Innovation Inc"
-            resourceName: "MESSAGE"
-            resourceId: "res_987654321"
-            resourceUri: "urn:li:message:987654321"
-            method: "CREATE"
-            activity: {}
-            processedActivity: {}
-            siblingActivities: []
+        - id: "evt_123456789"
+          capturedAt: 1640000000000
+          processedAt: 1640000001000
+          configVersion: "1.0"
+          owner:
+            firstName: "John"
+            lastName: "Doe"
+            headline: "Software Engineer at Tech Corp"
+          actor:
+            firstName: "Jane"
+            lastName: "Smith"
+            headline: "Product Manager at Innovation Inc"
+          resourceName: "MESSAGE"
+          resourceId: "res_987654321"
+          resourceUri: "urn:li:message:987654321"
+          method: "CREATE"
+          activity: {}
+          processedActivity: {}
+          siblingActivities: []
         paging:
           start: 0
           count: 10
           total: 25
           links:
-            - rel: "next"
-              href: "/v2/complianceEvents?start=10&count=10"
-              type: "application/json"
+          - rel: "next"
+            href: "/v2/complianceEvents?start=10&count=10"
+            type: "application/json"
 security:
-  - OAuth2Auth:
-      - r_compliance
+- OAuth2Auth:
+  - r_compliance
 tags:
-  - name: Compliance Authorization
-    description: APIs to opt-in and opt-out members for compliance monitoring on LinkedIn
-  - name: Compliance Events
-    description: APIs to retrieve compliance events for regulated members
+- name: Compliance Authorization
+  description: APIs to opt-in and opt-out members for compliance monitoring on LinkedIn
+- name: Compliance Events
+  description: APIs to retrieve compliance events for regulated members
 paths:
   /v2/memberComplianceAuthorizations:
     post:
       tags:
-        - Compliance Authorization
-      summary: Opt In Member For Compliance Monitoring
+      - Compliance Authorization
+      summary: LinkedIn Opt in Member for Compliance Monitoring
       description: >-
         Opt in a member to be regulated on LinkedIn for compliance monitoring.
         Once authorized, the member's activities can be retrieved using the
@@ -319,8 +319,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     get:
       tags:
-        - Compliance Authorization
-      summary: Check Member Regulation Status
+      - Compliance Authorization
+      summary: LinkedIn Check Member Regulation Status
       description: >-
         Check if a member is currently opted in for compliance monitoring.
       operationId: checkMemberRegulationStatus
@@ -328,15 +328,15 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - member
-          description: Query type for member lookup
-          example: member
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - member
+        description: Query type for member lookup
+        example: member
       responses:
         '200':
           description: Successfully retrieved member compliance authorization status
@@ -353,11 +353,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{DeveloperApplicationId}&member=urn:li:person:{PersonId}:
-    delete:
+  ? /v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{DeveloperApplicationId}&member=urn:li:person:{PersonId}
+  : delete:
       tags:
-        - Compliance Authorization
-      summary: Opt Out Member From Compliance Monitoring
+      - Compliance Authorization
+      summary: LinkedIn Opt Out Member from Compliance Monitoring
       description: >-
         Opt out a member from being regulated on LinkedIn. A member will not
         opt out due to access token expiration. Opt out occurs when the
@@ -368,20 +368,20 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: DeveloperApplicationId
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Developer application ID
-          example: "12345678"
-        - name: PersonId
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Person ID of the member
-          example: "ABC123def"
+      - name: DeveloperApplicationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Developer application ID
+        example: "12345678"
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Person ID of the member
+        example: "ABC123def"
       responses:
         '204':
           description: Member successfully opted out from compliance monitoring
@@ -400,8 +400,8 @@ paths:
   /v2/complianceEvents:
     get:
       tags:
-        - Compliance Events
-      summary: Retrieve Compliance Events For Regulated Member
+      - Compliance Events
+      summary: LinkedIn Retrieve Compliance Events for Regulated Member
       description: >-
         Retrieve compliance events for a regulated member. Returns monitored
         activities as individual event records for archiving and remediation.
@@ -410,40 +410,40 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - memberAndApplication
-          description: Query type
-          example: memberAndApplication
-        - name: projection
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Fields to include in the response
-          example: "(elements*(id,capturedAt,processedAt,configVersion,owner~(firstName,lastName,headline),actor~(firstName,lastName,headline),resourceName,resourceId,resourceUri,method,activity,processedActivity,siblingActivities,parentActivity,parentSiblingActivities),paging)"
-        - name: startTime
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int64
-          description: Start time in milliseconds since epoch
-          example: 1640000000000
-        - name: count
-          in: query
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
-            default: 10
-          description: Number of events to retrieve
-          example: 10
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - memberAndApplication
+        description: Query type
+        example: memberAndApplication
+      - name: projection
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Fields to include in the response
+        example: "(elements*(id,capturedAt,processedAt,configVersion,owner~(firstName,lastName,headline),actor~(firstName,lastName,headline),resourceName,resourceId,resourceUri,method,activity,processedActivity,siblingActivities,parentActivity,parentSiblingActivities),paging)"
+      - name: startTime
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+        description: Start time in milliseconds since epoch
+        example: 1640000000000
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: Number of events to retrieve
+        example: 10
       responses:
         '200':
           description: Successfully retrieved compliance events

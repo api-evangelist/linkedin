@@ -5,7 +5,7 @@ info:
     The LinkedIn Pages Data Portability API provides access to organization data
     for regulatory compliance with the Digital Markets Act (DMA). This API enables
     data portability for:
-    
+
     - Organization profiles and settings
     - Organization ACLs and authorization
     - Page content analytics
@@ -14,7 +14,7 @@ info:
     - Talent attraction data
     - Events and live video
     - Creator analytics
-    
+
     For comprehensive documentation, visit the
     [DMA Documentation](https://learn.microsoft.com/en-us/linkedin/dma/).
   version: 1.0.0
@@ -23,28 +23,28 @@ info:
     url: https://learn.microsoft.com/en-us/linkedin/
 
 servers:
-  - url: https://api.linkedin.com
-    description: LinkedIn Production API Server
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
 
 tags:
-  - name: Organizations
-    description: Organization profile data retrieval
-  - name: Organization Access Control
-    description: Organization ACLs and authorization data
-  - name: Page Analytics
-    description: Organizational page content and edge analytics
-  - name: Feed Content
-    description: Posts, reactions, comments, and social metadata
-  - name: Lead Generation
-    description: Lead generation forms and responses
-  - name: Events
-    description: Events and live video data
-  - name: Taxonomy
-    description: Reference data for industries, skills, and titles
-  - name: Identity
-    description: Member identity and profile data
-  - name: Business Manager
-    description: Business manager account relationships
+- name: Organizations
+  description: Organization profile data retrieval
+- name: Organization Access Control
+  description: Organization ACLs and authorization data
+- name: Page Analytics
+  description: Organizational page content and edge analytics
+- name: Feed Content
+  description: Posts, reactions, comments, and social metadata
+- name: Lead Generation
+  description: Lead generation forms and responses
+- name: Events
+  description: Events and live video data
+- name: Taxonomy
+  description: Reference data for industries, skills, and titles
+- name: Identity
+  description: Member identity and profile data
+- name: Business Manager
+  description: Business manager account relationships
 
 components:
   securitySchemes:
@@ -84,31 +84,31 @@ components:
         organizationType:
           type: string
           enum:
-            - PUBLIC_COMPANY
-            - PRIVATELY_HELD
-            - GOVERNMENT_AGENCY
-            - NON_PROFIT
-            - PARTNERSHIP
+          - PUBLIC_COMPANY
+          - PRIVATELY_HELD
+          - GOVERNMENT_AGENCY
+          - NON_PROFIT
+          - PARTNERSHIP
           example: "PRIVATELY_HELD"
         staffCountRange:
           type: string
           enum:
-            - SIZE_1
-            - SIZE_2_TO_10
-            - SIZE_11_TO_50
-            - SIZE_51_TO_200
-            - SIZE_201_TO_500
-            - SIZE_501_TO_1000
-            - SIZE_1001_TO_5000
-            - SIZE_5001_TO_10000
-            - SIZE_10001_OR_MORE
+          - SIZE_1
+          - SIZE_2_TO_10
+          - SIZE_11_TO_50
+          - SIZE_51_TO_200
+          - SIZE_201_TO_500
+          - SIZE_501_TO_1000
+          - SIZE_1001_TO_5000
+          - SIZE_5001_TO_10000
+          - SIZE_10001_OR_MORE
           example: "SIZE_201_TO_500"
         industriesV2:
           type: array
           items:
             type: string
           example:
-            - "urn:li:industry:33"
+          - "urn:li:industry:33"
         logoV2:
           $ref: '#/components/schemas/ImageReference'
         coverPhotoV2:
@@ -122,8 +122,8 @@ components:
         entityStatus:
           type: string
           enum:
-            - ACTIVE
-            - INACTIVE
+          - ACTIVE
+          - INACTIVE
           example: "ACTIVE"
         created:
           $ref: '#/components/schemas/Timestamp'
@@ -189,9 +189,9 @@ components:
         status:
           type: string
           enum:
-            - AVAILABLE
-            - PROCESSING
-            - FAILED
+          - AVAILABLE
+          - PROCESSING
+          - FAILED
           example: "AVAILABLE"
 
     OrganizationLocation:
@@ -200,8 +200,8 @@ components:
         locationType:
           type: string
           enum:
-            - HEADQUARTERS
-            - OTHER
+          - HEADQUARTERS
+          - OTHER
           example: "HEADQUARTERS"
         address:
           $ref: '#/components/schemas/Address'
@@ -292,16 +292,16 @@ components:
         role:
           type: string
           enum:
-            - ADMINISTRATOR
-            - CONTENT_ADMIN
-            - ANALYST
-            - RECRUITING_POSTER
+          - ADMINISTRATOR
+          - CONTENT_ADMIN
+          - ANALYST
+          - RECRUITING_POSTER
           example: "ADMINISTRATOR"
         state:
           type: string
           enum:
-            - APPROVED
-            - PENDING
+          - APPROVED
+          - PENDING
           example: "APPROVED"
         created:
           $ref: '#/components/schemas/Timestamp'
@@ -331,14 +331,14 @@ components:
         visibility:
           type: string
           enum:
-            - PUBLIC
-            - CONNECTIONS
+          - PUBLIC
+          - CONNECTIONS
           example: "PUBLIC"
         lifecycleState:
           type: string
           enum:
-            - PUBLISHED
-            - DRAFT
+          - PUBLISHED
+          - DRAFT
           example: "PUBLISHED"
         created:
           $ref: '#/components/schemas/Timestamp'
@@ -364,12 +364,12 @@ components:
         reactionType:
           type: string
           enum:
-            - LIKE
-            - CELEBRATE
-            - SUPPORT
-            - LOVE
-            - INSIGHTFUL
-            - FUNNY
+          - LIKE
+          - CELEBRATE
+          - SUPPORT
+          - LOVE
+          - INSIGHTFUL
+          - FUNNY
           example: "LIKE"
         created:
           $ref: '#/components/schemas/Timestamp'
@@ -507,9 +507,9 @@ components:
         eventType:
           type: string
           enum:
-            - VIRTUAL
-            - IN_PERSON
-            - HYBRID
+          - VIRTUAL
+          - IN_PERSON
+          - HYBRID
           example: "VIRTUAL"
         startAt:
           type: integer
@@ -577,16 +577,16 @@ components:
         organizationType: "PRIVATELY_HELD"
         staffCountRange: "SIZE_201_TO_500"
         industriesV2:
-          - "urn:li:industry:33"
+        - "urn:li:industry:33"
         entityStatus: "ACTIVE"
         locations:
-          - locationType: "HEADQUARTERS"
-            address:
-              line1: "123 Main Street"
-              city: "San Francisco"
-              geographicArea: "California"
-              postalCode: "94102"
-              country: "US"
+        - locationType: "HEADQUARTERS"
+          address:
+            line1: "123 Main Street"
+            city: "San Francisco"
+            geographicArea: "California"
+            postalCode: "94102"
+            country: "US"
         created:
           time: 1518028624160
         lastModified:
@@ -608,10 +608,10 @@ components:
       summary: Organization ACL response
       value:
         elements:
-          - organization: "urn:li:organization:10002687"
-            roleAssignee: "urn:li:person:ABC123"
-            role: "ADMINISTRATOR"
-            state: "APPROVED"
+        - organization: "urn:li:organization:10002687"
+          roleAssignee: "urn:li:person:ABC123"
+          role: "ADMINISTRATOR"
+          state: "APPROVED"
         paging:
           start: 0
           count: 25
@@ -621,11 +621,11 @@ components:
       summary: Post response
       value:
         elements:
-          - id: "urn:li:share:7012345678901234567"
-            author: "urn:li:organization:10002687"
-            commentary: "Exciting news from our team!"
-            visibility: "PUBLIC"
-            lifecycleState: "PUBLISHED"
+        - id: "urn:li:share:7012345678901234567"
+          author: "urn:li:organization:10002687"
+          commentary: "Exciting news from our team!"
+          visibility: "PUBLIC"
+          lifecycleState: "PUBLISHED"
         paging:
           start: 0
           count: 25
@@ -634,21 +634,21 @@ components:
       summary: Analytics response
       value:
         elements:
-          - dateRange:
-              start:
-                year: 2023
-                month: 12
-                day: 1
-              end:
-                year: 2023
-                month: 12
-                day: 31
-            impressionCount: 15000
-            clickCount: 500
-            likeCount: 250
-            commentCount: 45
-            shareCount: 30
-            engagementRate: 0.055
+        - dateRange:
+            start:
+              year: 2023
+              month: 12
+              day: 1
+            end:
+              year: 2023
+              month: 12
+              day: 31
+          impressionCount: 15000
+          clickCount: 500
+          likeCount: 250
+          commentCount: 45
+          shareCount: 30
+          engagementRate: 0.055
         paging:
           start: 0
           count: 25
@@ -714,9 +714,9 @@ components:
       schema:
         type: string
         enum:
-          - ADMINISTRATOR
-          - CONTENT_ADMIN
-          - ANALYST
+        - ADMINISTRATOR
+        - CONTENT_ADMIN
+        - ANALYST
       example: "ADMINISTRATOR"
 
     StartParameter:
@@ -738,15 +738,15 @@ components:
       example: 25
 
 security:
-  - BearerAuth: []
+- BearerAuth: []
 
 paths:
   /rest/dmaOrganizations:
     get:
       operationId: batchGetOrganizations
       tags:
-        - Organizations
-      summary: Batch Get Organizations
+      - Organizations
+      summary: LinkedIn Batch Get Organizations
       description: >-
         Retrieves multiple organization profiles in a single request for data
         portability compliance. Returns organization details including name,
@@ -760,9 +760,9 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/IdsQuery'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/IdsQuery'
       responses:
         '200':
           description: Successfully retrieved organizations
@@ -793,8 +793,8 @@ paths:
     get:
       operationId: getOrganization
       tags:
-        - Organizations
-      summary: Get Organization
+      - Organizations
+      summary: LinkedIn Get Organization
       description: >-
         Retrieves a single organization profile by ID for data portability compliance.
         Returns comprehensive organization details including profile, settings, and metadata.
@@ -807,9 +807,9 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/OrganizationIdPath'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/OrganizationIdPath'
       responses:
         '200':
           description: Successfully retrieved organization
@@ -843,8 +843,8 @@ paths:
     get:
       operationId: getOrganizationAcls
       tags:
-        - Organization Access Control
-      summary: Get Organization ACLs
+      - Organization Access Control
+      summary: LinkedIn Get Organization ACLs
       description: >-
         Retrieves organization access control list entries showing role assignments
         for organization administrators and content managers.
@@ -857,12 +857,12 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - $ref: '#/components/parameters/RoleParameter'
-        - $ref: '#/components/parameters/StartParameter'
-        - $ref: '#/components/parameters/CountParameter'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - $ref: '#/components/parameters/RoleParameter'
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
       responses:
         '200':
           description: Successfully retrieved organization ACLs
@@ -890,8 +890,8 @@ paths:
     get:
       operationId: getPageContentAnalytics
       tags:
-        - Page Analytics
-      summary: Get Page Content Analytics
+      - Page Analytics
+      summary: LinkedIn Get Page Content Analytics
       description: >-
         Retrieves content analytics data for organizational pages including
         impressions, clicks, engagement rates, and social interactions.
@@ -904,17 +904,17 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - name: organizationUrn
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:10002687"
-        - $ref: '#/components/parameters/StartParameter'
-        - $ref: '#/components/parameters/CountParameter'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: organizationUrn
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:10002687"
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
       responses:
         '200':
           description: Successfully retrieved page analytics
@@ -942,8 +942,8 @@ paths:
     get:
       operationId: getPosts
       tags:
-        - Feed Content
-      summary: Get Posts
+      - Feed Content
+      summary: LinkedIn Get Posts
       description: >-
         Retrieves posts published by an organization for data portability compliance.
         Returns post content, visibility settings, and engagement metadata.
@@ -956,17 +956,17 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - name: author
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:10002687"
-        - $ref: '#/components/parameters/StartParameter'
-        - $ref: '#/components/parameters/CountParameter'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: author
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:10002687"
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
       responses:
         '200':
           description: Successfully retrieved posts
@@ -994,8 +994,8 @@ paths:
     get:
       operationId: getReactions
       tags:
-        - Feed Content
-      summary: Get Reactions
+      - Feed Content
+      summary: LinkedIn Get Reactions
       description: >-
         Retrieves reactions on content for data portability compliance.
         Returns reaction types and actor information.
@@ -1008,17 +1008,17 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - name: activityUrn
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:share:7012345678901234567"
-        - $ref: '#/components/parameters/StartParameter'
-        - $ref: '#/components/parameters/CountParameter'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: activityUrn
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:share:7012345678901234567"
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
       responses:
         '200':
           description: Successfully retrieved reactions
@@ -1043,8 +1043,8 @@ paths:
     get:
       operationId: getComments
       tags:
-        - Feed Content
-      summary: Get Comments
+      - Feed Content
+      summary: LinkedIn Get Comments
       description: >-
         Retrieves comments on content for data portability compliance.
         Returns comment text, author information, and timestamps.
@@ -1057,17 +1057,17 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - name: activityUrn
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:share:7012345678901234567"
-        - $ref: '#/components/parameters/StartParameter'
-        - $ref: '#/components/parameters/CountParameter'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: activityUrn
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:share:7012345678901234567"
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
       responses:
         '200':
           description: Successfully retrieved comments
@@ -1092,8 +1092,8 @@ paths:
     get:
       operationId: getLeadGenResponses
       tags:
-        - Lead Generation
-      summary: Get Lead Generation Responses
+      - Lead Generation
+      summary: LinkedIn Get Lead Generation Responses
       description: >-
         Retrieves lead generation form responses for data portability compliance.
         Returns submitted form data and timestamps.
@@ -1106,17 +1106,17 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - name: owner
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:10002687"
-        - $ref: '#/components/parameters/StartParameter'
-        - $ref: '#/components/parameters/CountParameter'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: owner
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:10002687"
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
       responses:
         '200':
           description: Successfully retrieved lead gen responses
@@ -1141,8 +1141,8 @@ paths:
     get:
       operationId: getEvents
       tags:
-        - Events
-      summary: Get Events
+      - Events
+      summary: LinkedIn Get Events
       description: >-
         Retrieves event data for data portability compliance.
         Returns event details including name, description, schedule, and organizer.
@@ -1155,17 +1155,17 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - name: organizer
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:10002687"
-        - $ref: '#/components/parameters/StartParameter'
-        - $ref: '#/components/parameters/CountParameter'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: organizer
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:10002687"
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
       responses:
         '200':
           description: Successfully retrieved events
@@ -1190,8 +1190,8 @@ paths:
     get:
       operationId: getBusinessManagerRelationships
       tags:
-        - Business Manager
-      summary: Get Business Manager Account Relationships
+      - Business Manager
+      summary: LinkedIn Get Business Manager Account Relationships
       description: >-
         Retrieves business manager account relationships for data portability compliance.
         Returns relationship types and status between business manager accounts and organizations.
@@ -1204,17 +1204,17 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - name: businessManagerAccount
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:businessManagerAccount:21002"
-        - $ref: '#/components/parameters/StartParameter'
-        - $ref: '#/components/parameters/CountParameter'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: businessManagerAccount
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:businessManagerAccount:21002"
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
       responses:
         '200':
           description: Successfully retrieved relationships

@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-compliance-events-compliance-event-structure.json",
+  "name": "ComplianceEvent",
+  "description": "ComplianceEvent from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the compliance event",
+      "example": "evt_123456789"
+    },
+    "capturedAt": {
+      "type": "int64",
+      "description": "Timestamp when the event was captured",
+      "example": 1640000000000
+    },
+    "processedAt": {
+      "type": "int64",
+      "description": "Timestamp when the event was processed",
+      "example": 1640000001000
+    },
+    "configVersion": {
+      "type": "string",
+      "description": "Configuration version",
+      "example": "1.0"
+    },
+    "owner": {
+      "$ref": "#/components/schemas/MemberProfile"
+    },
+    "actor": {
+      "$ref": "#/components/schemas/MemberProfile"
+    },
+    "resourceName": {
+      "type": "string",
+      "description": "Name of the resource",
+      "example": "MESSAGE"
+    },
+    "resourceId": {
+      "type": "string",
+      "description": "Identifier of the resource",
+      "example": "res_987654321"
+    },
+    "resourceUri": {
+      "type": "string",
+      "description": "URI of the resource",
+      "example": "urn:li:message:987654321"
+    },
+    "method": {
+      "type": "string",
+      "enum": [
+        "CREATE",
+        "UPDATE",
+        "DELETE"
+      ],
+      "description": "Action method performed",
+      "example": "CREATE"
+    },
+    "activity": {
+      "type": "object",
+      "description": "Activity details",
+      "additionalProperties": true
+    },
+    "processedActivity": {
+      "type": "object",
+      "description": "Processed activity details",
+      "additionalProperties": true
+    },
+    "siblingActivities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Related sibling activities"
+    },
+    "parentActivity": {
+      "type": "object",
+      "description": "Parent activity if applicable",
+      "additionalProperties": true
+    },
+    "parentSiblingActivities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Parent sibling activities"
+    }
+  },
+  "required": [
+    "id",
+    "capturedAt",
+    "resourceName",
+    "method"
+  ]
+}

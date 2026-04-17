@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-regulations-data-portability-organization-location-structure.json",
+  "name": "OrganizationLocation",
+  "description": "OrganizationLocation from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "locationType": {
+      "type": "string",
+      "enum": [
+        "HEADQUARTERS",
+        "OTHER"
+      ],
+      "example": "HEADQUARTERS"
+    },
+    "address": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "geoLocation": {
+      "type": "string",
+      "example": "urn:li:geo:101308755"
+    },
+    "staffCountRange": {
+      "type": "string",
+      "example": "SIZE_1"
+    },
+    "description": {
+      "$ref": "#/components/schemas/LocalizedString"
+    }
+  }
+}

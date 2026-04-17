@@ -1,0 +1,161 @@
+vocabulary: 1.0.0
+info:
+  provider: LinkedIn
+  description: 'Vocabulary and taxonomy for the LinkedIn API ecosystem covering 7
+    API product lines: Consumer, Marketing, Talent, Learning, Sales, Compliance, and
+    Regulatory solutions.'
+  created: '2026-04-17'
+  modified: '2026-04-17'
+operational:
+  apis:
+  - name: LinkedIn Consumer API
+    namespace: linkedin-consumer-api
+    baseUrl: https://api.linkedin.com
+    status: active
+  - name: LinkedIn Marketing API
+    namespace: linkedin-marketing-api
+    baseUrl: https://api.linkedin.com
+    status: active
+  - name: LinkedIn Learning Solutions
+    namespace: linkedin-learning-solutions
+    baseUrl: https://api.linkedin.com
+    status: active
+  - name: LinkedIn Talent Solutions
+    namespace: linkedin-talent-solutions
+    baseUrl: https://api.linkedin.com
+    status: active
+  - name: LinkedIn Compliance Solutions
+    namespace: linkedin-compliance-solutions
+    baseUrl: https://api.linkedin.com
+    status: active
+  - name: LinkedIn Sales Navigator API
+    namespace: linkedin-sales-navigator-api
+    baseUrl: https://api.linkedin.com
+    status: active
+  - name: LinkedIn Regulatory API
+    namespace: linkedin-regulatory-api
+    baseUrl: https://api.linkedin.com
+    status: active
+  resources:
+  - name: profiles
+    description: Professional user profiles with career history and skills.
+    apis:
+    - linkedin-consumer-api
+  - name: shares
+    description: Content shared to LinkedIn feeds by users and organizations.
+    apis:
+    - linkedin-consumer-api
+  - name: campaigns
+    description: B2B advertising campaigns with targeting and budgets.
+    apis:
+    - linkedin-marketing-api
+  - name: audiences
+    description: Custom and matched audiences for ad targeting.
+    apis:
+    - linkedin-marketing-api
+  - name: conversions
+    description: Online and offline conversion events for attribution.
+    apis:
+    - linkedin-marketing-api
+  - name: leads
+    description: Lead gen form submissions from LinkedIn ads.
+    apis:
+    - linkedin-marketing-api
+  - name: creatives
+    description: Ad creative content including sponsored posts and carousels.
+    apis:
+    - linkedin-marketing-api
+  - name: analytics
+    description: Campaign and content performance metrics.
+    apis:
+    - linkedin-marketing-api
+  - name: jobs
+    description: Job postings and applications on LinkedIn.
+    apis:
+    - linkedin-talent-solutions
+  - name: candidates
+    description: Candidate profiles and application data for recruiting.
+    apis:
+    - linkedin-talent-solutions
+  - name: learning-activities
+    description: Learner engagement and completion data from LinkedIn Learning.
+    apis:
+    - linkedin-learning-solutions
+  - name: compliance-events
+    description: Archived messages and activities for regulatory compliance.
+    apis:
+    - linkedin-compliance-solutions
+  - name: data-portability
+    description: Member and organization data exports for DMA compliance.
+    apis:
+    - linkedin-regulatory-api
+  - name: sales-leads
+    description: Sales Navigator lead and account data for CRM sync.
+    apis:
+    - linkedin-sales-navigator-api
+  authentication:
+    schemes:
+    - type: oauth2
+      flow: authorization_code
+      description: OAuth 2.0 with 3-legged authorization for member context.
+    - type: oauth2
+      flow: client_credentials
+      description: OAuth 2.0 client credentials for organization context.
+    - type: openid_connect
+      description: OpenID Connect for Sign In with LinkedIn.
+capability:
+  personas:
+  - id: marketing-manager
+    name: Marketing Manager
+    description: Manages B2B ad campaigns and audience targeting on LinkedIn.
+  - id: recruiter
+    name: Recruiter
+    description: Posts jobs and manages candidates through ATS integrations.
+  - id: sales-professional
+    name: Sales Professional
+    description: Uses Sales Navigator for lead generation and CRM sync.
+  - id: learning-admin
+    name: Learning Administrator
+    description: Tracks employee learning activity and completions.
+  - id: compliance-officer
+    name: Compliance Officer
+    description: Archives communications for regulatory compliance.
+  - id: developer
+    name: Application Developer
+    description: Integrates LinkedIn authentication and sharing into applications.
+  domains:
+  - name: consumer
+    description: Authentication, sharing, and verification for consumer apps.
+    resources:
+    - profiles
+    - shares
+  - name: marketing
+    description: B2B advertising, audience targeting, and campaign analytics.
+    resources:
+    - campaigns
+    - audiences
+    - conversions
+    - leads
+    - creatives
+    - analytics
+  - name: talent
+    description: Job posting, recruiting, and applicant tracking.
+    resources:
+    - jobs
+    - candidates
+  - name: learning
+    description: Employee development tracking and content access.
+    resources:
+    - learning-activities
+  - name: sales
+    description: Sales intelligence, lead management, and CRM integration.
+    resources:
+    - sales-leads
+  - name: compliance
+    description: Message archiving and regulatory communications governance.
+    resources:
+    - compliance-events
+  - name: regulatory
+    description: Data portability and advertiser transparency for DMA.
+    resources:
+    - data-portability

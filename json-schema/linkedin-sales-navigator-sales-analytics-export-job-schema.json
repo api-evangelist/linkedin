@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-sales-navigator-sales-analytics-export-job-schema.json",
+  "title": "SalesAnalyticsExportJob",
+  "description": "SalesAnalyticsExportJob from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "A unique identifier for the job",
+      "example": 987654321
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ENQUEUED",
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED_DUE_TO_EXCEEDED_FILE_SIZE_ERROR",
+        "FAILED_DUE_TO_TIMED_OUT",
+        "FAILED_DUE_TO_DATA_DELAY",
+        "FAILED_DUE_TO_INTERNAL_ERROR"
+      ],
+      "description": "Current status of the export job",
+      "example": "COMPLETED"
+    },
+    "downloadUrl": {
+      "type": "string",
+      "nullable": true,
+      "description": "URL for downloading the exported data when job is completed",
+      "example": "https://media.licdn.com/exports/analytics_123.csv"
+    },
+    "expireAt": {
+      "type": "integer",
+      "nullable": true,
+      "description": "Expiration timestamp of the download URL",
+      "example": 1640200000
+    },
+    "rowCount": {
+      "type": "integer",
+      "nullable": true,
+      "description": "Number of rows in the exported data",
+      "example": 5000
+    }
+  },
+  "required": [
+    "id",
+    "status"
+  ]
+}

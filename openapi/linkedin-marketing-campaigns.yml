@@ -6,15 +6,15 @@ info:
     and campaigns. This API provides capabilities for account management, campaign
     group management, campaign management, creative management, ad targeting,
     and forecasting.
-    
+
     You must apply for access to the Marketing Developer Platform to use these APIs.
   version: 1.0.0
   contact:
     name: LinkedIn Marketing API Support
     url: https://developer.linkedin.com/product-catalog/marketing/campaign-management
 servers:
-  - url: https://api.linkedin.com/rest
-    description: LinkedIn REST API Server
+- url: https://api.linkedin.com/rest
+  description: LinkedIn REST API Server
 components:
   securitySchemes:
     OAuth2Auth:
@@ -41,17 +41,17 @@ components:
         role:
           type: string
           enum:
-            - ACCOUNT_BILLING_ADMIN
-            - ACCOUNT_MANAGER
-            - CAMPAIGN_MANAGER
-            - CREATIVE_MANAGER
-            - VIEWER
+          - ACCOUNT_BILLING_ADMIN
+          - ACCOUNT_MANAGER
+          - CAMPAIGN_MANAGER
+          - CREATIVE_MANAGER
+          - VIEWER
           description: Role of the user in the account
           example: "VIEWER"
       required:
-        - account
-        - user
-        - role
+      - account
+      - user
+      - role
     AdAccountUserCreateRequest:
       type: object
       properties:
@@ -66,17 +66,17 @@ components:
         role:
           type: string
           enum:
-            - ACCOUNT_BILLING_ADMIN
-            - ACCOUNT_MANAGER
-            - CAMPAIGN_MANAGER
-            - CREATIVE_MANAGER
-            - VIEWER
+          - ACCOUNT_BILLING_ADMIN
+          - ACCOUNT_MANAGER
+          - CAMPAIGN_MANAGER
+          - CREATIVE_MANAGER
+          - VIEWER
           description: Role to assign
           example: "VIEWER"
       required:
-        - account
-        - user
-        - role
+      - account
+      - user
+      - role
     AdAccountUserUpdateRequest:
       type: object
       properties:
@@ -104,18 +104,18 @@ components:
         type:
           type: string
           enum:
-            - BUSINESS
-            - ENTERPRISE
+          - BUSINESS
+          - ENTERPRISE
           description: Account type
           example: "BUSINESS"
         status:
           type: string
           enum:
-            - ACTIVE
-            - CANCELLED
-            - DRAFT
-            - PENDING_DELETION
-            - REMOVED
+          - ACTIVE
+          - CANCELLED
+          - DRAFT
+          - PENDING_DELETION
+          - REMOVED
           description: Account status
           example: "ACTIVE"
         reference:
@@ -165,17 +165,17 @@ components:
         type:
           type: string
           enum:
-            - BUSINESS
-            - ENTERPRISE
+          - BUSINESS
+          - ENTERPRISE
           example: "BUSINESS"
         test:
           type: boolean
           example: true
       required:
-        - currency
-        - name
-        - reference
-        - type
+      - currency
+      - name
+      - reference
+      - type
     CampaignGroup:
       type: object
       properties:
@@ -195,13 +195,13 @@ components:
         status:
           type: string
           enum:
-            - ACTIVE
-            - ARCHIVED
-            - CANCELLED
-            - DRAFT
-            - PAUSED
-            - PENDING_DELETION
-            - REMOVED
+          - ACTIVE
+          - ARCHIVED
+          - CANCELLED
+          - DRAFT
+          - PAUSED
+          - PENDING_DELETION
+          - REMOVED
           description: Campaign group status
           example: "ACTIVE"
         totalBudget:
@@ -255,33 +255,33 @@ components:
         status:
           type: string
           enum:
-            - ACTIVE
-            - ARCHIVED
-            - CANCELLED
-            - DRAFT
-            - PAUSED
-            - PENDING_DELETION
-            - REMOVED
+          - ACTIVE
+          - ARCHIVED
+          - CANCELLED
+          - DRAFT
+          - PAUSED
+          - PENDING_DELETION
+          - REMOVED
           description: Campaign status
           example: "ACTIVE"
         type:
           type: string
           enum:
-            - SPONSORED_UPDATES
-            - SPONSORED_INMAILS
-            - TEXT_AD
+          - SPONSORED_UPDATES
+          - SPONSORED_INMAILS
+          - TEXT_AD
           description: Campaign type
           example: "SPONSORED_UPDATES"
         objectiveType:
           type: string
           enum:
-            - BRAND_AWARENESS
-            - ENGAGEMENT
-            - JOB_APPLICANTS
-            - LEAD_GENERATION
-            - VIDEO_VIEWS
-            - WEBSITE_CONVERSIONS
-            - WEBSITE_VISITS
+          - BRAND_AWARENESS
+          - ENGAGEMENT
+          - JOB_APPLICANTS
+          - LEAD_GENERATION
+          - VIDEO_VIEWS
+          - WEBSITE_CONVERSIONS
+          - WEBSITE_VISITS
           description: Campaign objective
           example: "WEBSITE_VISITS"
         runSchedule:
@@ -314,18 +314,18 @@ components:
         role:
           type: string
           enum:
-            - ADMINISTRATOR
-            - DIRECT_SPONSORED_CONTENT_POSTER
-            - RECRUITING_POSTER
-            - LEAD_GEN_FORMS_MANAGER
+          - ADMINISTRATOR
+          - DIRECT_SPONSORED_CONTENT_POSTER
+          - RECRUITING_POSTER
+          - LEAD_GEN_FORMS_MANAGER
           description: Role in the organization
           example: "ADMINISTRATOR"
         state:
           type: string
           enum:
-            - APPROVED
-            - REVOKED
-            - REQUESTED
+          - APPROVED
+          - REVOKED
+          - REQUESTED
           description: State of the role assignment
           example: "APPROVED"
     Creative:
@@ -346,23 +346,23 @@ components:
         status:
           type: string
           enum:
-            - ACTIVE
-            - PAUSED
-            - DRAFT
-            - ARCHIVED
-            - CANCELLED
-            - PENDING_DELETION
-            - REMOVED
+          - ACTIVE
+          - PAUSED
+          - DRAFT
+          - ARCHIVED
+          - CANCELLED
+          - PENDING_DELETION
+          - REMOVED
           description: Creative status
           example: "ACTIVE"
         type:
           type: string
           enum:
-            - SPONSORED_STATUS_UPDATE
-            - SPONSORED_VIDEO
-            - CAROUSEL
-            - TEXT_AD
-            - MESSAGE_AD
+          - SPONSORED_STATUS_UPDATE
+          - SPONSORED_VIDEO
+          - CAROUSEL
+          - TEXT_AD
+          - MESSAGE_AD
           description: Creative type
           example: "SPONSORED_VIDEO"
     CreativeCreateRequest:
@@ -386,10 +386,10 @@ components:
             data:
               type: object
       required:
-        - campaign
-        - reference
-        - status
-        - type
+      - campaign
+      - reference
+      - status
+      - type
     AudienceCount:
       type: object
       properties:
@@ -463,57 +463,57 @@ components:
           $set:
             status: "ARCHIVED"
 security:
-  - OAuth2Auth:
-      - rw_ads
+- OAuth2Auth:
+  - rw_ads
 tags:
-  - name: User Access
-    description: APIs to manage ad account user access and roles
-  - name: Account Management
-    description: APIs to create and manage ad accounts
-  - name: Campaign Group Management
-    description: APIs to create and manage campaign groups
-  - name: Campaign Management
-    description: APIs to create and manage campaigns
-  - name: Creative Management
-    description: APIs to create and manage ad creatives
-  - name: Audience Counts
-    description: APIs to retrieve audience counts based on targeting criteria
+- name: User Access
+  description: APIs to manage ad account user access and roles
+- name: Account Management
+  description: APIs to create and manage ad accounts
+- name: Campaign Group Management
+  description: APIs to create and manage campaign groups
+- name: Campaign Management
+  description: APIs to create and manage campaigns
+- name: Creative Management
+  description: APIs to create and manage ad creatives
+- name: Audience Counts
+  description: APIs to retrieve audience counts based on targeting criteria
 paths:
   /adAccountUsers/(account:urn:li:sponsoredAccount:{SponsoredAccountId},user:urn:li:person:{PersonId}):
     put:
       tags:
-        - User Access
-      summary: Create Ad Account User
+      - User Access
+      summary: LinkedIn Create Ad Account User
       description: Grant a member access to an ad account with a specified role.
       operationId: createAdAccountUser
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: SponsoredAccountId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: PersonId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "ABC123def"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "ABC123def"
       requestBody:
         required: true
         content:
@@ -550,38 +550,38 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     get:
       tags:
-        - User Access
-      summary: Fetch Ad Account User
+      - User Access
+      summary: LinkedIn Fetch Ad Account User
       description: Retrieve an ad account user by account and user identifiers.
       operationId: getAdAccountUser
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: SponsoredAccountId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: PersonId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "ABC123def"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "ABC123def"
       responses:
         '200':
           description: Ad account user retrieved successfully
@@ -603,38 +603,38 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
-        - User Access
-      summary: Update Ad Account User
+      - User Access
+      summary: LinkedIn Update Ad Account User
       description: Update an ad account user's role.
       operationId: updateAdAccountUser
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: SponsoredAccountId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: PersonId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "ABC123def"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "ABC123def"
       requestBody:
         required: true
         content:
@@ -656,38 +656,38 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
-        - User Access
-      summary: Delete Ad Account User
+      - User Access
+      summary: LinkedIn Delete Ad Account User
       description: Remove a member from ad account access.
       operationId: deleteAdAccountUser
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: SponsoredAccountId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: PersonId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "ABC123def"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "ABC123def"
       responses:
         '204':
           description: Ad account user deleted successfully
@@ -700,34 +700,34 @@ paths:
   /adAccountUsers:
     get:
       tags:
-        - User Access
-      summary: Fetch Authenticated User Ad Accounts
+      - User Access
+      summary: LinkedIn Fetch Authenticated User Ad Accounts
       description: Retrieve all ad accounts the authenticated user has access to.
       operationId: getAuthenticatedUserAdAccounts
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - authenticatedUser
-          example: "authenticatedUser"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - authenticatedUser
+        example: "authenticatedUser"
       responses:
         '200':
           description: Successfully retrieved user's ad accounts
@@ -746,12 +746,12 @@ paths:
                 SuccessResponse:
                   value:
                     elements:
-                      - account: "urn:li:sponsoredAccount:123456"
-                        role: "ACCOUNT_MANAGER"
-                        user: "urn:li:person:ABC123def"
-                      - account: "urn:li:sponsoredAccount:789012"
-                        role: "VIEWER"
-                        user: "urn:li:person:ABC123def"
+                    - account: "urn:li:sponsoredAccount:123456"
+                      role: "ACCOUNT_MANAGER"
+                      user: "urn:li:person:ABC123def"
+                    - account: "urn:li:sponsoredAccount:789012"
+                      role: "VIEWER"
+                      user: "urn:li:person:ABC123def"
                     paging:
                       start: 0
                       count: 10
@@ -765,34 +765,34 @@ paths:
   /organizationAcls:
     get:
       tags:
-        - User Access
-      summary: Fetch Authenticated User Organization Roles
+      - User Access
+      summary: LinkedIn Fetch Authenticated User Organization Roles
       description: Retrieve organization roles for the authenticated user.
       operationId: getOrganizationAcls
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - roleAssignee
-          example: "roleAssignee"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - roleAssignee
+        example: "roleAssignee"
       responses:
         '200':
           description: Successfully retrieved organization roles
@@ -811,9 +811,9 @@ paths:
                 SuccessResponse:
                   value:
                     elements:
-                      - organization: "urn:li:organization:12345678"
-                        role: "ADMINISTRATOR"
-                        state: "APPROVED"
+                    - organization: "urn:li:organization:12345678"
+                      role: "ADMINISTRATOR"
+                      state: "APPROVED"
                     paging:
                       start: 0
                       count: 10
@@ -827,26 +827,26 @@ paths:
   /adAccounts:
     post:
       tags:
-        - Account Management
-      summary: Create Test Ad Account
+      - Account Management
+      summary: LinkedIn Create Test Ad Account
       description: Create a new ad account. Set test flag to true for test accounts.
       operationId: createAdAccount
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
       requestBody:
         required: true
         content:
@@ -881,41 +881,41 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     get:
       tags:
-        - Account Management
-      summary: Search Ad Accounts By Type
+      - Account Management
+      summary: LinkedIn Search Ad Accounts by Type
       description: Search for ad accounts by ID, name, reference, type, or status.
       operationId: searchAdAccounts
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - search
-          example: "search"
-        - name: search
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Search criteria
-          example: "(type:(values:List(BUSINESS)))"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - search
+        example: "search"
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Search criteria
+        example: "(type:(values:List(BUSINESS)))"
       responses:
         '200':
           description: Successfully retrieved ad accounts
@@ -934,13 +934,13 @@ paths:
                 SuccessResponse:
                   value:
                     elements:
-                      - id: 123456
-                        name: "XYZ Company"
-                        currency: "USD"
-                        type: "BUSINESS"
-                        status: "ACTIVE"
-                        reference: "urn:li:organization:12345678"
-                        test: false
+                    - id: 123456
+                      name: "XYZ Company"
+                      currency: "USD"
+                      type: "BUSINESS"
+                      status: "ACTIVE"
+                      reference: "urn:li:organization:12345678"
+                      test: false
                     paging:
                       start: 0
                       count: 10
@@ -954,32 +954,32 @@ paths:
   /adAccounts/{SponsoredAccountId}:
     get:
       tags:
-        - Account Management
-      summary: Fetch Ad Account By Id
+      - Account Management
+      summary: LinkedIn Fetch Ad Account by Id
       description: Retrieve an ad account by its ID.
       operationId: getAdAccountById
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: SponsoredAccountId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
       responses:
         '200':
           description: Successfully retrieved ad account
@@ -1005,32 +1005,32 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
-        - Account Management
-      summary: Update Ad Account Name
+      - Account Management
+      summary: LinkedIn Update Ad Account Name
       description: Update an ad account using partial update.
       operationId: updateAdAccount
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: SponsoredAccountId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
       requestBody:
         required: true
         content:
@@ -1068,52 +1068,52 @@ paths:
   /adAccounts/{AdAccountsId}/adCampaignGroups:
     get:
       tags:
-        - Campaign Group Management
-      summary: Search Campaign Groups
+      - Campaign Group Management
+      summary: LinkedIn Search Campaign Groups
       description: Search for campaign groups by ID, account, name, and status.
       operationId: searchCampaignGroups
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-RestLi-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: AdAccountsId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - search
-          example: "search"
-        - name: search
-          in: query
-          required: false
-          schema:
-            type: string
-          example: "(status:(values:List(ACTIVE,DRAFT)))"
-        - name: sort
-          in: query
-          required: false
-          schema:
-            type: string
-          example: "(field:ID,order:DESCENDING)"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - search
+        example: "search"
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        example: "(status:(values:List(ACTIVE,DRAFT)))"
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        example: "(field:ID,order:DESCENDING)"
       responses:
         '200':
           description: Successfully retrieved campaign groups
@@ -1132,13 +1132,13 @@ paths:
                 SuccessResponse:
                   value:
                     elements:
-                      - id: 111222333
-                        name: "Q1 2024 Campaign Group"
-                        account: "urn:li:sponsoredAccount:123456"
-                        status: "ACTIVE"
-                        totalBudget:
-                          amount: "1000"
-                          currencyCode: "USD"
+                    - id: 111222333
+                      name: "Q1 2024 Campaign Group"
+                      account: "urn:li:sponsoredAccount:123456"
+                      status: "ACTIVE"
+                      totalBudget:
+                        amount: "1000"
+                        currencyCode: "USD"
                     paging:
                       start: 0
                       count: 10
@@ -1151,38 +1151,38 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
-        - Campaign Group Management
-      summary: Delete Multiple Campaign Groups
+      - Campaign Group Management
+      summary: LinkedIn Delete Multiple Campaign Groups
       description: Delete multiple campaign groups. Only DRAFT campaign groups can be deleted.
       operationId: deleteCampaignGroups
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-RestLi-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: AdAccountsId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: ids
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "List(111222333,111222334)"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: ids
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "List(111222333,111222334)"
       responses:
         '204':
           description: Campaign groups deleted successfully
@@ -1195,38 +1195,38 @@ paths:
   /adAccounts/{AdAccountsId}/adCampaignGroups/{CampaignGroupId}:
     get:
       tags:
-        - Campaign Group Management
-      summary: Fetch Campaign Group By Id
+      - Campaign Group Management
+      summary: LinkedIn Fetch Campaign Group by Id
       description: Retrieve a campaign group by its ID.
       operationId: getCampaignGroupById
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-RestLi-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: AdAccountsId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: CampaignGroupId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "111222333"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: CampaignGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "111222333"
       responses:
         '200':
           description: Successfully retrieved campaign group
@@ -1252,38 +1252,38 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
-        - Campaign Group Management
-      summary: Update Campaign Group
+      - Campaign Group Management
+      summary: LinkedIn Update Campaign Group
       description: Update a campaign group using partial update.
       operationId: updateCampaignGroup
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-RestLi-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: AdAccountsId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: CampaignGroupId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "111222333"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: CampaignGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "111222333"
       requestBody:
         required: true
         content:
@@ -1308,38 +1308,38 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
-        - Campaign Group Management
-      summary: Delete Campaign Group
+      - Campaign Group Management
+      summary: LinkedIn Delete Campaign Group
       description: Delete a campaign group. Only DRAFT campaign groups can be deleted.
       operationId: deleteCampaignGroup
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-RestLi-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: AdAccountsId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: CampaignGroupId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "111222333"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: CampaignGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "111222333"
       responses:
         '204':
           description: Campaign group deleted successfully
@@ -1352,40 +1352,40 @@ paths:
   /adAccounts/{AdAccountsId}/adCampaigns:
     get:
       tags:
-        - Campaign Management
-      summary: Search Campaigns
+      - Campaign Management
+      summary: LinkedIn Search Campaigns
       description: Search for campaigns by various criteria.
       operationId: searchCampaigns
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: AdAccountsId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - search
-          example: "search"
-        - name: search.campaignGroup.values[0]
-          in: query
-          required: false
-          schema:
-            type: string
-          example: "urn:li:sponsoredCampaignGroup:111222333"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - search
+        example: "search"
+      - name: search.campaignGroup.values[0]
+        in: query
+        required: false
+        schema:
+          type: string
+        example: "urn:li:sponsoredCampaignGroup:111222333"
       responses:
         '200':
           description: Successfully retrieved campaigns
@@ -1404,13 +1404,13 @@ paths:
                 SuccessResponse:
                   value:
                     elements:
-                      - id: 444555666
-                        name: "Spring Promotion Campaign"
-                        account: "urn:li:sponsoredAccount:123456"
-                        campaignGroup: "urn:li:sponsoredCampaignGroup:111222333"
-                        status: "ACTIVE"
-                        type: "SPONSORED_UPDATES"
-                        objectiveType: "WEBSITE_VISITS"
+                    - id: 444555666
+                      name: "Spring Promotion Campaign"
+                      account: "urn:li:sponsoredAccount:123456"
+                      campaignGroup: "urn:li:sponsoredCampaignGroup:111222333"
+                      status: "ACTIVE"
+                      type: "SPONSORED_UPDATES"
+                      objectiveType: "WEBSITE_VISITS"
                     paging:
                       start: 0
                       count: 10
@@ -1424,38 +1424,38 @@ paths:
   /adAccounts/{AdAccountsId}/adCampaigns/{CampaignId}:
     get:
       tags:
-        - Campaign Management
-      summary: Fetch Campaign By Id
+      - Campaign Management
+      summary: LinkedIn Fetch Campaign by Id
       description: Retrieve a campaign by its ID.
       operationId: getCampaignById
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: X-RestLi-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "2.0.0"
-        - name: AdAccountsId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: CampaignId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "444555666"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "2.0.0"
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: CampaignId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "444555666"
       responses:
         '200':
           description: Successfully retrieved campaign
@@ -1481,32 +1481,32 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
-        - Campaign Management
-      summary: Archive Campaign
+      - Campaign Management
+      summary: LinkedIn Archive Campaign
       description: Update a campaign status to archived.
       operationId: archiveCampaign
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: AdAccountsId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "123456"
-        - name: CampaignId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: "444555666"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "123456"
+      - name: CampaignId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: "444555666"
       requestBody:
         required: true
         content:
@@ -1532,8 +1532,8 @@ paths:
   /creatives:
     post:
       tags:
-        - Creative Management
-      summary: Create Creative
+      - Creative Management
+      summary: LinkedIn Create Creative
       description: Create a new ad creative.
       operationId: createCreative
       x-microcks-operation:
@@ -1579,8 +1579,8 @@ paths:
   /audienceCounts:
     get:
       tags:
-        - Audience Counts
-      summary: Get Audience Count By Targeting Criteria
+      - Audience Counts
+      summary: LinkedIn Get Audience Count by Targeting Criteria
       description: >-
         Get the number of member accounts that fit your targeting criteria.
         Minimum audience size of 300 is required to run a campaign.
@@ -1589,33 +1589,33 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: Authorization
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "Bearer YOUR_ACCESS_TOKEN"
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          example: "202401"
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - targetingCriteriaV2
-          example: "targetingCriteriaV2"
-        - name: targetingCriteria
-          in: query
-          required: true
-          schema:
-            type: string
-          description: URL-encoded targeting criteria
-          example: "(include:(and:List((or:({encoded facet_URN_1}:List({encoded facet_URN_1_value_1}))))))"
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "Bearer YOUR_ACCESS_TOKEN"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: "202401"
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - targetingCriteriaV2
+        example: "targetingCriteriaV2"
+      - name: targetingCriteria
+        in: query
+        required: true
+        schema:
+          type: string
+        description: URL-encoded targeting criteria
+        example: "(include:(and:List((or:({encoded facet_URN_1}:List({encoded facet_URN_1_value_1}))))))"
       responses:
         '200':
           description: Successfully retrieved audience count

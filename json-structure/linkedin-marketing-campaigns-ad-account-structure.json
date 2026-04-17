@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-marketing-campaigns-ad-account-structure.json",
+  "name": "AdAccount",
+  "description": "AdAccount from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int64",
+      "description": "Unique identifier",
+      "example": 123456
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name",
+      "example": "XYZ Company"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Account currency",
+      "example": "USD"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "BUSINESS",
+        "ENTERPRISE"
+      ],
+      "description": "Account type",
+      "example": "BUSINESS"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "CANCELLED",
+        "DRAFT",
+        "PENDING_DELETION",
+        "REMOVED"
+      ],
+      "description": "Account status",
+      "example": "ACTIVE"
+    },
+    "reference": {
+      "type": "string",
+      "description": "Organization URN",
+      "example": "urn:li:organization:12345678"
+    },
+    "test": {
+      "type": "boolean",
+      "description": "Whether this is a test account",
+      "example": true
+    },
+    "notifiedOnCampaignOptimization": {
+      "type": "boolean",
+      "example": true
+    },
+    "notifiedOnCreativeApproval": {
+      "type": "boolean",
+      "example": true
+    },
+    "notifiedOnCreativeRejection": {
+      "type": "boolean",
+      "example": true
+    },
+    "notifiedOnEndOfCampaign": {
+      "type": "boolean",
+      "example": true
+    }
+  }
+}

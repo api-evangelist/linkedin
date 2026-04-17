@@ -1,12 +1,11 @@
 openapi: 3.1.0
 info:
   title: Community Management
-  description: '**You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** [**Developer
-    Portal**](https://developer.linkedin.com/product-catalog/marketing/page-management) **on how to apply.**
+  description: '**You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** [**Developer Portal**](https://developer.linkedin.com/product-catalog/marketing/page-management)
+    **on how to apply.**
 
 
-    This collection aims to focus on different Community Management use cases, for example, social action notifications, and
-    should be used with the **community-management-env-versioning** environment.
+    This collection aims to focus on different Community Management use cases, for example, social action notifications, and should be used with the **community-management-env-versioning** environment.
 
 
     \--All requests for the Community Management API collection are in the Restli 2.0 format--
@@ -97,6 +96,7 @@ components:
       properties:
         primaryOrganizationType:
           type: string
+          example: example_value
     FindNonadministeredOrganizationResponse200:
       type: object
       properties:
@@ -187,6 +187,7 @@ components:
       properties:
         firstDegreeSize:
           type: integer
+          example: 42
     BatchGetOnAdministeredResponse200:
       type: object
       properties:
@@ -292,8 +293,10 @@ components:
       properties:
         vanityName:
           type: string
+          example: Example Name
         localizedName:
           type: string
+          example: Example Name
         website:
           type: object
           properties:
@@ -314,6 +317,7 @@ components:
           items: {}
         versionTag:
           type: string
+          example: example_value
         defaultLocale:
           type: object
           properties:
@@ -358,12 +362,16 @@ components:
                   type: string
         primaryOrganizationType:
           type: string
+          example: example_value
         id:
           type: integer
+          example: 42
         autoCreated:
           type: boolean
+          example: true
         localizedWebsite:
           type: string
+          example: example_value
     BatchGetOnNonadministeredResponse200:
       type: object
       properties:
@@ -636,27 +644,29 @@ tags:
 - name: Use Cases > Organization Lookup > Organization Brands
 - name: Use Cases > Organization Lookup > Organizations
 - name: Use Cases > Social Actions Notifications
-  description: The Organization Social Actions Notifications API enables your app to notify members about activity on their
-    LinkedIn Company Pages. Use this API to build real-time streams for activity on LinkedIn Company Pages.
+  description: The Organization Social Actions Notifications API enables your app to notify members about activity on their LinkedIn Company Pages. Use this API to build real-time streams for activity
+    on LinkedIn Company Pages.
 - name: Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow
-  description: Notifications for the authenticated member’s organizations can be queried using a criteria finder. Notifications
-    are retained and available to pull for 60 days.
+  description: Notifications for the authenticated member’s organizations can be queried using a criteria finder. Notifications are retained and available to pull for 60 days.
 - name: Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow
   description: Registered webhook URLs will receive notifications from LinkedIn for subscribed events.
 - name: Use Cases > Statistics APIs
   description: This API gets the statistics for Organization, Page and for Share.
 - name: Use Cases > Statistics APIs > Organization Follower Statistics
-  description: This API describes usage of Organization Follower Statistics. Fore more details, check [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/follower-statistics?tabs=http&view=li-lms-unversioned).
+  description: This API describes usage of Organization Follower Statistics. Fore more details, 
+    check [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/follower-statistics?tabs=http&view=li-lms-unversioned).
 - name: Use Cases > Statistics APIs > Organization Page Statistics
-  description: This API describes usage of Organization Page Statistics. Fore more details, check [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/page-statistics?tabs=http&view=li-lms-unversioned).
+  description: This API describes usage of Organization Page Statistics. Fore more details, 
+    check [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/page-statistics?tabs=http&view=li-lms-unversioned).
 - name: Use Cases > Statistics APIs > Organization Share Statistics
-  description: This API describes usage of Organization Share Statistics. Fore more details, check [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/share-statistics?tabs=http).
+  description: This API describes usage of Organization Share Statistics. Fore more details, 
+    check [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/share-statistics?tabs=http).
 paths:
   /shares:
     post:
       tags:
       - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow
-      summary: 2. Create a share with a Company Mention
+      summary: LinkedIn 2. Create a Share with a Company Mention
       description: 'Mention a company name by using the annotations. [Learn more](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/share-api?tabs=http#share-text-and-mentions) by
         viewing our public documentation.
 
@@ -692,10 +702,10 @@ paths:
   : put:
       tags:
       - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow
-      summary: 3. Create a subscription request
+      summary: LinkedIn 3. Create a Subscription Request
       description: '[Create a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#creating-and-updating-subscriptions) record
-        to include the webhook URL where your app will receive notifications. The subscription request will only succeed if
-        the subscribing member is an administrator of the organization being subscribed to.'
+        to include the webhook URL where your app will receive notifications. The subscription request will only succeed if the subscribing member is an administrator of the organization being subscribed
+        to.'
       requestBody:
         content:
           application/json:
@@ -717,16 +727,19 @@ paths:
         schema:
           type: string
         required: true
+        example: '123456'
       - name: person_id
         in: path
         schema:
           type: string
         required: true
+        example: '123456'
       - name: organization_id
         in: path
         schema:
           type: string
         required: true
+        example: '123456'
       responses:
         '200':
           description: Successful response
@@ -740,8 +753,8 @@ paths:
     get:
       tags:
       - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow
-      summary: 5. Retrieve Subscription by Key
-      description: Retrieve all the subscriptions details such as webhook url and expiration for the logged in user. [Learn
+      summary: LinkedIn 5. Retrieve Subscription by Key
+      description: Retrieve all the subscriptions details such as webhook url and expiration for the logged in user. [Learn 
         more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#retrieve-subscriptions-for-an-authenticated-member) by
         viewing our online documentation.
       parameters:
@@ -760,16 +773,19 @@ paths:
         schema:
           type: string
         required: true
+        example: '123456'
       - name: person_id
         in: path
         schema:
           type: string
         required: true
+        example: '123456'
       - name: organization_id
         in: path
         schema:
           type: string
         required: true
+        example: '123456'
       responses:
         '200':
           description: Successful response
@@ -784,7 +800,7 @@ paths:
     get:
       tags:
       - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow
-      summary: 3. Retrieve Notifications for the authenticated member's organization
+      summary: LinkedIn 3. Retrieve Notifications for the Authenticated Member's Organization
       description: '[Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#pull-organizational-notifications) by
         viewing our public documentation.'
       parameters:
@@ -822,7 +838,7 @@ paths:
   : delete:
       tags:
       - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow
-      summary: 6. Remove a Subscription
+      summary: LinkedIn 6. Remove a Subscription
       description: '[Remove a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#remove-a-subscription) for
         a your developer application and Organization.'
       parameters:
@@ -841,16 +857,19 @@ paths:
         schema:
           type: string
         required: true
+        example: '123456'
       - name: person_id
         in: path
         schema:
           type: string
         required: true
+        example: '123456'
       - name: organization_id
         in: path
         schema:
           type: string
         required: true
+        example: '123456'
       responses:
         '200':
           description: Successful response
@@ -865,7 +884,7 @@ paths:
     get:
       tags:
       - Use Cases > Statistics APIs > Organization Follower Statistics
-      summary: Time-Bound follower statistics
+      summary: LinkedIn Time-Bound Follower Statistics
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -916,7 +935,7 @@ paths:
     get:
       tags:
       - Use Cases > Statistics APIs > Organization Page Statistics
-      summary: Lifetime Page Statistics
+      summary: LinkedIn Lifetime Page Statistics
       parameters:
       - name: X-Restli-Protocol-Version
         in: header
@@ -952,7 +971,7 @@ paths:
     get:
       tags:
       - Use Cases > Statistics APIs > Organization Share Statistics
-      summary: Time Bound Share Statistics
+      summary: LinkedIn Time Bound Share Statistics
       parameters:
       - name: Authorization
         in: header
@@ -1003,7 +1022,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Followers
-      summary: Search By Keyword
+      summary: LinkedIn Search by Keyword
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1044,7 +1063,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Followers
-      summary: Search By Vanity URL
+      summary: LinkedIn Search by Vanity URL
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1085,7 +1104,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Lookup > Organization Brands
-      summary: Find Administered Organization Brands by Parent Org
+      summary: LinkedIn Find Administered Organization Brands by Parent Org
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1174,7 +1193,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Lookup > Organizations
-      summary: Lookup by Organization Primary Type
+      summary: LinkedIn Lookup by Organization Primary Type
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1196,6 +1215,7 @@ paths:
         schema:
           type: string
         required: true
+        example: '123456'
       responses:
         '200':
           description: OK
@@ -1268,7 +1288,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Lookup > Organizations
-      summary: Find Non-Administered Organization
+      summary: LinkedIn Find Non-Administered Organization
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1357,7 +1377,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Lookup > Organizations
-      summary: Retrieve Organization Follower Count
+      summary: LinkedIn Retrieve Organization Follower Count
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1374,6 +1394,7 @@ paths:
         schema:
           type: string
         required: true
+        example: '123456'
       responses:
         '200':
           description: OK
@@ -1446,7 +1467,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Lookup > Organization Brands
-      summary: Batch GET on Administered Organization Brands
+      summary: LinkedIn Batch GET on Administered Organization Brands
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1535,7 +1556,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Lookup > Organization Brands
-      summary: Retrieve an Administered Organization Brand
+      summary: LinkedIn Retrieve an Administered Organization Brand
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1547,6 +1568,7 @@ paths:
         schema:
           type: string
         required: true
+        example: '123456'
       responses:
         '200':
           description: OK
@@ -1619,7 +1641,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Lookup > Organization Brands
-      summary: Batch GET on Non-Administered Organization Brands
+      summary: LinkedIn Batch GET on Non-Administered Organization Brands
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1708,7 +1730,7 @@ paths:
     get:
       tags:
       - Use Cases > Organization Access Controls
-      summary: Find Organization Access Control
+      summary: LinkedIn Find Organization Access Control
       parameters:
       - name: X-Restli-Protocol-Version
         in: header

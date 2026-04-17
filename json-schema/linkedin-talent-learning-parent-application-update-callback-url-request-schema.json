@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-talent-learning-parent-application-update-callback-url-request-schema.json",
+  "title": "UpdateCallbackUrlRequest",
+  "description": "Request body for updating OAuth 2.0 callback URLs",
+  "type": "object",
+  "properties": {
+    "patch": {
+      "type": "object",
+      "properties": {
+        "$set": {
+          "type": "object",
+          "properties": {
+            "oauth2AuthorizedCallbackUrls": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri"
+              },
+              "example": [
+                "https://app.acme.com/oauth2/callback",
+                "https://new-domain.acme.com/oauth2/callback"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "patch"
+  ]
+}

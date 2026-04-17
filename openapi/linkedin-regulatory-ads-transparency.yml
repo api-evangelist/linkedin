@@ -10,12 +10,12 @@ info:
     url: https://docs.microsoft.com/en-us/linkedin/
 
 servers:
-  - url: https://api.linkedin.com
-    description: LinkedIn Production API Server
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
 
 tags:
-  - name: Advertiser Transparency
-    description: Operations for retrieving advertiser transparency data for sponsored accounts
+- name: Advertiser Transparency
+  description: Operations for retrieving advertiser transparency data for sponsored accounts
 
 components:
   securitySchemes:
@@ -70,8 +70,8 @@ components:
           description: Country of the advertiser
           example: "United States"
       required:
-        - sponsoredAccountUrn
-        - month
+      - sponsoredAccountUrn
+      - month
 
     ErrorResponse:
       type: object
@@ -146,15 +146,15 @@ components:
       example: 202312
 
 security:
-  - BearerAuth: []
+- BearerAuth: []
 
 paths:
   /rest/advertiserTransparencyData/urn:li:sponsoredAccount:{sponsoredaccount_id}:
     get:
       operationId: getAdvertiserTransparencyData
       tags:
-        - Advertiser Transparency
-      summary: Get Advertiser Transparency Data
+      - Advertiser Transparency
+      summary: LinkedIn Get Advertiser Transparency Data
       description: >-
         Retrieves transparency data for a specific sponsored account. This endpoint
         provides information about advertising spend, impressions, and advertiser
@@ -168,10 +168,10 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/LinkedInVersionHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
-        - $ref: '#/components/parameters/SponsoredAccountIdPath'
-        - $ref: '#/components/parameters/MonthQuery'
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/SponsoredAccountIdPath'
+      - $ref: '#/components/parameters/MonthQuery'
       responses:
         '200':
           description: Successfully retrieved advertiser transparency data

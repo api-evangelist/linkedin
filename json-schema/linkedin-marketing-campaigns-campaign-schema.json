@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-marketing-campaigns-campaign-schema.json",
+  "title": "Campaign",
+  "description": "Campaign from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unique identifier",
+      "example": 444555666
+    },
+    "name": {
+      "type": "string",
+      "description": "Campaign name",
+      "example": "Spring Promotion Campaign"
+    },
+    "account": {
+      "type": "string",
+      "description": "Parent account URN",
+      "example": "urn:li:sponsoredAccount:123456"
+    },
+    "campaignGroup": {
+      "type": "string",
+      "description": "Parent campaign group URN",
+      "example": "urn:li:sponsoredCampaignGroup:111222333"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED",
+        "CANCELLED",
+        "DRAFT",
+        "PAUSED",
+        "PENDING_DELETION",
+        "REMOVED"
+      ],
+      "description": "Campaign status",
+      "example": "ACTIVE"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "SPONSORED_UPDATES",
+        "SPONSORED_INMAILS",
+        "TEXT_AD"
+      ],
+      "description": "Campaign type",
+      "example": "SPONSORED_UPDATES"
+    },
+    "objectiveType": {
+      "type": "string",
+      "enum": [
+        "BRAND_AWARENESS",
+        "ENGAGEMENT",
+        "JOB_APPLICANTS",
+        "LEAD_GENERATION",
+        "VIDEO_VIEWS",
+        "WEBSITE_CONVERSIONS",
+        "WEBSITE_VISITS"
+      ],
+      "description": "Campaign objective",
+      "example": "WEBSITE_VISITS"
+    },
+    "runSchedule": {
+      "$ref": "#/components/schemas/RunSchedule"
+    },
+    "dailyBudget": {
+      "$ref": "#/components/schemas/Budget"
+    },
+    "totalBudget": {
+      "$ref": "#/components/schemas/Budget"
+    }
+  }
+}

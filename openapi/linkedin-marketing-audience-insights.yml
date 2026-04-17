@@ -6,7 +6,7 @@ info:
     that meet your target persona, demonstrate interest and engagement in relevant
     products/offerings, uncover insights about companies the target audience works for,
     and activate audience for targeting in sponsored ad campaigns on LinkedIn.
-    
+
     Note: This is a private API available to qualified developers who meet additional
     criteria for access.
   version: 1.0.0
@@ -14,8 +14,8 @@ info:
     name: LinkedIn Marketing API Support
     url: https://learn.microsoft.com/en-us/linkedin/marketing/
 servers:
-  - url: https://api.linkedin.com/rest
-    description: LinkedIn REST API Server
+- url: https://api.linkedin.com/rest
+  description: LinkedIn REST API Server
 components:
   securitySchemes:
     OAuth2Auth:
@@ -49,15 +49,15 @@ components:
           items:
             type: string
             enum:
-              - AD_TARGETING_FACET
-              - TYPEAHEAD
-              - SIMILAR_ENTITIES
+            - AD_TARGETING_FACET
+            - TYPEAHEAD
+            - SIMILAR_ENTITIES
           description: Available methods to find entities
           example: ["AD_TARGETING_FACET"]
       required:
-        - facetName
-        - urn
-        - entityTypes
+      - facetName
+      - urn
+      - entityTypes
     AdTargetingFacetsResponse:
       type: object
       properties:
@@ -83,9 +83,9 @@ components:
           description: URN of the parent facet
           example: "urn:li:adTargetingFacet:locations"
       required:
-        - name
-        - urn
-        - facetUrn
+      - name
+      - urn
+      - facetUrn
     AdTargetingEntitiesResponse:
       type: object
       properties:
@@ -110,8 +110,8 @@ components:
               description: Facet URN to group insights by
               example: "urn:li:adTargetingFacet:interests"
           required:
-            - targetingCriteria
-            - groupBy
+          - targetingCriteria
+          - groupBy
     RequestMetaData:
       type: object
       properties:
@@ -229,63 +229,63 @@ components:
           count: 10
           links: []
         elements:
-          - entityTypes:
-              - "FUNCTION"
-            facetName: "jobFunctions"
-            urn: "urn:li:adTargetingFacet:jobFunctions"
-            availableEntityFinders:
-              - "AD_TARGETING_FACET"
-          - entityTypes:
-              - "AGE"
-            facetName: "ageRanges"
-            urn: "urn:li:adTargetingFacet:ageRanges"
-            availableEntityFinders:
-              - "AD_TARGETING_FACET"
-          - entityTypes:
-              - "GROUP"
-            facetName: "groups"
-            urn: "urn:li:adTargetingFacet:groups"
-            availableEntityFinders:
-              - "TYPEAHEAD"
-              - "SIMILAR_ENTITIES"
-          - entityTypes:
-              - "COMPANY"
-            facetName: "employers"
-            urn: "urn:li:adTargetingFacet:employers"
-            availableEntityFinders:
-              - "TYPEAHEAD"
-              - "SIMILAR_ENTITIES"
-          - entityTypes:
-              - "INDUSTRY"
-            facetName: "industries"
-            urn: "urn:li:adTargetingFacet:industries"
-            availableEntityFinders:
-              - "AD_TARGETING_FACET"
-              - "TYPEAHEAD"
-              - "SIMILAR_ENTITIES"
-          - entityTypes:
-              - "SENIORITY"
-            facetName: "seniorities"
-            urn: "urn:li:adTargetingFacet:seniorities"
-            availableEntityFinders:
-              - "AD_TARGETING_FACET"
-          - entityTypes:
-              - "COUNTRY_GROUP"
-              - "COUNTRY"
-              - "STATE"
-              - "REGION"
-            facetName: "locations"
-            urn: "urn:li:adTargetingFacet:locations"
-            availableEntityFinders:
-              - "AD_TARGETING_FACET"
-              - "TYPEAHEAD"
-          - entityTypes:
-              - "INTEREST"
-            facetName: "interests"
-            urn: "urn:li:adTargetingFacet:interests"
-            availableEntityFinders:
-              - "TYPEAHEAD"
-              - "AD_TARGETING_FACET"
+        - entityTypes:
+          - "FUNCTION"
+          facetName: "jobFunctions"
+          urn: "urn:li:adTargetingFacet:jobFunctions"
+          availableEntityFinders:
+          - "AD_TARGETING_FACET"
+        - entityTypes:
+          - "AGE"
+          facetName: "ageRanges"
+          urn: "urn:li:adTargetingFacet:ageRanges"
+          availableEntityFinders:
+          - "AD_TARGETING_FACET"
+        - entityTypes:
+          - "GROUP"
+          facetName: "groups"
+          urn: "urn:li:adTargetingFacet:groups"
+          availableEntityFinders:
+          - "TYPEAHEAD"
+          - "SIMILAR_ENTITIES"
+        - entityTypes:
+          - "COMPANY"
+          facetName: "employers"
+          urn: "urn:li:adTargetingFacet:employers"
+          availableEntityFinders:
+          - "TYPEAHEAD"
+          - "SIMILAR_ENTITIES"
+        - entityTypes:
+          - "INDUSTRY"
+          facetName: "industries"
+          urn: "urn:li:adTargetingFacet:industries"
+          availableEntityFinders:
+          - "AD_TARGETING_FACET"
+          - "TYPEAHEAD"
+          - "SIMILAR_ENTITIES"
+        - entityTypes:
+          - "SENIORITY"
+          facetName: "seniorities"
+          urn: "urn:li:adTargetingFacet:seniorities"
+          availableEntityFinders:
+          - "AD_TARGETING_FACET"
+        - entityTypes:
+          - "COUNTRY_GROUP"
+          - "COUNTRY"
+          - "STATE"
+          - "REGION"
+          facetName: "locations"
+          urn: "urn:li:adTargetingFacet:locations"
+          availableEntityFinders:
+          - "AD_TARGETING_FACET"
+          - "TYPEAHEAD"
+        - entityTypes:
+          - "INTEREST"
+          facetName: "interests"
+          urn: "urn:li:adTargetingFacet:interests"
+          availableEntityFinders:
+          - "TYPEAHEAD"
+          - "AD_TARGETING_FACET"
     AdTargetingEntitiesResponseExample:
       summary: Location targeting entities
       value:
@@ -293,40 +293,40 @@ components:
           start: 0
           count: 10
           links:
-            - type: "application/json"
-              rel: "next"
-              href: "/rest/adTargetingEntities?q=typeahead&query=united%20states&start=10&count=10&facet=urn%3Ali%3AadTargetingFacet%3Alocations&queryVersion=QUERY_USES_URNS"
+          - type: "application/json"
+            rel: "next"
+            href: "/rest/adTargetingEntities?q=typeahead&query=united%20states&start=10&count=10&facet=urn%3Ali%3AadTargetingFacet%3Alocations&queryVersion=QUERY_USES_URNS"
         elements:
-          - name: "United States"
-            urn: "urn:li:geo:103644278"
-            facetUrn: "urn:li:adTargetingFacet:locations"
-          - name: "California, United States"
-            urn: "urn:li:geo:102095887"
-            facetUrn: "urn:li:adTargetingFacet:locations"
-          - name: "Texas, United States"
-            urn: "urn:li:geo:102748797"
-            facetUrn: "urn:li:adTargetingFacet:locations"
-          - name: "New York, United States"
-            urn: "urn:li:geo:105080838"
-            facetUrn: "urn:li:adTargetingFacet:locations"
-          - name: "Florida, United States"
-            urn: "urn:li:geo:101318387"
-            facetUrn: "urn:li:adTargetingFacet:locations"
-          - name: "Los Angeles County, California, United States"
-            urn: "urn:li:geo:103104382"
-            facetUrn: "urn:li:adTargetingFacet:locations"
-          - name: "New York, New York, United States"
-            urn: "urn:li:geo:102571732"
-            facetUrn: "urn:li:adTargetingFacet:locations"
-          - name: "Illinois, United States"
-            urn: "urn:li:geo:101949407"
-            facetUrn: "urn:li:adTargetingFacet:locations"
-          - name: "Pennsylvania, United States"
-            urn: "urn:li:geo:102986501"
-            facetUrn: "urn:li:adTargetingFacet:locations"
-          - name: "Georgia, United States"
-            urn: "urn:li:geo:103950076"
-            facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "United States"
+          urn: "urn:li:geo:103644278"
+          facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "California, United States"
+          urn: "urn:li:geo:102095887"
+          facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "Texas, United States"
+          urn: "urn:li:geo:102748797"
+          facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "New York, United States"
+          urn: "urn:li:geo:105080838"
+          facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "Florida, United States"
+          urn: "urn:li:geo:101318387"
+          facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "Los Angeles County, California, United States"
+          urn: "urn:li:geo:103104382"
+          facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "New York, New York, United States"
+          urn: "urn:li:geo:102571732"
+          facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "Illinois, United States"
+          urn: "urn:li:geo:101949407"
+          facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "Pennsylvania, United States"
+          urn: "urn:li:geo:102986501"
+          facetUrn: "urn:li:adTargetingFacet:locations"
+        - name: "Georgia, United States"
+          urn: "urn:li:geo:103950076"
+          facetUrn: "urn:li:adTargetingFacet:locations"
     AudienceInsightsRequestExample:
       summary: Request for interests of Finance directors in US
       value:
@@ -336,15 +336,15 @@ components:
           targetingCriteria:
             include:
               and:
-                - or:
-                    "urn:li:adTargetingFacet:locations":
-                      - "urn:li:geo:103644278"
-                - or:
-                    "urn:li:adTargetingFacet:interfaceLocales":
-                      - "urn:li:locale:en_US"
-                - or:
-                    "urn:li:adTargetingFacet:jobFunctions":
-                      - "urn:li:function:10"
+              - or:
+                  "urn:li:adTargetingFacet:locations":
+                  - "urn:li:geo:103644278"
+              - or:
+                  "urn:li:adTargetingFacet:interfaceLocales":
+                  - "urn:li:locale:en_US"
+              - or:
+                  "urn:li:adTargetingFacet:jobFunctions":
+                  - "urn:li:function:10"
           groupBy: "urn:li:adTargetingFacet:interests"
     AudienceInsightsResponseExample:
       summary: Audience insights response with top interests
@@ -352,37 +352,37 @@ components:
         value:
           audienceInsight:
             segmentations:
-              - entityCount: 4900000
-                entityPercentage: 89
-                value: "urn:li:interest:71363"
-              - entityCount: 4500000
-                entityPercentage: 82
-                value: "urn:li:interest:420"
-              - entityCount: 4500000
-                entityPercentage: 82
-                value: "urn:li:interest:2689786"
-              - entityCount: 4400000
-                entityPercentage: 80
-                value: "urn:li:interest:3440"
-              - entityCount: 4300000
-                entityPercentage: 78
-                value: "urn:li:interest:1537154"
+            - entityCount: 4900000
+              entityPercentage: 89
+              value: "urn:li:interest:71363"
+            - entityCount: 4500000
+              entityPercentage: 82
+              value: "urn:li:interest:420"
+            - entityCount: 4500000
+              entityPercentage: 82
+              value: "urn:li:interest:2689786"
+            - entityCount: 4400000
+              entityPercentage: 80
+              value: "urn:li:interest:3440"
+            - entityCount: 4300000
+              entityPercentage: 78
+              value: "urn:li:interest:1537154"
             groupedBy: "urn:li:adTargetingFacet:interests"
           totalAudienceCount: 5500000
 security:
-  - OAuth2Auth:
-      - r_ads
+- OAuth2Auth:
+  - r_ads
 tags:
-  - name: Ad Targeting Entities
-    description: APIs to discover and retrieve ad targeting facets and entities
-  - name: Audience Insights
-    description: APIs to fetch audience insights based on targeting criteria
+- name: Ad Targeting Entities
+  description: APIs to discover and retrieve ad targeting facets and entities
+- name: Audience Insights
+  description: APIs to fetch audience insights based on targeting criteria
 paths:
   /adTargetingFacets:
     get:
       tags:
-        - Ad Targeting Entities
-      summary: Get List Of Available Ad Targeting Facets
+      - Ad Targeting Entities
+      summary: LinkedIn Get List of Available Ad Targeting Facets
       description: >-
         Retrieve the list of available ad targeting facets. Facets are high-level
         categories of targeting types available for ad campaigns.
@@ -391,20 +391,20 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          description: LinkedIn API version
-          example: "202401"
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          description: RestLi protocol version
-          example: "2.0.0"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        description: LinkedIn API version
+        example: "202401"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        description: RestLi protocol version
+        example: "2.0.0"
       responses:
         '200':
           description: Successfully retrieved ad targeting facets
@@ -424,8 +424,8 @@ paths:
   /adTargetingEntities:
     get:
       tags:
-        - Ad Targeting Entities
-      summary: Get Ad Targeting Entities Using Typeahead Search
+      - Ad Targeting Entities
+      summary: LinkedIn Get Ad Targeting Entities Using Typeahead Search
       description: >-
         Search for ad targeting entities within a facet using typeahead search.
         Returns entities matching the search query.
@@ -434,69 +434,69 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          description: LinkedIn API version
-          example: "202401"
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          description: RestLi protocol version
-          example: "2.0.0"
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - typeahead
-          description: Query type
-          example: "typeahead"
-        - name: query
-          in: query
-          required: true
-          schema:
-            type: string
-          description: Search query string (URL encoded)
-          example: "united%20states"
-        - name: facet
-          in: query
-          required: true
-          schema:
-            type: string
-          description: Facet URN to search within (URL encoded)
-          example: "urn%3Ali%3AadTargetingFacet%3Alocations"
-        - name: queryVersion
-          in: query
-          required: false
-          schema:
-            type: string
-            enum:
-              - QUERY_USES_URNS
-          description: Query version format
-          example: "QUERY_USES_URNS"
-        - name: start
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-          description: Starting index for pagination
-          example: 0
-        - name: count
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 10
-            maximum: 100
-          description: Number of results to return
-          example: 10
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        description: LinkedIn API version
+        example: "202401"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        description: RestLi protocol version
+        example: "2.0.0"
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - typeahead
+        description: Query type
+        example: "typeahead"
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Search query string (URL encoded)
+        example: "united%20states"
+      - name: facet
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Facet URN to search within (URL encoded)
+        example: "urn%3Ali%3AadTargetingFacet%3Alocations"
+      - name: queryVersion
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - QUERY_USES_URNS
+        description: Query version format
+        example: "QUERY_USES_URNS"
+      - name: start
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        description: Starting index for pagination
+        example: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+          maximum: 100
+        description: Number of results to return
+        example: 10
       responses:
         '200':
           description: Successfully retrieved ad targeting entities
@@ -522,8 +522,8 @@ paths:
   /targetingAudienceInsights:
     post:
       tags:
-        - Audience Insights
-      summary: Fetch Audience Insights By Targeting Criteria
+      - Audience Insights
+      summary: LinkedIn Fetch Audience Insights by Targeting Criteria
       description: >-
         Retrieve aggregated demographic insights, firmographic details, locations,
         and interests/behaviors for a target audience based on specified targeting criteria.
@@ -532,29 +532,29 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: LinkedIn-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          description: LinkedIn API version
-          example: "202401"
-        - name: X-Restli-Protocol-Version
-          in: header
-          required: true
-          schema:
-            type: string
-          description: RestLi protocol version
-          example: "2.0.0"
-        - name: action
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - audienceInsights
-          description: Action to perform
-          example: "audienceInsights"
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        description: LinkedIn API version
+        example: "202401"
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        description: RestLi protocol version
+        example: "2.0.0"
+      - name: action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - audienceInsights
+        description: Action to perform
+        example: "audienceInsights"
       requestBody:
         required: true
         content:

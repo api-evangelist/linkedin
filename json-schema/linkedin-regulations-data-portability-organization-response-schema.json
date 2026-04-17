@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-regulations-data-portability-organization-response-schema.json",
+  "title": "OrganizationResponse",
+  "description": "Organization profile data",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Organization ID",
+      "example": 10002687
+    },
+    "name": {
+      "$ref": "#/components/schemas/LocalizedString"
+    },
+    "description": {
+      "$ref": "#/components/schemas/LocalizedString"
+    },
+    "tagline": {
+      "$ref": "#/components/schemas/LocalizedString"
+    },
+    "localizedName": {
+      "type": "string",
+      "example": "Acme Corporation"
+    },
+    "localizedDescription": {
+      "type": "string",
+      "example": "Leading provider of innovative solutions"
+    },
+    "localizedTagline": {
+      "type": "string",
+      "example": "Innovation at its best"
+    },
+    "vanityName": {
+      "type": "string",
+      "example": "acme-corp"
+    },
+    "organizationType": {
+      "type": "string",
+      "enum": [
+        "PUBLIC_COMPANY",
+        "PRIVATELY_HELD",
+        "GOVERNMENT_AGENCY",
+        "NON_PROFIT",
+        "PARTNERSHIP"
+      ],
+      "example": "PRIVATELY_HELD"
+    },
+    "staffCountRange": {
+      "type": "string",
+      "enum": [
+        "SIZE_1",
+        "SIZE_2_TO_10",
+        "SIZE_11_TO_50",
+        "SIZE_51_TO_200",
+        "SIZE_201_TO_500",
+        "SIZE_501_TO_1000",
+        "SIZE_1001_TO_5000",
+        "SIZE_5001_TO_10000",
+        "SIZE_10001_OR_MORE"
+      ],
+      "example": "SIZE_201_TO_500"
+    },
+    "industriesV2": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "urn:li:industry:33"
+      ]
+    },
+    "logoV2": {
+      "$ref": "#/components/schemas/ImageReference"
+    },
+    "coverPhotoV2": {
+      "$ref": "#/components/schemas/ImageReference"
+    },
+    "locations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/OrganizationLocation"
+      }
+    },
+    "foundedOn": {
+      "$ref": "#/components/schemas/DateInfo"
+    },
+    "entityStatus": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "example": "ACTIVE"
+    },
+    "created": {
+      "$ref": "#/components/schemas/Timestamp"
+    },
+    "lastModified": {
+      "$ref": "#/components/schemas/Timestamp"
+    }
+  }
+}

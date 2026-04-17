@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-regulations-data-portability-organization-acl-schema.json",
+  "title": "OrganizationAcl",
+  "description": "OrganizationAcl from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "organization": {
+      "type": "string",
+      "example": "urn:li:organization:10002687"
+    },
+    "roleAssignee": {
+      "type": "string",
+      "example": "urn:li:person:ABC123"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "ADMINISTRATOR",
+        "CONTENT_ADMIN",
+        "ANALYST",
+        "RECRUITING_POSTER"
+      ],
+      "example": "ADMINISTRATOR"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "PENDING"
+      ],
+      "example": "APPROVED"
+    },
+    "created": {
+      "$ref": "#/components/schemas/Timestamp"
+    }
+  }
+}

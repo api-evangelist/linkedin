@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-marketing-audience-user-id-structure.json",
+  "name": "UserId",
+  "description": "UserId from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "idType": {
+      "type": "string",
+      "enum": [
+        "SHA256_EMAIL",
+        "GOOGLE_AID",
+        "APPLE_IDFA"
+      ],
+      "description": "Type of user identifier",
+      "example": "SHA256_EMAIL"
+    },
+    "idValue": {
+      "type": "string",
+      "description": "Hashed or identifier value",
+      "example": "6b56c85c1ce461e7ef77e3a52f13a6bc09feb93a04ce0670f9909e8ffde01f3a"
+    }
+  },
+  "required": [
+    "idType",
+    "idValue"
+  ]
+}

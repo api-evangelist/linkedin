@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-marketing-audience-insights-ad-targeting-facet-schema.json",
+  "title": "AdTargetingFacet",
+  "description": "AdTargetingFacet from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "facetName": {
+      "type": "string",
+      "description": "Name of the targeting facet",
+      "example": "jobFunctions"
+    },
+    "urn": {
+      "type": "string",
+      "description": "URN identifier for the facet",
+      "example": "urn:li:adTargetingFacet:jobFunctions"
+    },
+    "entityTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Types of entities in this facet",
+      "example": [
+        "FUNCTION"
+      ]
+    },
+    "availableEntityFinders": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "AD_TARGETING_FACET",
+          "TYPEAHEAD",
+          "SIMILAR_ENTITIES"
+        ]
+      },
+      "description": "Available methods to find entities",
+      "example": [
+        "AD_TARGETING_FACET"
+      ]
+    }
+  },
+  "required": [
+    "facetName",
+    "urn",
+    "entityTypes"
+  ]
+}

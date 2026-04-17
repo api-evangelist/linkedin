@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-marketing-audience-dmp-segment-structure.json",
+  "name": "DmpSegment",
+  "description": "DmpSegment from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int64",
+      "description": "Unique identifier for the DMP segment",
+      "example": 987654321
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the segment",
+      "example": "DMP segment for CSV uploads"
+    },
+    "account": {
+      "type": "string",
+      "description": "URN of the sponsore account",
+      "example": "urn:li:sponsoredAccount:123456"
+    },
+    "accessPolicy": {
+      "type": "string",
+      "enum": [
+        "PRIVATE",
+        "PUBLIC"
+      ],
+      "description": "Access policy for the segment",
+      "example": "PRIVATE"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "COMPANY_LIST_UPLOAD",
+        "USER_LIST_UPLOAD",
+        "COMPANY_STREAMING",
+        "USER_STREAMING"
+      ],
+      "description": "Type of DMP segment",
+      "example": "COMPANY_LIST_UPLOAD"
+    },
+    "sourcePlatform": {
+      "type": "string",
+      "enum": [
+        "LIST_UPLOAD",
+        "STREAMING"
+      ],
+      "description": "Source platform for the segment data",
+      "example": "LIST_UPLOAD"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PROCESSING",
+        "READY",
+        "EXPIRED",
+        "FAILED"
+      ],
+      "description": "Current status of the segment",
+      "example": "READY"
+    },
+    "matchedCount": {
+      "type": "int32",
+      "description": "Number of matched records",
+      "example": 5000
+    },
+    "inputCount": {
+      "type": "int32",
+      "description": "Total number of input records",
+      "example": 6000
+    },
+    "audienceSize": {
+      "type": "int32",
+      "description": "Size of the audience",
+      "example": 4500
+    },
+    "destinations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/SegmentDestination"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "account",
+    "type",
+    "sourcePlatform"
+  ]
+}

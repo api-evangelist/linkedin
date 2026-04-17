@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-marketing-audience-insights-audience-insights-request-schema.json",
+  "title": "AudienceInsightsRequest",
+  "description": "AudienceInsightsRequest from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "request": {
+      "type": "object",
+      "properties": {
+        "requestMetaData": {
+          "$ref": "#/components/schemas/RequestMetaData"
+        },
+        "targetingCriteria": {
+          "$ref": "#/components/schemas/TargetingCriteria"
+        },
+        "groupBy": {
+          "type": "string",
+          "description": "Facet URN to group insights by",
+          "example": "urn:li:adTargetingFacet:interests"
+        }
+      },
+      "required": [
+        "targetingCriteria",
+        "groupBy"
+      ]
+    }
+  }
+}

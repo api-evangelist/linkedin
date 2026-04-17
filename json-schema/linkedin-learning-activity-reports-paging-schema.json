@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-learning-activity-reports-paging-schema.json",
+  "title": "Paging",
+  "description": "Paging from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of results",
+      "example": 1
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of results in this response",
+      "example": 1
+    },
+    "start": {
+      "type": "integer",
+      "description": "Starting index",
+      "example": 0
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PagingLink"
+      }
+    }
+  }
+}

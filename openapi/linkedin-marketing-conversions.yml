@@ -1,17 +1,13 @@
 openapi: 3.1.0
 info:
   title: Conversions API
-  description: "**See the** [Getting Access](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/conversions/getting-access-conversions)\
-    \ guide **on how to apply.**\n\n[LinkedIn's Conversion API](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/conversions-api)\
-    \ is a conversion tracking tool that creates a direct connection between marketing data from an advertiser’s server and\
-    \ LinkedIn. This API enables advertisers to measure the performance of their LinkedIn marketing campaigns no matter where\
-    \ the conversion happens and use this data to power campaign optimization.\n\nThis collection aims to focus on the new\
-    \ Conversions API and should be used with the **conversions-env-versioning** environment.\n\nThere are two conditions\
-    \ for successful calls: (1) Scope permissions to `rw_conversions`, `r_ads` and (2) the user assigning permission holding\
-    \ one of the following roles in the Ad Account.\n\nScope permissions for [3-legged Oauth](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)\n\
-    \n- `rw_conversions` (Read/Write)\n- `r_ads` (Read)\n    \n\nAd Account Roles:\n\n- `ACCOUNT_BILLING_ADMIN`\n- `ACCOUNT_MANAGER`\n\
-    - `CAMPAIGN_MANAGER`\n- `CREATIVE_MANAGER`\n    \n\n\\--All requests for the Conversions collection are in the Restli\
-    \ 2.0 format--"
+  description: "**See the** [Getting Access](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/conversions/getting-access-conversions) guide **on how to apply.**\n\n[LinkedIn's Conversion
+    API](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/conversions-api) is a conversion tracking tool that creates a direct connection between marketing data from an advertiser’s
+    server and LinkedIn. This API enables advertisers to measure the performance of their LinkedIn marketing campaigns no matter where the conversion happens and use this data to power campaign optimization.\n\
+    \nThis collection aims to focus on the new Conversions API and should be used with the **conversions-env-versioning** environment.\n\nThere are two conditions for successful calls: (1) Scope permissions
+    to `rw_conversions`, `r_ads` and (2) the user assigning permission holding one of the following roles in the Ad Account.\n\nScope permissions for [3-legged Oauth](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)\n\
+    \n- `rw_conversions` (Read/Write)\n- `r_ads` (Read)\n    \n\nAd Account Roles:\n\n- `ACCOUNT_BILLING_ADMIN`\n- `ACCOUNT_MANAGER`\n- `CAMPAIGN_MANAGER`\n- `CREATIVE_MANAGER`\n    \n\n\\--All requests
+    for the Conversions collection are in the Restli 2.0 format--"
   version: 1.0.0
 servers:
 - url: https://api.linkedin.com
@@ -96,16 +92,22 @@ components:
       properties:
         postClickAttributionWindowSize:
           type: integer
+          example: 42
         conversionMethod:
           type: string
+          example: example_value
         viewThroughAttributionWindowSize:
           type: integer
+          example: 42
         created:
           type: integer
+          example: 42
         type:
           type: string
+          example: example_value
         enabled:
           type: boolean
+          example: true
         associatedCampaigns:
           type: array
           items: {}
@@ -114,17 +116,22 @@ components:
           items: {}
         name:
           type: string
+          example: Example Name
         id:
           type: integer
+          example: 42
         lastModified:
           type: integer
+          example: 42
         attributionType:
           type: string
+          example: example_value
         urlRules:
           type: array
           items: {}
         account:
           type: string
+          example: example_value
     FetchActiveCampaignsResponse200:
       type: object
       properties:
@@ -310,7 +317,7 @@ components:
           id: 899887
     AssociateCampaignsToConversionResponse204Example:
       summary: Example 204 response for AssociateCampaignsToConversion
-      value: null
+      value:
     StreamMultipleConversionEventsResponse200Example:
       summary: Example 200 response for StreamMultipleConversionEvents
       value:
@@ -321,20 +328,17 @@ security:
 - oauth2Auth: []
 tags:
 - name: Conversion Events Streaming Workflow
-  description: "1. Obtain user authorization with consent to create and manage conversions using `rw_conversions`, `r_ads`\
-    \ permissions in the scope.\n2. Retrieve authenticated user's sponsored Ad Accounts where user has a non-viewer user role.\n\
-    3. Ask the user to select one of their Ad Account where conversion events would be streamed.\n4. Fetch existing Conversion\
-    \ Rules for CAPI in the selected Ad Account\n5. Allow the user to choose if they want to create a new Conversion Rule\
-    \ or update an existing one\n6. Create a new Conversion Rule (skip this step if the user chose to update an existing Conversion\
-    \ Rule)\n7. Fetch active campaign URNs to associate with conversion rule\n8. Associate campaigns to conversion rule for\
-    \ campaign attribution and optimization\n9. Stream conversion event to the conversion rule\n    \n10. Stream multiple\
-    \ conversion events to the conversion rule"
+  description: "1. Obtain user authorization with consent to create and manage conversions using `rw_conversions`, `r_ads` permissions in the scope.\n2. Retrieve authenticated user's sponsored Ad Accounts
+    where user has a non-viewer user role.\n3. Ask the user to select one of their Ad Account where conversion events would be streamed.\n4. Fetch existing Conversion Rules for CAPI in the selected Ad Account\n\
+    5. Allow the user to choose if they want to create a new Conversion Rule or update an existing one\n6. Create a new Conversion Rule (skip this step if the user chose to update an existing Conversion
+    Rule)\n7. Fetch active campaign URNs to associate with conversion rule\n8. Associate campaigns to conversion rule for campaign attribution and optimization\n9. Stream conversion event to the conversion
+    rule\n    \n10. Stream multiple conversion events to the conversion rule"
 paths:
   /adAccountUsers:
     get:
       tags:
       - Conversion Events Streaming Workflow
-      summary: 2. Retrieve authenticated user's Sponsored Ad Accounts
+      summary: LinkedIn 2. Retrieve Authenticated User's Sponsored Ad Accounts
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -424,9 +428,9 @@ paths:
     get:
       tags:
       - Conversion Events Streaming Workflow
-      summary: 4. Fetch existing Conversion Rules for CAPI in the selected ad account
-      description: Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to
-        filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
+      summary: LinkedIn 4. Fetch Existing Conversion Rules for CAPI in the Selected Ad Account
+      description: Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming 
+        conversions through API.
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -520,9 +524,8 @@ paths:
     post:
       tags:
       - Conversion Events Streaming Workflow
-      summary: 6. Create a new Conversion Rule
-      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for
-        streaming conversions through API.
+      summary: LinkedIn 6. Create a New Conversion Rule
+      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
       requestBody:
         content:
           application/json:
@@ -623,9 +626,9 @@ paths:
     get:
       tags:
       - Conversion Events Streaming Workflow
-      summary: 7. Fetch active campaigns
-      description: Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to
-        filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
+      summary: LinkedIn 7. Fetch Active Campaigns
+      description: Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming 
+        conversions through API.
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -657,6 +660,7 @@ paths:
         schema:
           type: string
         required: true
+        example: '123456'
       responses:
         '200':
           description: OK
@@ -729,9 +733,8 @@ paths:
   : put:
       tags:
       - Conversion Events Streaming Workflow
-      summary: 8. Associate campaigns to conversion rule
-      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for
-        streaming conversions through API.
+      summary: LinkedIn 8. Associate Campaigns to Conversion Rule
+      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
       requestBody:
         content:
           application/json:
@@ -753,11 +756,13 @@ paths:
         schema:
           type: string
         required: true
+        example: '123456'
       - name: conversion_id
         in: path
         schema:
           type: string
         required: true
+        example: '123456'
       responses:
         '204':
           description: No Content
@@ -822,9 +827,8 @@ paths:
     post:
       tags:
       - Conversion Events Streaming Workflow
-      summary: 10. Stream multiple conversion events to the conversion rule
-      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for
-        streaming conversions through API.
+      summary: LinkedIn 10. Stream Multiple Conversion Events to the Conversion Rule
+      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
       requestBody:
         content:
           application/json:

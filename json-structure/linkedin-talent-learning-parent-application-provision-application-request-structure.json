@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-talent-learning-parent-application-provision-application-request-structure.json",
+  "name": "ProvisionApplicationRequest",
+  "description": "Request body for provisioning a new child application",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the customer application",
+      "example": "Acme Corporation"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the application",
+      "example": "Test application for Acme Corporation"
+    },
+    "uniqueForeignId": {
+      "type": "string",
+      "description": "Unique identifier for the customer in the partner's system",
+      "example": "acme-corp-12345"
+    },
+    "oauth2AuthorizedCallbackUrls": {
+      "type": "array",
+      "description": "List of authorized OAuth 2.0 callback URLs",
+      "items": {
+        "type": "uri"
+      },
+      "example": [
+        "https://app.acme.com/oauth2/callback",
+        "https://staging.acme.com/oauth2/callback"
+      ]
+    },
+    "validJsSdkDomains": {
+      "type": "array",
+      "description": "List of valid JavaScript SDK domains",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "https://app.acme.com",
+        "http://localhost:5000"
+      ]
+    }
+  },
+  "required": [
+    "name",
+    "uniqueForeignId",
+    "oauth2AuthorizedCallbackUrls"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-marketing-audience-dmp-segment-create-request-schema.json",
+  "title": "DmpSegmentCreateRequest",
+  "description": "DmpSegmentCreateRequest from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "accessPolicy": {
+      "type": "string",
+      "enum": [
+        "PRIVATE",
+        "PUBLIC"
+      ],
+      "description": "Access policy for the segment",
+      "example": "PRIVATE"
+    },
+    "account": {
+      "type": "string",
+      "description": "URN of the sponsored account",
+      "example": "urn:li:sponsoredAccount:123456"
+    },
+    "destinations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/SegmentDestination"
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for the segment",
+      "example": "DMP segment for CSV uploads"
+    },
+    "sourcePlatform": {
+      "type": "string",
+      "enum": [
+        "LIST_UPLOAD",
+        "STREAMING"
+      ],
+      "description": "Source platform",
+      "example": "LIST_UPLOAD"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "COMPANY_LIST_UPLOAD",
+        "USER_LIST_UPLOAD",
+        "COMPANY_STREAMING",
+        "USER_STREAMING"
+      ],
+      "description": "Type of segment",
+      "example": "COMPANY_LIST_UPLOAD"
+    }
+  },
+  "required": [
+    "accessPolicy",
+    "account",
+    "destinations",
+    "name",
+    "sourcePlatform",
+    "type"
+  ]
+}

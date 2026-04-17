@@ -9,8 +9,8 @@ info:
     name: LinkedIn API Support
     url: https://docs.microsoft.com/en-us/linkedin/sales/
 servers:
-  - url: https://api.linkedin.com/v2
-    description: LinkedIn Production API Server
+- url: https://api.linkedin.com/v2
+  description: LinkedIn Production API Server
 components:
   securitySchemes:
     BearerAuth:
@@ -39,9 +39,9 @@ components:
           description: Indicates whether the user can export data for this contract
           example: true
       required:
-        - contract
-        - name
-        - hasReportingAccess
+      - contract
+      - name
+      - hasReportingAccess
     ContractsResponse:
       type: object
       properties:
@@ -63,8 +63,8 @@ components:
           description: Time at which this token will become invalid (seconds since epoch)
           example: 1640100000
       required:
-        - token
-        - expiryTime
+      - token
+      - expiryTime
     SalesAccessTokenResponse:
       type: object
       properties:
@@ -84,13 +84,13 @@ components:
         status:
           type: string
           enum:
-            - ENQUEUED
-            - PROCESSING
-            - COMPLETED
-            - FAILED_DUE_TO_EXCEEDED_FILE_SIZE_ERROR
-            - FAILED_DUE_TO_TIMED_OUT
-            - FAILED_DUE_TO_DATA_DELAY
-            - FAILED_DUE_TO_INTERNAL_ERROR
+          - ENQUEUED
+          - PROCESSING
+          - COMPLETED
+          - FAILED_DUE_TO_EXCEEDED_FILE_SIZE_ERROR
+          - FAILED_DUE_TO_TIMED_OUT
+          - FAILED_DUE_TO_DATA_DELAY
+          - FAILED_DUE_TO_INTERNAL_ERROR
           description: Current status of the export job
           example: "COMPLETED"
         downloadUrl:
@@ -109,8 +109,8 @@ components:
           description: Number of rows in the exported data
           example: 5000
       required:
-        - id
-        - status
+      - id
+      - status
     SalesAnalyticsExportJobRequest:
       type: object
       properties:
@@ -127,9 +127,9 @@ components:
           description: End date of the exported data (milliseconds since epoch)
           example: 1640908800000
       required:
-        - contract
-        - startAt
-        - endAt
+      - contract
+      - startAt
+      - endAt
     SalesAnalyticsExportJobResponse:
       type: object
       properties:
@@ -204,9 +204,9 @@ components:
         status:
           type: string
           enum:
-            - PROCESSING
-            - COMPLETED
-            - FAILED_DUE_TO_INTERNAL_ERROR
+          - PROCESSING
+          - COMPLETED
+          - FAILED_DUE_TO_INTERNAL_ERROR
           description: Current status of the export job
           example: "COMPLETED"
         downloadUrls:
@@ -216,8 +216,8 @@ components:
           nullable: true
           description: URLs for downloading the exported data
           example:
-            - "https://media.licdn.com/crm-validation/export_1.csv"
-            - "https://media.licdn.com/crm-validation/export_2.csv"
+          - "https://media.licdn.com/crm-validation/export_1.csv"
+          - "https://media.licdn.com/crm-validation/export_2.csv"
         nextExportStartAt:
           type: integer
           format: int64
@@ -271,14 +271,14 @@ components:
       summary: List of sales contracts
       value:
         elements:
-          - contract: "urn:li:salesContract:12345"
-            name: "Enterprise Sales Contract"
-            description: "Annual enterprise subscription for sales team"
-            hasReportingAccess: true
-          - contract: "urn:li:salesContract:67890"
-            name: "Professional Sales Contract"
-            description: "Monthly professional subscription"
-            hasReportingAccess: false
+        - contract: "urn:li:salesContract:12345"
+          name: "Enterprise Sales Contract"
+          description: "Annual enterprise subscription for sales team"
+          hasReportingAccess: true
+        - contract: "urn:li:salesContract:67890"
+          name: "Professional Sales Contract"
+          description: "Monthly professional subscription"
+          hasReportingAccess: false
         paging:
           count: 10
           start: 0
@@ -287,8 +287,8 @@ components:
       summary: Sales access token response
       value:
         elements:
-          - token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-            expiryTime: 1640100000
+        - token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          expiryTime: 1640100000
         paging:
           count: 1
           start: 0
@@ -315,28 +315,28 @@ components:
         exportEndAt: 1640001000000
         status: "COMPLETED"
         downloadUrls:
-          - "https://media.licdn.com/crm-validation/export_1.csv"
+        - "https://media.licdn.com/crm-validation/export_1.csv"
         nextExportStartAt: 1640001000000
         expireAt: 1640100000000
 security:
-  - BearerAuth: []
+- BearerAuth: []
 tags:
-  - name: Sales Contracts
-    description: Manage and retrieve Sales Navigator contracts
-  - name: Sales Analytics Export
-    description: Create and manage sales analytics export jobs
-  - name: Sales Access Tokens
-    description: Retrieve sales access tokens for authenticated iframe sessions
-  - name: Profile Associations
-    description: Fetch Sales Navigator profile associations from CRM records
-  - name: CRM Data Validation
-    description: Create and manage CRM data validation export jobs
+- name: Sales Contracts
+  description: Manage and retrieve Sales Navigator contracts
+- name: Sales Analytics Export
+  description: Create and manage sales analytics export jobs
+- name: Sales Access Tokens
+  description: Retrieve sales access tokens for authenticated iframe sessions
+- name: Profile Associations
+  description: Fetch Sales Navigator profile associations from CRM records
+- name: CRM Data Validation
+  description: Create and manage CRM data validation export jobs
 paths:
   /salesContracts:
     get:
       tags:
-        - Sales Contracts
-      summary: Find All Contracts Where User Has Active Seat
+      - Sales Contracts
+      summary: LinkedIn Find All Contracts Where User Has Active Seat
       description: >-
         Retrieve all Sales Navigator contracts where the authenticated user
         has an active seat.
@@ -345,15 +345,15 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - contractsByMember
-          description: Query parameter to fetch contracts for the member
-          example: contractsByMember
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - contractsByMember
+        description: Query parameter to fetch contracts for the member
+        example: contractsByMember
       responses:
         '200':
           description: A list of sales contracts
@@ -373,8 +373,8 @@ paths:
   /salesAnalyticsExportJobs/{JobId}:
     get:
       tags:
-        - Sales Analytics Export
-      summary: Fetch Sales Analytics Export Job By Id
+      - Sales Analytics Export
+      summary: LinkedIn Fetch Sales Analytics Export Job by Id
       description: >-
         Retrieve the status and details of a sales analytics export job by its ID.
       operationId: getSalesAnalyticsExportJob
@@ -382,20 +382,20 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: JobId
-          in: path
-          required: true
-          schema:
-            type: integer
-          description: The ID of the export job
-          example: 987654321
-        - name: contract
-          in: query
-          required: true
-          schema:
-            type: string
-          description: Sales Navigator contract URN
-          example: "urn:li:salesContract:12345"
+      - name: JobId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The ID of the export job
+        example: 987654321
+      - name: contract
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Sales Navigator contract URN
+        example: "urn:li:salesContract:12345"
       responses:
         '200':
           description: Details of the export job
@@ -421,8 +421,8 @@ paths:
   /salesAnalyticsExportJobs:
     post:
       tags:
-        - Sales Analytics Export
-      summary: Create New Sales Analytics Export Job
+      - Sales Analytics Export
+      summary: LinkedIn Create New Sales Analytics Export Job
       description: >-
         Create a new sales analytics export job to export seat data,
         activity outcome data, or activity data.
@@ -431,17 +431,17 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: action
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - exportSeatData
-              - exportActivityOutcomeData
-              - exportActivityData
-          description: The type of export job to create
-          example: exportSeatData
+      - name: action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - exportSeatData
+          - exportActivityOutcomeData
+          - exportActivityData
+        description: The type of export job to create
+        example: exportSeatData
       requestBody:
         required: true
         content:
@@ -467,9 +467,9 @@ paths:
                     value:
                       id: 987654321
                       status: "ENQUEUED"
-                      downloadUrl: null
-                      expireAt: null
-                      rowCount: null
+                      downloadUrl:
+                      expireAt:
+                      rowCount:
         '400':
           description: Bad request
           content:
@@ -485,8 +485,8 @@ paths:
   /salesAccessTokens:
     get:
       tags:
-        - Sales Access Tokens
-      summary: Retrieve Sales Access Token For Authenticated Iframe Sessions
+      - Sales Access Tokens
+      summary: LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions
       description: >-
         Get a short-lived, limited-scope OAuth token for authenticated iframe sessions.
       operationId: getSalesAccessToken
@@ -494,15 +494,15 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - viewerAndDeveloperApp
-          description: Query parameter for retrieving a Sales Access Token
-          example: viewerAndDeveloperApp
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - viewerAndDeveloperApp
+        description: Query parameter for retrieving a Sales Access Token
+        example: viewerAndDeveloperApp
       responses:
         '200':
           description: A list of Sales Access Tokens
@@ -522,8 +522,8 @@ paths:
   /salesNavigatorProfileAssociations/{InstanceId},{Partner},{RecordId}:
     get:
       tags:
-        - Profile Associations
-      summary: Fetch Profile Association By Key
+      - Profile Associations
+      summary: LinkedIn Fetch Profile Association by Key
       description: >-
         Fetch the corresponding match when provided with a SalesNavigatorProfileAssociationKey.
       operationId: getProfileAssociation
@@ -531,27 +531,27 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: InstanceId
-          in: path
-          required: true
-          description: ID of the CRM instance that synced with Sales Navigator
-          schema:
-            type: string
-          example: "sf-instance-001"
-        - name: Partner
-          in: path
-          required: true
-          description: ID of the CRM partner that synced with Sales Navigator
-          schema:
-            type: string
-          example: "salesforce"
-        - name: RecordId
-          in: path
-          required: true
-          description: ID of the CRM record
-          schema:
-            type: string
-          example: "contact-12345"
+      - name: InstanceId
+        in: path
+        required: true
+        description: ID of the CRM instance that synced with Sales Navigator
+        schema:
+          type: string
+        example: "sf-instance-001"
+      - name: Partner
+        in: path
+        required: true
+        description: ID of the CRM partner that synced with Sales Navigator
+        schema:
+          type: string
+        example: "salesforce"
+      - name: RecordId
+        in: path
+        required: true
+        description: ID of the CRM record
+        schema:
+          type: string
+        example: "contact-12345"
       responses:
         '200':
           description: Successfully retrieved Sales Navigator Profile Association
@@ -595,8 +595,8 @@ paths:
   /salesNavigatorProfileAssociations:
     get:
       tags:
-        - Profile Associations
-      summary: Batch Fetch Profile Associations
+      - Profile Associations
+      summary: LinkedIn Batch Fetch Profile Associations
       description: >-
         Batch fetch matches when provided with multiple SalesNavigatorProfileAssociationKeys.
       operationId: batchGetProfileAssociations
@@ -604,13 +604,13 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: ids
-          in: query
-          required: true
-          description: List of association keys in the format List((instanceId,partner,recordId))
-          schema:
-            type: string
-          example: "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))"
+      - name: ids
+        in: query
+        required: true
+        description: List of association keys in the format List((instanceId,partner,recordId))
+        schema:
+          type: string
+        example: "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))"
       responses:
         '200':
           description: Successfully retrieved batch Sales Navigator Profile Associations
@@ -648,8 +648,8 @@ paths:
   /crmDataValidationExportJobs:
     post:
       tags:
-        - CRM Data Validation
-      summary: Create CRM Data Validation Export Job
+      - CRM Data Validation
+      summary: LinkedIn Create CRM Data Validation Export Job
       description: >-
         Create a new CRM data validation export job to validate CRM data against LinkedIn.
       operationId: createCrmDataValidationExportJob
@@ -657,15 +657,15 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: crmInstanceId
-          in: query
-          required: true
-          description: >-
-            An URN containing the instance ID of the CRM to execute against.
-            The URN must be URL encoded.
-          schema:
-            type: string
-          example: "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+      - name: crmInstanceId
+        in: query
+        required: true
+        description: >-
+          An URN containing the instance ID of the CRM to execute against.
+          The URN must be URL encoded.
+        schema:
+          type: string
+        example: "urn%3Ali%3AcrmInstance%3Asf-instance-001"
       requestBody:
         required: true
         content:
@@ -720,8 +720,8 @@ paths:
   /crmDataValidationExportJobs/{JobId}:
     get:
       tags:
-        - CRM Data Validation
-      summary: Get CRM Data Validation Export Job Status
+      - CRM Data Validation
+      summary: LinkedIn Get CRM Data Validation Export Job Status
       description: >-
         Retrieve the status and details of a CRM data validation export job.
       operationId: getCrmDataValidationExportJob
@@ -729,22 +729,22 @@ paths:
         dispatcher: FALLBACK
         dispatcherRules: ""
       parameters:
-        - name: JobId
-          in: path
-          required: true
-          description: The ID of the export job
-          schema:
-            type: integer
-            format: int64
-          example: 123456789
-        - name: crmInstanceId
-          in: query
-          required: true
-          description: >-
-            An URN containing the instance ID of the CRM. The URN must be URL encoded.
-          schema:
-            type: string
-          example: "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+      - name: JobId
+        in: path
+        required: true
+        description: The ID of the export job
+        schema:
+          type: integer
+          format: int64
+        example: 123456789
+      - name: crmInstanceId
+        in: query
+        required: true
+        description: >-
+          An URN containing the instance ID of the CRM. The URN must be URL encoded.
+        schema:
+          type: string
+        example: "urn%3Ali%3AcrmInstance%3Asf-instance-001"
       responses:
         '200':
           description: Export job status returned successfully

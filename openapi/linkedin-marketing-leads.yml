@@ -1,8 +1,7 @@
 openapi: 3.1.0
 info:
   title: Lead Sync
-  description: 'This collection aims to focus on different lead syncing use cases and should be used with the **lead-sync-env-versioning**
-    environment.
+  description: 'This collection aims to focus on different lead syncing use cases and should be used with the **lead-sync-env-versioning** environment.
 
 
     _All requests for the Lead Sync collection are in the Restli 2.0 format and uses OAuth 2.0_'
@@ -223,8 +222,10 @@ components:
               type: string
         submitter:
           type: string
+          example: example_value
         leadType:
           type: string
+          example: example_value
         leadMetadata:
           type: object
           properties:
@@ -235,12 +236,16 @@ components:
                   type: string
         versionedLeadGenFormUrn:
           type: string
+          example: urn:li:organization:123456
         id:
           type: string
+          example: '123456'
         submittedAt:
           type: integer
+          example: 42
         testLead:
           type: boolean
+          example: true
         associatedEntity:
           type: object
           properties:
@@ -927,15 +932,14 @@ security:
 tags:
 - name: Use Cases
 - name: Use Cases > Organic
-  description: 'In order to support collecting leads for organic use cases (company/showcase page, events, or product pages),
-    a partner app needs to build a UX where a user is able to select the organizations and forms to collect leads for.
+  description: 'In order to support collecting leads for organic use cases (company/showcase page, events, or product pages), a partner app needs to build a UX where a user is able to select the organizations
+    and forms to collect leads for.
 
 
     ###### Step 1: Obtain user authorization to access their leads
 
 
-    ###### Step 2: Ask the user what lead types they would like to sync - Events (EVENT), company/showcase pages (COMPANY),
-    Product pages (ORGANIZATION_PRODUCT)
+    ###### Step 2: Ask the user what lead types they would like to sync - Events (EVENT), company/showcase pages (COMPANY), Product pages (ORGANIZATION_PRODUCT)
 
 
     ###### Step 3: Get the user''s Organization(s) and validate their role to sync leads
@@ -950,8 +954,7 @@ tags:
     ###### Step 6: Ask the user to select and map fields to the target destination (e.g. a CRM)
 
 
-    ###### Step 7: Allow the user to do a one time pull of all form responses looking back up to 365 days to grab any missed
-    leads for the chosen lead types
+    ###### Step 7: Allow the user to do a one time pull of all form responses looking back up to 365 days to grab any missed leads for the chosen lead types
 
 
     ###### Step 8: \[PULL\] Schedule periodic form response pulls to collect leads
@@ -962,8 +965,7 @@ tags:
 
     ###### Step 9: \[PUSH\] Fetch full lead data after a webhook notification is received'
 - name: Use Cases > Sponsored
-  description: 'In order to support collecting leads for sponsored use cases, a partner app needs to build a UX where a user
-    is able to select the sponsored accounts and forms to collect leads for.
+  description: 'In order to support collecting leads for sponsored use cases, a partner app needs to build a UX where a user is able to select the sponsored accounts and forms to collect leads for.
 
 
     ###### Step 1: Obtain user authorization to access their leads
@@ -984,8 +986,7 @@ tags:
     ###### Step 6: Ask the user to select and map fields to the target destination (e.g. a CRM)
 
 
-    ###### Step 7: Allow the user to do a one time pull of all form responses looking back up to 365 days to grab any missed
-    leads
+    ###### Step 7: Allow the user to do a one time pull of all form responses looking back up to 365 days to grab any missed leads
 
 
     ###### Step 8: \[PULL\] Schedule periodic form response pulls to collect leads
@@ -1000,16 +1001,13 @@ paths:
     get:
       tags:
       - Use Cases > Sponsored
-      summary: 4. Validate the user's organization role
-      description: "View the [Organization Access Control](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-access-control-by-role?tabs=http#organization-roles)\
-        \ documentation.\n\nTake note of the organization (company page) from the previous request (`referenceInfo.organization.id`).\
-        \ A member must have access to not only the Sponsored Account (step 2) but also have one of the roles mentioned in\
-        \ our [permissions](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#permissions)\
-        \ table for the associated company page to successfully sync leads.\n\nIf the user's role is not one of the approved\
-        \ roles for pulling leads, or the ad account does not have a company page associated to it (empty `referenceInfo`\
-        \ object in previous request) you should display a helpful message to the user guiding them on next steps.\n\nBelow\
-        \ are two resources to better understand Page Admin vs Paid Media Admin:\n\n- [Permissions for Lead Gen Forms](https://www.linkedin.com/help/lms/answer/a421620/permissions-for-lead-gen-forms?lang=en)\n\
-        \    \n- [LinkedIn Page Admiin Roles - Overview](https://www.linkedin.com/help/lms/answer/4783)"
+      summary: LinkedIn 4. Validate the User's Organization Role
+      description: "View the [Organization Access Control](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-access-control-by-role?tabs=http#organization-roles)
+        documentation.\n\nTake note of the organization (company page) from the previous request (`referenceInfo.organization.id`). A member must have access to not only the Sponsored Account (step 2) but
+        also have one of the roles mentioned in our [permissions](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#permissions) table for the associated company
+        page to successfully sync leads.\n\nIf the user's role is not one of the approved roles for pulling leads, or the ad account does not have a company page associated to it (empty `referenceInfo`
+        object in previous request) you should display a helpful message to the user guiding them on next steps.\n\nBelow are two resources to better understand Page Admin vs Paid Media Admin:\n\n- [Permissions
+        for Lead Gen Forms](https://www.linkedin.com/help/lms/answer/a421620/permissions-for-lead-gen-forms?lang=en)\n    \n- [LinkedIn Page Admiin Roles - Overview](https://www.linkedin.com/help/lms/answer/4783)"
       parameters:
       - name: X-Restli-Protocol-Version
         in: header
@@ -1103,10 +1101,9 @@ paths:
     get:
       tags:
       - Use Cases > Sponsored
-      summary: 5. Get forms for the chosen Sponsored Account
-      description: 'At this point, the user has picked the sponsored account they are trying to collect leads for and you
-        have validated they have proper access to the ad account and associated company page. This step will retrieve the
-        form(s) associated with the selected sponsored account.
+      summary: LinkedIn 5. Get Forms for the Chosen Sponsored Account
+      description: 'At this point, the user has picked the sponsored account they are trying to collect leads for and you have validated they have proper access to the ad account and associated company
+        page. This step will retrieve the form(s) associated with the selected sponsored account.
 
 
         ---
@@ -1115,28 +1112,22 @@ paths:
         **6\. Map Lead Gen Form fields to destination fields**
 
 
-        Using the API response data from the previous step, your application should ask the user to map questions, consents,
-        and hidden fields to the appropriate fields in the destination system (e.g. a CRM). All questions, consents, and hidden
-        fields from the form should be mappable. `predefinedField` fields may be mapped automatically for the user, but all
-        others will require the user to map them manually. Optionally, allow the user to map the ad account id, ad account
-        name, campaign id, campaign name, creative id, creative name, form id, and form name (this additional metadata can
-        be pulled back via the `leadFormResponses` endpoint in the next step). This additional metadata helps your customers
-        with lead attribution.
+        Using the API response data from the previous step, your application should ask the user to map questions, consents, and hidden fields to the appropriate fields in the destination system (e.g. a
+        CRM). All questions, consents, and hidden fields from the form should be mappable. `predefinedField` fields may be mapped automatically for the user, but all others will require the user to map
+        them manually. Optionally, allow the user to map the ad account id, ad account name, campaign id, campaign name, creative id, creative name, form id, and form name (this additional metadata can
+        be pulled back via the `leadFormResponses` endpoint in the next step). This additional metadata helps your customers with lead attribution.
 
 
-        **Quick tip:** When it comes to mapping the `predefinedField` fields that are auto populated from the member’s profile,
-        it''s important to understand that the localized language of the form could be a language other than English. Due
-        to this, you should use the `predefinedField` field so the user doesn''t have to map the same field in different form
-        languages separately. For custom questions you will need to use the `question` field as there is no predefinedField
-        for custom questions.
+        **Quick tip:** When it comes to mapping the `predefinedField` fields that are auto populated from the member’s profile, it''s important to understand that the localized language of the form could
+        be a language other than English. Due to this, you should use the `predefinedField` field so the user doesn''t have to map the same field in different form languages separately. For custom questions
+        you will need to use the `question` field as there is no predefinedField for custom questions.
 
 
         | **Field** | **Language Information** |
 
         | --- | --- |
 
-        | name | This value will be translated to the localized language of the user who created the form (which could be
-        different than the localized language of the form) |
+        | name | This value will be translated to the localized language of the user who created the form (which could be different than the localized language of the form) |
 
         | predefinedField | ENUM for the pre-populated field |
 
@@ -1236,22 +1227,18 @@ paths:
     get:
       tags:
       - Use Cases > Sponsored
-      summary: 8. Schedule periodic form response (lead) pulls
-      description: 'This example pulls back all form responses (leads) for the chosen sponsored account. It also uses [field
-        projection](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/projections?context=linkedin/marketing/context)
-        to pull back specific fields in the response and the `submittedAtTimeRange` field to pull back leads up to 365 days
-        in the past.
+      summary: LinkedIn 8. Schedule Periodic Form Response (lead) Pulls
+      description: 'This example pulls back all form responses (leads) for the chosen sponsored account. It also uses [field projection](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/projections?context=linkedin/marketing/context)
+        to pull back specific fields in the response and the `submittedAtTimeRange` field to pull back leads up to 365 days in the past.
 
 
         Currently the only sponsored leadType is `SPONSORED`
 
 
-        LinkedIn will store form response (lead) data for up to 365 days. It is a best practice to allow the user to do a
-        one time pull upon integration setup to ensure no leads are missed.
+        LinkedIn will store form response (lead) data for up to 365 days. It is a best practice to allow the user to do a one time pull upon integration setup to ensure no leads are missed.
 
 
-        Refer to [Lead Form Responses](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses)
-        documentation for more information.'
+        Refer to [Lead Form Responses](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses) documentation for more information.'
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1317,22 +1304,19 @@ paths:
     post:
       tags:
       - Use Cases > Sponsored
-      summary: 8. Subscribe for lead notification webhooks
-      description: '[Register a lead notification webhook](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#lead-notification-subscriptions)
-        to receive notifications for new leads. Lead notifications can also be subscribed at a more granular level - see the
-        linked documentation.
+      summary: LinkedIn 8. Subscribe for Lead Notification Webhooks
+      description: '[Register a lead notification webhook](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#lead-notification-subscriptions) to receive notifications
+        for new leads. Lead notifications can also be subscribed at a more granular level - see the linked documentation.
 
 
-        This example registers the webhook url, [https://www.example.com](https://www.example.com/), at the Ad Account level
-        (sponsoredAccount). For any new lead submitted for campaigns that live within this Ad Account, a webhook notification
-        will be sent.
+        This example registers the webhook url, [https://www.example.com](https://www.example.com/), at the Ad Account level (sponsoredAccount). For any new lead submitted for campaigns that live within
+        this Ad Account, a webhook notification will be sent.
 
 
         **Listen for lead notifications**
 
 
-        As leads flow into the user''s ad account, LinkedIn will send your webhook endpoint a notification for each lead.
-        The notification body will contain content as laid out in our documentation [here.](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event)'
+        As leads flow into the user''s ad account, LinkedIn will send your webhook endpoint a notification for each lead. The notification body will contain content as laid out in our documentation [here.](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event)'
       requestBody:
         content:
           application/json:
@@ -1363,16 +1347,15 @@ paths:
     get:
       tags:
       - Use Cases > Sponsored
-      summary: 9. Fetch full lead data after a lead notification is received
-      description: '[Responses can be fetched](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses)
-        for a single form response, multiple form responses, or at the form or Ad Account level.
+      summary: LinkedIn 9. Fetch Full Lead Data After a Lead Notification is Received
+      description: '[Responses can be fetched](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses) for a single form response, multiple
+        form responses, or at the form or Ad Account level.
 
 
         When a lead notification event is received, the form response id exists in the lead notification [content](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event).
 
 
-        This example pulls back data for a single form response (lead) by ID and uses field projection to pull back specific
-        fields in the request response.'
+        This example pulls back data for a single form response (lead) by ID and uses field projection to pull back specific fields in the request response.'
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1384,7 +1367,7 @@ paths:
         schema:
           type: string
         example: 2.0.0
-      - name: null
+      - name:
         in: query
         schema:
           type: string
@@ -1398,6 +1381,7 @@ paths:
         schema:
           type: string
         required: true
+        example: '123456'
       responses:
         '200':
           description: OK
@@ -1462,12 +1446,11 @@ paths:
     delete:
       tags:
       - Use Cases > Sponsored
-      summary: '[PUSH] Delete a registered webhook by id'
+      summary: 'LinkedIn [PUSH] Delete a Registered Webhook by Id'
       description: '[Delete a lead notification subsription](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#delete-lead-notification-url)
 
 
-        When an integration is deleted, the associated webhooks should also be deleted to ensure that lead notifications are
-        not unnecessarily being sent.'
+        When an integration is deleted, the associated webhooks should also be deleted to ensure that lead notifications are not unnecessarily being sent.'
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -1493,20 +1476,18 @@ paths:
     get:
       tags:
       - Use Cases > Sponsored
-      summary: 2. Get the user's sponsored accounts (ad accounts)
-      description: 'View [Search for Accounts](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#search-for-accounts)
-        documentation for more information.
+      summary: LinkedIn 2. Get the User's Sponsored Accounts (ad Accounts)
+      description: 'View [Search for Accounts](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#search-for-accounts) documentation
+        for more information.
 
 
-        This API call pulls back Ad Accounts that the member has access to where the status = ACTIVE and test = false (NOT
-        a test Ad Account).
+        This API call pulls back Ad Accounts that the member has access to where the status = ACTIVE and test = false (NOT a test Ad Account).
 
 
         Learn more about Test Ad Accounts [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#working-with-test-ad-accounts).
 
 
-        For testing purposes, if you wish to use this example api to pull back a Test Ad Account, simply remove `test:false`
-        from the search parameter.
+        For testing purposes, if you wish to use this example api to pull back a Test Ad Account, simply remove `test:false` from the search parameter.
 
 
         ---

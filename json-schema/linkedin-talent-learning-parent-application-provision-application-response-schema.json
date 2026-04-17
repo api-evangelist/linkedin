@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-talent-learning-parent-application-provision-application-response-schema.json",
+  "title": "ProvisionApplicationResponse",
+  "description": "Response containing provisioned application details",
+  "type": "object",
+  "properties": {
+    "applicationUrn": {
+      "type": "string",
+      "description": "URN of the provisioned application",
+      "example": "urn:li:developerApplication:12345678"
+    },
+    "clientId": {
+      "type": "string",
+      "description": "OAuth 2.0 client ID for the application",
+      "example": "78abc123def456"
+    },
+    "clientSecret": {
+      "type": "string",
+      "description": "OAuth 2.0 client secret for the application",
+      "example": "secretXYZ789"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the application",
+      "example": "Acme Corporation"
+    },
+    "uniqueForeignId": {
+      "type": "string",
+      "description": "Partner's unique identifier for the customer",
+      "example": "acme-corp-12345"
+    },
+    "oauth2AuthorizedCallbackUrls": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "example": [
+        "https://app.acme.com/oauth2/callback"
+      ]
+    },
+    "validJsSdkDomains": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "https://app.acme.com"
+      ]
+    },
+    "createdAt": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Timestamp of application creation",
+      "example": 1702693664000
+    }
+  }
+}

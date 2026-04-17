@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-marketing-audience-user-stream-element-structure.json",
+  "name": "UserStreamElement",
+  "description": "UserStreamElement from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": [
+        "ADD",
+        "REMOVE"
+      ],
+      "description": "Action to perform",
+      "example": "ADD"
+    },
+    "userIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/UserId"
+      }
+    }
+  },
+  "required": [
+    "action",
+    "userIds"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-structure/linkedin-learning-activity-reports-learning-activity-structure.json",
+  "name": "LearningActivity",
+  "description": "LearningActivity from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "engagementType": {
+      "type": "string",
+      "enum": [
+        "LOGINS",
+        "VIEWS",
+        "SECONDS_VIEWED",
+        "COMPLETIONS"
+      ],
+      "description": "Type of engagement activity",
+      "example": "LOGINS"
+    },
+    "engagementValue": {
+      "type": "int32",
+      "description": "Numeric value of the engagement",
+      "example": 88
+    },
+    "engagementMetricQualifier": {
+      "type": "string",
+      "enum": [
+        "UNIQUE",
+        "TOTAL"
+      ],
+      "description": "Whether the metric is unique or total count",
+      "example": "UNIQUE"
+    },
+    "assetType": {
+      "type": "string",
+      "enum": [
+        "VIDEO",
+        "ARTICLE",
+        "AUDIO",
+        "BOOK",
+        "LEARNING_COLLECTION",
+        "COURSE",
+        "DOCUMENT",
+        "EVENT",
+        "LEARNING_PATH"
+      ],
+      "description": "Type of learning asset",
+      "example": "VIDEO"
+    },
+    "firstEngagedAt": {
+      "type": "int64",
+      "description": "Timestamp of first engagement",
+      "example": 1627267600000
+    },
+    "lastEngagedAt": {
+      "type": "int64",
+      "description": "Timestamp of last engagement",
+      "example": 1627354000000
+    }
+  },
+  "required": [
+    "engagementType",
+    "engagementValue",
+    "engagementMetricQualifier"
+  ]
+}

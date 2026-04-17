@@ -5,13 +5,13 @@ info:
     The LinkedIn Recruiter System Connect (RSC) API enables partners to integrate
     their Applicant Tracking Systems (ATS) with LinkedIn Recruiter. This API
     supports:
-    
+
     - Configuring customer middleware integrations
     - Syncing data from ATS to LinkedIn (jobs, candidates, applications)
     - Retrieving data from LinkedIn (exported candidates, InMail history)
     - Defining permissions via Access Control Lists (ACLs)
     - Managing synced data lifecycle
-    
+
     For comprehensive documentation, visit the
     [RSC Documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/).
   version: 1.0.0
@@ -20,28 +20,28 @@ info:
     url: https://docs.microsoft.com/en-us/linkedin/talent/
 
 servers:
-  - url: https://api.linkedin.com
-    description: LinkedIn Production API Server
-  - url: https://www.linkedin.com
-    description: LinkedIn OAuth Server
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+- url: https://www.linkedin.com
+  description: LinkedIn OAuth Server
 
 tags:
-  - name: Authentication
-    description: OAuth 2.0 token management for customer applications
-  - name: Integration Configuration
-    description: Configure and manage customer ATS integrations
-  - name: Job Synchronization
-    description: Sync job postings from ATS to LinkedIn
-  - name: Candidate Synchronization
-    description: Sync candidate data from ATS to LinkedIn
-  - name: Application Synchronization
-    description: Sync job applications and related data
-  - name: Data Retrieval
-    description: Retrieve exported candidates and recruiter interactions
-  - name: Access Control
-    description: Manage entity ACLs and assignees
-  - name: Data Deletion
-    description: Delete synced data from LinkedIn
+- name: Authentication
+  description: OAuth 2.0 token management for customer applications
+- name: Integration Configuration
+  description: Configure and manage customer ATS integrations
+- name: Job Synchronization
+  description: Sync job postings from ATS to LinkedIn
+- name: Candidate Synchronization
+  description: Sync candidate data from ATS to LinkedIn
+- name: Application Synchronization
+  description: Sync job applications and related data
+- name: Data Retrieval
+  description: Retrieve exported candidates and recruiter interactions
+- name: Access Control
+  description: Manage entity ACLs and assignees
+- name: Data Deletion
+  description: Delete synced data from LinkedIn
 
 components:
   securitySchemes:
@@ -65,14 +65,14 @@ components:
       type: object
       description: Request body for obtaining access token
       required:
-        - grant_type
-        - client_id
-        - client_secret
+      - grant_type
+      - client_id
+      - client_secret
       properties:
         grant_type:
           type: string
           enum:
-            - client_credentials
+          - client_credentials
           example: "client_credentials"
         client_id:
           type: string
@@ -140,8 +140,8 @@ components:
             string:
               type: string
               enum:
-                - ALL_PRODUCT_USERS
-                - ACL_BASED
+              - ALL_PRODUCT_USERS
+              - ACL_BASED
               example: "ALL_PRODUCT_USERS"
 
     CandidateRequest:
@@ -177,7 +177,7 @@ components:
             type: string
             format: email
           example:
-            - "john.doe@example.com"
+          - "john.doe@example.com"
         phoneNumbers:
           type: array
           items:
@@ -230,8 +230,8 @@ components:
         geographicAreaType:
           type: string
           enum:
-            - STATE
-            - PROVINCE
+          - STATE
+          - PROVINCE
           example: "STATE"
         postalCode:
           type: string
@@ -393,8 +393,8 @@ components:
             unit:
               type: string
               enum:
-                - HOUR
-                - DAY
+              - HOUR
+              - DAY
               example: "HOUR"
         hiringContext:
           type: string
@@ -533,7 +533,7 @@ components:
             firstName: "John"
             lastName: "Doe"
             emailAddresses:
-              - "john.doe@example.com"
+            - "john.doe@example.com"
             currentCompanyName: "Tech Corp"
             currentJobTitle: "Senior Software Engineer"
             atsCreatedAt: 1702693664000
@@ -567,20 +567,20 @@ components:
       summary: Example exported candidate response
       value:
         elements:
-          - personUrn: "urn:li:person:ABC123"
-            firstName: "John"
-            lastName: "Doe"
-            headline: "Senior Software Engineer at Tech Corp"
+        - personUrn: "urn:li:person:ABC123"
+          firstName: "John"
+          lastName: "Doe"
+          headline: "Senior Software Engineer at Tech Corp"
 
     SeatholdersResponseExample:
       summary: Example seatholders response
       value:
         elements:
-          - seatUrn: "urn:li:seat:12345"
-            firstName: "Jane"
-            lastName: "Recruiter"
-            emailAddress: "jane.recruiter@company.com"
-            active: true
+        - seatUrn: "urn:li:seat:12345"
+          firstName: "Jane"
+          lastName: "Recruiter"
+          emailAddress: "jane.recruiter@company.com"
+          active: true
         paging:
           start: 0
           count: 100
@@ -607,9 +607,9 @@ components:
       schema:
         type: string
         enum:
-          - batch_update
-          - batch_partial_update
-          - batch_create
+        - batch_update
+        - batch_partial_update
+        - batch_create
       example: "batch_update"
 
     ContentTypeHeader:
@@ -694,15 +694,15 @@ components:
       example: "NOTE-001"
 
 security:
-  - BearerAuth: []
+- BearerAuth: []
 
 paths:
   /oauth/v2/accessToken:
     post:
       operationId: getAccessToken
       tags:
-        - Authentication
-      summary: Get Customer Application Access Token
+      - Authentication
+      summary: LinkedIn Get Customer Application Access Token
       description: >-
         Obtains an OAuth 2.0 access token using client credentials grant for
         customer application authentication.
@@ -716,7 +716,7 @@ paths:
         delay: 100
       security: []
       parameters:
-        - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/ContentTypeHeader'
       requestBody:
         required: true
         content:
@@ -744,12 +744,12 @@ paths:
     post:
       operationId: updateAtsIntegration
       tags:
-        - Integration Configuration
-      summary: Update Customer ATS Integration
+      - Integration Configuration
+      summary: LinkedIn Update Customer ATS Integration
       description: >-
         Updates customer ATS integration settings including CSA_API, ONE_CLICK_EXPORT,
         IN_ATS_INDICATOR, and PROFILE_PLUGIN integrations.
-        
+
         For more information, refer to the
         [RSC Customer Configuration documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#sample-request).
       x-microcks-operation:
@@ -761,37 +761,37 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/RestliMethodHeader'
-        - $ref: '#/components/parameters/ContentTypeHeader'
-        - name: ids[0].integrationContext
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:contract:12345"
-        - name: ids[0].integrationType
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - CSA_API
-              - ONE_CLICK_EXPORT
-              - IN_ATS_INDICATOR
-              - PROFILE_PLUGIN
-          example: "CSA_API"
-        - name: ids[0].tenantType
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "RECRUITER"
-        - name: ids[0].dataProvider
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ATS"
+      - $ref: '#/components/parameters/RestliMethodHeader'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:contract:12345"
+      - name: ids[0].integrationType
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - CSA_API
+          - ONE_CLICK_EXPORT
+          - IN_ATS_INDICATOR
+          - PROFILE_PLUGIN
+        example: "CSA_API"
+      - name: ids[0].tenantType
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "RECRUITER"
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ATS"
       requestBody:
         required: true
         content:
@@ -818,12 +818,12 @@ paths:
     get:
       operationId: getIntegrationNotification
       tags:
-        - Integration Configuration
-      summary: Get Integration Status Change Notification
+      - Integration Configuration
+      summary: LinkedIn Get Integration Status Change Notification
       description: >-
         Retrieves details about integration status changes when a customer enables
         or modifies an integration.
-        
+
         For more information, refer to the
         [Verify Customer Integrations documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#5-verify-customer-integrations-enablement).
       x-microcks-operation:
@@ -835,8 +835,8 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - $ref: '#/components/parameters/RequestIdParameter'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - $ref: '#/components/parameters/RequestIdParameter'
       responses:
         '200':
           description: Successfully retrieved notification details
@@ -855,11 +855,11 @@ paths:
     put:
       operationId: syncCandidates
       tags:
-        - Candidate Synchronization
-      summary: Sync Candidates To LinkedIn
+      - Candidate Synchronization
+      summary: LinkedIn Sync Candidates to LinkedIn
       description: >-
         Creates or updates candidate records in LinkedIn from the ATS system.
-        
+
         For more information, refer to the
         [Sync Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates).
       x-microcks-operation:
@@ -871,26 +871,26 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/RestliMethodHeader'
-        - $ref: '#/components/parameters/ContentTypeHeader'
-        - name: ids[0].atsCandidateId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "CAND-001"
-        - name: ids[0].dataProvider
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ATS"
-        - name: ids[0].integrationContext
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:12345"
+      - $ref: '#/components/parameters/RestliMethodHeader'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - name: ids[0].atsCandidateId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "CAND-001"
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ATS"
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:12345"
       requestBody:
         required: true
         content:
@@ -920,12 +920,12 @@ paths:
     get:
       operationId: getCandidateMatches
       tags:
-        - Candidate Synchronization
-      summary: Retrieve Candidate Matches
+      - Candidate Synchronization
+      summary: LinkedIn Retrieve Candidate Matches
       description: >-
         Retrieves candidate details including algorithmic and user-supplied matches
         with LinkedIn members.
-        
+
         For more information, refer to the
         [Retrieve Candidate Matches documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#retrieve-candidate-matches).
       x-microcks-operation:
@@ -937,24 +937,24 @@ paths:
           }
         delay: 100
       parameters:
-        - name: ids[0].atsCandidateId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "CAND-001"
-        - name: ids[0].dataProvider
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ATS"
-        - name: ids[0].integrationContext
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:12345"
+      - name: ids[0].atsCandidateId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "CAND-001"
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ATS"
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:12345"
       responses:
         '200':
           description: Successfully retrieved candidate matches
@@ -972,11 +972,11 @@ paths:
     delete:
       operationId: deleteCandidates
       tags:
-        - Data Deletion
-      summary: Delete Synced Candidates
+      - Data Deletion
+      summary: LinkedIn Delete Synced Candidates
       description: >-
         Deletes previously synced candidate records.
-        
+
         For more information, refer to the
         [Delete Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-candidates).
       x-microcks-operation:
@@ -988,24 +988,24 @@ paths:
           }
         delay: 100
       parameters:
-        - name: ids[0].atsCandidateId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "CAND-001"
-        - name: ids[0].dataProvider
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ATS"
-        - name: ids[0].integrationContext
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:12345"
+      - name: ids[0].atsCandidateId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "CAND-001"
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ATS"
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:12345"
       responses:
         '200':
           description: Successfully deleted candidates
@@ -1024,11 +1024,11 @@ paths:
     put:
       operationId: syncApplications
       tags:
-        - Application Synchronization
-      summary: Sync Job Applications
+      - Application Synchronization
+      summary: LinkedIn Sync Job Applications
       description: >-
         Creates or updates job application records in LinkedIn.
-        
+
         For more information, refer to the
         [Sync Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications).
       x-microcks-operation:
@@ -1040,26 +1040,26 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/RestliMethodHeader'
-        - $ref: '#/components/parameters/ContentTypeHeader'
-        - name: ids[0].atsJobApplicationId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "APP-001"
-        - name: ids[0].dataProvider
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ATS"
-        - name: ids[0].integrationContext
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:12345"
+      - $ref: '#/components/parameters/RestliMethodHeader'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - name: ids[0].atsJobApplicationId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "APP-001"
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ATS"
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:12345"
       requestBody:
         required: true
         content:
@@ -1089,11 +1089,11 @@ paths:
     delete:
       operationId: deleteApplications
       tags:
-        - Data Deletion
-      summary: Delete Synced Applications
+      - Data Deletion
+      summary: LinkedIn Delete Synced Applications
       description: >-
         Deletes previously synced job application records.
-        
+
         For more information, refer to the
         [Delete Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-applications).
       x-microcks-operation:
@@ -1105,24 +1105,24 @@ paths:
           }
         delay: 100
       parameters:
-        - name: ids[0].atsJobApplicationId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "APP-001"
-        - name: ids[0].dataProvider
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ATS"
-        - name: ids[0].integrationContext
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:12345"
+      - name: ids[0].atsJobApplicationId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "APP-001"
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ATS"
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:12345"
       responses:
         '200':
           description: Successfully deleted applications
@@ -1141,11 +1141,11 @@ paths:
     post:
       operationId: createResumeUploadUrl
       tags:
-        - Application Synchronization
-      summary: Create Resume Upload URL
+      - Application Synchronization
+      summary: LinkedIn Create Resume Upload URL
       description: >-
         Creates a signed URL for uploading resume files to LinkedIn.
-        
+
         For more information, refer to the
         [Resume Upload documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications#resume-upload).
       x-microcks-operation:
@@ -1157,8 +1157,8 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/ContentTypeHeader'
-        - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
       requestBody:
         required: true
         content:
@@ -1183,11 +1183,11 @@ paths:
     get:
       operationId: getExportedCandidates
       tags:
-        - Data Retrieval
-      summary: Get Exported Candidate Profile
+      - Data Retrieval
+      summary: LinkedIn Get Exported Candidate Profile
       description: >-
         Retrieves limited profile information of candidates exported via One-Click Export.
-        
+
         For more information, refer to the
         [Retrieve Exported Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/retrieve-exported-candidates#retrieving-exported-candidate-information).
       x-microcks-operation:
@@ -1199,8 +1199,8 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/QueryTypeParameter'
-        - $ref: '#/components/parameters/RequestIdParameter'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - $ref: '#/components/parameters/RequestIdParameter'
       responses:
         '200':
           description: Successfully retrieved exported candidate
@@ -1222,11 +1222,11 @@ paths:
     get:
       operationId: getRecruiterSeatholders
       tags:
-        - Data Retrieval
-      summary: Retrieve Recruiter Seatholders
+      - Data Retrieval
+      summary: LinkedIn Retrieve Recruiter Seatholders
       description: >-
         Retrieves details of contract seat holders including name, email, and unique ID.
-        
+
         For more information, refer to the
         [Recruiter Seatholders documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/recruiter-seatholders).
       x-microcks-operation:
@@ -1238,36 +1238,36 @@ paths:
           }
         delay: 100
       parameters:
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "seatsByAttributes"
-        - name: active
-          in: query
-          required: false
-          schema:
-            type: boolean
-          example: true
-        - name: contracts
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:contract:12345"
-        - name: start
-          in: query
-          required: false
-          schema:
-            type: integer
-          example: 0
-        - name: count
-          in: query
-          required: false
-          schema:
-            type: integer
-          example: 100
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "seatsByAttributes"
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+        example: true
+      - name: contracts
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:contract:12345"
+      - name: start
+        in: query
+        required: false
+        schema:
+          type: integer
+        example: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+        example: 100
       responses:
         '200':
           description: Successfully retrieved seatholders
@@ -1289,12 +1289,12 @@ paths:
     put:
       operationId: upsertEntityAcl
       tags:
-        - Access Control
-      summary: Upsert Entity ACL
+      - Access Control
+      summary: LinkedIn Upsert Entity ACL
       description: >-
         Creates or updates entity ACLs that control visibility of synced entities
         within LinkedIn products.
-        
+
         For more information, refer to the
         [Sync ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#sync-entity-acls).
       x-microcks-operation:
@@ -1306,41 +1306,41 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/RestliMethodHeader'
-        - $ref: '#/components/parameters/ContentTypeHeader'
-        - name: ids[0].atsEntityAclId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ACL-001"
-        - name: ids[0].dataProvider
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ATS"
-        - name: ids[0].integrationContext
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:12345"
-        - name: ids[0].atsEntityType
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - JOB_POSTING
-              - CANDIDATE
-          example: "JOB_POSTING"
-        - name: ids[0].atsEntityId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "JOB-2024-001"
+      - $ref: '#/components/parameters/RestliMethodHeader'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - name: ids[0].atsEntityAclId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ACL-001"
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ATS"
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:12345"
+      - name: ids[0].atsEntityType
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - JOB_POSTING
+          - CANDIDATE
+        example: "JOB_POSTING"
+      - name: ids[0].atsEntityId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "JOB-2024-001"
       requestBody:
         required: true
         content:
@@ -1367,11 +1367,11 @@ paths:
     get:
       operationId: getEntityAcl
       tags:
-        - Access Control
-      summary: Retrieve Entity ACL
+      - Access Control
+      summary: LinkedIn Retrieve Entity ACL
       description: >-
         Retrieves details of previously synced entity ACLs.
-        
+
         For more information, refer to the
         [Retrieve Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#retrieve-entity-acls).
       x-microcks-operation:
@@ -1383,48 +1383,48 @@ paths:
           }
         delay: 100
       parameters:
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "criteria"
-        - name: atsEntityId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "JOB-2024-001"
-        - name: atsEntityType
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "JOB_POSTING"
-        - name: dataProvider
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ATS"
-        - name: integrationContext
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:12345"
-        - name: start
-          in: query
-          required: false
-          schema:
-            type: integer
-          example: 0
-        - name: count
-          in: query
-          required: false
-          schema:
-            type: integer
-          example: 100
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "criteria"
+      - name: atsEntityId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "JOB-2024-001"
+      - name: atsEntityType
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "JOB_POSTING"
+      - name: dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ATS"
+      - name: integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:12345"
+      - name: start
+        in: query
+        required: false
+        schema:
+          type: integer
+        example: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+        example: 100
       responses:
         '200':
           description: Successfully retrieved entity ACL
@@ -1442,11 +1442,11 @@ paths:
     delete:
       operationId: deleteEntityAcl
       tags:
-        - Access Control
-      summary: Delete Entity ACL
+      - Access Control
+      summary: LinkedIn Delete Entity ACL
       description: >-
         Deletes previously synced entity ACLs.
-        
+
         For more information, refer to the
         [Delete Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#delete-entity-acls).
       x-microcks-operation:
@@ -1458,36 +1458,36 @@ paths:
           }
         delay: 100
       parameters:
-        - name: ids[0].atsEntityAclId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ACL-001"
-        - name: ids[0].dataProvider
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "ATS"
-        - name: ids[0].integrationContext
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "urn:li:organization:12345"
-        - name: ids[0].atsEntityId
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "JOB-2024-001"
-        - name: ids[0].atsEntityType
-          in: query
-          required: true
-          schema:
-            type: string
-          example: "JOB_POSTING"
+      - name: ids[0].atsEntityAclId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ACL-001"
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "ATS"
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "urn:li:organization:12345"
+      - name: ids[0].atsEntityId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "JOB-2024-001"
+      - name: ids[0].atsEntityType
+        in: query
+        required: true
+        schema:
+          type: string
+        example: "JOB_POSTING"
       responses:
         '200':
           description: Successfully deleted entity ACL

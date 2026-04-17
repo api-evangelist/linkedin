@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-talent-job-posting-multiple-choice-question-details-schema.json",
+  "title": "MultipleChoiceQuestionDetails",
+  "description": "MultipleChoiceQuestionDetails from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "choices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/QuestionChoice"
+      }
+    },
+    "selectMultiple": {
+      "type": "boolean",
+      "example": false
+    },
+    "preferredFormComponent": {
+      "type": "string",
+      "enum": [
+        "RADIO_BUTTONS",
+        "DROPDOWN",
+        "CHECKBOXES"
+      ],
+      "example": "RADIO_BUTTONS"
+    }
+  }
+}

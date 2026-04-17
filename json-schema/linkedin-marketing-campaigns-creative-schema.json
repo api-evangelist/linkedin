@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-marketing-campaigns-creative-schema.json",
+  "title": "Creative",
+  "description": "Creative from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Creative URN",
+      "example": "urn:li:sponsoredCreative:777888999"
+    },
+    "campaign": {
+      "type": "string",
+      "description": "Parent campaign URN",
+      "example": "urn:li:sponsoredCampaign:444555666"
+    },
+    "reference": {
+      "type": "string",
+      "description": "Reference URN (e.g., UGC post)",
+      "example": "urn:li:ugcPost:123456789"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "PAUSED",
+        "DRAFT",
+        "ARCHIVED",
+        "CANCELLED",
+        "PENDING_DELETION",
+        "REMOVED"
+      ],
+      "description": "Creative status",
+      "example": "ACTIVE"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "SPONSORED_STATUS_UPDATE",
+        "SPONSORED_VIDEO",
+        "CAROUSEL",
+        "TEXT_AD",
+        "MESSAGE_AD"
+      ],
+      "description": "Creative type",
+      "example": "SPONSORED_VIDEO"
+    }
+  }
+}

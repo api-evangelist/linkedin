@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/linkedin/refs/heads/main/json-schema/linkedin-sales-navigator-contract-schema.json",
+  "title": "Contract",
+  "description": "Contract from LinkedIn API",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "type": "string",
+      "description": "The URN of this Sales Navigator contract",
+      "example": "urn:li:salesContract:12345"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of this contract, appropriate for display to an end-user",
+      "example": "Enterprise Sales Contract"
+    },
+    "description": {
+      "type": "string",
+      "nullable": true,
+      "description": "Additional information about the contract",
+      "example": "Annual enterprise subscription for sales team"
+    },
+    "hasReportingAccess": {
+      "type": "boolean",
+      "description": "Indicates whether the user can export data for this contract",
+      "example": true
+    }
+  },
+  "required": [
+    "contract",
+    "name",
+    "hasReportingAccess"
+  ]
+}

@@ -5,16 +5,16 @@ info:
     LinkedIn's Job Posting API enables authorized third parties such as clients,
     ATS systems, and Job Distributors to post jobs directly to LinkedIn on behalf
     of customers.
-    
+
     This API supports two job categories:
-    
+
     - **Basic Jobs**: Free job posts gathered by LinkedIn from external sources
     - **Promoted Jobs**: Paid job postings with enhanced visibility
-    
+
     The use of these APIs is restricted to developers approved by LinkedIn.
     Please reach out to your LinkedIn Relationship Manager or Business Development
     contact for access.
-    
+
     For more information, refer to the
     [Job Posting Overview](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/job-posting-overview).
   version: 1.0.0
@@ -23,16 +23,16 @@ info:
     url: https://business.linkedin.com/talent-solutions
 
 servers:
-  - url: https://api.linkedin.com
-    description: LinkedIn Production API Server
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
 
 tags:
-  - name: Apply Connect Jobs
-    description: APIs for creating and managing Apply Connect enabled job postings
-  - name: Job Lifecycle Management
-    description: APIs for managing the lifecycle of job postings
-  - name: Customer Integrations
-    description: APIs for managing customer ATS integrations for premium job posting
+- name: Apply Connect Jobs
+  description: APIs for creating and managing Apply Connect enabled job postings
+- name: Job Lifecycle Management
+  description: APIs for managing the lifecycle of job postings
+- name: Customer Integrations
+  description: APIs for managing customer ATS integrations for premium job posting
 
 components:
   securitySchemes:
@@ -55,7 +55,7 @@ components:
       type: object
       description: Request body for creating or updating job postings
       required:
-        - elements
+      - elements
       properties:
         elements:
           type: array
@@ -66,12 +66,12 @@ components:
       type: object
       description: Individual job posting element
       required:
-        - externalJobPostingId
-        - title
-        - description
-        - integrationContext
-        - listingType
-        - location
+      - externalJobPostingId
+      - title
+      - description
+      - integrationContext
+      - listingType
+      - location
       properties:
         externalJobPostingId:
           type: string
@@ -93,16 +93,16 @@ components:
           type: string
           description: Operation type for the job posting
           enum:
-            - CREATE
-            - UPDATE
-            - CLOSE
+          - CREATE
+          - UPDATE
+          - CLOSE
           example: "CREATE"
         listingType:
           type: string
           description: Type of job listing
           enum:
-            - BASIC
-            - PREMIUM
+          - BASIC
+          - PREMIUM
           example: "BASIC"
         listedAt:
           type: integer
@@ -157,9 +157,9 @@ components:
         resumeQuestionRequirement:
           type: string
           enum:
-            - REQUIRED
-            - OPTIONAL
-            - NOT_AVAILABLE
+          - REQUIRED
+          - OPTIONAL
+          - NOT_AVAILABLE
           example: "REQUIRED"
 
     CoverLetterQuestions:
@@ -168,9 +168,9 @@ components:
         coverLetterQuestionRequirement:
           type: string
           enum:
-            - REQUIRED
-            - OPTIONAL
-            - NOT_AVAILABLE
+          - REQUIRED
+          - OPTIONAL
+          - NOT_AVAILABLE
           example: "OPTIONAL"
 
     EducationQuestions:
@@ -238,9 +238,9 @@ components:
         preferredFormComponent:
           type: string
           enum:
-            - RADIO_BUTTONS
-            - DROPDOWN
-            - CHECKBOXES
+          - RADIO_BUTTONS
+          - DROPDOWN
+          - CHECKBOXES
           example: "RADIO_BUTTONS"
 
     QuestionChoice:
@@ -288,9 +288,9 @@ components:
         status:
           type: string
           enum:
-            - PENDING
-            - SUCCEEDED
-            - FAILED
+          - PENDING
+          - SUCCEEDED
+          - FAILED
           example: "SUCCEEDED"
         jobPostingUrn:
           type: string
@@ -300,6 +300,7 @@ components:
           type: string
           description: Error message if task failed
 
+          example: example_value
     AtsIntegrationUpdateRequest:
       type: object
       description: Request body for updating ATS integrations
@@ -365,42 +366,42 @@ components:
       summary: Example Apply Connect job posting request
       value:
         elements:
-          - externalJobPostingId: "JOB-2024-001"
-            title: "Software Developer in Test"
-            description: "We are looking for a talented Software Developer in Test to join our engineering team. You will be responsible for designing and implementing automated tests."
-            integrationContext: "urn:li:organization:12345678"
-            jobPostingOperationType: "CREATE"
-            listingType: "BASIC"
-            listedAt: 1702693664000
-            location: "San Francisco, CA"
-            companyApplyUrl: "https://company.com/careers/apply"
-            onsiteApplyConfiguration:
-              jobApplicationWebhookUrl: "https://ats.company.com/webhooks/linkedin"
-              questions:
-                resumeQuestions:
-                  resumeQuestionRequirement: "REQUIRED"
-                coverLetterQuestions:
-                  coverLetterQuestionRequirement: "OPTIONAL"
+        - externalJobPostingId: "JOB-2024-001"
+          title: "Software Developer in Test"
+          description: "We are looking for a talented Software Developer in Test to join our engineering team. You will be responsible for designing and implementing automated tests."
+          integrationContext: "urn:li:organization:12345678"
+          jobPostingOperationType: "CREATE"
+          listingType: "BASIC"
+          listedAt: 1702693664000
+          location: "San Francisco, CA"
+          companyApplyUrl: "https://company.com/careers/apply"
+          onsiteApplyConfiguration:
+            jobApplicationWebhookUrl: "https://ats.company.com/webhooks/linkedin"
+            questions:
+              resumeQuestions:
+                resumeQuestionRequirement: "REQUIRED"
+              coverLetterQuestions:
+                coverLetterQuestionRequirement: "OPTIONAL"
 
     CloseJobPostingRequestExample:
       summary: Example request to close a job posting
       value:
         elements:
-          - externalJobPostingId: "JOB-2024-001"
-            title: "Software Developer in Test"
-            description: "Position has been filled."
-            integrationContext: "urn:li:organization:12345678"
-            jobPostingOperationType: "CLOSE"
-            listingType: "BASIC"
-            listedAt: 1702693664000
-            location: "San Francisco, CA"
+        - externalJobPostingId: "JOB-2024-001"
+          title: "Software Developer in Test"
+          description: "Position has been filled."
+          integrationContext: "urn:li:organization:12345678"
+          jobPostingOperationType: "CLOSE"
+          listingType: "BASIC"
+          listedAt: 1702693664000
+          location: "San Francisco, CA"
 
     JobPostingResponseExample:
       summary: Example job posting response
       value:
         elements:
-          - status: "ACCEPTED"
-            taskUrn: "urn:li:simpleJobPostingTask:12345678"
+        - status: "ACCEPTED"
+          taskUrn: "urn:li:simpleJobPostingTask:12345678"
 
     JobPostingTaskResponseExample:
       summary: Example job posting task status response
@@ -492,23 +493,23 @@ components:
       example: "ATS"
 
 security:
-  - OAuth2Auth: []
+- OAuth2Auth: []
 
 paths:
   /v2/simpleJobPostings:
     post:
       operationId: createOrUpdateJobPosting
       tags:
-        - Apply Connect Jobs
-      summary: Create Or Update Apply Connect Job Posting
+      - Apply Connect Jobs
+      summary: LinkedIn Create or Update Apply Connect Job Posting
       description: >-
         Creates a new Apply Connect enabled job posting or updates/closes an existing one.
         Use the `jobPostingOperationType` field to specify the operation:
-        
+
         - `CREATE`: Create a new job posting
         - `UPDATE`: Update an existing job posting
         - `CLOSE`: Close an existing job posting
-        
+
         For more information, refer to the
         [Apply Connect Jobs Lifecycle documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/sync-jobs-onsite-apply#apply-connect-jobs-lifecycle).
       x-microcks-operation:
@@ -520,7 +521,7 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/RestliMethodHeader'
+      - $ref: '#/components/parameters/RestliMethodHeader'
       requestBody:
         required: true
         content:
@@ -562,15 +563,15 @@ paths:
     get:
       operationId: getJobPostingTaskStatus
       tags:
-        - Job Lifecycle Management
-      summary: Check Job Posting Task Status
+      - Job Lifecycle Management
+      summary: LinkedIn Check Job Posting Task Status
       description: >-
         Retrieves the status of a job posting task to track whether the job has been
         successfully created, updated, or closed.
-        
+
         After successful completion, the response includes the `jobPostingUrn` which
         can be used to view the job at: `https://www.linkedin.com/jobs/view/{jobPostingId}`
-        
+
         For more information, refer to the
         [Check Job Task Status documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus).
       x-microcks-operation:
@@ -582,7 +583,7 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/TaskIdsQuery'
+      - $ref: '#/components/parameters/TaskIdsQuery'
       responses:
         '200':
           description: Successfully retrieved task status
@@ -616,8 +617,8 @@ paths:
     post:
       operationId: updateCustomerIntegrations
       tags:
-        - Customer Integrations
-      summary: Update Customer ATS Integrations
+      - Customer Integrations
+      summary: LinkedIn Update Customer ATS Integrations
       description: >-
         Updates customer ATS integrations for premium job posting capabilities.
         Partners use this endpoint to configure the integration name and other
@@ -631,10 +632,10 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/IntegrationContextQuery'
-        - $ref: '#/components/parameters/IntegrationTypeQuery'
-        - $ref: '#/components/parameters/TenantTypeQuery'
-        - $ref: '#/components/parameters/DataProviderQuery'
+      - $ref: '#/components/parameters/IntegrationContextQuery'
+      - $ref: '#/components/parameters/IntegrationTypeQuery'
+      - $ref: '#/components/parameters/TenantTypeQuery'
+      - $ref: '#/components/parameters/DataProviderQuery'
       requestBody:
         required: true
         content:
@@ -670,8 +671,8 @@ paths:
     get:
       operationId: getCustomerIntegrations
       tags:
-        - Customer Integrations
-      summary: Get Customer ATS Integration Details
+      - Customer Integrations
+      summary: LinkedIn Get Customer ATS Integration Details
       description: >-
         Retrieves the details of a customer's ATS integration for premium job posting.
         Use this endpoint to verify integration configuration and status.
@@ -684,10 +685,10 @@ paths:
           }
         delay: 100
       parameters:
-        - $ref: '#/components/parameters/IntegrationContextQuery'
-        - $ref: '#/components/parameters/IntegrationTypeQuery'
-        - $ref: '#/components/parameters/TenantTypeQuery'
-        - $ref: '#/components/parameters/DataProviderQuery'
+      - $ref: '#/components/parameters/IntegrationContextQuery'
+      - $ref: '#/components/parameters/IntegrationTypeQuery'
+      - $ref: '#/components/parameters/TenantTypeQuery'
+      - $ref: '#/components/parameters/DataProviderQuery'
       responses:
         '200':
           description: Successfully retrieved integration details
