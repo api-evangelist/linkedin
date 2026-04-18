@@ -1,0 +1,127 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Media Planning"
+  description: "LinkedIn Media Planning API for forecasting reach, impressions, and ROI based on targeting criteria and budget."
+  tags:
+    - LinkedIn
+    - Marketing
+    - Media Planning
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: marketing-media-planning
+      baseUri: https://api.linkedin.com
+      description: "LinkedIn Media Planning API."
+      authentication:
+        type: bearer
+        token: "{{LINKEDIN_OAUTH_TOKEN}}"
+      resources:
+        - name: ad-targeting-facets
+          path: /adTargetingFacets
+          description: "Ad targeting facets for media planning."
+          operations:
+            - name: get-targeting-facets
+              method: GET
+              description: "Get available ad targeting facets."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ad-targeting-entities
+          path: /adTargetingEntities
+          description: "Ad targeting entities for media planning."
+          operations:
+            - name: search-targeting-entities
+              method: GET
+              description: "Search targeting entities using typeahead."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: false
+                  description: "Query type"
+                - name: query
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search query"
+                - name: facet
+                  in: query
+                  type: string
+                  required: false
+                  description: "Facet URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: media-planning
+          path: /mediaPlanning
+          description: "Media plan forecasting."
+          operations:
+            - name: forecast-impressions
+              method: POST
+              description: "Forecast average lifetime frequency and impressions."
+              inputParameters:
+                - name: action
+                  in: query
+                  type: string
+                  required: false
+                  description: "Action type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8109
+      namespace: marketing-media-planning-api
+      resources:
+        - path: /v1/targeting-facets
+          name: targeting-facets
+          operations:
+            - method: GET
+              name: get-targeting-facets
+              call: "marketing-media-planning.get-targeting-facets"
+        - path: /v1/targeting-entities
+          name: targeting-entities
+          operations:
+            - method: GET
+              name: search-targeting-entities
+              call: "marketing-media-planning.search-targeting-entities"
+        - path: /v1/media-plans
+          name: media-plans
+          operations:
+            - method: POST
+              name: forecast-impressions
+              call: "marketing-media-planning.forecast-impressions"
+
+    - type: mcp
+      port: 9109
+      namespace: marketing-media-planning-mcp
+      transport: http
+      tools:
+        - name: get-targeting-facets
+          description: "Get available ad targeting facets."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-media-planning.get-targeting-facets"
+        - name: search-targeting-entities
+          description: "Search targeting entities using typeahead."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-media-planning.search-targeting-entities"
+        - name: forecast-impressions
+          description: "Forecast average lifetime frequency and impressions."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-media-planning.forecast-impressions"

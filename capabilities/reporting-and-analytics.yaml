@@ -1,0 +1,60 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Reporting And Analytics"
+  description: "Unified workflow for marketing analysts to access ad analytics, B2B metrics, learning activity reports, and performance data -- combining reporting/ROI and learning activity APIs."
+  tags:
+    - LinkedIn
+    - Reporting
+    - Analytics
+    - Learning
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - import: marketing-reporting-roi
+      location: ./shared/marketing-reporting-roi.yaml
+    - import: learning-activity-reports
+      location: ./shared/learning-activity-reports.yaml
+
+  exposes:
+    - type: rest
+      port: 8083
+      namespace: reporting-analytics-api
+      description: "Unified REST API for LinkedIn reporting and analytics."
+      resources:
+        - path: /v1/ad-analytics
+          name: ad-analytics
+          operations:
+            - method: GET
+              name: get-ad-analytics
+              description: "Retrieve ad analytics by various pivots."
+              call: "marketing-reporting-roi.get-ad-analytics"
+        - path: /v1/learning-activity-reports
+          name: learning-activity-reports
+          operations:
+            - method: GET
+              name: get-learning-activity-reports
+              description: "Retrieve learning activity reports."
+              call: "learning-activity-reports.get-learning-activity-reports"
+
+    - type: mcp
+      port: 9093
+      namespace: reporting-analytics-mcp
+      transport: http
+      description: "MCP server for AI-assisted LinkedIn reporting and analytics."
+      tools:
+        - name: get-ad-analytics
+          description: "Retrieve ad analytics by various pivots and dimensions."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-reporting-roi.get-ad-analytics"
+        - name: get-learning-activity-reports
+          description: "Retrieve learning activity reports aggregated by account, group, individual, or content."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "learning-activity-reports.get-learning-activity-reports"

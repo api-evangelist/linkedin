@@ -1,0 +1,113 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Sales Engagement"
+  description: "Unified workflow for sales representatives to manage Sales Navigator contracts, export analytics, associate CRM profiles, and validate CRM data."
+  tags:
+    - LinkedIn
+    - Sales Navigator
+    - CRM Integration
+    - Sales
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - import: sales-navigator
+      location: ./shared/sales-navigator.yaml
+
+  exposes:
+    - type: rest
+      port: 8084
+      namespace: sales-engagement-api
+      description: "Unified REST API for LinkedIn sales engagement workflows."
+      resources:
+        - path: /v1/sales-contracts
+          name: sales-contracts
+          operations:
+            - method: GET
+              name: get-contracts
+              description: "Find all contracts where user has an active seat."
+              call: "sales-navigator.get-contracts"
+        - path: /v1/sales-analytics-export-jobs
+          name: sales-analytics-export-jobs
+          operations:
+            - method: POST
+              name: create-export-job
+              description: "Create sales analytics export job."
+              call: "sales-navigator.create-export-job"
+        - path: /v1/sales-analytics-export-jobs/{JobId}
+          name: export-job-by-id
+          operations:
+            - method: GET
+              name: get-export-job
+              description: "Fetch export job status."
+              call: "sales-navigator.get-export-job"
+        - path: /v1/sales-access-tokens
+          name: sales-access-tokens
+          operations:
+            - method: GET
+              name: get-sales-access-token
+              description: "Get sales access token."
+              call: "sales-navigator.get-sales-access-token"
+        - path: /v1/profile-associations
+          name: profile-associations
+          operations:
+            - method: GET
+              name: batch-get-profile-associations
+              description: "Batch fetch profile associations."
+              call: "sales-navigator.batch-get-profile-associations"
+        - path: /v1/crm-validation-jobs
+          name: crm-validation-jobs
+          operations:
+            - method: POST
+              name: create-crm-validation-job
+              description: "Create CRM data validation job."
+              call: "sales-navigator.create-crm-validation-job"
+        - path: /v1/crm-validation-jobs/{JobId}
+          name: crm-validation-job-by-id
+          operations:
+            - method: GET
+              name: get-crm-validation-job
+              description: "Get CRM validation job status."
+              call: "sales-navigator.get-crm-validation-job"
+
+    - type: mcp
+      port: 9094
+      namespace: sales-engagement-mcp
+      transport: http
+      description: "MCP server for AI-assisted LinkedIn sales engagement."
+      tools:
+        - name: get-contracts
+          description: "Find all contracts where user has an active seat."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.get-contracts"
+        - name: create-export-job
+          description: "Create new sales analytics export job."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "sales-navigator.create-export-job"
+        - name: get-export-job
+          description: "Fetch sales analytics export job by ID."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.get-export-job"
+        - name: get-sales-access-token
+          description: "Retrieve sales access token."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.get-sales-access-token"
+        - name: batch-get-profile-associations
+          description: "Batch fetch profile associations from CRM records."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.batch-get-profile-associations"
+        - name: create-crm-validation-job
+          description: "Create CRM data validation export job."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "sales-navigator.create-crm-validation-job"
+        - name: get-crm-validation-job
+          description: "Get CRM data validation export job status."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.get-crm-validation-job"

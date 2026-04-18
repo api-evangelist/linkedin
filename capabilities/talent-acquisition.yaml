@@ -1,0 +1,176 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Talent Acquisition"
+  description: "Unified workflow for recruiters to post jobs, sync candidates and applications via ATS, manage recruiter integrations, and provision partner applications -- combining job posting, RSC, and provisioning APIs."
+  tags:
+    - LinkedIn
+    - Talent Acquisition
+    - Recruiting
+    - Job Posting
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - import: talent-job-posting
+      location: ./shared/talent-job-posting.yaml
+    - import: talent-rsc
+      location: ./shared/talent-recruiter-system-connect.yaml
+    - import: talent-learning-parent-app
+      location: ./shared/talent-learning-parent-application.yaml
+
+  exposes:
+    - type: rest
+      port: 8085
+      namespace: talent-acquisition-api
+      description: "Unified REST API for LinkedIn talent acquisition workflows."
+      resources:
+        - path: /v1/job-postings
+          name: job-postings
+          operations:
+            - method: POST
+              name: create-or-update-job-posting
+              description: "Create or update a job posting."
+              call: "talent-job-posting.create-or-update-job-posting"
+        - path: /v1/job-posting-tasks
+          name: job-posting-tasks
+          operations:
+            - method: GET
+              name: get-job-posting-task-status
+              description: "Check job posting task status."
+              call: "talent-job-posting.get-job-posting-task-status"
+        - path: /v1/ats-integrations
+          name: ats-integrations
+          operations:
+            - method: POST
+              name: update-customer-integrations
+              description: "Update customer ATS integrations."
+              call: "talent-job-posting.update-customer-integrations"
+            - method: GET
+              name: get-customer-integrations
+              description: "Get customer ATS integration details."
+              call: "talent-job-posting.get-customer-integrations"
+        - path: /v1/candidates
+          name: candidates
+          operations:
+            - method: PUT
+              name: sync-candidates
+              description: "Sync candidates to LinkedIn."
+              call: "talent-rsc.sync-candidates"
+            - method: GET
+              name: get-candidate-matches
+              description: "Retrieve candidate matches."
+              call: "talent-rsc.get-candidate-matches"
+            - method: DELETE
+              name: delete-candidates
+              description: "Delete synced candidates."
+              call: "talent-rsc.delete-candidates"
+        - path: /v1/applications
+          name: applications
+          operations:
+            - method: PUT
+              name: sync-applications
+              description: "Sync job applications."
+              call: "talent-rsc.sync-applications"
+            - method: DELETE
+              name: delete-applications
+              description: "Delete synced applications."
+              call: "talent-rsc.delete-applications"
+        - path: /v1/exported-candidates
+          name: exported-candidates
+          operations:
+            - method: GET
+              name: get-exported-candidates
+              description: "Get exported candidate profiles."
+              call: "talent-rsc.get-exported-candidates"
+        - path: /v1/seatholders
+          name: seatholders
+          operations:
+            - method: GET
+              name: get-seatholders
+              description: "Retrieve recruiter seatholders."
+              call: "talent-rsc.get-seatholders"
+        - path: /v1/provisioned-applications
+          name: provisioned-applications
+          operations:
+            - method: POST
+              name: provision-child-application
+              description: "Provision a child application."
+              call: "talent-learning-parent-app.provision-child-application"
+            - method: GET
+              name: get-child-application
+              description: "Get child application credentials."
+              call: "talent-learning-parent-app.get-child-application"
+
+    - type: mcp
+      port: 9095
+      namespace: talent-acquisition-mcp
+      transport: http
+      description: "MCP server for AI-assisted LinkedIn talent acquisition."
+      tools:
+        - name: create-or-update-job-posting
+          description: "Create or update a job posting."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "talent-job-posting.create-or-update-job-posting"
+        - name: get-job-posting-task-status
+          description: "Check job posting task status."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-job-posting.get-job-posting-task-status"
+        - name: update-customer-integrations
+          description: "Update customer ATS integrations."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "talent-job-posting.update-customer-integrations"
+        - name: get-customer-integrations
+          description: "Get customer ATS integration details."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-job-posting.get-customer-integrations"
+        - name: sync-candidates
+          description: "Sync candidates to LinkedIn."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "talent-rsc.sync-candidates"
+        - name: get-candidate-matches
+          description: "Retrieve candidate matches."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-rsc.get-candidate-matches"
+        - name: delete-candidates
+          description: "Delete synced candidates."
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "talent-rsc.delete-candidates"
+        - name: sync-applications
+          description: "Sync job applications."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "talent-rsc.sync-applications"
+        - name: delete-applications
+          description: "Delete synced applications."
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "talent-rsc.delete-applications"
+        - name: create-resume-upload-url
+          description: "Create resume upload URL."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "talent-rsc.create-resume-upload-url"
+        - name: get-exported-candidates
+          description: "Get exported candidate profiles."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-rsc.get-exported-candidates"
+        - name: get-seatholders
+          description: "Retrieve recruiter seatholders."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-rsc.get-seatholders"
+        - name: upsert-entity-acl
+          description: "Create or update entity ACL."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "talent-rsc.upsert-entity-acl"
+        - name: provision-child-application
+          description: "Provision a child application."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "talent-learning-parent-app.provision-child-application"
+        - name: get-child-application
+          description: "Get child application credentials."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-learning-parent-app.get-child-application"

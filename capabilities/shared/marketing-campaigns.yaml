@@ -1,0 +1,494 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Marketing Campaign Management"
+  description: "LinkedIn Campaign Manager API for creating and managing ad accounts, campaign groups, campaigns, creatives, ad targeting, and forecasting."
+  tags:
+    - LinkedIn
+    - Marketing
+    - Campaign Management
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: marketing-campaigns
+      baseUri: https://api.linkedin.com/rest
+      description: "LinkedIn Marketing Campaign Management API."
+      authentication:
+        type: bearer
+        token: "{{LINKEDIN_OAUTH_TOKEN}}"
+      resources:
+        - name: ad-account-users
+          path: /adAccountUsers
+          description: "Ad account user access management."
+          operations:
+            - name: get-authenticated-user-ad-accounts
+              method: GET
+              description: "Retrieve all ad accounts the authenticated user has access to."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: organization-acls
+          path: /organizationAcls
+          description: "Organization access control lists."
+          operations:
+            - name: get-organization-acls
+              method: GET
+              description: "Retrieve organization roles for the authenticated user."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ad-accounts
+          path: /adAccounts
+          description: "Ad account management."
+          operations:
+            - name: create-ad-account
+              method: POST
+              description: "Create a new ad account."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: search-ad-accounts
+              method: GET
+              description: "Search for ad accounts."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+                - name: search
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search criteria"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ad-account-by-id
+          path: /adAccounts/{SponsoredAccountId}
+          description: "Individual ad account operations."
+          operations:
+            - name: get-ad-account-by-id
+              method: GET
+              description: "Retrieve an ad account by ID."
+              inputParameters:
+                - name: SponsoredAccountId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Sponsored account ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-ad-account
+              method: POST
+              description: "Update an ad account."
+              inputParameters:
+                - name: SponsoredAccountId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Sponsored account ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: campaign-groups
+          path: /adAccounts/{AdAccountsId}/adCampaignGroups
+          description: "Campaign group management."
+          operations:
+            - name: search-campaign-groups
+              method: GET
+              description: "Search for campaign groups."
+              inputParameters:
+                - name: AdAccountsId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Ad account ID"
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-campaign-groups
+              method: DELETE
+              description: "Delete multiple campaign groups."
+              inputParameters:
+                - name: AdAccountsId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Ad account ID"
+                - name: ids
+                  in: query
+                  type: string
+                  required: true
+                  description: "Campaign group IDs"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: campaign-group-by-id
+          path: /adAccounts/{AdAccountsId}/adCampaignGroups/{CampaignGroupId}
+          description: "Individual campaign group operations."
+          operations:
+            - name: get-campaign-group-by-id
+              method: GET
+              description: "Retrieve a campaign group by ID."
+              inputParameters:
+                - name: AdAccountsId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Ad account ID"
+                - name: CampaignGroupId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Campaign group ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-campaign-group
+              method: POST
+              description: "Update a campaign group."
+              inputParameters:
+                - name: AdAccountsId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Ad account ID"
+                - name: CampaignGroupId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Campaign group ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-campaign-group
+              method: DELETE
+              description: "Delete a campaign group."
+              inputParameters:
+                - name: AdAccountsId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Ad account ID"
+                - name: CampaignGroupId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Campaign group ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: campaigns
+          path: /adAccounts/{AdAccountsId}/adCampaigns
+          description: "Campaign management."
+          operations:
+            - name: search-campaigns
+              method: GET
+              description: "Search for campaigns."
+              inputParameters:
+                - name: AdAccountsId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Ad account ID"
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: campaign-by-id
+          path: /adAccounts/{AdAccountsId}/adCampaigns/{CampaignId}
+          description: "Individual campaign operations."
+          operations:
+            - name: get-campaign-by-id
+              method: GET
+              description: "Retrieve a campaign by ID."
+              inputParameters:
+                - name: AdAccountsId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Ad account ID"
+                - name: CampaignId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Campaign ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: archive-campaign
+              method: POST
+              description: "Archive a campaign."
+              inputParameters:
+                - name: AdAccountsId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Ad account ID"
+                - name: CampaignId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Campaign ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: creatives
+          path: /creatives
+          description: "Creative management."
+          operations:
+            - name: create-creative
+              method: POST
+              description: "Create a new ad creative."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: audience-counts
+          path: /audienceCounts
+          description: "Audience count estimation."
+          operations:
+            - name: get-audience-count
+              method: GET
+              description: "Get audience count by targeting criteria."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+                - name: targetingCriteria
+                  in: query
+                  type: string
+                  required: true
+                  description: "URL-encoded targeting criteria"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8104
+      namespace: marketing-campaigns-api
+      resources:
+        - path: /v1/ad-account-users
+          name: ad-account-users
+          operations:
+            - method: GET
+              name: get-authenticated-user-ad-accounts
+              call: "marketing-campaigns.get-authenticated-user-ad-accounts"
+        - path: /v1/ad-accounts
+          name: ad-accounts
+          operations:
+            - method: POST
+              name: create-ad-account
+              call: "marketing-campaigns.create-ad-account"
+            - method: GET
+              name: search-ad-accounts
+              call: "marketing-campaigns.search-ad-accounts"
+        - path: /v1/ad-accounts/{SponsoredAccountId}
+          name: ad-account-by-id
+          operations:
+            - method: GET
+              name: get-ad-account-by-id
+              call: "marketing-campaigns.get-ad-account-by-id"
+            - method: POST
+              name: update-ad-account
+              call: "marketing-campaigns.update-ad-account"
+        - path: /v1/campaign-groups
+          name: campaign-groups
+          operations:
+            - method: GET
+              name: search-campaign-groups
+              call: "marketing-campaigns.search-campaign-groups"
+        - path: /v1/campaigns
+          name: campaigns
+          operations:
+            - method: GET
+              name: search-campaigns
+              call: "marketing-campaigns.search-campaigns"
+        - path: /v1/creatives
+          name: creatives
+          operations:
+            - method: POST
+              name: create-creative
+              call: "marketing-campaigns.create-creative"
+        - path: /v1/audience-counts
+          name: audience-counts
+          operations:
+            - method: GET
+              name: get-audience-count
+              call: "marketing-campaigns.get-audience-count"
+
+    - type: mcp
+      port: 9104
+      namespace: marketing-campaigns-mcp
+      transport: http
+      tools:
+        - name: get-authenticated-user-ad-accounts
+          description: "Retrieve all ad accounts the authenticated user has access to."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.get-authenticated-user-ad-accounts"
+        - name: get-organization-acls
+          description: "Retrieve organization roles for the authenticated user."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.get-organization-acls"
+        - name: create-ad-account
+          description: "Create a new ad account."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "marketing-campaigns.create-ad-account"
+        - name: search-ad-accounts
+          description: "Search for ad accounts."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.search-ad-accounts"
+        - name: get-ad-account-by-id
+          description: "Retrieve an ad account by ID."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.get-ad-account-by-id"
+        - name: update-ad-account
+          description: "Update an ad account."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.update-ad-account"
+        - name: search-campaign-groups
+          description: "Search for campaign groups."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.search-campaign-groups"
+        - name: get-campaign-group-by-id
+          description: "Retrieve a campaign group by ID."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.get-campaign-group-by-id"
+        - name: update-campaign-group
+          description: "Update a campaign group."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.update-campaign-group"
+        - name: delete-campaign-group
+          description: "Delete a campaign group."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "marketing-campaigns.delete-campaign-group"
+        - name: search-campaigns
+          description: "Search for campaigns."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.search-campaigns"
+        - name: get-campaign-by-id
+          description: "Retrieve a campaign by ID."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.get-campaign-by-id"
+        - name: archive-campaign
+          description: "Archive a campaign."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.archive-campaign"
+        - name: create-creative
+          description: "Create a new ad creative."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "marketing-campaigns.create-creative"
+        - name: get-audience-count
+          description: "Get audience count by targeting criteria."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-campaigns.get-audience-count"

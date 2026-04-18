@@ -1,0 +1,232 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Marketing Audiences"
+  description: "LinkedIn Audiences API for combining LinkedIn data with your own data to reach the right audiences, including DMP segments, company streaming, user streaming, and list uploads."
+  tags:
+    - LinkedIn
+    - Marketing
+    - Audiences
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: marketing-audience
+      baseUri: https://api.linkedin.com/rest
+      description: "LinkedIn Marketing Audiences API."
+      authentication:
+        type: bearer
+        token: "{{LINKEDIN_OAUTH_TOKEN}}"
+      resources:
+        - name: ad-accounts
+          path: /adAccounts
+          description: "Ad account management."
+          operations:
+            - name: get-ad-accounts
+              method: GET
+              description: "Retrieve the authenticated user's ad accounts."
+              inputParameters:
+                - name: X-Restli-Protocol-Version
+                  in: header
+                  type: string
+                  required: true
+                  description: "RestLi protocol version"
+                - name: LinkedIn-Version
+                  in: header
+                  type: string
+                  required: true
+                  description: "LinkedIn API version"
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+                - name: search
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search criteria"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: dmp-segments
+          path: /dmpSegments
+          description: "DMP segment management."
+          operations:
+            - name: get-dmp-segments
+              method: GET
+              description: "Retrieve DMP segments for an ad account."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+                - name: account
+                  in: query
+                  type: string
+                  required: true
+                  description: "Sponsored account URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-dmp-segment
+              method: POST
+              description: "Create a new DMP segment."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: company-streaming
+          path: /dmpSegments/{CompanySegmentId}/companies
+          description: "Stream company data to DMP segments."
+          operations:
+            - name: stream-companies
+              method: POST
+              description: "Add or remove companies from a DMP segment."
+              inputParameters:
+                - name: CompanySegmentId
+                  in: path
+                  type: string
+                  required: true
+                  description: "ID of the company DMP segment"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: user-streaming
+          path: /dmpSegments/{UserSegmentId}/users
+          description: "Stream user data to DMP segments."
+          operations:
+            - name: stream-users
+              method: POST
+              description: "Add or remove users from a DMP segment."
+              inputParameters:
+                - name: UserSegmentId
+                  in: path
+                  type: string
+                  required: true
+                  description: "ID of the user DMP segment"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: list-uploads
+          path: /dmpSegments/{ListUploadSegmentId}/listUploads
+          description: "Attach uploaded lists to DMP segments."
+          operations:
+            - name: attach-list
+              method: POST
+              description: "Attach an uploaded CSV list to a DMP segment."
+              inputParameters:
+                - name: ListUploadSegmentId
+                  in: path
+                  type: string
+                  required: true
+                  description: "ID of the list upload DMP segment"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8103
+      namespace: marketing-audience-api
+      resources:
+        - path: /v1/ad-accounts
+          name: ad-accounts
+          operations:
+            - method: GET
+              name: get-ad-accounts
+              call: "marketing-audience.get-ad-accounts"
+        - path: /v1/dmp-segments
+          name: dmp-segments
+          operations:
+            - method: GET
+              name: get-dmp-segments
+              call: "marketing-audience.get-dmp-segments"
+            - method: POST
+              name: create-dmp-segment
+              call: "marketing-audience.create-dmp-segment"
+        - path: /v1/dmp-segments/{CompanySegmentId}/companies
+          name: company-streaming
+          operations:
+            - method: POST
+              name: stream-companies
+              call: "marketing-audience.stream-companies"
+        - path: /v1/dmp-segments/{UserSegmentId}/users
+          name: user-streaming
+          operations:
+            - method: POST
+              name: stream-users
+              call: "marketing-audience.stream-users"
+        - path: /v1/dmp-segments/{ListUploadSegmentId}/list-uploads
+          name: list-uploads
+          operations:
+            - method: POST
+              name: attach-list
+              call: "marketing-audience.attach-list"
+
+    - type: mcp
+      port: 9103
+      namespace: marketing-audience-mcp
+      transport: http
+      tools:
+        - name: get-ad-accounts
+          description: "Retrieve the authenticated user's ad accounts."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-audience.get-ad-accounts"
+        - name: get-dmp-segments
+          description: "Retrieve DMP segments for an ad account."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-audience.get-dmp-segments"
+        - name: create-dmp-segment
+          description: "Create a new DMP segment."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "marketing-audience.create-dmp-segment"
+        - name: stream-companies
+          description: "Add or remove companies from a DMP segment."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "marketing-audience.stream-companies"
+        - name: stream-users
+          description: "Add or remove users from a DMP segment."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "marketing-audience.stream-users"
+        - name: attach-list
+          description: "Attach an uploaded CSV list to a DMP segment."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "marketing-audience.attach-list"

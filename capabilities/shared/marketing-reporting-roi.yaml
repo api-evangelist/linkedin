@@ -1,0 +1,92 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Reporting And ROI"
+  description: "LinkedIn Reporting and ROI APIs for retrieving ad analytics, performance data, and B2B metrics."
+  tags:
+    - LinkedIn
+    - Marketing
+    - Reporting
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: marketing-reporting-roi
+      baseUri: https://api.linkedin.com
+      description: "LinkedIn Reporting and ROI API."
+      authentication:
+        type: bearer
+        token: "{{LINKEDIN_OAUTH_TOKEN}}"
+      resources:
+        - name: ad-analytics
+          path: /adAnalytics
+          description: "Ad analytics and performance reporting."
+          operations:
+            - name: get-ad-analytics
+              method: GET
+              description: "Retrieve ad analytics by various pivots and dimensions."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: false
+                  description: "Query type (analytics or statistics)"
+                - name: pivot
+                  in: query
+                  type: string
+                  required: false
+                  description: "Pivot dimension"
+                - name: dateRange
+                  in: query
+                  type: string
+                  required: false
+                  description: "Date range"
+                - name: timeGranularity
+                  in: query
+                  type: string
+                  required: false
+                  description: "Time granularity"
+                - name: accounts
+                  in: query
+                  type: string
+                  required: false
+                  description: "Account URNs"
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8110
+      namespace: marketing-reporting-roi-api
+      resources:
+        - path: /v1/ad-analytics
+          name: ad-analytics
+          operations:
+            - method: GET
+              name: get-ad-analytics
+              call: "marketing-reporting-roi.get-ad-analytics"
+
+    - type: mcp
+      port: 9110
+      namespace: marketing-reporting-roi-mcp
+      transport: http
+      tools:
+        - name: get-ad-analytics
+          description: "Retrieve ad analytics by various pivots and dimensions."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-reporting-roi.get-ad-analytics"

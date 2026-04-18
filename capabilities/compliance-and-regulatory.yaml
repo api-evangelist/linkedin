@@ -1,0 +1,167 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Compliance And Regulatory"
+  description: "Unified workflow for compliance officers to monitor regulated communications, export data for portability compliance, and access ads transparency data -- combining compliance events, data portability, and ads transparency APIs."
+  tags:
+    - LinkedIn
+    - Compliance
+    - Regulatory
+    - Data Portability
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - import: compliance-events
+      location: ./shared/compliance-events.yaml
+    - import: data-portability
+      location: ./shared/data-portability.yaml
+    - import: ads-transparency
+      location: ./shared/ads-transparency.yaml
+
+  exposes:
+    - type: rest
+      port: 8086
+      namespace: compliance-regulatory-api
+      description: "Unified REST API for LinkedIn compliance and regulatory workflows."
+      resources:
+        - path: /v1/compliance-authorizations
+          name: compliance-authorizations
+          operations:
+            - method: POST
+              name: opt-in-member
+              description: "Opt in a member for compliance monitoring."
+              call: "compliance-events.opt-in-member"
+            - method: GET
+              name: check-member-status
+              description: "Check member compliance monitoring status."
+              call: "compliance-events.check-member-status"
+        - path: /v1/compliance-events
+          name: compliance-events
+          operations:
+            - method: GET
+              name: get-compliance-events
+              description: "Retrieve compliance events."
+              call: "compliance-events.get-compliance-events"
+        - path: /v1/dma-organizations
+          name: dma-organizations
+          operations:
+            - method: GET
+              name: batch-get-organizations
+              description: "Batch get organizations for data portability."
+              call: "data-portability.batch-get-organizations"
+        - path: /v1/dma-organizations/{organizationId}
+          name: dma-organization-by-id
+          operations:
+            - method: GET
+              name: get-organization
+              description: "Get organization by ID."
+              call: "data-portability.get-organization"
+        - path: /v1/dma-posts
+          name: dma-posts
+          operations:
+            - method: GET
+              name: get-dma-posts
+              description: "Get posts for data portability."
+              call: "data-portability.get-posts"
+        - path: /v1/dma-reactions
+          name: dma-reactions
+          operations:
+            - method: GET
+              name: get-dma-reactions
+              description: "Get reactions for data portability."
+              call: "data-portability.get-reactions"
+        - path: /v1/dma-comments
+          name: dma-comments
+          operations:
+            - method: GET
+              name: get-dma-comments
+              description: "Get comments for data portability."
+              call: "data-portability.get-comments"
+        - path: /v1/dma-events
+          name: dma-events
+          operations:
+            - method: GET
+              name: get-dma-events
+              description: "Get events for data portability."
+              call: "data-portability.get-events"
+        - path: /v1/advertiser-transparency/{sponsoredaccount_id}
+          name: advertiser-transparency
+          operations:
+            - method: GET
+              name: get-advertiser-transparency
+              description: "Get advertiser transparency data."
+              call: "ads-transparency.get-advertiser-transparency"
+
+    - type: mcp
+      port: 9096
+      namespace: compliance-regulatory-mcp
+      transport: http
+      description: "MCP server for AI-assisted LinkedIn compliance and regulatory workflows."
+      tools:
+        - name: opt-in-member
+          description: "Opt in a member for compliance monitoring."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "compliance-events.opt-in-member"
+        - name: check-member-status
+          description: "Check member compliance monitoring status."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "compliance-events.check-member-status"
+        - name: opt-out-member
+          description: "Opt out a member from compliance monitoring."
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "compliance-events.opt-out-member"
+        - name: get-compliance-events
+          description: "Retrieve compliance events for a regulated member."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "compliance-events.get-compliance-events"
+        - name: batch-get-organizations
+          description: "Batch get organizations for data portability."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.batch-get-organizations"
+        - name: get-organization
+          description: "Get organization by ID for data portability."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.get-organization"
+        - name: get-organization-acls
+          description: "Get organization ACLs for data portability."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.get-organization-acls"
+        - name: get-page-content-analytics
+          description: "Get page content analytics for data portability."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.get-page-content-analytics"
+        - name: get-dma-posts
+          description: "Get posts for data portability."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.get-posts"
+        - name: get-dma-reactions
+          description: "Get reactions for data portability."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.get-reactions"
+        - name: get-dma-comments
+          description: "Get comments for data portability."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.get-comments"
+        - name: get-dma-lead-gen-responses
+          description: "Get lead gen responses for data portability."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.get-lead-gen-responses"
+        - name: get-dma-events
+          description: "Get events for data portability."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.get-events"
+        - name: get-business-manager-relationships
+          description: "Get business manager account relationships."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "data-portability.get-business-manager-relationships"
+        - name: get-advertiser-transparency
+          description: "Get advertiser transparency data for a sponsored account."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "ads-transparency.get-advertiser-transparency"

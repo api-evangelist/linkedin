@@ -1,0 +1,206 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Campaign Management"
+  description: "Unified workflow for marketing managers to plan, build, and manage LinkedIn ad campaigns -- combining campaign management, audience targeting, audience insights, and media planning APIs."
+  tags:
+    - LinkedIn
+    - Campaign Management
+    - Advertising
+    - Media Planning
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - import: marketing-campaigns
+      location: ./shared/marketing-campaigns.yaml
+    - import: marketing-audience
+      location: ./shared/marketing-audience.yaml
+    - import: marketing-audience-insights
+      location: ./shared/marketing-audience-insights.yaml
+    - import: marketing-media-planning
+      location: ./shared/marketing-media-planning.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: campaign-management-api
+      description: "Unified REST API for LinkedIn campaign management workflows."
+      resources:
+        - path: /v1/ad-accounts
+          name: ad-accounts
+          description: "Ad account management."
+          operations:
+            - method: GET
+              name: search-ad-accounts
+              description: "Search for ad accounts."
+              call: "marketing-campaigns.search-ad-accounts"
+            - method: POST
+              name: create-ad-account
+              description: "Create a new ad account."
+              call: "marketing-campaigns.create-ad-account"
+        - path: /v1/ad-accounts/{SponsoredAccountId}
+          name: ad-account-by-id
+          description: "Individual ad account operations."
+          operations:
+            - method: GET
+              name: get-ad-account-by-id
+              description: "Retrieve an ad account by ID."
+              call: "marketing-campaigns.get-ad-account-by-id"
+            - method: POST
+              name: update-ad-account
+              description: "Update an ad account."
+              call: "marketing-campaigns.update-ad-account"
+        - path: /v1/campaign-groups
+          name: campaign-groups
+          description: "Campaign group management."
+          operations:
+            - method: GET
+              name: search-campaign-groups
+              description: "Search for campaign groups."
+              call: "marketing-campaigns.search-campaign-groups"
+        - path: /v1/campaigns
+          name: campaigns
+          description: "Campaign management."
+          operations:
+            - method: GET
+              name: search-campaigns
+              description: "Search for campaigns."
+              call: "marketing-campaigns.search-campaigns"
+        - path: /v1/creatives
+          name: creatives
+          description: "Creative management."
+          operations:
+            - method: POST
+              name: create-creative
+              description: "Create a new ad creative."
+              call: "marketing-campaigns.create-creative"
+        - path: /v1/audience-counts
+          name: audience-counts
+          description: "Audience count estimation."
+          operations:
+            - method: GET
+              name: get-audience-count
+              description: "Get audience count by targeting criteria."
+              call: "marketing-campaigns.get-audience-count"
+        - path: /v1/dmp-segments
+          name: dmp-segments
+          description: "DMP segment management."
+          operations:
+            - method: GET
+              name: get-dmp-segments
+              description: "Retrieve DMP segments."
+              call: "marketing-audience.get-dmp-segments"
+            - method: POST
+              name: create-dmp-segment
+              description: "Create a new DMP segment."
+              call: "marketing-audience.create-dmp-segment"
+        - path: /v1/ad-targeting-facets
+          name: ad-targeting-facets
+          description: "Ad targeting facets."
+          operations:
+            - method: GET
+              name: get-ad-targeting-facets
+              description: "Retrieve available ad targeting facets."
+              call: "marketing-audience-insights.get-ad-targeting-facets"
+        - path: /v1/audience-insights
+          name: audience-insights
+          description: "Audience insights."
+          operations:
+            - method: POST
+              name: get-audience-insights
+              description: "Fetch audience insights by targeting criteria."
+              call: "marketing-audience-insights.get-audience-insights"
+        - path: /v1/media-plans
+          name: media-plans
+          description: "Media plan forecasting."
+          operations:
+            - method: POST
+              name: forecast-impressions
+              description: "Forecast reach and impressions."
+              call: "marketing-media-planning.forecast-impressions"
+
+    - type: mcp
+      port: 9090
+      namespace: campaign-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted LinkedIn campaign management."
+      tools:
+        - name: search-ad-accounts
+          description: "Search for ad accounts."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-campaigns.search-ad-accounts"
+        - name: create-ad-account
+          description: "Create a new ad account."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-campaigns.create-ad-account"
+        - name: get-ad-account-by-id
+          description: "Retrieve an ad account by ID."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-campaigns.get-ad-account-by-id"
+        - name: search-campaign-groups
+          description: "Search for campaign groups."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-campaigns.search-campaign-groups"
+        - name: search-campaigns
+          description: "Search for campaigns."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-campaigns.search-campaigns"
+        - name: get-campaign-by-id
+          description: "Retrieve a campaign by ID."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-campaigns.get-campaign-by-id"
+        - name: archive-campaign
+          description: "Archive a campaign."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "marketing-campaigns.archive-campaign"
+        - name: delete-campaign-group
+          description: "Delete a campaign group."
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "marketing-campaigns.delete-campaign-group"
+        - name: create-creative
+          description: "Create a new ad creative."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-campaigns.create-creative"
+        - name: get-audience-count
+          description: "Get audience count by targeting criteria."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-campaigns.get-audience-count"
+        - name: get-dmp-segments
+          description: "Retrieve DMP segments."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-audience.get-dmp-segments"
+        - name: create-dmp-segment
+          description: "Create a new DMP segment."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-audience.create-dmp-segment"
+        - name: stream-companies
+          description: "Stream company data to a DMP segment."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-audience.stream-companies"
+        - name: stream-users
+          description: "Stream user data to a DMP segment."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-audience.stream-users"
+        - name: get-ad-targeting-facets
+          description: "Retrieve available ad targeting facets."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-audience-insights.get-ad-targeting-facets"
+        - name: search-ad-targeting-entities
+          description: "Search for ad targeting entities."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-audience-insights.search-ad-targeting-entities"
+        - name: get-audience-insights
+          description: "Fetch audience insights by targeting criteria."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-audience-insights.get-audience-insights"
+        - name: forecast-impressions
+          description: "Forecast reach and impressions for media planning."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-media-planning.forecast-impressions"

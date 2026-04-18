@@ -1,0 +1,72 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Ads Transparency"
+  description: "LinkedIn Ads Transparency API for retrieving advertiser transparency data for regulatory compliance."
+  tags:
+    - LinkedIn
+    - Ads Transparency
+    - Regulatory
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: ads-transparency
+      baseUri: https://api.linkedin.com
+      description: "LinkedIn Ads Transparency API."
+      authentication:
+        type: bearer
+        token: "{{LINKEDIN_OAUTH_TOKEN}}"
+      resources:
+        - name: advertiser-transparency
+          path: /rest/advertiserTransparencyData/urn:li:sponsoredAccount:{sponsoredaccount_id}
+          description: "Advertiser transparency data."
+          operations:
+            - name: get-advertiser-transparency
+              method: GET
+              description: "Get advertiser transparency data for a sponsored account."
+              inputParameters:
+                - name: sponsoredaccount_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Sponsored account ID"
+                - name: month
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Month in YYYYMM format"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8112
+      namespace: ads-transparency-api
+      resources:
+        - path: /v1/advertiser-transparency/{sponsoredaccount_id}
+          name: advertiser-transparency
+          operations:
+            - method: GET
+              name: get-advertiser-transparency
+              call: "ads-transparency.get-advertiser-transparency"
+
+    - type: mcp
+      port: 9112
+      namespace: ads-transparency-mcp
+      transport: http
+      tools:
+        - name: get-advertiser-transparency
+          description: "Get advertiser transparency data for a sponsored account."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "ads-transparency.get-advertiser-transparency"

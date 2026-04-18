@@ -1,0 +1,289 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Recruiter System Connect"
+  description: "LinkedIn RSC API for integrating ATS with LinkedIn Recruiter, including candidate sync, application sync, data retrieval, and ACL management."
+  tags:
+    - LinkedIn
+    - Talent
+    - Recruiter System Connect
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: talent-rsc
+      baseUri: https://api.linkedin.com
+      description: "LinkedIn Recruiter System Connect API."
+      authentication:
+        type: bearer
+        token: "{{LINKEDIN_OAUTH_TOKEN}}"
+      resources:
+        - name: ats-integrations
+          path: /v2/atsIntegrations
+          description: "ATS integration configuration."
+          operations:
+            - name: update-ats-integration
+              method: POST
+              description: "Update customer ATS integration."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-integration-notification
+              method: GET
+              description: "Get integration status change notification."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+                - name: requestId
+                  in: query
+                  type: string
+                  required: true
+                  description: "Request ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ats-candidates
+          path: /v2/atsCandidates
+          description: "Candidate synchronization."
+          operations:
+            - name: sync-candidates
+              method: PUT
+              description: "Sync candidates to LinkedIn."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-candidate-matches
+              method: GET
+              description: "Retrieve candidate matches."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-candidates
+              method: DELETE
+              description: "Delete synced candidates."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ats-applications
+          path: /v2/atsApplications
+          description: "Application synchronization."
+          operations:
+            - name: sync-applications
+              method: PUT
+              description: "Sync job applications."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-applications
+              method: DELETE
+              description: "Delete synced applications."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: resume-upload
+          path: /v2/hireMediaUrl
+          description: "Resume upload management."
+          operations:
+            - name: create-resume-upload-url
+              method: POST
+              description: "Create resume upload URL."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: exported-candidates
+          path: /v2/exportedCandidates
+          description: "Exported candidate retrieval."
+          operations:
+            - name: get-exported-candidates
+              method: GET
+              description: "Get exported candidate profile."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+                - name: requestId
+                  in: query
+                  type: string
+                  required: true
+                  description: "Request ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: seats
+          path: /v2/seats
+          description: "Recruiter seatholders."
+          operations:
+            - name: get-seatholders
+              method: GET
+              description: "Retrieve recruiter seatholders."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+                - name: contracts
+                  in: query
+                  type: string
+                  required: true
+                  description: "Contract URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ats-entity-acls
+          path: /v2/atsEntityAcls
+          description: "Entity ACL management."
+          operations:
+            - name: upsert-entity-acl
+              method: PUT
+              description: "Create or update entity ACL."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-entity-acl
+              method: GET
+              description: "Retrieve entity ACL."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-entity-acl
+              method: DELETE
+              description: "Delete entity ACL."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8116
+      namespace: talent-rsc-api
+      resources:
+        - path: /v1/ats-candidates
+          name: ats-candidates
+          operations:
+            - method: PUT
+              name: sync-candidates
+              call: "talent-rsc.sync-candidates"
+            - method: GET
+              name: get-candidate-matches
+              call: "talent-rsc.get-candidate-matches"
+            - method: DELETE
+              name: delete-candidates
+              call: "talent-rsc.delete-candidates"
+        - path: /v1/ats-applications
+          name: ats-applications
+          operations:
+            - method: PUT
+              name: sync-applications
+              call: "talent-rsc.sync-applications"
+            - method: DELETE
+              name: delete-applications
+              call: "talent-rsc.delete-applications"
+        - path: /v1/exported-candidates
+          name: exported-candidates
+          operations:
+            - method: GET
+              name: get-exported-candidates
+              call: "talent-rsc.get-exported-candidates"
+        - path: /v1/seatholders
+          name: seatholders
+          operations:
+            - method: GET
+              name: get-seatholders
+              call: "talent-rsc.get-seatholders"
+
+    - type: mcp
+      port: 9116
+      namespace: talent-rsc-mcp
+      transport: http
+      tools:
+        - name: update-ats-integration
+          description: "Update customer ATS integration."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "talent-rsc.update-ats-integration"
+        - name: get-integration-notification
+          description: "Get integration status change notification."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-rsc.get-integration-notification"
+        - name: sync-candidates
+          description: "Sync candidates to LinkedIn."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "talent-rsc.sync-candidates"
+        - name: get-candidate-matches
+          description: "Retrieve candidate matches."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-rsc.get-candidate-matches"
+        - name: delete-candidates
+          description: "Delete synced candidates."
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "talent-rsc.delete-candidates"
+        - name: sync-applications
+          description: "Sync job applications."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "talent-rsc.sync-applications"
+        - name: delete-applications
+          description: "Delete synced applications."
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "talent-rsc.delete-applications"
+        - name: create-resume-upload-url
+          description: "Create resume upload URL."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "talent-rsc.create-resume-upload-url"
+        - name: get-exported-candidates
+          description: "Get exported candidate profile."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-rsc.get-exported-candidates"
+        - name: get-seatholders
+          description: "Retrieve recruiter seatholders."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-rsc.get-seatholders"
+        - name: upsert-entity-acl
+          description: "Create or update entity ACL."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "talent-rsc.upsert-entity-acl"
+        - name: get-entity-acl
+          description: "Retrieve entity ACL."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-rsc.get-entity-acl"
+        - name: delete-entity-acl
+          description: "Delete entity ACL."
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "talent-rsc.delete-entity-acl"

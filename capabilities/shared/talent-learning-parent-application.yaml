@@ -1,0 +1,115 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Parent Application Management"
+  description: "LinkedIn Provisioning APIs for creating and managing developer applications on behalf of customers."
+  tags:
+    - LinkedIn
+    - Talent
+    - Application Provisioning
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: talent-learning-parent-app
+      baseUri: https://api.linkedin.com
+      description: "LinkedIn Parent Application Management API."
+      authentication:
+        type: bearer
+        token: "{{LINKEDIN_OAUTH_TOKEN}}"
+      resources:
+        - name: provisioned-applications
+          path: /v2/provisionedApplications
+          description: "Child application provisioning."
+          operations:
+            - name: provision-child-application
+              method: POST
+              description: "Provision a new child application for a customer."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-child-application
+              method: GET
+              description: "Get child application credentials."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+                - name: uniqueForeignId
+                  in: query
+                  type: string
+                  required: true
+                  description: "Partner's unique identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: provisioned-application-by-urn
+          path: /v2/provisionedApplications/{customer_application_urn}
+          description: "Update child application."
+          operations:
+            - name: update-callback-urls
+              method: POST
+              description: "Update OAuth 2.0 callback URLs for a child application."
+              inputParameters:
+                - name: customer_application_urn
+                  in: path
+                  type: string
+                  required: true
+                  description: "Customer application URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8115
+      namespace: talent-learning-parent-app-api
+      resources:
+        - path: /v1/provisioned-applications
+          name: provisioned-applications
+          operations:
+            - method: POST
+              name: provision-child-application
+              call: "talent-learning-parent-app.provision-child-application"
+            - method: GET
+              name: get-child-application
+              call: "talent-learning-parent-app.get-child-application"
+        - path: /v1/provisioned-applications/{customer_application_urn}
+          name: provisioned-application-by-urn
+          operations:
+            - method: POST
+              name: update-callback-urls
+              call: "talent-learning-parent-app.update-callback-urls"
+
+    - type: mcp
+      port: 9115
+      namespace: talent-learning-parent-app-mcp
+      transport: http
+      tools:
+        - name: provision-child-application
+          description: "Provision a new child application for a customer."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "talent-learning-parent-app.provision-child-application"
+        - name: get-child-application
+          description: "Get child application credentials."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "talent-learning-parent-app.get-child-application"
+        - name: update-callback-urls
+          description: "Update OAuth 2.0 callback URLs for a child application."
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "talent-learning-parent-app.update-callback-urls"

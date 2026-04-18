@@ -1,0 +1,233 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Sales Navigator"
+  description: "LinkedIn Sales Navigator API for sales contracts, analytics exports, access tokens, profile associations, and CRM data validation."
+  tags:
+    - LinkedIn
+    - Sales Navigator
+    - CRM
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: sales-navigator
+      baseUri: https://api.linkedin.com/v2
+      description: "LinkedIn Sales Navigator API."
+      authentication:
+        type: bearer
+        token: "{{LINKEDIN_OAUTH_TOKEN}}"
+      resources:
+        - name: sales-contracts
+          path: /salesContracts
+          description: "Sales Navigator contracts."
+          operations:
+            - name: get-contracts
+              method: GET
+              description: "Find all contracts where user has an active seat."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: sales-analytics-export-jobs
+          path: /salesAnalyticsExportJobs
+          description: "Sales analytics export jobs."
+          operations:
+            - name: create-export-job
+              method: POST
+              description: "Create new sales analytics export job."
+              inputParameters:
+                - name: action
+                  in: query
+                  type: string
+                  required: true
+                  description: "Export action type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: sales-analytics-export-job-by-id
+          path: /salesAnalyticsExportJobs/{JobId}
+          description: "Individual export job status."
+          operations:
+            - name: get-export-job
+              method: GET
+              description: "Fetch sales analytics export job by ID."
+              inputParameters:
+                - name: JobId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Job ID"
+                - name: contract
+                  in: query
+                  type: string
+                  required: true
+                  description: "Contract URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: sales-access-tokens
+          path: /salesAccessTokens
+          description: "Sales access tokens."
+          operations:
+            - name: get-sales-access-token
+              method: GET
+              description: "Retrieve sales access token for authenticated iframe sessions."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Query type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: profile-associations
+          path: /salesNavigatorProfileAssociations
+          description: "Profile associations from CRM records."
+          operations:
+            - name: batch-get-profile-associations
+              method: GET
+              description: "Batch fetch profile associations."
+              inputParameters:
+                - name: ids
+                  in: query
+                  type: string
+                  required: true
+                  description: "Association keys"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: crm-data-validation-jobs
+          path: /crmDataValidationExportJobs
+          description: "CRM data validation export jobs."
+          operations:
+            - name: create-crm-validation-job
+              method: POST
+              description: "Create CRM data validation export job."
+              inputParameters:
+                - name: crmInstanceId
+                  in: query
+                  type: string
+                  required: true
+                  description: "CRM instance URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: crm-data-validation-job-by-id
+          path: /crmDataValidationExportJobs/{JobId}
+          description: "CRM validation job status."
+          operations:
+            - name: get-crm-validation-job
+              method: GET
+              description: "Get CRM data validation export job status."
+              inputParameters:
+                - name: JobId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Job ID"
+                - name: crmInstanceId
+                  in: query
+                  type: string
+                  required: true
+                  description: "CRM instance URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8113
+      namespace: sales-navigator-api
+      resources:
+        - path: /v1/sales-contracts
+          name: sales-contracts
+          operations:
+            - method: GET
+              name: get-contracts
+              call: "sales-navigator.get-contracts"
+        - path: /v1/sales-analytics-export-jobs
+          name: sales-analytics-export-jobs
+          operations:
+            - method: POST
+              name: create-export-job
+              call: "sales-navigator.create-export-job"
+        - path: /v1/sales-analytics-export-jobs/{JobId}
+          name: export-job-by-id
+          operations:
+            - method: GET
+              name: get-export-job
+              call: "sales-navigator.get-export-job"
+        - path: /v1/profile-associations
+          name: profile-associations
+          operations:
+            - method: GET
+              name: batch-get-profile-associations
+              call: "sales-navigator.batch-get-profile-associations"
+        - path: /v1/crm-validation-jobs
+          name: crm-validation-jobs
+          operations:
+            - method: POST
+              name: create-crm-validation-job
+              call: "sales-navigator.create-crm-validation-job"
+
+    - type: mcp
+      port: 9113
+      namespace: sales-navigator-mcp
+      transport: http
+      tools:
+        - name: get-contracts
+          description: "Find all contracts where user has an active seat."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.get-contracts"
+        - name: create-export-job
+          description: "Create new sales analytics export job."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "sales-navigator.create-export-job"
+        - name: get-export-job
+          description: "Fetch sales analytics export job by ID."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.get-export-job"
+        - name: get-sales-access-token
+          description: "Retrieve sales access token."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.get-sales-access-token"
+        - name: batch-get-profile-associations
+          description: "Batch fetch profile associations."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.batch-get-profile-associations"
+        - name: create-crm-validation-job
+          description: "Create CRM data validation export job."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "sales-navigator.create-crm-validation-job"
+        - name: get-crm-validation-job
+          description: "Get CRM data validation export job status."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "sales-navigator.get-crm-validation-job"

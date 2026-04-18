@@ -1,0 +1,188 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Content And Community"
+  description: "Unified workflow for content marketers to create rich ad content, manage organization pages, track engagement, and monitor social actions -- combining content APIs and community management."
+  tags:
+    - LinkedIn
+    - Content Marketing
+    - Community Management
+    - Social Media
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - import: marketing-content
+      location: ./shared/marketing-content.yaml
+    - import: marketing-community
+      location: ./shared/marketing-community.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: content-community-api
+      description: "Unified REST API for LinkedIn content creation and community management."
+      resources:
+        - path: /v1/posts
+          name: posts
+          operations:
+            - method: POST
+              name: create-post
+              description: "Create a post."
+              call: "marketing-content.create-post"
+            - method: GET
+              name: get-posts
+              description: "Fetch multiple posts."
+              call: "marketing-content.get-posts"
+        - path: /v1/shares
+          name: shares
+          operations:
+            - method: POST
+              name: create-share
+              description: "Create a share with company mention."
+              call: "marketing-community.create-share"
+        - path: /v1/creatives
+          name: creatives
+          operations:
+            - method: POST
+              name: create-creative
+              description: "Create an ad creative."
+              call: "marketing-content.create-creative"
+            - method: GET
+              name: search-creatives
+              description: "Search for creatives."
+              call: "marketing-content.search-creatives"
+        - path: /v1/inmail-contents
+          name: inmail-contents
+          operations:
+            - method: POST
+              name: create-inmail-content
+              description: "Create InMail content."
+              call: "marketing-content.create-inmail-content"
+        - path: /v1/conversation-ads
+          name: conversation-ads
+          operations:
+            - method: POST
+              name: create-sponsored-conversation
+              description: "Create a sponsored conversation."
+              call: "marketing-content.create-sponsored-conversation"
+            - method: GET
+              name: get-sponsored-conversations
+              description: "Get sponsored conversations."
+              call: "marketing-content.get-sponsored-conversations"
+        - path: /v1/images
+          name: images
+          operations:
+            - method: POST
+              name: initialize-image-upload
+              description: "Initialize image upload."
+              call: "marketing-content.initialize-image-upload"
+        - path: /v1/videos
+          name: videos
+          operations:
+            - method: POST
+              name: initialize-video-upload
+              description: "Initialize video upload."
+              call: "marketing-content.initialize-video-upload"
+        - path: /v1/organizations/{organization_id}
+          name: organization-by-id
+          operations:
+            - method: GET
+              name: get-organization-by-id
+              description: "Look up organization by ID."
+              call: "marketing-community.get-organization-by-id"
+        - path: /v1/follower-statistics
+          name: follower-statistics
+          operations:
+            - method: GET
+              name: get-follower-statistics
+              description: "Retrieve follower statistics."
+              call: "marketing-community.get-follower-statistics"
+        - path: /v1/page-statistics
+          name: page-statistics
+          operations:
+            - method: GET
+              name: get-page-statistics
+              description: "Retrieve page statistics."
+              call: "marketing-community.get-page-statistics"
+
+    - type: mcp
+      port: 9091
+      namespace: content-community-mcp
+      transport: http
+      description: "MCP server for AI-assisted LinkedIn content and community management."
+      tools:
+        - name: create-post
+          description: "Create a post."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-content.create-post"
+        - name: get-posts
+          description: "Fetch multiple posts."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-content.get-posts"
+        - name: create-share
+          description: "Create a share with company mention."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-community.create-share"
+        - name: create-creative
+          description: "Create an ad creative."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-content.create-creative"
+        - name: search-creatives
+          description: "Search for creatives."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-content.search-creatives"
+        - name: create-inmail-content
+          description: "Create InMail content."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-content.create-inmail-content"
+        - name: get-inmail-content
+          description: "Retrieve InMail content by ID."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-content.get-inmail-content"
+        - name: create-sponsored-conversation
+          description: "Create a sponsored conversation."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-content.create-sponsored-conversation"
+        - name: initialize-image-upload
+          description: "Initialize image upload."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-content.initialize-image-upload"
+        - name: initialize-video-upload
+          description: "Initialize video upload."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-content.initialize-video-upload"
+        - name: initialize-document-upload
+          description: "Initialize document upload."
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "marketing-content.initialize-document-upload"
+        - name: get-organization-by-id
+          description: "Look up organization by ID."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-community.get-organization-by-id"
+        - name: get-follower-statistics
+          description: "Retrieve follower statistics."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-community.get-follower-statistics"
+        - name: get-page-statistics
+          description: "Retrieve page statistics."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-community.get-page-statistics"
+        - name: get-share-statistics
+          description: "Retrieve share statistics."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-community.get-share-statistics"
+        - name: get-follower-count
+          description: "Retrieve organization follower count."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-community.get-follower-count"
+        - name: get-notifications
+          description: "Retrieve social action notifications."
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "marketing-community.get-notifications"

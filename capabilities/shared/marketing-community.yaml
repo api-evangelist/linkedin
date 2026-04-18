@@ -1,0 +1,328 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "LinkedIn Community Management"
+  description: "LinkedIn Community Management API for organization lookup, social action notifications, follower management, and page statistics."
+  tags:
+    - LinkedIn
+    - Community Management
+    - Organizations
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: marketing-community
+      baseUri: https://api.linkedin.com
+      description: "LinkedIn Community Management API."
+      authentication:
+        type: bearer
+        token: "{{LINKEDIN_OAUTH_TOKEN}}"
+      resources:
+        - name: shares
+          path: /shares
+          description: "Create and manage shares."
+          operations:
+            - name: create-share
+              method: POST
+              description: "Create a share with a company mention."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: event-subscriptions
+          path: /eventSubscriptions
+          description: "Event subscription management."
+          operations:
+            - name: get-notifications
+              method: GET
+              description: "Retrieve notifications for the authenticated member's organization."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: false
+                  description: "Query type"
+                - name: eventType
+                  in: query
+                  type: string
+                  required: false
+                  description: "Event type filter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: follower-statistics
+          path: /organizationalEntityFollowerStatistics
+          description: "Organization follower statistics."
+          operations:
+            - name: get-follower-statistics
+              method: GET
+              description: "Retrieve time-bound follower statistics."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: false
+                  description: "Query type"
+                - name: organizationalEntity
+                  in: query
+                  type: string
+                  required: false
+                  description: "Organization URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: page-statistics
+          path: /organizationPageStatistics
+          description: "Organization page statistics."
+          operations:
+            - name: get-page-statistics
+              method: GET
+              description: "Retrieve lifetime page statistics."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: false
+                  description: "Query type"
+                - name: organization
+                  in: query
+                  type: string
+                  required: false
+                  description: "Organization URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: share-statistics
+          path: /organizationalEntityShareStatistics
+          description: "Organization share statistics."
+          operations:
+            - name: get-share-statistics
+              method: GET
+              description: "Retrieve time-bound share statistics."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: false
+                  description: "Query type"
+                - name: organizationalEntity
+                  in: query
+                  type: string
+                  required: false
+                  description: "Organization URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: organizations
+          path: /organizations
+          description: "Organization lookup."
+          operations:
+            - name: find-organization-brands
+              method: GET
+              description: "Find administered organization brands by parent org."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: false
+                  description: "Query type"
+                - name: parent
+                  in: query
+                  type: string
+                  required: false
+                  description: "Parent organization URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: organization-by-id
+          path: /organizations/{organization_id}
+          description: "Organization lookup by ID."
+          operations:
+            - name: get-organization-by-id
+              method: GET
+              description: "Look up organization by ID."
+              inputParameters:
+                - name: organization_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Organization ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: network-sizes
+          path: /networkSizes/urn:li:organization:{organization_id}
+          description: "Organization follower count."
+          operations:
+            - name: get-follower-count
+              method: GET
+              description: "Retrieve organization follower count."
+              inputParameters:
+                - name: organization_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Organization ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: organization-acls
+          path: /organizationAcls
+          description: "Organization access controls."
+          operations:
+            - name: find-organization-access-control
+              method: GET
+              description: "Find organization access control."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: false
+                  description: "Query type"
+                - name: organization
+                  in: query
+                  type: string
+                  required: false
+                  description: "Organization URN"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: people-typeahead
+          path: /peopleTypeahead
+          description: "People search within organization followers."
+          operations:
+            - name: search-followers-by-keyword
+              method: GET
+              description: "Search organization followers by keyword."
+              inputParameters:
+                - name: q
+                  in: query
+                  type: string
+                  required: false
+                  description: "Query type"
+                - name: keywords
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search keywords"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8105
+      namespace: marketing-community-api
+      resources:
+        - path: /v1/shares
+          name: shares
+          operations:
+            - method: POST
+              name: create-share
+              call: "marketing-community.create-share"
+        - path: /v1/follower-statistics
+          name: follower-statistics
+          operations:
+            - method: GET
+              name: get-follower-statistics
+              call: "marketing-community.get-follower-statistics"
+        - path: /v1/page-statistics
+          name: page-statistics
+          operations:
+            - method: GET
+              name: get-page-statistics
+              call: "marketing-community.get-page-statistics"
+        - path: /v1/organizations
+          name: organizations
+          operations:
+            - method: GET
+              name: find-organization-brands
+              call: "marketing-community.find-organization-brands"
+
+    - type: mcp
+      port: 9105
+      namespace: marketing-community-mcp
+      transport: http
+      tools:
+        - name: create-share
+          description: "Create a share with a company mention."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "marketing-community.create-share"
+        - name: get-notifications
+          description: "Retrieve notifications for organization."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-community.get-notifications"
+        - name: get-follower-statistics
+          description: "Retrieve time-bound follower statistics."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-community.get-follower-statistics"
+        - name: get-page-statistics
+          description: "Retrieve lifetime page statistics."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-community.get-page-statistics"
+        - name: get-share-statistics
+          description: "Retrieve time-bound share statistics."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-community.get-share-statistics"
+        - name: get-organization-by-id
+          description: "Look up organization by ID."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-community.get-organization-by-id"
+        - name: get-follower-count
+          description: "Retrieve organization follower count."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-community.get-follower-count"
+        - name: search-followers-by-keyword
+          description: "Search organization followers by keyword."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "marketing-community.search-followers-by-keyword"
