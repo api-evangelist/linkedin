@@ -4,117 +4,64 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: LinkedIn
 providerId: linkedin
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
+  - Rate Limiting
   - Business
-  - Careers
   - Marketing
   - Professional Networking
   - Recruiting
   - Social Media
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the LinkedIn API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: LinkedIn enforces two daily call ceilings per app — Application (total calls per day across
+  all members) and Member (calls per day per LinkedIn member token via that app). Both reset at 00:00
+  UTC daily. Numeric ceilings are not published in docs; they vary by endpoint and app tier (Development
+  / Standard / Enterprise) and must be looked up in the LinkedIn Developer Portal under each app's Analytics
+  tab. Throttled calls return 429.
+sources:
+  - https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/rate-limits
+  - https://www.linkedin.com/developers/apps
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  infraProtection: 429
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - LinkedIn Consumer API
-      - LinkedIn Marketing API
-      - LinkedIn Learning Solutions
-      - LinkedIn Talent Solutions
-      - LinkedIn Compliance Solutions
-      - LinkedIn Sales Navigator API
-      - LinkedIn Regulatory API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - LinkedIn Consumer API
-      - LinkedIn Marketing API
-      - LinkedIn Learning Solutions
-      - LinkedIn Talent Solutions
-      - LinkedIn Compliance Solutions
-      - LinkedIn Sales Navigator API
-      - LinkedIn Regulatory API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - LinkedIn Consumer API
-      - LinkedIn Marketing API
-      - LinkedIn Learning Solutions
-      - LinkedIn Talent Solutions
-      - LinkedIn Compliance Solutions
-      - LinkedIn Sales Navigator API
-      - LinkedIn Regulatory API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - LinkedIn Consumer API
-      - LinkedIn Marketing API
-      - LinkedIn Learning Solutions
-      - LinkedIn Talent Solutions
-      - LinkedIn Compliance Solutions
-      - LinkedIn Sales Navigator API
-      - LinkedIn Regulatory API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - LinkedIn Consumer API
-      - LinkedIn Marketing API
-      - LinkedIn Learning Solutions
-      - LinkedIn Talent Solutions
-      - LinkedIn Compliance Solutions
-      - LinkedIn Sales Navigator API
-      - LinkedIn Regulatory API
+  - name: Application daily limit
+    scope: app
+    metric: requests_per_day
+    limit: per-endpoint, see Developer Portal Analytics
+    timeFrame: day
+    notes: Total calls the app can make in one UTC day, summed across all member tokens. Resets at 00:00
+      UTC.
+  - name: Member daily limit
+    scope: app/member
+    metric: requests_per_day
+    limit: per-endpoint, see Developer Portal Analytics
+    timeFrame: day
+    notes: Calls a single LinkedIn member token can drive through the app per UTC day. Resets at 00:00
+      UTC.
+  - name: Tier-scaled ceilings
+    scope: app
+    metric: varies
+    limit: Development tier < Standard tier <= Enterprise / partner-negotiated
+    notes: Standard tier upgrade requires application + video demo (Marketing) or screen recording (Community
+      Management).
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: 429 handling
+    description: Throttled requests return 429. Service returns to normal automatically; backoff and
+      retry next window. LinkedIn occasionally returns 429 for infra protection unrelated to your quota.
+  - name: Per-endpoint ceilings
+    description: Each endpoint has its own application + member daily ceiling. Look up by endpoint via
+      Developer Portal Analytics — make at least one call to the endpoint, then refresh Analytics to
+      see the ceiling.
+  - name: 75% threshold alerts
+    description: Developer Admins receive email alerts when an app crosses 75% of an endpoint's daily
+      application-level quota. Alerts are not real-time (1–2 hour delay) and only fire on application-level
+      thresholds, not member-level.
+  - name: UTC reset window
+    description: All daily ceilings reset at 00:00 UTC.
+  - name: Tier upgrade for production
+    description: Move from Development to Standard tier (Marketing / Community Management / Lead Sync
+      / Conversions) to obtain higher production ceilings.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
