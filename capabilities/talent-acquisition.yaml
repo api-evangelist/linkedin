@@ -1,176 +1,499 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "LinkedIn Talent Acquisition"
-  description: "Unified workflow for recruiters to post jobs, sync candidates and applications via ATS, manage recruiter integrations, and provision partner applications -- combining job posting, RSC, and provisioning APIs."
+  label: LinkedIn Talent Acquisition
+  description: Unified workflow for recruiters to post jobs, sync candidates and applications via ATS, manage recruiter integrations,
+    and provision partner applications -- combining job posting, RSC, and provisioning APIs.
   tags:
-    - LinkedIn
-    - Talent Acquisition
-    - Recruiting
-    - Job Posting
-  created: "2026-04-18"
-  modified: "2026-04-18"
-
+  - LinkedIn
+  - Talent Acquisition
+  - Recruiting
+  - Job Posting
+  created: '2026-04-18'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
-
+- namespace: env
+  keys:
+    LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
 capability:
   consumes:
-    - import: talent-job-posting
-      location: ./shared/talent-job-posting.yaml
-    - import: talent-rsc
-      location: ./shared/talent-recruiter-system-connect.yaml
-    - import: talent-learning-parent-app
-      location: ./shared/talent-learning-parent-application.yaml
-
+  - type: http
+    namespace: talent-job-posting
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Job Posting API.
+    authentication:
+      type: bearer
+      token: '{{LINKEDIN_OAUTH_TOKEN}}'
+    resources:
+    - name: simple-job-postings
+      path: /v2/simpleJobPostings
+      description: Apply Connect job posting management.
+      operations:
+      - name: create-or-update-job-posting
+        method: POST
+        description: Create or update an Apply Connect job posting.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: simple-job-posting-tasks
+      path: /v2/simpleJobPostingTasks
+      description: Job posting task status.
+      operations:
+      - name: get-job-posting-task-status
+        method: GET
+        description: Check job posting task status.
+        inputParameters:
+        - name: ids
+          in: query
+          type: string
+          required: true
+          description: Task URN(s)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ats-integrations
+      path: /v2/atsIntegrations
+      description: ATS integration management.
+      operations:
+      - name: update-customer-integrations
+        method: POST
+        description: Update customer ATS integrations.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-customer-integrations
+        method: GET
+        description: Get customer ATS integration details.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: talent-rsc
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Recruiter System Connect API.
+    authentication:
+      type: bearer
+      token: '{{LINKEDIN_OAUTH_TOKEN}}'
+    resources:
+    - name: ats-integrations
+      path: /v2/atsIntegrations
+      description: ATS integration configuration.
+      operations:
+      - name: update-ats-integration
+        method: POST
+        description: Update customer ATS integration.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-integration-notification
+        method: GET
+        description: Get integration status change notification.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: true
+          description: Query type
+        - name: requestId
+          in: query
+          type: string
+          required: true
+          description: Request ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ats-candidates
+      path: /v2/atsCandidates
+      description: Candidate synchronization.
+      operations:
+      - name: sync-candidates
+        method: PUT
+        description: Sync candidates to LinkedIn.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-candidate-matches
+        method: GET
+        description: Retrieve candidate matches.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-candidates
+        method: DELETE
+        description: Delete synced candidates.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ats-applications
+      path: /v2/atsApplications
+      description: Application synchronization.
+      operations:
+      - name: sync-applications
+        method: PUT
+        description: Sync job applications.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-applications
+        method: DELETE
+        description: Delete synced applications.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: resume-upload
+      path: /v2/hireMediaUrl
+      description: Resume upload management.
+      operations:
+      - name: create-resume-upload-url
+        method: POST
+        description: Create resume upload URL.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: exported-candidates
+      path: /v2/exportedCandidates
+      description: Exported candidate retrieval.
+      operations:
+      - name: get-exported-candidates
+        method: GET
+        description: Get exported candidate profile.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: true
+          description: Query type
+        - name: requestId
+          in: query
+          type: string
+          required: true
+          description: Request ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: seats
+      path: /v2/seats
+      description: Recruiter seatholders.
+      operations:
+      - name: get-seatholders
+        method: GET
+        description: Retrieve recruiter seatholders.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: true
+          description: Query type
+        - name: contracts
+          in: query
+          type: string
+          required: true
+          description: Contract URN
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ats-entity-acls
+      path: /v2/atsEntityAcls
+      description: Entity ACL management.
+      operations:
+      - name: upsert-entity-acl
+        method: PUT
+        description: Create or update entity ACL.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-entity-acl
+        method: GET
+        description: Retrieve entity ACL.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-entity-acl
+        method: DELETE
+        description: Delete entity ACL.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: talent-learning-parent-app
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Parent Application Management API.
+    authentication:
+      type: bearer
+      token: '{{LINKEDIN_OAUTH_TOKEN}}'
+    resources:
+    - name: provisioned-applications
+      path: /v2/provisionedApplications
+      description: Child application provisioning.
+      operations:
+      - name: provision-child-application
+        method: POST
+        description: Provision a new child application for a customer.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-child-application
+        method: GET
+        description: Get child application credentials.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: true
+          description: Query type
+        - name: uniqueForeignId
+          in: query
+          type: string
+          required: true
+          description: Partner's unique identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: provisioned-application-by-urn
+      path: /v2/provisionedApplications/{customer_application_urn}
+      description: Update child application.
+      operations:
+      - name: update-callback-urls
+        method: POST
+        description: Update OAuth 2.0 callback URLs for a child application.
+        inputParameters:
+        - name: customer_application_urn
+          in: path
+          type: string
+          required: true
+          description: Customer application URN
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8085
-      namespace: talent-acquisition-api
-      description: "Unified REST API for LinkedIn talent acquisition workflows."
-      resources:
-        - path: /v1/job-postings
-          name: job-postings
-          operations:
-            - method: POST
-              name: create-or-update-job-posting
-              description: "Create or update a job posting."
-              call: "talent-job-posting.create-or-update-job-posting"
-        - path: /v1/job-posting-tasks
-          name: job-posting-tasks
-          operations:
-            - method: GET
-              name: get-job-posting-task-status
-              description: "Check job posting task status."
-              call: "talent-job-posting.get-job-posting-task-status"
-        - path: /v1/ats-integrations
-          name: ats-integrations
-          operations:
-            - method: POST
-              name: update-customer-integrations
-              description: "Update customer ATS integrations."
-              call: "talent-job-posting.update-customer-integrations"
-            - method: GET
-              name: get-customer-integrations
-              description: "Get customer ATS integration details."
-              call: "talent-job-posting.get-customer-integrations"
-        - path: /v1/candidates
-          name: candidates
-          operations:
-            - method: PUT
-              name: sync-candidates
-              description: "Sync candidates to LinkedIn."
-              call: "talent-rsc.sync-candidates"
-            - method: GET
-              name: get-candidate-matches
-              description: "Retrieve candidate matches."
-              call: "talent-rsc.get-candidate-matches"
-            - method: DELETE
-              name: delete-candidates
-              description: "Delete synced candidates."
-              call: "talent-rsc.delete-candidates"
-        - path: /v1/applications
-          name: applications
-          operations:
-            - method: PUT
-              name: sync-applications
-              description: "Sync job applications."
-              call: "talent-rsc.sync-applications"
-            - method: DELETE
-              name: delete-applications
-              description: "Delete synced applications."
-              call: "talent-rsc.delete-applications"
-        - path: /v1/exported-candidates
-          name: exported-candidates
-          operations:
-            - method: GET
-              name: get-exported-candidates
-              description: "Get exported candidate profiles."
-              call: "talent-rsc.get-exported-candidates"
-        - path: /v1/seatholders
-          name: seatholders
-          operations:
-            - method: GET
-              name: get-seatholders
-              description: "Retrieve recruiter seatholders."
-              call: "talent-rsc.get-seatholders"
-        - path: /v1/provisioned-applications
-          name: provisioned-applications
-          operations:
-            - method: POST
-              name: provision-child-application
-              description: "Provision a child application."
-              call: "talent-learning-parent-app.provision-child-application"
-            - method: GET
-              name: get-child-application
-              description: "Get child application credentials."
-              call: "talent-learning-parent-app.get-child-application"
-
-    - type: mcp
-      port: 9095
-      namespace: talent-acquisition-mcp
-      transport: http
-      description: "MCP server for AI-assisted LinkedIn talent acquisition."
-      tools:
-        - name: create-or-update-job-posting
-          description: "Create or update a job posting."
-          hints: { readOnly: false, destructive: false, idempotent: false }
-          call: "talent-job-posting.create-or-update-job-posting"
-        - name: get-job-posting-task-status
-          description: "Check job posting task status."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "talent-job-posting.get-job-posting-task-status"
-        - name: update-customer-integrations
-          description: "Update customer ATS integrations."
-          hints: { readOnly: false, destructive: false, idempotent: true }
-          call: "talent-job-posting.update-customer-integrations"
-        - name: get-customer-integrations
-          description: "Get customer ATS integration details."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "talent-job-posting.get-customer-integrations"
-        - name: sync-candidates
-          description: "Sync candidates to LinkedIn."
-          hints: { readOnly: false, destructive: false, idempotent: true }
-          call: "talent-rsc.sync-candidates"
-        - name: get-candidate-matches
-          description: "Retrieve candidate matches."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "talent-rsc.get-candidate-matches"
-        - name: delete-candidates
-          description: "Delete synced candidates."
-          hints: { readOnly: false, destructive: true, idempotent: true }
-          call: "talent-rsc.delete-candidates"
-        - name: sync-applications
-          description: "Sync job applications."
-          hints: { readOnly: false, destructive: false, idempotent: true }
-          call: "talent-rsc.sync-applications"
-        - name: delete-applications
-          description: "Delete synced applications."
-          hints: { readOnly: false, destructive: true, idempotent: true }
-          call: "talent-rsc.delete-applications"
-        - name: create-resume-upload-url
-          description: "Create resume upload URL."
-          hints: { readOnly: false, destructive: false, idempotent: false }
-          call: "talent-rsc.create-resume-upload-url"
-        - name: get-exported-candidates
-          description: "Get exported candidate profiles."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "talent-rsc.get-exported-candidates"
-        - name: get-seatholders
-          description: "Retrieve recruiter seatholders."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "talent-rsc.get-seatholders"
-        - name: upsert-entity-acl
-          description: "Create or update entity ACL."
-          hints: { readOnly: false, destructive: false, idempotent: true }
-          call: "talent-rsc.upsert-entity-acl"
-        - name: provision-child-application
-          description: "Provision a child application."
-          hints: { readOnly: false, destructive: false, idempotent: false }
-          call: "talent-learning-parent-app.provision-child-application"
-        - name: get-child-application
-          description: "Get child application credentials."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "talent-learning-parent-app.get-child-application"
+  - type: rest
+    port: 8085
+    namespace: talent-acquisition-api
+    description: Unified REST API for LinkedIn talent acquisition workflows.
+    resources:
+    - path: /v1/job-postings
+      name: job-postings
+      operations:
+      - method: POST
+        name: create-or-update-job-posting
+        description: Create or update a job posting.
+        call: talent-job-posting.create-or-update-job-posting
+    - path: /v1/job-posting-tasks
+      name: job-posting-tasks
+      operations:
+      - method: GET
+        name: get-job-posting-task-status
+        description: Check job posting task status.
+        call: talent-job-posting.get-job-posting-task-status
+    - path: /v1/ats-integrations
+      name: ats-integrations
+      operations:
+      - method: POST
+        name: update-customer-integrations
+        description: Update customer ATS integrations.
+        call: talent-job-posting.update-customer-integrations
+      - method: GET
+        name: get-customer-integrations
+        description: Get customer ATS integration details.
+        call: talent-job-posting.get-customer-integrations
+    - path: /v1/candidates
+      name: candidates
+      operations:
+      - method: PUT
+        name: sync-candidates
+        description: Sync candidates to LinkedIn.
+        call: talent-rsc.sync-candidates
+      - method: GET
+        name: get-candidate-matches
+        description: Retrieve candidate matches.
+        call: talent-rsc.get-candidate-matches
+      - method: DELETE
+        name: delete-candidates
+        description: Delete synced candidates.
+        call: talent-rsc.delete-candidates
+    - path: /v1/applications
+      name: applications
+      operations:
+      - method: PUT
+        name: sync-applications
+        description: Sync job applications.
+        call: talent-rsc.sync-applications
+      - method: DELETE
+        name: delete-applications
+        description: Delete synced applications.
+        call: talent-rsc.delete-applications
+    - path: /v1/exported-candidates
+      name: exported-candidates
+      operations:
+      - method: GET
+        name: get-exported-candidates
+        description: Get exported candidate profiles.
+        call: talent-rsc.get-exported-candidates
+    - path: /v1/seatholders
+      name: seatholders
+      operations:
+      - method: GET
+        name: get-seatholders
+        description: Retrieve recruiter seatholders.
+        call: talent-rsc.get-seatholders
+    - path: /v1/provisioned-applications
+      name: provisioned-applications
+      operations:
+      - method: POST
+        name: provision-child-application
+        description: Provision a child application.
+        call: talent-learning-parent-app.provision-child-application
+      - method: GET
+        name: get-child-application
+        description: Get child application credentials.
+        call: talent-learning-parent-app.get-child-application
+  - type: mcp
+    port: 9095
+    namespace: talent-acquisition-mcp
+    transport: http
+    description: MCP server for AI-assisted LinkedIn talent acquisition.
+    tools:
+    - name: create-or-update-job-posting
+      description: Create or update a job posting.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: talent-job-posting.create-or-update-job-posting
+    - name: get-job-posting-task-status
+      description: Check job posting task status.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: talent-job-posting.get-job-posting-task-status
+    - name: update-customer-integrations
+      description: Update customer ATS integrations.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: talent-job-posting.update-customer-integrations
+    - name: get-customer-integrations
+      description: Get customer ATS integration details.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: talent-job-posting.get-customer-integrations
+    - name: sync-candidates
+      description: Sync candidates to LinkedIn.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: talent-rsc.sync-candidates
+    - name: get-candidate-matches
+      description: Retrieve candidate matches.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: talent-rsc.get-candidate-matches
+    - name: delete-candidates
+      description: Delete synced candidates.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: talent-rsc.delete-candidates
+    - name: sync-applications
+      description: Sync job applications.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: talent-rsc.sync-applications
+    - name: delete-applications
+      description: Delete synced applications.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: talent-rsc.delete-applications
+    - name: create-resume-upload-url
+      description: Create resume upload URL.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: talent-rsc.create-resume-upload-url
+    - name: get-exported-candidates
+      description: Get exported candidate profiles.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: talent-rsc.get-exported-candidates
+    - name: get-seatholders
+      description: Retrieve recruiter seatholders.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: talent-rsc.get-seatholders
+    - name: upsert-entity-acl
+      description: Create or update entity ACL.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: talent-rsc.upsert-entity-acl
+    - name: provision-child-application
+      description: Provision a child application.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: talent-learning-parent-app.provision-child-application
+    - name: get-child-application
+      description: Get child application credentials.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: talent-learning-parent-app.get-child-application

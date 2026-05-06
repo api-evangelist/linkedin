@@ -1,120 +1,338 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "LinkedIn Lead Generation And Conversions"
-  description: "Unified workflow for demand generation managers to capture leads, sync lead data, track conversions, and measure attribution -- combining lead sync and conversions APIs."
+  label: LinkedIn Lead Generation And Conversions
+  description: Unified workflow for demand generation managers to capture leads, sync lead data, track conversions, and measure
+    attribution -- combining lead sync and conversions APIs.
   tags:
-    - LinkedIn
-    - Lead Generation
-    - Conversions
-    - Demand Generation
-  created: "2026-04-18"
-  modified: "2026-04-18"
-
+  - LinkedIn
+  - Lead Generation
+  - Conversions
+  - Demand Generation
+  created: '2026-04-18'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
-
+- namespace: env
+  keys:
+    LINKEDIN_OAUTH_TOKEN: LINKEDIN_OAUTH_TOKEN
 capability:
   consumes:
-    - import: marketing-leads
-      location: ./shared/marketing-leads.yaml
-    - import: marketing-conversions
-      location: ./shared/marketing-conversions.yaml
-
+  - type: http
+    namespace: marketing-leads
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Lead Sync API.
+    authentication:
+      type: bearer
+      token: '{{LINKEDIN_OAUTH_TOKEN}}'
+    resources:
+    - name: organization-acls
+      path: /organizationAcls
+      description: Validate user's organization role.
+      operations:
+      - name: validate-organization-role
+        method: GET
+        description: Validate the user's organization role for lead access.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Query type
+        - name: state
+          in: query
+          type: string
+          required: false
+          description: State filter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lead-forms
+      path: /leadForms
+      description: Lead generation form management.
+      operations:
+      - name: get-lead-forms
+        method: GET
+        description: Get forms for a sponsored account.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Query type
+        - name: owner
+          in: query
+          type: string
+          required: false
+          description: Owner URN
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lead-form-responses
+      path: /leadFormResponses
+      description: Lead form response management.
+      operations:
+      - name: get-lead-form-responses
+        method: GET
+        description: Schedule periodic form response pulls.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Query type
+        - name: owner
+          in: query
+          type: string
+          required: false
+          description: Owner URN
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lead-form-response-by-id
+      path: /leadFormResponses/{lead_id}
+      description: Individual lead form response.
+      operations:
+      - name: get-lead-by-id
+        method: GET
+        description: Fetch full lead data by ID.
+        inputParameters:
+        - name: lead_id
+          in: path
+          type: string
+          required: true
+          description: Lead ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lead-notifications
+      path: /leadNotifications
+      description: Lead notification webhook management.
+      operations:
+      - name: subscribe-lead-notifications
+        method: POST
+        description: Subscribe for lead notification webhooks.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ad-accounts
+      path: /adAccounts
+      description: Ad account retrieval for lead sync.
+      operations:
+      - name: get-sponsored-accounts
+        method: GET
+        description: Get the user's sponsored accounts.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Query type
+        - name: search
+          in: query
+          type: string
+          required: false
+          description: Search criteria
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: marketing-conversions
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Conversions API.
+    authentication:
+      type: bearer
+      token: '{{LINKEDIN_OAUTH_TOKEN}}'
+    resources:
+    - name: ad-account-users
+      path: /adAccountUsers
+      description: Retrieve ad account users.
+      operations:
+      - name: get-ad-account-users
+        method: GET
+        description: Retrieve authenticated user's sponsored ad accounts.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Query type
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: conversions
+      path: /conversions
+      description: Conversion rule management.
+      operations:
+      - name: get-conversion-rules
+        method: GET
+        description: Fetch existing conversion rules for an ad account.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Query type
+        - name: account
+          in: query
+          type: string
+          required: false
+          description: Sponsored account URN
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-conversion-rule
+        method: POST
+        description: Create a new conversion rule.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: conversion-events
+      path: /conversionEvents
+      description: Conversion event streaming.
+      operations:
+      - name: stream-conversion-events
+        method: POST
+        description: Stream multiple conversion events.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8082
-      namespace: lead-gen-conversions-api
-      description: "Unified REST API for LinkedIn lead generation and conversion tracking."
-      resources:
-        - path: /v1/lead-forms
-          name: lead-forms
-          operations:
-            - method: GET
-              name: get-lead-forms
-              description: "Get lead forms for a sponsored account."
-              call: "marketing-leads.get-lead-forms"
-        - path: /v1/lead-form-responses
-          name: lead-form-responses
-          operations:
-            - method: GET
-              name: get-lead-form-responses
-              description: "Pull lead form responses."
-              call: "marketing-leads.get-lead-form-responses"
-        - path: /v1/lead-form-responses/{lead_id}
-          name: lead-by-id
-          operations:
-            - method: GET
-              name: get-lead-by-id
-              description: "Fetch full lead data by ID."
-              call: "marketing-leads.get-lead-by-id"
-        - path: /v1/lead-notifications
-          name: lead-notifications
-          operations:
-            - method: POST
-              name: subscribe-lead-notifications
-              description: "Subscribe for lead notification webhooks."
-              call: "marketing-leads.subscribe-lead-notifications"
-        - path: /v1/conversions
-          name: conversions
-          operations:
-            - method: GET
-              name: get-conversion-rules
-              description: "Fetch existing conversion rules."
-              call: "marketing-conversions.get-conversion-rules"
-            - method: POST
-              name: create-conversion-rule
-              description: "Create a new conversion rule."
-              call: "marketing-conversions.create-conversion-rule"
-        - path: /v1/conversion-events
-          name: conversion-events
-          operations:
-            - method: POST
-              name: stream-conversion-events
-              description: "Stream conversion events."
-              call: "marketing-conversions.stream-conversion-events"
-
-    - type: mcp
-      port: 9092
-      namespace: lead-gen-conversions-mcp
-      transport: http
-      description: "MCP server for AI-assisted LinkedIn lead generation and conversion tracking."
-      tools:
-        - name: validate-organization-role
-          description: "Validate user's organization role for lead access."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "marketing-leads.validate-organization-role"
-        - name: get-sponsored-accounts
-          description: "Get the user's sponsored accounts."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "marketing-leads.get-sponsored-accounts"
-        - name: get-lead-forms
-          description: "Get lead forms for a sponsored account."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "marketing-leads.get-lead-forms"
-        - name: get-lead-form-responses
-          description: "Pull lead form responses."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "marketing-leads.get-lead-form-responses"
-        - name: get-lead-by-id
-          description: "Fetch full lead data by ID."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "marketing-leads.get-lead-by-id"
-        - name: subscribe-lead-notifications
-          description: "Subscribe for lead notification webhooks."
-          hints: { readOnly: false, destructive: false, idempotent: false }
-          call: "marketing-leads.subscribe-lead-notifications"
-        - name: get-conversion-rules
-          description: "Fetch existing conversion rules."
-          hints: { readOnly: true, destructive: false, idempotent: true }
-          call: "marketing-conversions.get-conversion-rules"
-        - name: create-conversion-rule
-          description: "Create a new conversion rule."
-          hints: { readOnly: false, destructive: false, idempotent: false }
-          call: "marketing-conversions.create-conversion-rule"
-        - name: stream-conversion-events
-          description: "Stream conversion events."
-          hints: { readOnly: false, destructive: false, idempotent: false }
-          call: "marketing-conversions.stream-conversion-events"
+  - type: rest
+    port: 8082
+    namespace: lead-gen-conversions-api
+    description: Unified REST API for LinkedIn lead generation and conversion tracking.
+    resources:
+    - path: /v1/lead-forms
+      name: lead-forms
+      operations:
+      - method: GET
+        name: get-lead-forms
+        description: Get lead forms for a sponsored account.
+        call: marketing-leads.get-lead-forms
+    - path: /v1/lead-form-responses
+      name: lead-form-responses
+      operations:
+      - method: GET
+        name: get-lead-form-responses
+        description: Pull lead form responses.
+        call: marketing-leads.get-lead-form-responses
+    - path: /v1/lead-form-responses/{lead_id}
+      name: lead-by-id
+      operations:
+      - method: GET
+        name: get-lead-by-id
+        description: Fetch full lead data by ID.
+        call: marketing-leads.get-lead-by-id
+    - path: /v1/lead-notifications
+      name: lead-notifications
+      operations:
+      - method: POST
+        name: subscribe-lead-notifications
+        description: Subscribe for lead notification webhooks.
+        call: marketing-leads.subscribe-lead-notifications
+    - path: /v1/conversions
+      name: conversions
+      operations:
+      - method: GET
+        name: get-conversion-rules
+        description: Fetch existing conversion rules.
+        call: marketing-conversions.get-conversion-rules
+      - method: POST
+        name: create-conversion-rule
+        description: Create a new conversion rule.
+        call: marketing-conversions.create-conversion-rule
+    - path: /v1/conversion-events
+      name: conversion-events
+      operations:
+      - method: POST
+        name: stream-conversion-events
+        description: Stream conversion events.
+        call: marketing-conversions.stream-conversion-events
+  - type: mcp
+    port: 9092
+    namespace: lead-gen-conversions-mcp
+    transport: http
+    description: MCP server for AI-assisted LinkedIn lead generation and conversion tracking.
+    tools:
+    - name: validate-organization-role
+      description: Validate user's organization role for lead access.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads.validate-organization-role
+    - name: get-sponsored-accounts
+      description: Get the user's sponsored accounts.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads.get-sponsored-accounts
+    - name: get-lead-forms
+      description: Get lead forms for a sponsored account.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads.get-lead-forms
+    - name: get-lead-form-responses
+      description: Pull lead form responses.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads.get-lead-form-responses
+    - name: get-lead-by-id
+      description: Fetch full lead data by ID.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads.get-lead-by-id
+    - name: subscribe-lead-notifications
+      description: Subscribe for lead notification webhooks.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-leads.subscribe-lead-notifications
+    - name: get-conversion-rules
+      description: Fetch existing conversion rules.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-conversions.get-conversion-rules
+    - name: create-conversion-rule
+      description: Create a new conversion rule.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-conversions.create-conversion-rule
+    - name: stream-conversion-events
+      description: Stream conversion events.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-conversions.stream-conversion-events
