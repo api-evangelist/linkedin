@@ -1,0 +1,161 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Pages Data Portability API — Feed Content
+  description: 'LinkedIn Pages Data Portability API — Feed Content. 3 operations. Lead operation: LinkedIn Get Comments. Self-contained
+    Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Feed Content
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: regulations-data-portability-feed-content
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Pages Data Portability API — Feed Content business capability. Self-contained, no shared references.
+    resources:
+    - name: rest-dmaComments
+      path: /rest/dmaComments
+      operations:
+      - name: getcomments
+        method: GET
+        description: LinkedIn Get Comments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: activityUrn
+          in: query
+          type: string
+          required: true
+    - name: rest-dmaPosts
+      path: /rest/dmaPosts
+      operations:
+      - name: getposts
+        method: GET
+        description: LinkedIn Get Posts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: author
+          in: query
+          type: string
+          required: true
+    - name: rest-dmaReactions
+      path: /rest/dmaReactions
+      operations:
+      - name: getreactions
+        method: GET
+        description: LinkedIn Get Reactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: activityUrn
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: regulations-data-portability-feed-content-rest
+    port: 8080
+    description: REST adapter for LinkedIn Pages Data Portability API — Feed Content. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/dmacomments
+      name: rest-dmacomments
+      description: REST surface for rest-dmaComments.
+      operations:
+      - method: GET
+        name: getcomments
+        description: LinkedIn Get Comments
+        call: regulations-data-portability-feed-content.getcomments
+        with:
+          activityUrn: rest.activityUrn
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/dmaposts
+      name: rest-dmaposts
+      description: REST surface for rest-dmaPosts.
+      operations:
+      - method: GET
+        name: getposts
+        description: LinkedIn Get Posts
+        call: regulations-data-portability-feed-content.getposts
+        with:
+          author: rest.author
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/dmareactions
+      name: rest-dmareactions
+      description: REST surface for rest-dmaReactions.
+      operations:
+      - method: GET
+        name: getreactions
+        description: LinkedIn Get Reactions
+        call: regulations-data-portability-feed-content.getreactions
+        with:
+          activityUrn: rest.activityUrn
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: regulations-data-portability-feed-content-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Pages Data Portability API — Feed Content. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: linkedin-get-comments
+      description: LinkedIn Get Comments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: regulations-data-portability-feed-content.getcomments
+      with:
+        activityUrn: tools.activityUrn
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-get-posts
+      description: LinkedIn Get Posts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: regulations-data-portability-feed-content.getposts
+      with:
+        author: tools.author
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-get-reactions
+      description: LinkedIn Get Reactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: regulations-data-portability-feed-content.getreactions
+      with:
+        activityUrn: tools.activityUrn
+      outputParameters:
+      - type: object
+        mapping: $.

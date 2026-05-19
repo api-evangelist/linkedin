@@ -1,0 +1,98 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Compliance Events API — Compliance Events
+  description: 'LinkedIn Compliance Events API — Compliance Events. 1 operations. Lead operation: LinkedIn Retrieve Compliance
+    Events for Regulated Member. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Compliance Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: compliance-events-compliance-events
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Compliance Events API — Compliance Events business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-complianceEvents
+      path: /v2/complianceEvents
+      operations:
+      - name: getcomplianceevents
+        method: GET
+        description: LinkedIn Retrieve Compliance Events for Regulated Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          description: Query type
+          required: true
+        - name: projection
+          in: query
+          type: string
+          description: Fields to include in the response
+        - name: startTime
+          in: query
+          type: integer
+          description: Start time in milliseconds since epoch
+        - name: count
+          in: query
+          type: integer
+          description: Number of events to retrieve
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: compliance-events-compliance-events-rest
+    port: 8080
+    description: REST adapter for LinkedIn Compliance Events API — Compliance Events. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/complianceevents
+      name: v2-complianceevents
+      description: REST surface for v2-complianceEvents.
+      operations:
+      - method: GET
+        name: getcomplianceevents
+        description: LinkedIn Retrieve Compliance Events for Regulated Member
+        call: compliance-events-compliance-events.getcomplianceevents
+        with:
+          q: rest.q
+          projection: rest.projection
+          startTime: rest.startTime
+          count: rest.count
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: compliance-events-compliance-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Compliance Events API — Compliance Events. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: linkedin-retrieve-compliance-events-regulated
+      description: LinkedIn Retrieve Compliance Events for Regulated Member
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: compliance-events-compliance-events.getcomplianceevents
+      with:
+        q: tools.q
+        projection: tools.projection
+        startTime: tools.startTime
+        count: tools.count
+      outputParameters:
+      - type: object
+        mapping: $.

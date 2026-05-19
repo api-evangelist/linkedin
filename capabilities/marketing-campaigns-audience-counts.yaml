@@ -1,0 +1,99 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Marketing Campaign Management API — Audience Counts
+  description: 'LinkedIn Marketing Campaign Management API — Audience Counts. 1 operations. Lead operation: LinkedIn Get Audience
+    Count by Targeting Criteria. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Audience Counts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-campaigns-audience-counts
+    baseUri: https://api.linkedin.com/rest
+    description: LinkedIn Marketing Campaign Management API — Audience Counts business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: audienceCounts
+      path: /audienceCounts
+      operations:
+      - name: getaudiencecount
+        method: GET
+        description: LinkedIn Get Audience Count by Targeting Criteria
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Authorization
+          in: header
+          type: string
+          required: true
+        - name: LinkedIn-Version
+          in: header
+          type: string
+          required: true
+        - name: q
+          in: query
+          type: string
+          required: true
+        - name: targetingCriteria
+          in: query
+          type: string
+          description: URL-encoded targeting criteria
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: marketing-campaigns-audience-counts-rest
+    port: 8080
+    description: REST adapter for LinkedIn Marketing Campaign Management API — Audience Counts. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/audiencecounts
+      name: audiencecounts
+      description: REST surface for audienceCounts.
+      operations:
+      - method: GET
+        name: getaudiencecount
+        description: LinkedIn Get Audience Count by Targeting Criteria
+        call: marketing-campaigns-audience-counts.getaudiencecount
+        with:
+          Authorization: rest.Authorization
+          LinkedIn-Version: rest.LinkedIn-Version
+          q: rest.q
+          targetingCriteria: rest.targetingCriteria
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-campaigns-audience-counts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Marketing Campaign Management API — Audience Counts. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-get-audience-count-targeting
+      description: LinkedIn Get Audience Count by Targeting Criteria
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-campaigns-audience-counts.getaudiencecount
+      with:
+        Authorization: tools.Authorization
+        LinkedIn-Version: tools.LinkedIn-Version
+        q: tools.q
+        targetingCriteria: tools.targetingCriteria
+      outputParameters:
+      - type: object
+        mapping: $.

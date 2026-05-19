@@ -1,0 +1,79 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Pages Data Portability API — Page Analytics
+  description: 'LinkedIn Pages Data Portability API — Page Analytics. 1 operations. Lead operation: LinkedIn Get Page Content
+    Analytics. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Page Analytics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: regulations-data-portability-page-analytics
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Pages Data Portability API — Page Analytics business capability. Self-contained, no shared references.
+    resources:
+    - name: rest-dmaOrganizationalPageContentAnalytics
+      path: /rest/dmaOrganizationalPageContentAnalytics
+      operations:
+      - name: getpagecontentanalytics
+        method: GET
+        description: LinkedIn Get Page Content Analytics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organizationUrn
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: regulations-data-portability-page-analytics-rest
+    port: 8080
+    description: REST adapter for LinkedIn Pages Data Portability API — Page Analytics. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/dmaorganizationalpagecontentanalytics
+      name: rest-dmaorganizationalpagecontentanalytics
+      description: REST surface for rest-dmaOrganizationalPageContentAnalytics.
+      operations:
+      - method: GET
+        name: getpagecontentanalytics
+        description: LinkedIn Get Page Content Analytics
+        call: regulations-data-portability-page-analytics.getpagecontentanalytics
+        with:
+          organizationUrn: rest.organizationUrn
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: regulations-data-portability-page-analytics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Pages Data Portability API — Page Analytics. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: linkedin-get-page-content-analytics
+      description: LinkedIn Get Page Content Analytics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: regulations-data-portability-page-analytics.getpagecontentanalytics
+      with:
+        organizationUrn: tools.organizationUrn
+      outputParameters:
+      - type: object
+        mapping: $.

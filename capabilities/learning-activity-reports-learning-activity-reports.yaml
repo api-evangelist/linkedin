@@ -1,0 +1,139 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Learning Activity Reports API — Learning Activity Reports
+  description: 'LinkedIn Learning Activity Reports API — Learning Activity Reports. 1 operations. Lead operation: LinkedIn
+    Get Learning Activity Reports. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Learning Activity Reports
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: learning-activity-reports-learning-activity-reports
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Learning Activity Reports API — Learning Activity Reports business capability. Self-contained, no
+      shared references.
+    resources:
+    - name: v2-learningActivityReports
+      path: /v2/learningActivityReports
+      operations:
+      - name: getlearningactivityreports
+        method: GET
+        description: LinkedIn Get Learning Activity Reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: referer
+          in: header
+          type: string
+          description: Referrer URN for the request
+        - name: q
+          in: query
+          type: string
+          description: Query type
+          required: true
+        - name: count
+          in: query
+          type: integer
+          description: Number of results to return
+        - name: startedAt
+          in: query
+          type: integer
+          description: Start timestamp in milliseconds since epoch
+          required: true
+        - name: timeOffset.unit
+          in: query
+          type: string
+          description: Time offset unit
+          required: true
+        - name: timeOffset.duration
+          in: query
+          type: integer
+          description: Time offset duration
+          required: true
+        - name: aggregationCriteria.primary
+          in: query
+          type: string
+          description: Primary aggregation criteria
+          required: true
+        - name: contentSource
+          in: query
+          type: string
+          description: Source of learning content to include
+        - name: locale.language
+          in: query
+          type: string
+          description: Locale language code
+        - name: start
+          in: query
+          type: integer
+          description: Starting index for pagination
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: learning-activity-reports-learning-activity-reports-rest
+    port: 8080
+    description: REST adapter for LinkedIn Learning Activity Reports API — Learning Activity Reports. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/learningactivityreports
+      name: v2-learningactivityreports
+      description: REST surface for v2-learningActivityReports.
+      operations:
+      - method: GET
+        name: getlearningactivityreports
+        description: LinkedIn Get Learning Activity Reports
+        call: learning-activity-reports-learning-activity-reports.getlearningactivityreports
+        with:
+          referer: rest.referer
+          q: rest.q
+          count: rest.count
+          startedAt: rest.startedAt
+          timeOffset.unit: rest.timeOffset.unit
+          timeOffset.duration: rest.timeOffset.duration
+          aggregationCriteria.primary: rest.aggregationCriteria.primary
+          contentSource: rest.contentSource
+          locale.language: rest.locale.language
+          start: rest.start
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: learning-activity-reports-learning-activity-reports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Learning Activity Reports API — Learning Activity Reports. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-get-learning-activity-reports
+      description: LinkedIn Get Learning Activity Reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: learning-activity-reports-learning-activity-reports.getlearningactivityreports
+      with:
+        referer: tools.referer
+        q: tools.q
+        count: tools.count
+        startedAt: tools.startedAt
+        timeOffset.unit: tools.timeOffset.unit
+        timeOffset.duration: tools.timeOffset.duration
+        aggregationCriteria.primary: tools.aggregationCriteria.primary
+        contentSource: tools.contentSource
+        locale.language: tools.locale.language
+        start: tools.start
+      outputParameters:
+      - type: object
+        mapping: $.

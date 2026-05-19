@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Pages Data Portability API — Organization Access Control
+  description: 'LinkedIn Pages Data Portability API — Organization Access Control. 1 operations. Lead operation: LinkedIn
+    Get Organization ACLs. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Organization Access Control
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: regulations-data-portability-organization-access-control
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Pages Data Portability API — Organization Access Control business capability. Self-contained, no
+      shared references.
+    resources:
+    - name: rest-dmaOrganizationAcls
+      path: /rest/dmaOrganizationAcls
+      operations:
+      - name: getorganizationacls
+        method: GET
+        description: LinkedIn Get Organization ACLs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: regulations-data-portability-organization-access-control-rest
+    port: 8080
+    description: REST adapter for LinkedIn Pages Data Portability API — Organization Access Control. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/dmaorganizationacls
+      name: rest-dmaorganizationacls
+      description: REST surface for rest-dmaOrganizationAcls.
+      operations:
+      - method: GET
+        name: getorganizationacls
+        description: LinkedIn Get Organization ACLs
+        call: regulations-data-portability-organization-access-control.getorganizationacls
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: regulations-data-portability-organization-access-control-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Pages Data Portability API — Organization Access Control. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-get-organization-acls
+      description: LinkedIn Get Organization ACLs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: regulations-data-portability-organization-access-control.getorganizationacls
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Marketing Audience Insights API — Audience Insights
+  description: 'LinkedIn Marketing Audience Insights API — Audience Insights. 1 operations. Lead operation: LinkedIn Fetch
+    Audience Insights by Targeting Criteria. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Audience Insights
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-audience-insights-audience-insights
+    baseUri: https://api.linkedin.com/rest
+    description: LinkedIn Marketing Audience Insights API — Audience Insights business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: targetingAudienceInsights
+      path: /targetingAudienceInsights
+      operations:
+      - name: getaudienceinsights
+        method: POST
+        description: LinkedIn Fetch Audience Insights by Targeting Criteria
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+          description: LinkedIn API version
+          required: true
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+          description: RestLi protocol version
+          required: true
+        - name: action
+          in: query
+          type: string
+          description: Action to perform
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: marketing-audience-insights-audience-insights-rest
+    port: 8080
+    description: REST adapter for LinkedIn Marketing Audience Insights API — Audience Insights. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/targetingaudienceinsights
+      name: targetingaudienceinsights
+      description: REST surface for targetingAudienceInsights.
+      operations:
+      - method: POST
+        name: getaudienceinsights
+        description: LinkedIn Fetch Audience Insights by Targeting Criteria
+        call: marketing-audience-insights-audience-insights.getaudienceinsights
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          action: rest.action
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-audience-insights-audience-insights-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Marketing Audience Insights API — Audience Insights. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-fetch-audience-insights-targeting
+      description: LinkedIn Fetch Audience Insights by Targeting Criteria
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: marketing-audience-insights-audience-insights.getaudienceinsights
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        action: tools.action
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

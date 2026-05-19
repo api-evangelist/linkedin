@@ -1,0 +1,238 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Content APIs — Use Cases > Conversation Ad > Sponsored Conversations
+  description: 'Content APIs — Use Cases > Conversation Ad > Sponsored Conversations. 4 operations. Lead operation: LinkedIn
+    Create a Sponsored Conversation. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Use Cases > Conversation Ad > Sponsored Conversations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-content-use-cases-conversation-ad-sponsored-conversations
+    baseUri: https://api.linkedin.com
+    description: Content APIs — Use Cases > Conversation Ad > Sponsored Conversations business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: conversationAds
+      path: /conversationAds
+      operations:
+      - name: postcreateasponsoredconversation
+        method: POST
+        description: LinkedIn Create a Sponsored Conversation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: getgetmultiplesponsoredconversations
+        method: GET
+        description: LinkedIn Get Multiple Sponsored Conversations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: X-RestLi-Method
+          in: header
+          type: string
+        - name: ids
+          in: query
+          type: string
+    - name: conversationAds-conversationUrn
+      path: /conversationAds/{conversationUrn}
+      operations:
+      - name: getgetasponsoredconversation
+        method: GET
+        description: LinkedIn Get a Sponsored Conversation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: conversationUrn
+          in: path
+          type: string
+          required: true
+      - name: postupdateasponsoredconversation
+        method: POST
+        description: LinkedIn Update a Sponsored Conversation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: conversationUrn
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: marketing-content-use-cases-conversation-ad-sponsored-conversations-rest
+    port: 8080
+    description: REST adapter for Content APIs — Use Cases > Conversation Ad > Sponsored Conversations. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/conversationads
+      name: conversationads
+      description: REST surface for conversationAds.
+      operations:
+      - method: POST
+        name: postcreateasponsoredconversation
+        description: LinkedIn Create a Sponsored Conversation
+        call: marketing-content-use-cases-conversation-ad-sponsored-conversations.postcreateasponsoredconversation
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getgetmultiplesponsoredconversations
+        description: LinkedIn Get Multiple Sponsored Conversations
+        call: marketing-content-use-cases-conversation-ad-sponsored-conversations.getgetmultiplesponsoredconversations
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          X-RestLi-Method: rest.X-RestLi-Method
+          ids: rest.ids
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversationads/{conversationurn}
+      name: conversationads-conversationurn
+      description: REST surface for conversationAds-conversationUrn.
+      operations:
+      - method: GET
+        name: getgetasponsoredconversation
+        description: LinkedIn Get a Sponsored Conversation
+        call: marketing-content-use-cases-conversation-ad-sponsored-conversations.getgetasponsoredconversation
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          conversationUrn: rest.conversationUrn
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postupdateasponsoredconversation
+        description: LinkedIn Update a Sponsored Conversation
+        call: marketing-content-use-cases-conversation-ad-sponsored-conversations.postupdateasponsoredconversation
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          conversationUrn: rest.conversationUrn
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-content-use-cases-conversation-ad-sponsored-conversations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Content APIs — Use Cases > Conversation Ad > Sponsored Conversations. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-create-sponsored-conversation
+      description: LinkedIn Create a Sponsored Conversation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-content-use-cases-conversation-ad-sponsored-conversations.postcreateasponsoredconversation
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-get-multiple-sponsored-conversations
+      description: LinkedIn Get Multiple Sponsored Conversations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-content-use-cases-conversation-ad-sponsored-conversations.getgetmultiplesponsoredconversations
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        X-RestLi-Method: tools.X-RestLi-Method
+        ids: tools.ids
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-get-sponsored-conversation
+      description: LinkedIn Get a Sponsored Conversation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-content-use-cases-conversation-ad-sponsored-conversations.getgetasponsoredconversation
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        conversationUrn: tools.conversationUrn
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-update-sponsored-conversation
+      description: LinkedIn Update a Sponsored Conversation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-content-use-cases-conversation-ad-sponsored-conversations.postupdateasponsoredconversation
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        conversationUrn: tools.conversationUrn
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,145 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Community Management — Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull
+    Workflow
+  description: 'Community Management — Use Cases > Social Actions Notifications > Organization Social Actions Notifications
+    - Pull Workflow. 2 operations. Lead operation: LinkedIn 3. Retrieve Notifications for the Authenticated Member''s Organization.
+    Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow
+    baseUri: https://api.linkedin.com
+    description: Community Management — Use Cases > Social Actions Notifications > Organization Social Actions Notifications
+      - Pull Workflow business capability. Self-contained, no shared references.
+    resources:
+    - name: eventSubscriptions
+      path: /eventSubscriptions
+      operations:
+      - name: getretrievenotificationsforthe
+        method: GET
+        description: LinkedIn 3. Retrieve Notifications for the Authenticated Member's Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: Linkedin-Version
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: eventType
+          in: query
+          type: string
+    - name: shares
+      path: /shares
+      operations:
+      - name: postcreateasharewith
+        method: POST
+        description: LinkedIn 2. Create a Share with a Company Mention
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow-rest
+    port: 8080
+    description: REST adapter for Community Management — Use Cases > Social Actions Notifications > Organization Social Actions
+      Notifications - Pull Workflow. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/eventsubscriptions
+      name: eventsubscriptions
+      description: REST surface for eventSubscriptions.
+      operations:
+      - method: GET
+        name: getretrievenotificationsforthe
+        description: LinkedIn 3. Retrieve Notifications for the Authenticated Member's Organization
+        call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow.getretrievenotificationsforthe
+        with:
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          Linkedin-Version: rest.Linkedin-Version
+          q: rest.q
+          eventType: rest.eventType
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shares
+      name: shares
+      description: REST surface for shares.
+      operations:
+      - method: POST
+        name: postcreateasharewith
+        description: LinkedIn 2. Create a Share with a Company Mention
+        call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow.postcreateasharewith
+        with:
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          LinkedIn-Version: rest.LinkedIn-Version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Community Management — Use Cases > Social Actions Notifications > Organization Social Actions
+      Notifications - Pull Workflow. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-3-retrieve-notifications-authenticated
+      description: LinkedIn 3. Retrieve Notifications for the Authenticated Member's Organization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow.getretrievenotificationsforthe
+      with:
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        Linkedin-Version: tools.Linkedin-Version
+        q: tools.q
+        eventType: tools.eventType
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-2-create-share-company
+      description: LinkedIn 2. Create a Share with a Company Mention
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow.postcreateasharewith
+      with:
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        LinkedIn-Version: tools.LinkedIn-Version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

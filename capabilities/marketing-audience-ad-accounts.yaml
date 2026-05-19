@@ -1,0 +1,106 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Marketing Audiences API — Ad Accounts
+  description: 'LinkedIn Marketing Audiences API — Ad Accounts. 1 operations. Lead operation: LinkedIn Retrieve User Ad Accounts.
+    Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Ad Accounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-audience-ad-accounts
+    baseUri: https://api.linkedin.com/rest
+    description: LinkedIn Marketing Audiences API — Ad Accounts business capability. Self-contained, no shared references.
+    resources:
+    - name: adAccounts
+      path: /adAccounts
+      operations:
+      - name: getadaccounts
+        method: GET
+        description: LinkedIn Retrieve User Ad Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+          description: RestLi protocol version
+          required: true
+        - name: LinkedIn-Version
+          in: header
+          type: string
+          description: LinkedIn API version
+          required: true
+        - name: q
+          in: query
+          type: string
+          description: Query type
+          required: true
+        - name: search
+          in: query
+          type: string
+          description: Search criteria
+        - name: fields
+          in: query
+          type: string
+          description: Fields to include in response
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: marketing-audience-ad-accounts-rest
+    port: 8080
+    description: REST adapter for LinkedIn Marketing Audiences API — Ad Accounts. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/adaccounts
+      name: adaccounts
+      description: REST surface for adAccounts.
+      operations:
+      - method: GET
+        name: getadaccounts
+        description: LinkedIn Retrieve User Ad Accounts
+        call: marketing-audience-ad-accounts.getadaccounts
+        with:
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          LinkedIn-Version: rest.LinkedIn-Version
+          q: rest.q
+          search: rest.search
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-audience-ad-accounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Marketing Audiences API — Ad Accounts. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: linkedin-retrieve-user-ad-accounts
+      description: LinkedIn Retrieve User Ad Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-audience-ad-accounts.getadaccounts
+      with:
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        LinkedIn-Version: tools.LinkedIn-Version
+        q: tools.q
+        search: tools.search
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.

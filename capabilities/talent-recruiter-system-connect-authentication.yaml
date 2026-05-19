@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Recruiter System Connect API — Authentication
+  description: 'LinkedIn Recruiter System Connect API — Authentication. 1 operations. Lead operation: LinkedIn Get Customer
+    Application Access Token. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Authentication
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: talent-recruiter-system-connect-authentication
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Recruiter System Connect API — Authentication business capability. Self-contained, no shared references.
+    resources:
+    - name: oauth-v2-accessToken
+      path: /oauth/v2/accessToken
+      operations:
+      - name: getaccesstoken
+        method: POST
+        description: LinkedIn Get Customer Application Access Token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: talent-recruiter-system-connect-authentication-rest
+    port: 8080
+    description: REST adapter for LinkedIn Recruiter System Connect API — Authentication. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/oauth/v2/accesstoken
+      name: oauth-v2-accesstoken
+      description: REST surface for oauth-v2-accessToken.
+      operations:
+      - method: POST
+        name: getaccesstoken
+        description: LinkedIn Get Customer Application Access Token
+        call: talent-recruiter-system-connect-authentication.getaccesstoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: talent-recruiter-system-connect-authentication-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Recruiter System Connect API — Authentication. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-get-customer-application-access
+      description: LinkedIn Get Customer Application Access Token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: talent-recruiter-system-connect-authentication.getaccesstoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

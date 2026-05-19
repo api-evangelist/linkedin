@@ -1,0 +1,382 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Conversions API — Conversion Events Streaming Workflow
+  description: 'Conversions API — Conversion Events Streaming Workflow. 6 operations. Lead operation: LinkedIn 2. Retrieve
+    Authenticated User''s Sponsored Ad Accounts. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Conversion Events Streaming Workflow
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-conversions-conversion-events-streaming-workflow
+    baseUri: https://api.linkedin.com
+    description: Conversions API — Conversion Events Streaming Workflow business capability. Self-contained, no shared references.
+    resources:
+    - name: adAccountUsers
+      path: /adAccountUsers
+      operations:
+      - name: getretrieveauthenticateduserssponsored
+        method: GET
+        description: LinkedIn 2. Retrieve Authenticated User's Sponsored Ad Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: fields
+          in: query
+          type: string
+    - name: adAccounts-sponsoredaccount_id-adCampaigns
+      path: /adAccounts/{sponsoredaccount_id}/adCampaigns
+      operations:
+      - name: getfetchactivecampaigns
+        method: GET
+        description: LinkedIn 7. Fetch Active Campaigns
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: search
+          in: query
+          type: string
+        - name: fields
+          in: query
+          type: string
+        - name: sponsoredaccount_id
+          in: path
+          type: string
+          required: true
+    - name: 'campaignConversions-(campaign:urn:li:sponsoredCampaign:{campaign_id},conversion:'
+      path: /campaignConversions/(campaign:urn:li:sponsoredCampaign:{campaign_id},conversion:urn:lla:llaPartnerConversion:{conversion_id})
+      operations:
+      - name: putassociatecampaignstoconversion
+        method: PUT
+        description: LinkedIn 8. Associate Campaigns to Conversion Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: campaign_id
+          in: path
+          type: string
+          required: true
+        - name: conversion_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: conversionEvents
+      path: /conversionEvents
+      operations:
+      - name: poststreammultipleconversionevents
+        method: POST
+        description: LinkedIn 10. Stream Multiple Conversion Events to the Conversion Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: X-RestLi-Method
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: conversions
+      path: /conversions
+      operations:
+      - name: getfetchexistingconversionrules
+        method: GET
+        description: LinkedIn 4. Fetch Existing Conversion Rules for CAPI in the Selected Ad Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: account
+          in: query
+          type: string
+        - name: fields
+          in: query
+          type: string
+      - name: postcreateanewconversion
+        method: POST
+        description: LinkedIn 6. Create a New Conversion Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: marketing-conversions-conversion-events-streaming-workflow-rest
+    port: 8080
+    description: REST adapter for Conversions API — Conversion Events Streaming Workflow. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/adaccountusers
+      name: adaccountusers
+      description: REST surface for adAccountUsers.
+      operations:
+      - method: GET
+        name: getretrieveauthenticateduserssponsored
+        description: LinkedIn 2. Retrieve Authenticated User's Sponsored Ad Accounts
+        call: marketing-conversions-conversion-events-streaming-workflow.getretrieveauthenticateduserssponsored
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          q: rest.q
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/adaccounts/{sponsoredaccount-id}/adcampaigns
+      name: adaccounts-sponsoredaccount-id-adcampaigns
+      description: REST surface for adAccounts-sponsoredaccount_id-adCampaigns.
+      operations:
+      - method: GET
+        name: getfetchactivecampaigns
+        description: LinkedIn 7. Fetch Active Campaigns
+        call: marketing-conversions-conversion-events-streaming-workflow.getfetchactivecampaigns
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          q: rest.q
+          search: rest.search
+          fields: rest.fields
+          sponsoredaccount_id: rest.sponsoredaccount_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/campaignconversions/campaign-urn-li-sponsoredcampaign-campaign-id-conversion-urn-lla-llapartnerconversion-conversion-id
+      name: campaignconversions-campaign-urn-li-sponsoredcampaign-campaign-id-conversion
+      description: REST surface for campaignConversions-(campaign:urn:li:sponsoredCampaign:{campaign_id},conversion:.
+      operations:
+      - method: PUT
+        name: putassociatecampaignstoconversion
+        description: LinkedIn 8. Associate Campaigns to Conversion Rule
+        call: marketing-conversions-conversion-events-streaming-workflow.putassociatecampaignstoconversion
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          campaign_id: rest.campaign_id
+          conversion_id: rest.conversion_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversionevents
+      name: conversionevents
+      description: REST surface for conversionEvents.
+      operations:
+      - method: POST
+        name: poststreammultipleconversionevents
+        description: LinkedIn 10. Stream Multiple Conversion Events to the Conversion Rule
+        call: marketing-conversions-conversion-events-streaming-workflow.poststreammultipleconversionevents
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          X-RestLi-Method: rest.X-RestLi-Method
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversions
+      name: conversions
+      description: REST surface for conversions.
+      operations:
+      - method: GET
+        name: getfetchexistingconversionrules
+        description: LinkedIn 4. Fetch Existing Conversion Rules for CAPI in the Selected Ad Account
+        call: marketing-conversions-conversion-events-streaming-workflow.getfetchexistingconversionrules
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          q: rest.q
+          account: rest.account
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postcreateanewconversion
+        description: LinkedIn 6. Create a New Conversion Rule
+        call: marketing-conversions-conversion-events-streaming-workflow.postcreateanewconversion
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-conversions-conversion-events-streaming-workflow-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Conversions API — Conversion Events Streaming Workflow. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-2-retrieve-authenticated-user-s
+      description: LinkedIn 2. Retrieve Authenticated User's Sponsored Ad Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-conversions-conversion-events-streaming-workflow.getretrieveauthenticateduserssponsored
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        q: tools.q
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-7-fetch-active-campaigns
+      description: LinkedIn 7. Fetch Active Campaigns
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-conversions-conversion-events-streaming-workflow.getfetchactivecampaigns
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        q: tools.q
+        search: tools.search
+        fields: tools.fields
+        sponsoredaccount_id: tools.sponsoredaccount_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-8-associate-campaigns-conversion
+      description: LinkedIn 8. Associate Campaigns to Conversion Rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: marketing-conversions-conversion-events-streaming-workflow.putassociatecampaignstoconversion
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        campaign_id: tools.campaign_id
+        conversion_id: tools.conversion_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-10-stream-multiple-conversion
+      description: LinkedIn 10. Stream Multiple Conversion Events to the Conversion Rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-conversions-conversion-events-streaming-workflow.poststreammultipleconversionevents
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        X-RestLi-Method: tools.X-RestLi-Method
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-4-fetch-existing-conversion
+      description: LinkedIn 4. Fetch Existing Conversion Rules for CAPI in the Selected Ad Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-conversions-conversion-events-streaming-workflow.getfetchexistingconversionrules
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        q: tools.q
+        account: tools.account
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-6-create-new-conversion
+      description: LinkedIn 6. Create a New Conversion Rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-conversions-conversion-events-streaming-workflow.postcreateanewconversion
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

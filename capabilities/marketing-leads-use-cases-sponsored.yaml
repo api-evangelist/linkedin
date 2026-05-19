@@ -1,0 +1,463 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lead Sync — Use Cases > Sponsored
+  description: 'Lead Sync — Use Cases > Sponsored. 7 operations. Lead operation: LinkedIn 2. Get the User''s Sponsored Accounts
+    (ad Accounts). Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Use Cases > Sponsored
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-leads-use-cases-sponsored
+    baseUri: https://api.linkedin.com
+    description: Lead Sync — Use Cases > Sponsored business capability. Self-contained, no shared references.
+    resources:
+    - name: adAccounts
+      path: /adAccounts
+      operations:
+      - name: getgettheuserssponsored
+        method: GET
+        description: LinkedIn 2. Get the User's Sponsored Accounts (ad Accounts)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: search
+          in: query
+          type: string
+        - name: fields
+          in: query
+          type: string
+        - name: count
+          in: query
+          type: integer
+        - name: start
+          in: query
+          type: integer
+    - name: leadFormResponses
+      path: /leadFormResponses
+      operations:
+      - name: getscheduleperiodicformresponse
+        method: GET
+        description: LinkedIn 8. Schedule Periodic Form Response (lead) Pulls
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: owner
+          in: query
+          type: string
+        - name: leadType
+          in: query
+          type: string
+        - name: limitedToTestLeads
+          in: query
+          type: boolean
+        - name: submittedAtTimeRange
+          in: query
+          type: string
+        - name: fields
+          in: query
+          type: string
+        - name: count
+          in: query
+          type: integer
+        - name: start
+          in: query
+          type: integer
+    - name: leadFormResponses-lead_id
+      path: /leadFormResponses/{lead_id}
+      operations:
+      - name: getfetchfullleaddata
+        method: GET
+        description: LinkedIn 9. Fetch Full Lead Data After a Lead Notification is Received
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: fields
+          in: query
+          type: string
+        - name: lead_id
+          in: path
+          type: string
+          required: true
+    - name: leadForms
+      path: /leadForms
+      operations:
+      - name: getgetformsforthe
+        method: GET
+        description: LinkedIn 5. Get Forms for the Chosen Sponsored Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: owner
+          in: query
+          type: string
+        - name: count
+          in: query
+          type: integer
+        - name: start
+          in: query
+          type: integer
+    - name: leadNotifications
+      path: /leadNotifications
+      operations:
+      - name: postsubscribeforleadnotification
+        method: POST
+        description: LinkedIn 8. Subscribe for Lead Notification Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: leadnotifications-<webhook id>
+      path: /leadnotifications/<webhook id>
+      operations:
+      - name: deletepushdeletearegistered
+        method: DELETE
+        description: LinkedIn [PUSH] Delete a Registered Webhook by Id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+    - name: organizationAcls
+      path: /organizationAcls
+      operations:
+      - name: getvalidatetheusersorganization
+        method: GET
+        description: LinkedIn 4. Validate the User's Organization Role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: state
+          in: query
+          type: string
+  exposes:
+  - type: rest
+    namespace: marketing-leads-use-cases-sponsored-rest
+    port: 8080
+    description: REST adapter for Lead Sync — Use Cases > Sponsored. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/adaccounts
+      name: adaccounts
+      description: REST surface for adAccounts.
+      operations:
+      - method: GET
+        name: getgettheuserssponsored
+        description: LinkedIn 2. Get the User's Sponsored Accounts (ad Accounts)
+        call: marketing-leads-use-cases-sponsored.getgettheuserssponsored
+        with:
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          LinkedIn-Version: rest.LinkedIn-Version
+          q: rest.q
+          search: rest.search
+          fields: rest.fields
+          count: rest.count
+          start: rest.start
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/leadformresponses
+      name: leadformresponses
+      description: REST surface for leadFormResponses.
+      operations:
+      - method: GET
+        name: getscheduleperiodicformresponse
+        description: LinkedIn 8. Schedule Periodic Form Response (lead) Pulls
+        call: marketing-leads-use-cases-sponsored.getscheduleperiodicformresponse
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          q: rest.q
+          owner: rest.owner
+          leadType: rest.leadType
+          limitedToTestLeads: rest.limitedToTestLeads
+          submittedAtTimeRange: rest.submittedAtTimeRange
+          fields: rest.fields
+          count: rest.count
+          start: rest.start
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/leadformresponses/{lead-id}
+      name: leadformresponses-lead-id
+      description: REST surface for leadFormResponses-lead_id.
+      operations:
+      - method: GET
+        name: getfetchfullleaddata
+        description: LinkedIn 9. Fetch Full Lead Data After a Lead Notification is Received
+        call: marketing-leads-use-cases-sponsored.getfetchfullleaddata
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          fields: rest.fields
+          lead_id: rest.lead_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/leadforms
+      name: leadforms
+      description: REST surface for leadForms.
+      operations:
+      - method: GET
+        name: getgetformsforthe
+        description: LinkedIn 5. Get Forms for the Chosen Sponsored Account
+        call: marketing-leads-use-cases-sponsored.getgetformsforthe
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          q: rest.q
+          owner: rest.owner
+          count: rest.count
+          start: rest.start
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/leadnotifications
+      name: leadnotifications
+      description: REST surface for leadNotifications.
+      operations:
+      - method: POST
+        name: postsubscribeforleadnotification
+        description: LinkedIn 8. Subscribe for Lead Notification Webhooks
+        call: marketing-leads-use-cases-sponsored.postsubscribeforleadnotification
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/leadnotifications/webhook-id
+      name: leadnotifications-webhook-id
+      description: REST surface for leadnotifications-<webhook id>.
+      operations:
+      - method: DELETE
+        name: deletepushdeletearegistered
+        description: LinkedIn [PUSH] Delete a Registered Webhook by Id
+        call: marketing-leads-use-cases-sponsored.deletepushdeletearegistered
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/organizationacls
+      name: organizationacls
+      description: REST surface for organizationAcls.
+      operations:
+      - method: GET
+        name: getvalidatetheusersorganization
+        description: LinkedIn 4. Validate the User's Organization Role
+        call: marketing-leads-use-cases-sponsored.getvalidatetheusersorganization
+        with:
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          LinkedIn-Version: rest.LinkedIn-Version
+          q: rest.q
+          state: rest.state
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-leads-use-cases-sponsored-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Lead Sync — Use Cases > Sponsored. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: linkedin-2-get-user-s-sponsored
+      description: LinkedIn 2. Get the User's Sponsored Accounts (ad Accounts)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads-use-cases-sponsored.getgettheuserssponsored
+      with:
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        LinkedIn-Version: tools.LinkedIn-Version
+        q: tools.q
+        search: tools.search
+        fields: tools.fields
+        count: tools.count
+        start: tools.start
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-8-schedule-periodic-form
+      description: LinkedIn 8. Schedule Periodic Form Response (lead) Pulls
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads-use-cases-sponsored.getscheduleperiodicformresponse
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        q: tools.q
+        owner: tools.owner
+        leadType: tools.leadType
+        limitedToTestLeads: tools.limitedToTestLeads
+        submittedAtTimeRange: tools.submittedAtTimeRange
+        fields: tools.fields
+        count: tools.count
+        start: tools.start
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-9-fetch-full-lead
+      description: LinkedIn 9. Fetch Full Lead Data After a Lead Notification is Received
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads-use-cases-sponsored.getfetchfullleaddata
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        fields: tools.fields
+        lead_id: tools.lead_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-5-get-forms-chosen
+      description: LinkedIn 5. Get Forms for the Chosen Sponsored Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads-use-cases-sponsored.getgetformsforthe
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        q: tools.q
+        owner: tools.owner
+        count: tools.count
+        start: tools.start
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-8-subscribe-lead-notification
+      description: LinkedIn 8. Subscribe for Lead Notification Webhooks
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-leads-use-cases-sponsored.postsubscribeforleadnotification
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-push-delete-registered-webhook
+      description: LinkedIn [PUSH] Delete a Registered Webhook by Id
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: marketing-leads-use-cases-sponsored.deletepushdeletearegistered
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-4-validate-user-s-organization
+      description: LinkedIn 4. Validate the User's Organization Role
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-leads-use-cases-sponsored.getvalidatetheusersorganization
+      with:
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        LinkedIn-Version: tools.LinkedIn-Version
+        q: tools.q
+        state: tools.state
+      outputParameters:
+      - type: object
+        mapping: $.

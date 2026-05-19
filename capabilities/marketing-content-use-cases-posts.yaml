@@ -1,0 +1,170 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Content APIs — Use Cases > Posts
+  description: 'Content APIs — Use Cases > Posts. 3 operations. Lead operation: LinkedIn Get Posts by URN. Self-contained
+    Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Use Cases > Posts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-content-use-cases-posts
+    baseUri: https://api.linkedin.com
+    description: Content APIs — Use Cases > Posts business capability. Self-contained, no shared references.
+    resources:
+    - name: posts-encoded ugcPostUrn|shareUrn
+      path: /posts/{encoded ugcPostUrn|shareUrn}
+      operations:
+      - name: getgetpostsbyurn
+        method: GET
+        description: LinkedIn Get Posts by URN
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+      - name: deletedeleteapost
+        method: DELETE
+        description: LinkedIn Delete a Post
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+    - name: posts-shared ID-ugcPosts ID
+      path: /posts/{shared ID}/{ugcPosts ID}
+      operations:
+      - name: postupdateapost
+        method: POST
+        description: LinkedIn Update a Post
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: marketing-content-use-cases-posts-rest
+    port: 8080
+    description: REST adapter for Content APIs — Use Cases > Posts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/posts/{encoded-ugcposturn-shareurn}
+      name: posts-encoded-ugcposturn-shareurn
+      description: REST surface for posts-encoded ugcPostUrn|shareUrn.
+      operations:
+      - method: GET
+        name: getgetpostsbyurn
+        description: LinkedIn Get Posts by URN
+        call: marketing-content-use-cases-posts.getgetpostsbyurn
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedeleteapost
+        description: LinkedIn Delete a Post
+        call: marketing-content-use-cases-posts.deletedeleteapost
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/posts/{shared-id}/{ugcposts-id}
+      name: posts-shared-id-ugcposts-id
+      description: REST surface for posts-shared ID-ugcPosts ID.
+      operations:
+      - method: POST
+        name: postupdateapost
+        description: LinkedIn Update a Post
+        call: marketing-content-use-cases-posts.postupdateapost
+        with:
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          LinkedIn-Version: rest.LinkedIn-Version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-content-use-cases-posts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Content APIs — Use Cases > Posts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: linkedin-get-posts-urn
+      description: LinkedIn Get Posts by URN
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-content-use-cases-posts.getgetpostsbyurn
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-delete-post
+      description: LinkedIn Delete a Post
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: marketing-content-use-cases-posts.deletedeleteapost
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-update-post
+      description: LinkedIn Update a Post
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-content-use-cases-posts.postupdateapost
+      with:
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        LinkedIn-Version: tools.LinkedIn-Version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

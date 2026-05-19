@@ -1,0 +1,227 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Community Management — Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push
+    Workflow
+  description: 'Community Management — Use Cases > Social Actions Notifications > Organization Social Actions Notifications
+    - Push Workflow. 3 operations. Lead operation: LinkedIn 3. Create a Subscription Request. Self-contained Naftiko capability
+    covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow
+    baseUri: https://api.linkedin.com
+    description: Community Management — Use Cases > Social Actions Notifications > Organization Social Actions Notifications
+      - Push Workflow business capability. Self-contained, no shared references.
+    resources:
+    - name: eventSubscriptions-(developerApplication:urn:li:developerApplication:{applicatio
+      path: /eventSubscriptions/(developerApplication:urn:li:developerApplication:{application_id},user:urn:li:person:{person_id},entity:urn:li:organization:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)
+      operations:
+      - name: putcreateasubscriptionrequest
+        method: PUT
+        description: LinkedIn 3. Create a Subscription Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: Linkedin-Version
+          in: header
+          type: string
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - name: person_id
+          in: path
+          type: string
+          required: true
+        - name: organization_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: getretrievesubscriptionbykey
+        method: GET
+        description: LinkedIn 5. Retrieve Subscription by Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - name: person_id
+          in: path
+          type: string
+          required: true
+        - name: organization_id
+          in: path
+          type: string
+          required: true
+    - name: eventSubscriptions-(developerApplication:{application_id},user:{person_id},entit
+      path: /eventSubscriptions/(developerApplication:{application_id},user:{person_id},entity:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)
+      operations:
+      - name: deleteremoveasubscription
+        method: DELETE
+        description: LinkedIn 6. Remove a Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - name: person_id
+          in: path
+          type: string
+          required: true
+        - name: organization_id
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow-rest
+    port: 8080
+    description: REST adapter for Community Management — Use Cases > Social Actions Notifications > Organization Social Actions
+      Notifications - Push Workflow. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/eventsubscriptions/developerapplication-urn-li-developerapplication-application-id-user-urn-li-person-person-id-entity-urn-li-organization-organization-id-eventtype-organization-social-action-notifications
+      name: eventsubscriptions-developerapplication-urn-li-developerapplication-applicatio
+      description: REST surface for eventSubscriptions-(developerApplication:urn:li:developerApplication:{applicatio.
+      operations:
+      - method: PUT
+        name: putcreateasubscriptionrequest
+        description: LinkedIn 3. Create a Subscription Request
+        call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow.putcreateasubscriptionrequest
+        with:
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          Linkedin-Version: rest.Linkedin-Version
+          application_id: rest.application_id
+          person_id: rest.person_id
+          organization_id: rest.organization_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getretrievesubscriptionbykey
+        description: LinkedIn 5. Retrieve Subscription by Key
+        call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow.getretrievesubscriptionbykey
+        with:
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          LinkedIn-Version: rest.LinkedIn-Version
+          application_id: rest.application_id
+          person_id: rest.person_id
+          organization_id: rest.organization_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/eventsubscriptions/developerapplication-application-id-user-person-id-entity-organization-id-eventtype-organization-social-action-notifications
+      name: eventsubscriptions-developerapplication-application-id-user-person-id-entit
+      description: REST surface for eventSubscriptions-(developerApplication:{application_id},user:{person_id},entit.
+      operations:
+      - method: DELETE
+        name: deleteremoveasubscription
+        description: LinkedIn 6. Remove a Subscription
+        call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow.deleteremoveasubscription
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          application_id: rest.application_id
+          person_id: rest.person_id
+          organization_id: rest.organization_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Community Management — Use Cases > Social Actions Notifications > Organization Social Actions
+      Notifications - Push Workflow. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-3-create-subscription-request
+      description: LinkedIn 3. Create a Subscription Request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow.putcreateasubscriptionrequest
+      with:
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        Linkedin-Version: tools.Linkedin-Version
+        application_id: tools.application_id
+        person_id: tools.person_id
+        organization_id: tools.organization_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-5-retrieve-subscription-key
+      description: LinkedIn 5. Retrieve Subscription by Key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow.getretrievesubscriptionbykey
+      with:
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        LinkedIn-Version: tools.LinkedIn-Version
+        application_id: tools.application_id
+        person_id: tools.person_id
+        organization_id: tools.organization_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-6-remove-subscription
+      description: LinkedIn 6. Remove a Subscription
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: marketing-community-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow.deleteremoveasubscription
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        application_id: tools.application_id
+        person_id: tools.person_id
+        organization_id: tools.organization_id
+      outputParameters:
+      - type: object
+        mapping: $.

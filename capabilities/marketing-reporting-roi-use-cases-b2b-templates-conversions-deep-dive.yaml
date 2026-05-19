@@ -1,0 +1,116 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Reporting & ROI — Use Cases > B2B Templates > Conversions Deep Dive
+  description: 'Reporting & ROI — Use Cases > B2B Templates > Conversions Deep Dive. 1 operations. Lead operation: LinkedIn
+    Conversions by Member Company Size. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Use Cases > B2B Templates > Conversions Deep Dive
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-reporting-roi-use-cases-b2b-templates-conversions-deep-dive
+    baseUri: https://api.linkedin.com
+    description: Reporting & ROI — Use Cases > B2B Templates > Conversions Deep Dive business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: adAnalytics
+      path: /adAnalytics
+      operations:
+      - name: getconversionsbymembercompany
+        method: GET
+        description: LinkedIn Conversions by Member Company Size
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: Authorization
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: pivot
+          in: query
+          type: string
+        - name: dateRange
+          in: query
+          type: string
+        - name: timeGranularity
+          in: query
+          type: string
+        - name: accounts
+          in: query
+          type: string
+        - name: fields
+          in: query
+          type: string
+  exposes:
+  - type: rest
+    namespace: marketing-reporting-roi-use-cases-b2b-templates-conversions-deep-dive-rest
+    port: 8080
+    description: REST adapter for Reporting & ROI — Use Cases > B2B Templates > Conversions Deep Dive. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/adanalytics
+      name: adanalytics
+      description: REST surface for adAnalytics.
+      operations:
+      - method: GET
+        name: getconversionsbymembercompany
+        description: LinkedIn Conversions by Member Company Size
+        call: marketing-reporting-roi-use-cases-b2b-templates-conversions-deep-dive.getconversionsbymembercompany
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          Authorization: rest.Authorization
+          q: rest.q
+          pivot: rest.pivot
+          dateRange: rest.dateRange
+          timeGranularity: rest.timeGranularity
+          accounts: rest.accounts
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-reporting-roi-use-cases-b2b-templates-conversions-deep-dive-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Reporting & ROI — Use Cases > B2B Templates > Conversions Deep Dive. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-conversions-member-company-size
+      description: LinkedIn Conversions by Member Company Size
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-reporting-roi-use-cases-b2b-templates-conversions-deep-dive.getconversionsbymembercompany
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        Authorization: tools.Authorization
+        q: tools.q
+        pivot: tools.pivot
+        dateRange: tools.dateRange
+        timeGranularity: tools.timeGranularity
+        accounts: tools.accounts
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.

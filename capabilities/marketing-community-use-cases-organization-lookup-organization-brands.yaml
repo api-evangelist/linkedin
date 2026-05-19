@@ -1,0 +1,233 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Community Management — Use Cases > Organization Lookup > Organization Brands
+  description: 'Community Management — Use Cases > Organization Lookup > Organization Brands. 4 operations. Lead operation:
+    LinkedIn Batch GET on Administered Organization Brands. Self-contained Naftiko capability covering one Linkedin business
+    surface.'
+  tags:
+  - Linkedin
+  - Use Cases > Organization Lookup > Organization Brands
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-community-use-cases-organization-lookup-organization-brands
+    baseUri: https://api.linkedin.com
+    description: Community Management — Use Cases > Organization Lookup > Organization Brands business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: organizationBrands
+      path: /organizationBrands
+      operations:
+      - name: getbatchgetonadministered
+        method: GET
+        description: LinkedIn Batch GET on Administered Organization Brands
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: ids
+          in: query
+          type: string
+    - name: organizationBrands-organizationBrand_id
+      path: /organizationBrands/{organizationBrand_id}
+      operations:
+      - name: getretrieveanadministeredorganization
+        method: GET
+        description: LinkedIn Retrieve an Administered Organization Brand
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: organizationBrand_id
+          in: path
+          type: string
+          required: true
+    - name: organizationBrandsLookup
+      path: /organizationBrandsLookup
+      operations:
+      - name: getbatchgetonnonadministered
+        method: GET
+        description: LinkedIn Batch GET on Non-Administered Organization Brands
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: ids
+          in: query
+          type: string
+    - name: organizations
+      path: /organizations
+      operations:
+      - name: getfindadministeredorganizationbrands
+        method: GET
+        description: LinkedIn Find Administered Organization Brands by Parent Org
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: parent
+          in: query
+          type: string
+  exposes:
+  - type: rest
+    namespace: marketing-community-use-cases-organization-lookup-organization-brands-rest
+    port: 8080
+    description: REST adapter for Community Management — Use Cases > Organization Lookup > Organization Brands. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/organizationbrands
+      name: organizationbrands
+      description: REST surface for organizationBrands.
+      operations:
+      - method: GET
+        name: getbatchgetonadministered
+        description: LinkedIn Batch GET on Administered Organization Brands
+        call: marketing-community-use-cases-organization-lookup-organization-brands.getbatchgetonadministered
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          ids: rest.ids
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/organizationbrands/{organizationbrand-id}
+      name: organizationbrands-organizationbrand-id
+      description: REST surface for organizationBrands-organizationBrand_id.
+      operations:
+      - method: GET
+        name: getretrieveanadministeredorganization
+        description: LinkedIn Retrieve an Administered Organization Brand
+        call: marketing-community-use-cases-organization-lookup-organization-brands.getretrieveanadministeredorganization
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          organizationBrand_id: rest.organizationBrand_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/organizationbrandslookup
+      name: organizationbrandslookup
+      description: REST surface for organizationBrandsLookup.
+      operations:
+      - method: GET
+        name: getbatchgetonnonadministered
+        description: LinkedIn Batch GET on Non-Administered Organization Brands
+        call: marketing-community-use-cases-organization-lookup-organization-brands.getbatchgetonnonadministered
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          ids: rest.ids
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/organizations
+      name: organizations
+      description: REST surface for organizations.
+      operations:
+      - method: GET
+        name: getfindadministeredorganizationbrands
+        description: LinkedIn Find Administered Organization Brands by Parent Org
+        call: marketing-community-use-cases-organization-lookup-organization-brands.getfindadministeredorganizationbrands
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          q: rest.q
+          parent: rest.parent
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-community-use-cases-organization-lookup-organization-brands-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Community Management — Use Cases > Organization Lookup > Organization Brands. One tool per
+      consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-batch-get-administered-organization
+      description: LinkedIn Batch GET on Administered Organization Brands
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-organization-lookup-organization-brands.getbatchgetonadministered
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        ids: tools.ids
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-retrieve-administered-organization-brand
+      description: LinkedIn Retrieve an Administered Organization Brand
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-organization-lookup-organization-brands.getretrieveanadministeredorganization
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        organizationBrand_id: tools.organizationBrand_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-batch-get-non-administered
+      description: LinkedIn Batch GET on Non-Administered Organization Brands
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-organization-lookup-organization-brands.getbatchgetonnonadministered
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        ids: tools.ids
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-find-administered-organization-brands
+      description: LinkedIn Find Administered Organization Brands by Parent Org
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-organization-lookup-organization-brands.getfindadministeredorganizationbrands
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        q: tools.q
+        parent: tools.parent
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,193 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Community Management — Use Cases > Organization Lookup > Organizations
+  description: 'Community Management — Use Cases > Organization Lookup > Organizations. 3 operations. Lead operation: LinkedIn
+    Retrieve Organization Follower Count. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Use Cases > Organization Lookup > Organizations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-community-use-cases-organization-lookup-organizations
+    baseUri: https://api.linkedin.com
+    description: Community Management — Use Cases > Organization Lookup > Organizations business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: networkSizes-urn:li:organization:{organization_id}
+      path: /networkSizes/urn:li:organization:{organization_id}
+      operations:
+      - name: getretrieveorganizationfollowercount
+        method: GET
+        description: LinkedIn Retrieve Organization Follower Count
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: edgeType
+          in: query
+          type: string
+        - name: organization_id
+          in: path
+          type: string
+          required: true
+    - name: organizations-organization_id
+      path: /organizations/{organization_id}
+      operations:
+      - name: getlookupbyorganizationprimary
+        method: GET
+        description: LinkedIn Lookup by Organization Primary Type
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: projection
+          in: query
+          type: string
+        - name: organization_id
+          in: path
+          type: string
+          required: true
+    - name: organizationsLookup
+      path: /organizationsLookup
+      operations:
+      - name: getfindnonadministeredorganization
+        method: GET
+        description: LinkedIn Find Non-Administered Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: ids
+          in: query
+          type: string
+  exposes:
+  - type: rest
+    namespace: marketing-community-use-cases-organization-lookup-organizations-rest
+    port: 8080
+    description: REST adapter for Community Management — Use Cases > Organization Lookup > Organizations. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/networksizes/urn-li-organization-organization-id
+      name: networksizes-urn-li-organization-organization-id
+      description: REST surface for networkSizes-urn:li:organization:{organization_id}.
+      operations:
+      - method: GET
+        name: getretrieveorganizationfollowercount
+        description: LinkedIn Retrieve Organization Follower Count
+        call: marketing-community-use-cases-organization-lookup-organizations.getretrieveorganizationfollowercount
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          edgeType: rest.edgeType
+          organization_id: rest.organization_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/organizations/{organization-id}
+      name: organizations-organization-id
+      description: REST surface for organizations-organization_id.
+      operations:
+      - method: GET
+        name: getlookupbyorganizationprimary
+        description: LinkedIn Lookup by Organization Primary Type
+        call: marketing-community-use-cases-organization-lookup-organizations.getlookupbyorganizationprimary
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          projection: rest.projection
+          organization_id: rest.organization_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/organizationslookup
+      name: organizationslookup
+      description: REST surface for organizationsLookup.
+      operations:
+      - method: GET
+        name: getfindnonadministeredorganization
+        description: LinkedIn Find Non-Administered Organization
+        call: marketing-community-use-cases-organization-lookup-organizations.getfindnonadministeredorganization
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          ids: rest.ids
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-community-use-cases-organization-lookup-organizations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Community Management — Use Cases > Organization Lookup > Organizations. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-retrieve-organization-follower-count
+      description: LinkedIn Retrieve Organization Follower Count
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-organization-lookup-organizations.getretrieveorganizationfollowercount
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        edgeType: tools.edgeType
+        organization_id: tools.organization_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-lookup-organization-primary-type
+      description: LinkedIn Lookup by Organization Primary Type
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-organization-lookup-organizations.getlookupbyorganizationprimary
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        projection: tools.projection
+        organization_id: tools.organization_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-find-non-administered-organization
+      description: LinkedIn Find Non-Administered Organization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-community-use-cases-organization-lookup-organizations.getfindnonadministeredorganization
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        ids: tools.ids
+      outputParameters:
+      - type: object
+        mapping: $.

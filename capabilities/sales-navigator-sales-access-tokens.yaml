@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Sales Navigator API — Sales Access Tokens
+  description: 'LinkedIn Sales Navigator API — Sales Access Tokens. 1 operations. Lead operation: LinkedIn Retrieve Sales
+    Access Token for Authenticated Iframe Sessions. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Sales Access Tokens
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sales-navigator-sales-access-tokens
+    baseUri: https://api.linkedin.com/v2
+    description: LinkedIn Sales Navigator API — Sales Access Tokens business capability. Self-contained, no shared references.
+    resources:
+    - name: salesAccessTokens
+      path: /salesAccessTokens
+      operations:
+      - name: getsalesaccesstoken
+        method: GET
+        description: LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          description: Query parameter for retrieving a Sales Access Token
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: sales-navigator-sales-access-tokens-rest
+    port: 8080
+    description: REST adapter for LinkedIn Sales Navigator API — Sales Access Tokens. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/salesaccesstokens
+      name: salesaccesstokens
+      description: REST surface for salesAccessTokens.
+      operations:
+      - method: GET
+        name: getsalesaccesstoken
+        description: LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions
+        call: sales-navigator-sales-access-tokens.getsalesaccesstoken
+        with:
+          q: rest.q
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sales-navigator-sales-access-tokens-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Sales Navigator API — Sales Access Tokens. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: linkedin-retrieve-sales-access-token
+      description: LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sales-navigator-sales-access-tokens.getsalesaccesstoken
+      with:
+        q: tools.q
+      outputParameters:
+      - type: object
+        mapping: $.

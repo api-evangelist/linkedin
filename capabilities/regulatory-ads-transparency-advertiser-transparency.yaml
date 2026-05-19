@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Ads Transparency API — Advertiser Transparency
+  description: 'LinkedIn Ads Transparency API — Advertiser Transparency. 1 operations. Lead operation: LinkedIn Get Advertiser
+    Transparency Data. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Advertiser Transparency
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: regulatory-ads-transparency-advertiser-transparency
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Ads Transparency API — Advertiser Transparency business capability. Self-contained, no shared references.
+    resources:
+    - name: rest-advertiserTransparencyData-urn:li:sponsoredAccount:{sponsoredaccount_id}
+      path: /rest/advertiserTransparencyData/urn:li:sponsoredAccount:{sponsoredaccount_id}
+      operations:
+      - name: getadvertisertransparencydata
+        method: GET
+        description: LinkedIn Get Advertiser Transparency Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: regulatory-ads-transparency-advertiser-transparency-rest
+    port: 8080
+    description: REST adapter for LinkedIn Ads Transparency API — Advertiser Transparency. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/advertisertransparencydata/urn-li-sponsoredaccount-sponsoredaccount-id
+      name: rest-advertisertransparencydata-urn-li-sponsoredaccount-sponsoredaccount-id
+      description: REST surface for rest-advertiserTransparencyData-urn:li:sponsoredAccount:{sponsoredaccount_id}.
+      operations:
+      - method: GET
+        name: getadvertisertransparencydata
+        description: LinkedIn Get Advertiser Transparency Data
+        call: regulatory-ads-transparency-advertiser-transparency.getadvertisertransparencydata
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: regulatory-ads-transparency-advertiser-transparency-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Ads Transparency API — Advertiser Transparency. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-get-advertiser-transparency-data
+      description: LinkedIn Get Advertiser Transparency Data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: regulatory-ads-transparency-advertiser-transparency.getadvertisertransparencydata
+      outputParameters:
+      - type: object
+        mapping: $.

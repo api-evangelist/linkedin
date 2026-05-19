@@ -1,0 +1,132 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Recruiter System Connect API — Data Retrieval
+  description: 'LinkedIn Recruiter System Connect API — Data Retrieval. 2 operations. Lead operation: LinkedIn Get Exported
+    Candidate Profile. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Data Retrieval
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: talent-recruiter-system-connect-data-retrieval
+    baseUri: https://api.linkedin.com
+    description: LinkedIn Recruiter System Connect API — Data Retrieval business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-exportedCandidates
+      path: /v2/exportedCandidates
+      operations:
+      - name: getexportedcandidates
+        method: GET
+        description: LinkedIn Get Exported Candidate Profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-seats
+      path: /v2/seats
+      operations:
+      - name: getrecruiterseatholders
+        method: GET
+        description: LinkedIn Retrieve Recruiter Seatholders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: true
+        - name: active
+          in: query
+          type: boolean
+        - name: contracts
+          in: query
+          type: string
+          required: true
+        - name: start
+          in: query
+          type: integer
+        - name: count
+          in: query
+          type: integer
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: talent-recruiter-system-connect-data-retrieval-rest
+    port: 8080
+    description: REST adapter for LinkedIn Recruiter System Connect API — Data Retrieval. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/exportedcandidates
+      name: v2-exportedcandidates
+      description: REST surface for v2-exportedCandidates.
+      operations:
+      - method: GET
+        name: getexportedcandidates
+        description: LinkedIn Get Exported Candidate Profile
+        call: talent-recruiter-system-connect-data-retrieval.getexportedcandidates
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/seats
+      name: v2-seats
+      description: REST surface for v2-seats.
+      operations:
+      - method: GET
+        name: getrecruiterseatholders
+        description: LinkedIn Retrieve Recruiter Seatholders
+        call: talent-recruiter-system-connect-data-retrieval.getrecruiterseatholders
+        with:
+          q: rest.q
+          active: rest.active
+          contracts: rest.contracts
+          start: rest.start
+          count: rest.count
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: talent-recruiter-system-connect-data-retrieval-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Recruiter System Connect API — Data Retrieval. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: linkedin-get-exported-candidate-profile
+      description: LinkedIn Get Exported Candidate Profile
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: talent-recruiter-system-connect-data-retrieval.getexportedcandidates
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-retrieve-recruiter-seatholders
+      description: LinkedIn Retrieve Recruiter Seatholders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: talent-recruiter-system-connect-data-retrieval.getrecruiterseatholders
+      with:
+        q: tools.q
+        active: tools.active
+        contracts: tools.contracts
+        start: tools.start
+        count: tools.count
+      outputParameters:
+      - type: object
+        mapping: $.

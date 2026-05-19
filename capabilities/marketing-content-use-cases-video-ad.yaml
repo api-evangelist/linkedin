@@ -1,0 +1,193 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Content APIs — Use Cases > Video Ad
+  description: 'Content APIs — Use Cases > Video Ad. 3 operations. Lead operation: LinkedIn Get Multiple Videos. Self-contained
+    Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Use Cases > Video Ad
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-content-use-cases-video-ad
+    baseUri: https://api.linkedin.com
+    description: Content APIs — Use Cases > Video Ad business capability. Self-contained, no shared references.
+    resources:
+    - name: images
+      path: /images
+      operations:
+      - name: getgetmultiplevideos
+        method: GET
+        description: LinkedIn Get Multiple Videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: ids
+          in: query
+          type: string
+    - name: images-image_urn
+      path: /images/{image_urn}
+      operations:
+      - name: getgetasinglevideo
+        method: GET
+        description: LinkedIn Get a Single Video
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: image_urn
+          in: path
+          type: string
+          required: true
+    - name: videos
+      path: /videos
+      operations:
+      - name: postinitializevideoupload
+        method: POST
+        description: LinkedIn Initialize Video Upload
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: action
+          in: query
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: marketing-content-use-cases-video-ad-rest
+    port: 8080
+    description: REST adapter for Content APIs — Use Cases > Video Ad. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/images
+      name: images
+      description: REST surface for images.
+      operations:
+      - method: GET
+        name: getgetmultiplevideos
+        description: LinkedIn Get Multiple Videos
+        call: marketing-content-use-cases-video-ad.getgetmultiplevideos
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          ids: rest.ids
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/images/{image-urn}
+      name: images-image-urn
+      description: REST surface for images-image_urn.
+      operations:
+      - method: GET
+        name: getgetasinglevideo
+        description: LinkedIn Get a Single Video
+        call: marketing-content-use-cases-video-ad.getgetasinglevideo
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          image_urn: rest.image_urn
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/videos
+      name: videos
+      description: REST surface for videos.
+      operations:
+      - method: POST
+        name: postinitializevideoupload
+        description: LinkedIn Initialize Video Upload
+        call: marketing-content-use-cases-video-ad.postinitializevideoupload
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          action: rest.action
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-content-use-cases-video-ad-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Content APIs — Use Cases > Video Ad. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: linkedin-get-multiple-videos
+      description: LinkedIn Get Multiple Videos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-content-use-cases-video-ad.getgetmultiplevideos
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        ids: tools.ids
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-get-single-video
+      description: LinkedIn Get a Single Video
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-content-use-cases-video-ad.getgetasinglevideo
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        image_urn: tools.image_urn
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-initialize-video-upload
+      description: LinkedIn Initialize Video Upload
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-content-use-cases-video-ad.postinitializevideoupload
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        action: tools.action
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

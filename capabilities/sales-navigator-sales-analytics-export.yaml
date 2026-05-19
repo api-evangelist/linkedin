@@ -1,0 +1,136 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LinkedIn Sales Navigator API — Sales Analytics Export
+  description: 'LinkedIn Sales Navigator API — Sales Analytics Export. 2 operations. Lead operation: LinkedIn Create New Sales
+    Analytics Export Job. Self-contained Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Sales Analytics Export
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sales-navigator-sales-analytics-export
+    baseUri: https://api.linkedin.com/v2
+    description: LinkedIn Sales Navigator API — Sales Analytics Export business capability. Self-contained, no shared references.
+    resources:
+    - name: salesAnalyticsExportJobs
+      path: /salesAnalyticsExportJobs
+      operations:
+      - name: createsalesanalyticsexportjob
+        method: POST
+        description: LinkedIn Create New Sales Analytics Export Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: action
+          in: query
+          type: string
+          description: The type of export job to create
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: salesAnalyticsExportJobs-JobId
+      path: /salesAnalyticsExportJobs/{JobId}
+      operations:
+      - name: getsalesanalyticsexportjob
+        method: GET
+        description: LinkedIn Fetch Sales Analytics Export Job by Id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: JobId
+          in: path
+          type: integer
+          description: The ID of the export job
+          required: true
+        - name: contract
+          in: query
+          type: string
+          description: Sales Navigator contract URN
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LINKEDIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: sales-navigator-sales-analytics-export-rest
+    port: 8080
+    description: REST adapter for LinkedIn Sales Navigator API — Sales Analytics Export. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/salesanalyticsexportjobs
+      name: salesanalyticsexportjobs
+      description: REST surface for salesAnalyticsExportJobs.
+      operations:
+      - method: POST
+        name: createsalesanalyticsexportjob
+        description: LinkedIn Create New Sales Analytics Export Job
+        call: sales-navigator-sales-analytics-export.createsalesanalyticsexportjob
+        with:
+          action: rest.action
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/salesanalyticsexportjobs/{jobid}
+      name: salesanalyticsexportjobs-jobid
+      description: REST surface for salesAnalyticsExportJobs-JobId.
+      operations:
+      - method: GET
+        name: getsalesanalyticsexportjob
+        description: LinkedIn Fetch Sales Analytics Export Job by Id
+        call: sales-navigator-sales-analytics-export.getsalesanalyticsexportjob
+        with:
+          JobId: rest.JobId
+          contract: rest.contract
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sales-navigator-sales-analytics-export-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LinkedIn Sales Navigator API — Sales Analytics Export. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: linkedin-create-new-sales-analytics
+      description: LinkedIn Create New Sales Analytics Export Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sales-navigator-sales-analytics-export.createsalesanalyticsexportjob
+      with:
+        action: tools.action
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-fetch-sales-analytics-export
+      description: LinkedIn Fetch Sales Analytics Export Job by Id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sales-navigator-sales-analytics-export.getsalesanalyticsexportjob
+      with:
+        JobId: tools.JobId
+        contract: tools.contract
+      outputParameters:
+      - type: object
+        mapping: $.

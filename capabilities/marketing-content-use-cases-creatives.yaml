@@ -1,0 +1,271 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Content APIs — Use Cases > Creatives
+  description: 'Content APIs — Use Cases > Creatives. 4 operations. Lead operation: LinkedIn Search for Creative. Self-contained
+    Naftiko capability covering one Linkedin business surface.'
+  tags:
+  - Linkedin
+  - Use Cases > Creatives
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LINKEDIN_API_KEY: LINKEDIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-content-use-cases-creatives
+    baseUri: https://api.linkedin.com
+    description: Content APIs — Use Cases > Creatives business capability. Self-contained, no shared references.
+    resources:
+    - name: creatives
+      path: /creatives
+      operations:
+      - name: getsearchforcreative
+        method: GET
+        description: LinkedIn Search for Creative
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: accounts
+          in: query
+          type: string
+        - name: campaigns
+          in: query
+          type: string
+        - name: contentReferences
+          in: query
+          type: string
+        - name: creatives
+          in: query
+          type: string
+        - name: intendedStatuses
+          in: query
+          type: string
+        - name: isTestAccount
+          in: query
+          type: boolean
+        - name: isTotalIncluded
+          in: query
+          type: boolean
+        - name: leadgenCreativeCallToActionDestinations
+          in: query
+          type: string
+        - name: q
+          in: query
+          type: string
+        - name: sortOrder
+          in: query
+          type: string
+    - name: creatives-creative ID
+      path: /creatives/{creative ID}
+      operations:
+      - name: postupdateacreative
+        method: POST
+        description: LinkedIn Update a Creative
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletedeleteacreative
+        method: DELETE
+        description: LinkedIn Delete a Creative
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+    - name: creatives-urn_creatives
+      path: /creatives/{urn_creatives}
+      operations:
+      - name: getgetasponsoredcreative
+        method: GET
+        description: LinkedIn Get a Sponsored Creative
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LinkedIn-Version
+          in: header
+          type: string
+        - name: X-Restli-Protocol-Version
+          in: header
+          type: string
+        - name: urn_creatives
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: marketing-content-use-cases-creatives-rest
+    port: 8080
+    description: REST adapter for Content APIs — Use Cases > Creatives. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/creatives
+      name: creatives
+      description: REST surface for creatives.
+      operations:
+      - method: GET
+        name: getsearchforcreative
+        description: LinkedIn Search for Creative
+        call: marketing-content-use-cases-creatives.getsearchforcreative
+        with:
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          LinkedIn-Version: rest.LinkedIn-Version
+          accounts: rest.accounts
+          campaigns: rest.campaigns
+          contentReferences: rest.contentReferences
+          creatives: rest.creatives
+          intendedStatuses: rest.intendedStatuses
+          isTestAccount: rest.isTestAccount
+          isTotalIncluded: rest.isTotalIncluded
+          leadgenCreativeCallToActionDestinations: rest.leadgenCreativeCallToActionDestinations
+          q: rest.q
+          sortOrder: rest.sortOrder
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/creatives/{creative-id}
+      name: creatives-creative-id
+      description: REST surface for creatives-creative ID.
+      operations:
+      - method: POST
+        name: postupdateacreative
+        description: LinkedIn Update a Creative
+        call: marketing-content-use-cases-creatives.postupdateacreative
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedeleteacreative
+        description: LinkedIn Delete a Creative
+        call: marketing-content-use-cases-creatives.deletedeleteacreative
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/creatives/{urn-creatives}
+      name: creatives-urn-creatives
+      description: REST surface for creatives-urn_creatives.
+      operations:
+      - method: GET
+        name: getgetasponsoredcreative
+        description: LinkedIn Get a Sponsored Creative
+        call: marketing-content-use-cases-creatives.getgetasponsoredcreative
+        with:
+          LinkedIn-Version: rest.LinkedIn-Version
+          X-Restli-Protocol-Version: rest.X-Restli-Protocol-Version
+          urn_creatives: rest.urn_creatives
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-content-use-cases-creatives-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Content APIs — Use Cases > Creatives. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: linkedin-search-creative
+      description: LinkedIn Search for Creative
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-content-use-cases-creatives.getsearchforcreative
+      with:
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        LinkedIn-Version: tools.LinkedIn-Version
+        accounts: tools.accounts
+        campaigns: tools.campaigns
+        contentReferences: tools.contentReferences
+        creatives: tools.creatives
+        intendedStatuses: tools.intendedStatuses
+        isTestAccount: tools.isTestAccount
+        isTotalIncluded: tools.isTotalIncluded
+        leadgenCreativeCallToActionDestinations: tools.leadgenCreativeCallToActionDestinations
+        q: tools.q
+        sortOrder: tools.sortOrder
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-update-creative
+      description: LinkedIn Update a Creative
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-content-use-cases-creatives.postupdateacreative
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-delete-creative
+      description: LinkedIn Delete a Creative
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: marketing-content-use-cases-creatives.deletedeleteacreative
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkedin-get-sponsored-creative
+      description: LinkedIn Get a Sponsored Creative
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-content-use-cases-creatives.getgetasponsoredcreative
+      with:
+        LinkedIn-Version: tools.LinkedIn-Version
+        X-Restli-Protocol-Version: tools.X-Restli-Protocol-Version
+        urn_creatives: tools.urn_creatives
+      outputParameters:
+      - type: object
+        mapping: $.
