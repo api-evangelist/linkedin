@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AdAccountUser",
+  "title": "AdAccountUser",
+  "type": "object",
+  "properties": {
+    "account": {
+      "type": "string",
+      "description": "URN of the sponsored account",
+      "example": "urn:li:sponsoredAccount:123456"
+    },
+    "user": {
+      "type": "string",
+      "description": "URN of the person",
+      "example": "urn:li:person:ABC123def"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "ACCOUNT_BILLING_ADMIN",
+        "ACCOUNT_MANAGER",
+        "CAMPAIGN_MANAGER",
+        "CREATIVE_MANAGER",
+        "VIEWER"
+      ],
+      "description": "Role of the user in the account",
+      "example": "VIEWER"
+    }
+  },
+  "required": [
+    "account",
+    "user",
+    "role"
+  ]
+}

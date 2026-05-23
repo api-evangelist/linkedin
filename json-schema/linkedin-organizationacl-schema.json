@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OrganizationAcl",
+  "title": "OrganizationAcl",
+  "type": "object",
+  "properties": {
+    "organization": {
+      "type": "string",
+      "description": "Organization URN",
+      "example": "urn:li:organization:12345678"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "ADMINISTRATOR",
+        "DIRECT_SPONSORED_CONTENT_POSTER",
+        "RECRUITING_POSTER",
+        "LEAD_GEN_FORMS_MANAGER"
+      ],
+      "description": "Role in the organization",
+      "example": "ADMINISTRATOR"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "REVOKED",
+        "REQUESTED"
+      ],
+      "description": "State of the role assignment",
+      "example": "APPROVED"
+    }
+  }
+}

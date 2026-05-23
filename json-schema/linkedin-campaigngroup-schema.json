@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CampaignGroup",
+  "title": "CampaignGroup",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unique identifier",
+      "example": 111222333
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name",
+      "example": "Q1 2024 Campaign Group"
+    },
+    "account": {
+      "type": "string",
+      "description": "Parent account URN",
+      "example": "urn:li:sponsoredAccount:123456"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED",
+        "CANCELLED",
+        "DRAFT",
+        "PAUSED",
+        "PENDING_DELETION",
+        "REMOVED"
+      ],
+      "description": "Campaign group status",
+      "example": "ACTIVE"
+    },
+    "totalBudget": {
+      "$ref": "#/components/schemas/Budget"
+    },
+    "runSchedule": {
+      "$ref": "#/components/schemas/RunSchedule"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Event",
+  "title": "Event",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "urn:li:event:123456"
+    },
+    "name": {
+      "type": "string",
+      "example": "Annual Tech Conference"
+    },
+    "description": {
+      "type": "string",
+      "example": "Join us for our annual technology showcase"
+    },
+    "organizer": {
+      "type": "string",
+      "example": "urn:li:organization:10002687"
+    },
+    "eventType": {
+      "type": "string",
+      "enum": [
+        "VIRTUAL",
+        "IN_PERSON",
+        "HYBRID"
+      ],
+      "example": "VIRTUAL"
+    },
+    "startAt": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1702693664000
+    },
+    "endAt": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1702780064000
+    },
+    "created": {
+      "$ref": "#/components/schemas/Timestamp"
+    }
+  }
+}

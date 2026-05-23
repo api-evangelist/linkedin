@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ComplianceAuthorization",
+  "title": "ComplianceAuthorization",
+  "type": "object",
+  "properties": {
+    "developerApplication": {
+      "type": "string",
+      "description": "URN of the developer application",
+      "example": "urn:li:developerApplication:12345678"
+    },
+    "member": {
+      "type": "string",
+      "description": "URN of the regulated member",
+      "example": "urn:li:person:ABC123def"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "AUTHORIZED",
+        "UNAUTHORIZED"
+      ],
+      "description": "Authorization status of the member",
+      "example": "AUTHORIZED"
+    },
+    "createdAt": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Timestamp when authorization was created",
+      "example": 1640000000000
+    }
+  },
+  "required": [
+    "developerApplication",
+    "member",
+    "status"
+  ]
+}

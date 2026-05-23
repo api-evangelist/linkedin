@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ForecastAvgLifetimeFrequencyRequest",
+  "title": "ForecastAvgLifetimeFrequencyRequest",
+  "type": "object",
+  "example": {
+    "request": {
+      "sponsoredAccountUrn": "urn:li:sponsoredAccount:{{sponsoredaccount_id}}",
+      "targetingCriteria": {
+        "include": {
+          "and": [
+            {
+              "or": {
+                "urn:li:adTargetingFacet:ageRanges": [
+                  "urn:li:ageRange:(18,24)"
+                ]
+              }
+            },
+            {
+              "or": {
+                "urn:li:adTargetingFacet:locations": [
+                  "urn:li:geo:103644278"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "targetBudgetMicros": 300000000,
+      "optimizationType": "MAX_REACH",
+      "objectiveType": "BRAND_AWARENESS",
+      "enableAudienceExpansion": true,
+      "enableAudienceNetwork": true,
+      "startDateOn": {
+        "day": 1,
+        "month": 4,
+        "year": 2024
+      },
+      "endDateOn": {
+        "day": 1,
+        "month": 5,
+        "year": 2024
+      }
+    }
+  }
+}

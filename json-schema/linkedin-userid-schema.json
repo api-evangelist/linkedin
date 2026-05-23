@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UserId",
+  "title": "UserId",
+  "type": "object",
+  "properties": {
+    "idType": {
+      "type": "string",
+      "enum": [
+        "SHA256_EMAIL",
+        "GOOGLE_AID",
+        "APPLE_IDFA"
+      ],
+      "description": "Type of user identifier",
+      "example": "SHA256_EMAIL"
+    },
+    "idValue": {
+      "type": "string",
+      "description": "Hashed or identifier value",
+      "example": "6b56c85c1ce461e7ef77e3a52f13a6bc09feb93a04ce0670f9909e8ffde01f3a"
+    }
+  },
+  "required": [
+    "idType",
+    "idValue"
+  ]
+}

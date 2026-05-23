@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ResumeUploadRequest",
+  "title": "ResumeUploadRequest",
+  "type": "object",
+  "description": "Request for creating resume upload URL",
+  "properties": {
+    "contentType": {
+      "type": "string",
+      "example": "application/pdf"
+    },
+    "fileName": {
+      "type": "string",
+      "example": "resume.pdf"
+    },
+    "blobTtl": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "type": "integer",
+          "example": 72
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "HOUR",
+            "DAY"
+          ],
+          "example": "HOUR"
+        }
+      }
+    },
+    "hiringContext": {
+      "type": "string",
+      "example": "urn:li:contract:12345"
+    },
+    "usageParameters": {
+      "type": "object",
+      "properties": {
+        "recruiterSystemConnectResumeParameters": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

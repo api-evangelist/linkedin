@@ -1,0 +1,228 @@
+{
+  "provider": "LinkedIn",
+  "providerId": "linkedin",
+  "kind": "json-structure",
+  "description": "Structural overview of the LinkedIn API surface; extracted from openapi/.",
+  "schemaCount": 9,
+  "operationCount": 18,
+  "schemas": [
+    {
+      "name": "CreateAShareWithRequest",
+      "type": "object",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "CreateASubscriptionRequestRequest",
+      "type": "object",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "FindAdministeredOrganizationBrandsResponse200",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "LookupByOrganizationPrimaryResponse200",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "FindNonadministeredOrganizationResponse200",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "RetrieveOrganizationFollowerCountResponse200",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BatchGetOnAdministeredResponse200",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "RetrieveAnAdministeredOrganizationResponse200",
+      "type": "object",
+      "propertyCount": 16,
+      "required": []
+    },
+    {
+      "name": "BatchGetOnNonadministeredResponse200",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/shares",
+      "operationId": "postCreateAShareWith",
+      "summary": "LinkedIn 2. Create a Share with a Company Mention",
+      "tags": [
+        "Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/eventSubscriptions/(developerApplication:urn:li:developerApplication:{application_id},user:urn:li:person:{person_id},entity:urn:li:organization:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
+      "operationId": "getRetrieveSubscriptionByKey",
+      "summary": "LinkedIn 5. Retrieve Subscription by Key",
+      "tags": [
+        "Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/eventSubscriptions/(developerApplication:urn:li:developerApplication:{application_id},user:urn:li:person:{person_id},entity:urn:li:organization:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
+      "operationId": "putCreateASubscriptionRequest",
+      "summary": "LinkedIn 3. Create a Subscription Request",
+      "tags": [
+        "Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/eventSubscriptions",
+      "operationId": "getRetrieveNotificationsForThe",
+      "summary": "LinkedIn 3. Retrieve Notifications for the Authenticated Member's Organization",
+      "tags": [
+        "Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/eventSubscriptions/(developerApplication:{application_id},user:{person_id},entity:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
+      "operationId": "deleteRemoveASubscription",
+      "summary": "LinkedIn 6. Remove a Subscription",
+      "tags": [
+        "Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizationalEntityFollowerStatistics",
+      "operationId": "getTimeboundFollowerStatistics",
+      "summary": "LinkedIn Time-Bound Follower Statistics",
+      "tags": [
+        "Use Cases > Statistics APIs > Organization Follower Statistics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizationPageStatistics",
+      "operationId": "getLifetimePageStatistics",
+      "summary": "LinkedIn Lifetime Page Statistics",
+      "tags": [
+        "Use Cases > Statistics APIs > Organization Page Statistics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizationalEntityShareStatistics",
+      "operationId": "getTimeBoundShareStatistics",
+      "summary": "LinkedIn Time Bound Share Statistics",
+      "tags": [
+        "Use Cases > Statistics APIs > Organization Share Statistics"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/peopleTypeahead",
+      "operationId": "getSearchByKeyword",
+      "summary": "LinkedIn Search by Keyword",
+      "tags": [
+        "Use Cases > Organization Followers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/vanityUrl",
+      "operationId": "getSearchByVanityUrl",
+      "summary": "LinkedIn Search by Vanity URL",
+      "tags": [
+        "Use Cases > Organization Followers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations",
+      "operationId": "getFindAdministeredOrganizationBrands",
+      "summary": "LinkedIn Find Administered Organization Brands by Parent Org",
+      "tags": [
+        "Use Cases > Organization Lookup > Organization Brands"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{organization_id}",
+      "operationId": "getLookupByOrganizationPrimary",
+      "summary": "LinkedIn Lookup by Organization Primary Type",
+      "tags": [
+        "Use Cases > Organization Lookup > Organizations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizationsLookup",
+      "operationId": "getFindNonadministeredOrganization",
+      "summary": "LinkedIn Find Non-Administered Organization",
+      "tags": [
+        "Use Cases > Organization Lookup > Organizations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/networkSizes/urn:li:organization:{organization_id}",
+      "operationId": "getRetrieveOrganizationFollowerCount",
+      "summary": "LinkedIn Retrieve Organization Follower Count",
+      "tags": [
+        "Use Cases > Organization Lookup > Organizations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizationBrands",
+      "operationId": "getBatchGetOnAdministered",
+      "summary": "LinkedIn Batch GET on Administered Organization Brands",
+      "tags": [
+        "Use Cases > Organization Lookup > Organization Brands"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizationBrands/{organizationBrand_id}",
+      "operationId": "getRetrieveAnAdministeredOrganization",
+      "summary": "LinkedIn Retrieve an Administered Organization Brand",
+      "tags": [
+        "Use Cases > Organization Lookup > Organization Brands"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizationBrandsLookup",
+      "operationId": "getBatchGetOnNonadministered",
+      "summary": "LinkedIn Batch GET on Non-Administered Organization Brands",
+      "tags": [
+        "Use Cases > Organization Lookup > Organization Brands"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizationAcls",
+      "operationId": "getFindOrganizationAccessControl",
+      "summary": "LinkedIn Find Organization Access Control",
+      "tags": [
+        "Use Cases > Organization Access Controls"
+      ]
+    }
+  ]
+}

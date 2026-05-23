@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccessTokenRequest",
+  "title": "AccessTokenRequest",
+  "type": "object",
+  "description": "Request body for obtaining access token",
+  "required": [
+    "grant_type",
+    "client_id",
+    "client_secret"
+  ],
+  "properties": {
+    "grant_type": {
+      "type": "string",
+      "enum": [
+        "client_credentials"
+      ],
+      "example": "client_credentials"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "OAuth 2.0 client ID",
+      "example": "78abc123def456"
+    },
+    "client_secret": {
+      "type": "string",
+      "description": "OAuth 2.0 client secret",
+      "example": "secretXYZ789"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AudienceInsightsRequest",
+  "title": "AudienceInsightsRequest",
+  "type": "object",
+  "properties": {
+    "request": {
+      "type": "object",
+      "properties": {
+        "requestMetaData": {
+          "$ref": "#/components/schemas/RequestMetaData"
+        },
+        "targetingCriteria": {
+          "$ref": "#/components/schemas/TargetingCriteria"
+        },
+        "groupBy": {
+          "type": "string",
+          "description": "Facet URN to group insights by",
+          "example": "urn:li:adTargetingFacet:interests"
+        }
+      },
+      "required": [
+        "targetingCriteria",
+        "groupBy"
+      ]
+    }
+  }
+}

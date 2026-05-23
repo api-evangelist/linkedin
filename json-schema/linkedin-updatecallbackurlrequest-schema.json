@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateCallbackUrlRequest",
+  "title": "UpdateCallbackUrlRequest",
+  "type": "object",
+  "description": "Request body for updating OAuth 2.0 callback URLs",
+  "required": [
+    "patch"
+  ],
+  "properties": {
+    "patch": {
+      "type": "object",
+      "properties": {
+        "$set": {
+          "type": "object",
+          "properties": {
+            "oauth2AuthorizedCallbackUrls": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri"
+              },
+              "example": [
+                "https://app.acme.com/oauth2/callback",
+                "https://new-domain.acme.com/oauth2/callback"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

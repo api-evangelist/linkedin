@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CrmDataValidationExportJob",
+  "title": "CrmDataValidationExportJob",
+  "type": "object",
+  "properties": {
+    "jobId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Export job ID",
+      "example": 123456789
+    },
+    "exportStartAt": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Start time of the export",
+      "example": 1640000000000
+    },
+    "exportEndAt": {
+      "type": "integer",
+      "format": "int64",
+      "nullable": true,
+      "description": "End time of the export",
+      "example": 1640001000000
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED_DUE_TO_INTERNAL_ERROR"
+      ],
+      "description": "Current status of the export job",
+      "example": "COMPLETED"
+    },
+    "downloadUrls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "nullable": true,
+      "description": "URLs for downloading the exported data",
+      "example": [
+        "https://media.licdn.com/crm-validation/export_1.csv",
+        "https://media.licdn.com/crm-validation/export_2.csv"
+      ]
+    },
+    "nextExportStartAt": {
+      "type": "integer",
+      "format": "int64",
+      "nullable": true,
+      "description": "Suggested start time for next export",
+      "example": 1640001000000
+    },
+    "expireAt": {
+      "type": "integer",
+      "format": "int64",
+      "nullable": true,
+      "description": "Expiration timestamp for download URLs",
+      "example": 1640100000000
+    }
+  }
+}

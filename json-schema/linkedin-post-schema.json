@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Post",
+  "title": "Post",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "urn:li:share:7012345678901234567"
+    },
+    "author": {
+      "type": "string",
+      "example": "urn:li:organization:10002687"
+    },
+    "commentary": {
+      "type": "string",
+      "example": "Exciting news from our team!"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "PUBLIC",
+        "CONNECTIONS"
+      ],
+      "example": "PUBLIC"
+    },
+    "lifecycleState": {
+      "type": "string",
+      "enum": [
+        "PUBLISHED",
+        "DRAFT"
+      ],
+      "example": "PUBLISHED"
+    },
+    "created": {
+      "$ref": "#/components/schemas/Timestamp"
+    },
+    "lastModified": {
+      "$ref": "#/components/schemas/Timestamp"
+    }
+  }
+}
