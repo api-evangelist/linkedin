@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Upload a Document and Create a Post
+  summary: Register a document upload, push the file bytes, then publish a document post.
+  description: >-
+    Document posts on LinkedIn follow a three-stage register, upload, and publish
+    pattern. This workflow initializes a document upload to obtain a document
+    asset URN and upload URL, uploads the document file to that URL, and then
+    creates a published document post that references the uploaded asset. Every
+    step spells out its request inline, including the Authorization bearer token,
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentApi
+  url: ../openapi/linkedin-marketing-content.yml
+  type: openapi
+workflows:
+- workflowId: upload-document-and-create-post
+  summary: Initialize a document upload, upload the file, and publish a document post.
+  description: >-
+    Registers a document upload, pushes the document bytes to the returned upload
+    URL, and creates a published document post that references the uploaded
+    asset.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - ownerUrn
+    - documentAssetId
+    - documentTitle
+    - commentary
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      ownerUrn:
+        type: string
+        description: The organization owner URN, e.g. "urn:li:organization:123456".
+      documentAssetId:
+        type: string
+        description: The document asset URN to embed once uploaded, e.g. "urn:li:document:123".
+      documentTitle:
+        type: string
+        description: The display title of the document, e.g. "Example.pdf".
+      commentary:
+        type: string
+        description: The commentary text for the document post.
+  steps:
+  - stepId: initializeDocumentUpload
+    description: >-
+      Register the upcoming document upload to obtain the document asset URN and
+      upload URL.
+    operationId: postInitializeDocumentUpload
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: action
+      in: query
+      value: initializeUpload
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      uploadResult: $response.body
+  - stepId: uploadDocumentFile
+    description: >-
+      Upload the document file bytes to the registered upload destination.
+    operationId: putUploadTheDocumentFile
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      uploadStatus: $statusCode
+  - stepId: createDocumentPost
+    description: >-
+      Create a published document post authored by the owner that references the
+      uploaded document asset.
+    operationId: postCreateDocumentContent
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    requestBody:
+      contentType: application/json
+      payload:
+        author: $inputs.ownerUrn
+        commentary: $inputs.commentary
+        visibility: PUBLIC
+        distribution:
+          feedDistribution: MAIN_FEED
+          targetEntities: []
+          thirdPartyDistributionChannels: []
+        content:
+          media:
+            title: $inputs.documentTitle
+            id: $inputs.documentAssetId
+        lifecycleState: PUBLISHED
+        isReshareDisabledByAuthor: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      postUrn: $response.body#/id
+  outputs:
+    postUrn: $steps.createDocumentPost.outputs.postUrn

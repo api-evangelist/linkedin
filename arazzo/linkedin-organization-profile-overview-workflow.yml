@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Organization Profile Overview
+  summary: Resolve an organization, then gather its follower count and lifetime page statistics.
+  description: >-
+    Building an organization snapshot chains a lookup with two read-only
+    statistics calls. This workflow resolves the organization by its primary
+    type, retrieves the organization follower count, and pulls lifetime page
+    statistics so a single pass produces a compact profile overview. Every step
+    spells out its request inline, including the Authorization bearer token and
+    the required LinkedIn-Version header, so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: communityApi
+  url: ../openapi/linkedin-marketing-community.yml
+  type: openapi
+workflows:
+- workflowId: organization-profile-overview
+  summary: Resolve an organization and collect its follower count and lifetime page statistics.
+  description: >-
+    Looks up an organization, retrieves its follower count, and pulls lifetime
+    page statistics in a single overview pass.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - organizationId
+    - organizationUrn
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      organizationId:
+        type: string
+        description: The numeric organization id used for lookup and follower count.
+      organizationUrn:
+        type: string
+        description: The URL-encoded organization URN for page statistics (e.g. "urn%3Ali%3Aorganization%3A2414183").
+  steps:
+  - stepId: resolveOrganization
+    description: >-
+      Look up the organization by its primary type to confirm the identifier is
+      valid.
+    operationId: getLookupByOrganizationPrimary
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: organization_id
+      in: path
+      value: $inputs.organizationId
+    - name: projection
+      in: query
+      value: "(primaryOrganizationType)"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      organization: $response.body
+  - stepId: followerCount
+    description: >-
+      Retrieve the organization follower count for members who follow the
+      company.
+    operationId: getRetrieveOrganizationFollowerCount
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: organization_id
+      in: path
+      value: $inputs.organizationId
+    - name: edgeType
+      in: query
+      value: CompanyFollowedByMember
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      followerCount: $response.body
+  - stepId: lifetimePageStatistics
+    description: >-
+      Pull lifetime page statistics for the organization.
+    operationId: getLifetimePageStatistics
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: q
+      in: query
+      value: organization
+    - name: organization
+      in: query
+      value: $inputs.organizationUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      pageStatistics: $response.body
+  outputs:
+    organization: $steps.resolveOrganization.outputs.organization
+    followerCount: $steps.followerCount.outputs.followerCount
+    pageStatistics: $steps.lifetimePageStatistics.outputs.pageStatistics

@@ -1,0 +1,128 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Upload an Image and Create a Post
+  summary: Register an image upload, confirm the image asset, then publish a post that references it.
+  description: >-
+    Creating a rich post with an image on LinkedIn is a register-then-publish
+    pattern. This workflow initializes an image upload to obtain an image URN,
+    verifies that the image asset resolves, and then creates a post that
+    references the uploaded image as its media. Every step spells out its request
+    inline, including the Authorization bearer token and the required
+    LinkedIn-Version header, so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentApi
+  url: ../openapi/linkedin-marketing-content.yml
+  type: openapi
+workflows:
+- workflowId: upload-image-and-create-post
+  summary: Initialize an image upload, verify the asset, and publish a post with the image.
+  description: >-
+    Registers an image upload for an organization owner to obtain an image URN,
+    confirms the asset resolves, and creates a post that embeds the uploaded
+    image.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - ownerUrn
+    - imageUrn
+    - commentary
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      ownerUrn:
+        type: string
+        description: The owner URN that will own the image, e.g. "urn:li:organization:5583111".
+      imageUrn:
+        type: string
+        description: The image URN to verify after upload registration, e.g. "urn:li:image:abc".
+      commentary:
+        type: string
+        description: The commentary text for the post.
+  steps:
+  - stepId: initializeImageUpload
+    description: >-
+      Register the upcoming image upload for the owner to obtain the image URN
+      and upload URL.
+    operationId: postInitializeImageUpload
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: action
+      in: query
+      value: initializeUpload
+    requestBody:
+      contentType: application/json
+      payload:
+        initializeUploadRequest:
+          owner: $inputs.ownerUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      uploadResult: $response.body
+  - stepId: verifyImage
+    description: >-
+      Retrieve the single image to confirm the asset resolved before referencing
+      it in a post.
+    operationId: getGetASingleImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: image_urn
+      in: path
+      value: $inputs.imageUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      image: $response.body
+  - stepId: createPost
+    description: >-
+      Create a published post authored by the owner that embeds the uploaded
+      image as its media.
+    operationId: postCreateDocumentContent
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    requestBody:
+      contentType: application/json
+      payload:
+        author: $inputs.ownerUrn
+        commentary: $inputs.commentary
+        visibility: PUBLIC
+        distribution:
+          feedDistribution: MAIN_FEED
+          targetEntities: []
+          thirdPartyDistributionChannels: []
+        content:
+          media:
+            id: $inputs.imageUrn
+        lifecycleState: PUBLISHED
+        isReshareDisabledByAuthor: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      postUrn: $response.body#/id
+  outputs:
+    postUrn: $steps.createPost.outputs.postUrn

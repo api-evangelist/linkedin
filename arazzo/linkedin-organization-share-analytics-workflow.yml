@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Organization Share Analytics
+  summary: Resolve an organization, then pull time-bound share statistics for a date range.
+  description: >-
+    Reporting on an organization's share performance starts by confirming the
+    organization resolves and then querying time-bound share statistics across a
+    granular date range. This workflow looks up the organization by its primary
+    type and then retrieves daily share statistics between the supplied start and
+    end timestamps. Every step spells out its request inline, including the
+    Authorization bearer token and the required LinkedIn-Version header, so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: communityApi
+  url: ../openapi/linkedin-marketing-community.yml
+  type: openapi
+workflows:
+- workflowId: organization-share-analytics
+  summary: Resolve an organization and pull time-bound share statistics.
+  description: >-
+    Looks up an organization and retrieves daily share statistics across the
+    supplied time range.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - organizationId
+    - organizationUrn
+    - rangeStart
+    - rangeEnd
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      organizationId:
+        type: string
+        description: The numeric organization id used for the lookup.
+      organizationUrn:
+        type: string
+        description: The URL-encoded organization URN for the statistics query (e.g. "urn%3Ali%3Aorganization%3A2414183").
+      rangeStart:
+        type: integer
+        description: The start of the time range as a Unix epoch in milliseconds.
+      rangeEnd:
+        type: integer
+        description: The end of the time range as a Unix epoch in milliseconds.
+  steps:
+  - stepId: resolveOrganization
+    description: >-
+      Look up the organization by its primary type to confirm the identifier is
+      valid before reporting on it.
+    operationId: getLookupByOrganizationPrimary
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: organization_id
+      in: path
+      value: $inputs.organizationId
+    - name: projection
+      in: query
+      value: "(primaryOrganizationType)"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      organization: $response.body
+  - stepId: shareStatistics
+    description: >-
+      Retrieve daily time-bound share statistics for the organization across the
+      supplied time range.
+    operationId: getTimeBoundShareStatistics
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: q
+      in: query
+      value: organizationalEntity
+    - name: organizationalEntity
+      in: query
+      value: $inputs.organizationUrn
+    - name: timeIntervals.timeGranularityType
+      in: query
+      value: DAY
+    - name: timeIntervals.timeRange.start
+      in: query
+      value: $inputs.rangeStart
+    - name: timeIntervals.timeRange.end
+      in: query
+      value: $inputs.rangeEnd
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      shareStatistics: $response.body
+  outputs:
+    shareStatistics: $steps.shareStatistics.outputs.shareStatistics

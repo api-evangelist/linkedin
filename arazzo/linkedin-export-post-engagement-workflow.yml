@@ -1,0 +1,136 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Export Post Engagement
+  summary: Pull an organization's posts, then export the reactions and comments on a chosen activity.
+  description: >-
+    The Data Portability (DMA) APIs expose organization feed content for
+    compliance export. This workflow retrieves the posts published by an
+    organization, then pulls the reactions and comments associated with a chosen
+    activity URN so engagement can be exported in a single pass. The classic
+    write-side comment and like endpoints are not present in these specs, so the
+    social-actions theme is adapted to the read-only DMA reactions and comments
+    finders. Every step spells out its request inline, including the
+    Authorization bearer token and the required LinkedIn-Version header, so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dataPortabilityApi
+  url: ../openapi/linkedin-regulations-data-portability.yml
+  type: openapi
+workflows:
+- workflowId: export-post-engagement
+  summary: Pull organization posts and export reactions and comments for an activity.
+  description: >-
+    Retrieves an organization's posts and then exports the reactions and comments
+    associated with a chosen activity URN.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - postsQueryType
+    - reactionsQueryType
+    - commentsQueryType
+    - authorUrn
+    - activityUrn
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      postsQueryType:
+        type: string
+        description: The finder query type for the posts endpoint (the q parameter).
+      reactionsQueryType:
+        type: string
+        description: The finder query type for the reactions endpoint (the q parameter).
+      commentsQueryType:
+        type: string
+        description: The finder query type for the comments endpoint (the q parameter).
+      authorUrn:
+        type: string
+        description: The organization author URN whose posts to retrieve (e.g. "urn:li:organization:10002687").
+      activityUrn:
+        type: string
+        description: The activity (share) URN to export reactions and comments for (e.g. "urn:li:share:7012345678901234567").
+  steps:
+  - stepId: getOrganizationPosts
+    description: >-
+      Retrieve the posts published by the organization for data portability
+      export.
+    operationId: getPosts
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: q
+      in: query
+      value: $inputs.postsQueryType
+    - name: author
+      in: query
+      value: $inputs.authorUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      posts: $response.body
+  - stepId: getActivityReactions
+    description: >-
+      Retrieve the reactions on the chosen activity for data portability export.
+    operationId: getReactions
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: q
+      in: query
+      value: $inputs.reactionsQueryType
+    - name: activityUrn
+      in: query
+      value: $inputs.activityUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      reactions: $response.body
+  - stepId: getActivityComments
+    description: >-
+      Retrieve the comments on the chosen activity for data portability export.
+    operationId: getComments
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: q
+      in: query
+      value: $inputs.commentsQueryType
+    - name: activityUrn
+      in: query
+      value: $inputs.activityUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      comments: $response.body
+  outputs:
+    posts: $steps.getOrganizationPosts.outputs.posts
+    reactions: $steps.getActivityReactions.outputs.reactions
+    comments: $steps.getActivityComments.outputs.comments

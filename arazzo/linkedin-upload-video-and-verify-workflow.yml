@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Upload a Video and Verify the Asset
+  summary: Register a video upload for an owner, then confirm the resulting video asset resolves.
+  description: >-
+    Before a video can be attached to a LinkedIn post it must be registered and
+    its asset confirmed. This workflow initializes a video upload for an
+    organization owner to obtain a video URN and upload instructions, then
+    retrieves the single video to confirm the asset resolved and is ready to be
+    referenced. Every step spells out its request inline, including the
+    Authorization bearer token and the required LinkedIn-Version header, so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentApi
+  url: ../openapi/linkedin-marketing-content.yml
+  type: openapi
+workflows:
+- workflowId: upload-video-and-verify
+  summary: Initialize a video upload and verify the resulting video asset.
+  description: >-
+    Registers a video upload for the owner to obtain a video URN, then retrieves
+    the single video to confirm the asset resolved.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - ownerUrn
+    - fileSizeBytes
+    - videoUrn
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      ownerUrn:
+        type: string
+        description: The owner URN that will own the video, e.g. "urn:li:organization:123456".
+      fileSizeBytes:
+        type: integer
+        description: The size of the video file in bytes.
+      videoUrn:
+        type: string
+        description: The video URN to verify after upload registration.
+  steps:
+  - stepId: initializeVideoUpload
+    description: >-
+      Register the upcoming video upload for the owner to obtain the video URN
+      and upload instructions.
+    operationId: postInitializeVideoUpload
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: action
+      in: query
+      value: initializeUpload
+    requestBody:
+      contentType: application/json
+      payload:
+        initializeUploadRequest:
+          owner: $inputs.ownerUrn
+          fileSizeBytes: $inputs.fileSizeBytes
+          uploadCaptions: false
+          uploadThumbnail: false
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      uploadResult: $response.body
+  - stepId: verifyVideo
+    description: >-
+      Retrieve the single video to confirm the asset resolved and is ready to be
+      referenced in a post.
+    operationId: getGetASingleVideo
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: image_urn
+      in: path
+      value: $inputs.videoUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      video: $response.body
+  outputs:
+    video: $steps.verifyVideo.outputs.video

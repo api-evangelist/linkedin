@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Organization Access and Brands
+  summary: Confirm organization access, then list the administered brands under that parent organization.
+  description: >-
+    Discovering the brand pages an administrator can manage chains an access
+    control check with a brand finder. This workflow confirms the authenticated
+    member's access control role on the organization and then lists the
+    administered organization brands that roll up under that parent organization.
+    Every step spells out its request inline, including the Authorization bearer
+    token and the required LinkedIn-Version header, so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: communityApi
+  url: ../openapi/linkedin-marketing-community.yml
+  type: openapi
+workflows:
+- workflowId: org-access-and-brands
+  summary: Confirm organization access and list administered brands under the parent.
+  description: >-
+    Confirms the authenticated member's access to the organization, then lists
+    the administered brands under that parent organization.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - organizationUrn
+    - parentOrganizationUrn
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      organizationUrn:
+        type: string
+        description: The URL-encoded organization URN to check access for (e.g. "urn%3Ali%3Aorganization%3A123456").
+      parentOrganizationUrn:
+        type: string
+        description: The parent organization URN whose administered brands to list (e.g. "urn:li:organization:123456").
+  steps:
+  - stepId: confirmAccess
+    description: >-
+      Confirm the authenticated member's access control role on the organization
+      before listing its brands.
+    operationId: getFindOrganizationAccessControl
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: Linkedin-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: q
+      in: query
+      value: organization
+    - name: organization
+      in: query
+      value: $inputs.organizationUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accessControl: $response.body
+  - stepId: listBrands
+    description: >-
+      List the administered organization brands that roll up under the parent
+      organization.
+    operationId: getFindAdministeredOrganizationBrands
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: q
+      in: query
+      value: parentOrganization
+    - name: parent
+      in: query
+      value: $inputs.parentOrganizationUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      brands: $response.body
+  outputs:
+    accessControl: $steps.confirmAccess.outputs.accessControl
+    brands: $steps.listBrands.outputs.brands

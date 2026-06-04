@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Publish and Verify a Post
+  summary: Create an organization post, then read it back by URN to confirm it published.
+  description: >-
+    A reliable publish flow creates a post and then reads it back to verify it
+    landed. This workflow creates a published document post authored by an
+    organization and then retrieves it by its URN to confirm the post exists and
+    captures its rendered state. Every step spells out its request inline,
+    including the Authorization bearer token and the required LinkedIn-Version
+    header, so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentApi
+  url: ../openapi/linkedin-marketing-content.yml
+  type: openapi
+workflows:
+- workflowId: publish-and-verify-post
+  summary: Create a post and read it back by URN to confirm publication.
+  description: >-
+    Creates a published document post authored by the organization, then
+    retrieves it by its returned URN to confirm it published.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - ownerUrn
+    - documentTitle
+    - documentAssetId
+    - commentary
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      ownerUrn:
+        type: string
+        description: The organization author URN, e.g. "urn:li:organization:123456".
+      documentTitle:
+        type: string
+        description: The display title of the embedded document.
+      documentAssetId:
+        type: string
+        description: The document asset URN to embed, e.g. "urn:li:document:123".
+      commentary:
+        type: string
+        description: The commentary text for the post.
+  steps:
+  - stepId: createPost
+    description: >-
+      Create a published document post authored by the organization.
+    operationId: postCreateDocumentContent
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    requestBody:
+      contentType: application/json
+      payload:
+        author: $inputs.ownerUrn
+        commentary: $inputs.commentary
+        visibility: PUBLIC
+        distribution:
+          feedDistribution: MAIN_FEED
+          targetEntities: []
+          thirdPartyDistributionChannels: []
+        content:
+          media:
+            title: $inputs.documentTitle
+            id: $inputs.documentAssetId
+        lifecycleState: PUBLISHED
+        isReshareDisabledByAuthor: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      postUrn: $response.body#/id
+  - stepId: verifyPost
+    description: >-
+      Read the newly created post back by its URN to confirm it published and
+      capture its rendered state.
+    operationId: getGetPostsByUrn
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      post: $response.body
+  outputs:
+    postUrn: $steps.createPost.outputs.postUrn
+    post: $steps.verifyPost.outputs.post

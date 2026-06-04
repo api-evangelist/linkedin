@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Delete an Organization Post
+  summary: Read a post by URN, and when it exists delete it idempotently.
+  description: >-
+    Removing a LinkedIn post should confirm the post exists first. This workflow
+    reads a post by its URN and branches: when the read succeeds it deletes the
+    post, and when the post cannot be read it ends without attempting a deletion.
+    Post deletions are idempotent — the API returns a 204 No Content on success.
+    Every step spells out its request inline, including the Authorization bearer
+    token and the required LinkedIn-Version header, so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentApi
+  url: ../openapi/linkedin-marketing-content.yml
+  type: openapi
+workflows:
+- workflowId: delete-organization-post
+  summary: Read a post by URN and delete it when it exists.
+  description: >-
+    Retrieves a post by its URN and, when the read succeeds, deletes the post.
+    Deletions are idempotent and return 204 No Content.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+  steps:
+  - stepId: readPost
+    description: >-
+      Read the post by its URN to confirm it exists before attempting deletion.
+    operationId: getGetPostsByUrn
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      post: $response.body
+    onSuccess:
+    - name: postFound
+      type: goto
+      stepId: deletePost
+      criteria:
+      - condition: $statusCode == 200
+  - stepId: deletePost
+    description: >-
+      Delete the post. Deletions are idempotent; a previously deleted post still
+      returns a 204 No Content.
+    operationId: deleteDeleteAPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    successCriteria:
+    - condition: $statusCode == 204 || $statusCode == 200
+    outputs:
+      deleteStatus: $statusCode
+  outputs:
+    deleteStatus: $steps.deletePost.outputs.deleteStatus

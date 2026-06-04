@@ -1,0 +1,96 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Update an Organization Post
+  summary: Read a post by URN, and when it exists patch its commentary and call to action.
+  description: >-
+    Editing an existing LinkedIn post should only happen after confirming the
+    post still exists. This workflow reads a post by its URN and branches: when
+    the read succeeds it patches the post commentary and content call-to-action
+    label, and when the post cannot be read it ends without attempting an update.
+    Every step spells out its request inline, including the Authorization bearer
+    token and the required LinkedIn-Version header, so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentApi
+  url: ../openapi/linkedin-marketing-content.yml
+  type: openapi
+workflows:
+- workflowId: update-organization-post
+  summary: Read a post by URN and patch it when it exists.
+  description: >-
+    Retrieves a post by its URN and, when the read succeeds, patches the post
+    commentary and call-to-action label.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - newCommentary
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      newCommentary:
+        type: string
+        description: The replacement commentary text for the post.
+      callToActionLabel:
+        type: string
+        description: An optional content call-to-action label (e.g. "LEARN_MORE").
+  steps:
+  - stepId: readPost
+    description: >-
+      Read the post by its URN to confirm it exists before attempting to update
+      it.
+    operationId: getGetPostsByUrn
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      post: $response.body
+    onSuccess:
+    - name: postFound
+      type: goto
+      stepId: patchPost
+      criteria:
+      - condition: $statusCode == 200
+  - stepId: patchPost
+    description: >-
+      Patch the post commentary and content call-to-action label using a Rest.li
+      partial update.
+    operationId: postUpdateAPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    requestBody:
+      contentType: application/json
+      payload:
+        patch:
+          $set:
+            commentary: $inputs.newCommentary
+            contentCallToActionLabel: $inputs.callToActionLabel
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updateStatus: $statusCode
+  outputs:
+    updateStatus: $steps.patchPost.outputs.updateStatus

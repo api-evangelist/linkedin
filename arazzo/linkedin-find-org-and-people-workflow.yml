@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Find Organization and People
+  summary: Resolve an organization by its vanity URL, then typeahead-search its followers by keyword.
+  description: >-
+    The Community Management APIs surface people in the context of an
+    organization rather than as standalone member profiles, so a people lookup
+    chains organization resolution with a follower typeahead search. This
+    workflow resolves an organization from its public vanity URL and then runs a
+    keyword typeahead against that organization's followers to find matching
+    people. Every step spells out its request inline, including the Authorization
+    bearer token and the required LinkedIn-Version header, so the flow can be read
+    and executed without opening the underlying OpenAPI description. Note — these
+    specs do not expose a standalone member-profile or /me endpoint, so the
+    people/profile theme is adapted to the organization follower typeahead.
+  version: 1.0.0
+sourceDescriptions:
+- name: communityApi
+  url: ../openapi/linkedin-marketing-community.yml
+  type: openapi
+workflows:
+- workflowId: find-org-and-people
+  summary: Resolve an organization by vanity URL and typeahead-search its followers.
+  description: >-
+    Resolves an organization from its vanity URL and runs a keyword typeahead
+    against that organization's followers.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - vanityUrl
+    - organizationUrn
+    - keywords
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      vanityUrl:
+        type: string
+        description: The URL-encoded public vanity URL to resolve to an organization.
+      organizationUrn:
+        type: string
+        description: The URL-encoded organization URN to scope the people search (e.g. "urn%3Ali%3Aorganization%3A123456").
+      keywords:
+        type: string
+        description: The keyword to typeahead-search the organization's followers (e.g. "chris").
+  steps:
+  - stepId: resolveByVanityUrl
+    description: >-
+      Resolve the organization from its public vanity URL.
+    operationId: getSearchByVanityUrl
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: q
+      in: query
+      value: vanityUrlAsOrganization
+    - name: vanityUrl
+      in: query
+      value: $inputs.vanityUrl
+    - name: organization
+      in: query
+      value: $inputs.organizationUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      organization: $response.body
+  - stepId: searchFollowers
+    description: >-
+      Run a keyword typeahead against the organization's followers to find
+      matching people.
+    operationId: getSearchByKeyword
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: q
+      in: query
+      value: organizationFollowers
+    - name: keywords
+      in: query
+      value: $inputs.keywords
+    - name: organization
+      in: query
+      value: $inputs.organizationUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      people: $response.body
+  outputs:
+    organization: $steps.resolveByVanityUrl.outputs.organization
+    people: $steps.searchFollowers.outputs.people

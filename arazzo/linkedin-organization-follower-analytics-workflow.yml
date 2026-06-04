@@ -1,0 +1,113 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Organization Follower Analytics
+  summary: Resolve an organization, then pull time-bound follower statistics for a date range.
+  description: >-
+    Tracking follower growth for an organization chains a lookup with a
+    time-bound follower statistics query. This workflow resolves the organization
+    by its primary type and then retrieves daily follower statistics between the
+    supplied start and end timestamps. Every step spells out its request inline,
+    including the Authorization bearer token and the required LinkedIn-Version
+    header, so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: communityApi
+  url: ../openapi/linkedin-marketing-community.yml
+  type: openapi
+workflows:
+- workflowId: organization-follower-analytics
+  summary: Resolve an organization and pull time-bound follower statistics.
+  description: >-
+    Looks up an organization and retrieves daily follower statistics across the
+    supplied time range.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - organizationId
+    - organizationUrn
+    - rangeStart
+    - rangeEnd
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      organizationId:
+        type: string
+        description: The numeric organization id used for the lookup.
+      organizationUrn:
+        type: string
+        description: The URL-encoded organization URN for the statistics query (e.g. "urn%3Ali%3Aorganization%3A2414183").
+      rangeStart:
+        type: integer
+        description: The start of the time range as a Unix epoch in milliseconds.
+      rangeEnd:
+        type: integer
+        description: The end of the time range as a Unix epoch in milliseconds.
+  steps:
+  - stepId: resolveOrganization
+    description: >-
+      Look up the organization by its primary type to confirm the identifier is
+      valid before reporting on it.
+    operationId: getLookupByOrganizationPrimary
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: organization_id
+      in: path
+      value: $inputs.organizationId
+    - name: projection
+      in: query
+      value: "(primaryOrganizationType)"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      organization: $response.body
+  - stepId: followerStatistics
+    description: >-
+      Retrieve daily time-bound follower statistics for the organization across
+      the supplied time range.
+    operationId: getTimeboundFollowerStatistics
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: q
+      in: query
+      value: organizationalEntity
+    - name: organizationalEntity
+      in: query
+      value: $inputs.organizationUrn
+    - name: timeIntervals.timeGranularityType
+      in: query
+      value: DAY
+    - name: timeIntervals.timeRange.start
+      in: query
+      value: $inputs.rangeStart
+    - name: timeIntervals.timeRange.end
+      in: query
+      value: $inputs.rangeEnd
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      followerStatistics: $response.body
+  outputs:
+    followerStatistics: $steps.followerStatistics.outputs.followerStatistics

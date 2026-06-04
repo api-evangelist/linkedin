@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Create an Organization Share
+  summary: Confirm an organization exists and then publish a text share authored by it.
+  description: >-
+    Publishing organic content to a LinkedIn Company Page starts with confirming
+    that the target organization resolves, then posting a share that the
+    organization authors. This workflow looks up the organization by its primary
+    type to validate the identifier and then creates a share with optional
+    company-mention annotations. Every step spells out its request inline,
+    including the Authorization bearer token and the required LinkedIn-Version
+    header, so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: communityApi
+  url: ../openapi/linkedin-marketing-community.yml
+  type: openapi
+workflows:
+- workflowId: create-organization-share
+  summary: Resolve an organization and publish a text share authored by it.
+  description: >-
+    Validates the organization identifier with an organization lookup and then
+    posts a share owned by that organization with the supplied commentary.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - organizationId
+    - shareText
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      organizationId:
+        type: string
+        description: The numeric organization id that will author the share.
+      shareText:
+        type: string
+        description: The plain text body of the share.
+      shareSubject:
+        type: string
+        description: An optional subject line for the share.
+  steps:
+  - stepId: resolveOrganization
+    description: >-
+      Look up the organization by its primary type to confirm the identifier is
+      valid before publishing a share on its behalf.
+    operationId: getLookupByOrganizationPrimary
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: organization_id
+      in: path
+      value: $inputs.organizationId
+    - name: projection
+      in: query
+      value: "(primaryOrganizationType)"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      organization: $response.body
+  - stepId: createShare
+    description: >-
+      Create a share owned by the resolved organization using the supplied
+      commentary, distributing it to the LinkedIn feed.
+    operationId: postCreateAShareWith
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    requestBody:
+      contentType: application/json
+      payload:
+        owner: $inputs.organizationId
+        subject: $inputs.shareSubject
+        text:
+          text: $inputs.shareText
+        distribution:
+          linkedInDistributionTarget: {}
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      shareId: $response.body#/id
+  outputs:
+    shareId: $steps.createShare.outputs.shareId

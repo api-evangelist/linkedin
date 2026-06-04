@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: LinkedIn Subscribe to Social Action Notifications
+  summary: Register a webhook subscription for organization social actions, then read it back.
+  description: >-
+    The push delivery model for organization social action notifications
+    requires registering a webhook subscription and confirming it was stored.
+    This workflow creates a subscription that points at the supplied webhook URL
+    for the developer application, member, and organization triple, and then
+    retrieves the subscription by key to confirm the webhook and expiration were
+    recorded. Every step spells out its request inline, including the
+    Authorization bearer token and the required LinkedIn-Version header, so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: communityApi
+  url: ../openapi/linkedin-marketing-community.yml
+  type: openapi
+workflows:
+- workflowId: subscribe-social-action-notifications
+  summary: Create a webhook subscription for organization social actions and read it back.
+  description: >-
+    Registers a webhook subscription for the developer application, member, and
+    organization triple, then retrieves the subscription by key.
+  inputs:
+    type: object
+    required:
+    - authorization
+    - linkedinVersion
+    - applicationId
+    - personId
+    - organizationId
+    - webhook
+    properties:
+      authorization:
+        type: string
+        description: The OAuth 2.0 bearer credential, e.g. "Bearer <access-token>".
+      linkedinVersion:
+        type: string
+        description: The LinkedIn-Version header in YYYYMM format (e.g. "202401").
+      applicationId:
+        type: string
+        description: The developer application id.
+      personId:
+        type: string
+        description: The administering member (person) id.
+      organizationId:
+        type: string
+        description: The organization id being subscribed to.
+      webhook:
+        type: string
+        description: The webhook callback URL that will receive notifications.
+  steps:
+  - stepId: createSubscription
+    description: >-
+      Create the subscription record pointing at the supplied webhook URL. The
+      subscribing member must administer the organization.
+    operationId: putCreateASubscriptionRequest
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: Linkedin-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: application_id
+      in: path
+      value: $inputs.applicationId
+    - name: person_id
+      in: path
+      value: $inputs.personId
+    - name: organization_id
+      in: path
+      value: $inputs.organizationId
+    requestBody:
+      contentType: application/json
+      payload:
+        webhook: $inputs.webhook
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      createStatus: $statusCode
+  - stepId: retrieveSubscription
+    description: >-
+      Retrieve the subscription by key to confirm the webhook URL and expiration
+      were recorded.
+    operationId: getRetrieveSubscriptionByKey
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authorization
+    - name: LinkedIn-Version
+      in: header
+      value: $inputs.linkedinVersion
+    - name: X-Restli-Protocol-Version
+      in: header
+      value: "2.0.0"
+    - name: application_id
+      in: path
+      value: $inputs.applicationId
+    - name: person_id
+      in: path
+      value: $inputs.personId
+    - name: organization_id
+      in: path
+      value: $inputs.organizationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      subscription: $response.body
+  outputs:
+    subscription: $steps.retrieveSubscription.outputs.subscription
