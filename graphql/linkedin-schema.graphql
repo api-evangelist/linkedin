@@ -1,0 +1,1227 @@
+"""
+LinkedIn Conceptual GraphQL Schema
+
+Derived from the LinkedIn REST API surface documented at:
+https://learn.microsoft.com/en-us/linkedin/
+
+LinkedIn does not expose a native public GraphQL API. This schema maps the
+data models from the Consumer, Marketing, Talent, Learning, Sales Navigator,
+Compliance, and Regulatory APIs to GraphQL types for tooling and modeling use.
+
+GitHub: https://github.com/linkedin-developers
+Docs:   https://learn.microsoft.com/en-us/linkedin/
+"""
+
+scalar DateTime
+scalar URN
+scalar URL
+scalar JSON
+
+# ─────────────────────────────────────────────
+# Enumerations
+# ─────────────────────────────────────────────
+
+enum Visibility {
+  PUBLIC
+  CONNECTIONS
+  LOGGED_IN
+  CONTAINER
+}
+
+enum ConnectionDegree {
+  FIRST
+  SECOND
+  THIRD
+  OUT_OF_NETWORK
+}
+
+enum PostMediaType {
+  NONE
+  IMAGE
+  VIDEO
+  ARTICLE
+  DOCUMENT
+  POLL
+  EVENT
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  TEMPORARY
+  VOLUNTEER
+  OTHER
+}
+
+enum WorkplaceType {
+  ON_SITE
+  HYBRID
+  REMOTE
+}
+
+enum ApplicationStatus {
+  SUBMITTED
+  VIEWED
+  IN_REVIEW
+  OFFERED
+  REJECTED
+  WITHDRAWN
+}
+
+enum CampaignStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+  COMPLETED
+  DRAFT
+  CANCELED
+  PENDING_DELETION
+  REMOVED
+}
+
+enum CampaignObjective {
+  BRAND_AWARENESS
+  WEBSITE_VISITS
+  ENGAGEMENT
+  VIDEO_VIEWS
+  LEAD_GENERATION
+  WEBSITE_CONVERSIONS
+  JOB_APPLICANTS
+  TALENT_LEADS
+}
+
+enum ComplianceEventType {
+  MESSAGE_SENT
+  MESSAGE_RECEIVED
+  POST_CREATED
+  POST_DELETED
+  CONNECTION_MADE
+}
+
+enum LanguageProficiency {
+  ELEMENTARY
+  LIMITED_WORKING
+  PROFESSIONAL_WORKING
+  FULL_PROFESSIONAL
+  NATIVE_OR_BILINGUAL
+}
+
+enum InvitationState {
+  PENDING
+  ACCEPTED
+  IGNORED
+  WITHDRAWN
+}
+
+# ─────────────────────────────────────────────
+# Member and Profile Types
+# ─────────────────────────────────────────────
+
+"""
+Core LinkedIn member identity record. Identified by URN (urn:li:member:<id>).
+Maps to the /me endpoint and Profile API.
+"""
+type Member {
+  id: ID!
+  urn: URN!
+  localizedFirstName: String
+  localizedLastName: String
+  localizedHeadline: String
+  vanityName: String
+  profilePicture: URL
+  profile: Profile
+  network: Network
+  openToWork: OpenToWork
+  connections(first: Int, after: String): ConnectionsConnection
+  following(first: Int, after: String): FollowingConnection
+  notifications(first: Int, after: String): NotificationConnection
+  invitations(first: Int, after: String): InvitationConnection
+  conversations(first: Int, after: String): ConversationConnection
+}
+
+"""
+Full LinkedIn professional profile including all subsections.
+"""
+type Profile {
+  id: ID!
+  urn: URN!
+  member: Member!
+  headline: Headline
+  summary: String
+  industryId: String
+  industryName: String
+  geoLocation: String
+  countryCode: String
+  positions: [Position!]
+  educations: [Education!]
+  skills: [Skill!]
+  recommendationsReceived: [Recommendation!]
+  recommendationsGiven: [Recommendation!]
+  certifications: [CertificationEntry!]
+  honors: [HonorEntry!]
+  publications: [PublicationEntry!]
+  patents: [PatentEntry!]
+  courses: [CourseEntry!]
+  projects: [ProjectEntry!]
+  volunteerExperiences: [VolunteerExperience!]
+  languages: [Language!]
+  profileViews: ProfileViewSummary
+  visibility: Visibility
+}
+
+"""
+Professional headline attached to a LinkedIn member profile.
+"""
+type Headline {
+  text: String!
+  locale: String
+}
+
+"""
+A single work experience entry on a LinkedIn profile.
+"""
+type Position {
+  id: ID!
+  title: String!
+  companyName: String
+  company: Company
+  description: String
+  startDate: DateRange
+  endDate: DateRange
+  isCurrent: Boolean!
+  location: String
+}
+
+"""
+An academic history entry on a LinkedIn profile.
+"""
+type Education {
+  id: ID!
+  schoolName: String!
+  school: School
+  degreeName: String
+  fieldOfStudy: String
+  startDate: DateRange
+  endDate: DateRange
+  activities: String
+  description: String
+  grade: String
+}
+
+"""
+A skill entry on a LinkedIn profile.
+"""
+type Skill {
+  id: ID!
+  name: String!
+  endorsementCount: Int
+  endorsedBy: [Member!]
+}
+
+"""
+A recommendation given or received on a LinkedIn profile.
+"""
+type Recommendation {
+  id: ID!
+  recommender: Member!
+  recommendee: Member!
+  text: String!
+  relationship: String
+  createdAt: DateTime
+}
+
+"""
+A certification record on a LinkedIn profile.
+"""
+type CertificationEntry {
+  id: ID!
+  name: String!
+  authority: String
+  licenseNumber: String
+  url: URL
+  startDate: DateRange
+  endDate: DateRange
+}
+
+"""
+An honor or award entry on a LinkedIn profile.
+"""
+type HonorEntry {
+  id: ID!
+  title: String!
+  issuer: String
+  issueDate: DateRange
+  description: String
+}
+
+"""
+A publication entry on a LinkedIn profile.
+"""
+type PublicationEntry {
+  id: ID!
+  title: String!
+  publisher: String
+  publishedDate: DateRange
+  url: URL
+  description: String
+  authors: [Member!]
+}
+
+"""
+A patent entry on a LinkedIn profile.
+"""
+type PatentEntry {
+  id: ID!
+  title: String!
+  patentNumber: String
+  url: URL
+  filedDate: DateRange
+  issueDate: DateRange
+  description: String
+  inventors: [Member!]
+}
+
+"""
+A completed course entry on a LinkedIn profile.
+"""
+type CourseEntry {
+  id: ID!
+  name: String!
+  number: String
+  occupations: [String!]
+}
+
+"""
+A project portfolio entry on a LinkedIn profile.
+"""
+type ProjectEntry {
+  id: ID!
+  title: String!
+  description: String
+  url: URL
+  startDate: DateRange
+  endDate: DateRange
+  members: [Member!]
+}
+
+"""
+A volunteer experience entry on a LinkedIn profile.
+"""
+type VolunteerExperience {
+  id: ID!
+  role: String!
+  organization: Organization
+  cause: String
+  description: String
+  startDate: DateRange
+  endDate: DateRange
+}
+
+"""
+A language proficiency entry on a LinkedIn profile.
+"""
+type Language {
+  id: ID!
+  name: String!
+  proficiency: LanguageProficiency
+}
+
+"""
+Open-to-work signal metadata for a LinkedIn member.
+"""
+type OpenToWork {
+  isActive: Boolean!
+  jobTypes: [JobType!]
+  locationTypes: [WorkplaceType!]
+  preferredLocations: [String!]
+  startDate: DateTime
+  expiresAt: DateTime
+}
+
+# ─────────────────────────────────────────────
+# Network and Relationship Types
+# ─────────────────────────────────────────────
+
+"""
+Summary of a member's professional network.
+"""
+type Network {
+  distance: ConnectionDegree
+  followersCount: Int
+  connectionsCount: Int
+}
+
+"""
+Connection degree between two LinkedIn members.
+"""
+type Degree {
+  from: Member!
+  to: Member!
+  degree: ConnectionDegree!
+}
+
+"""
+A pending or sent connection invitation.
+"""
+type InvitationTo {
+  id: ID!
+  urn: URN!
+  inviter: Member!
+  invitee: Member!
+  message: String
+  sentAt: DateTime!
+  state: InvitationState!
+}
+
+"""
+An InMail message capability record.
+"""
+type InMail {
+  id: ID!
+  subject: String!
+  body: String!
+  sender: Member!
+  recipient: Member!
+  sentAt: DateTime!
+  isOpened: Boolean
+}
+
+"""
+Pagination connection for member connections.
+"""
+type ConnectionsConnection {
+  nodes: [Member!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+"""
+Pagination connection for following entities.
+"""
+type FollowingConnection {
+  nodes: [FollowTarget!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+"""
+An entity that can be followed (member, company, or school).
+"""
+union FollowTarget = Member | Company | School
+
+"""
+Pagination connection for invitations.
+"""
+type InvitationConnection {
+  nodes: [InvitationTo!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Company and Organization Types
+# ─────────────────────────────────────────────
+
+"""
+Generic organization entity — parent type for Company, School, etc.
+"""
+interface Organization {
+  id: ID!
+  urn: URN!
+  name: String!
+  description: String
+  websiteUrl: URL
+  logoUrl: URL
+}
+
+"""
+LinkedIn company entity. Maps to the Organization API.
+"""
+type Company implements Organization {
+  id: ID!
+  urn: URN!
+  name: String!
+  description: String
+  websiteUrl: URL
+  logoUrl: URL
+  vanityName: String
+  universalName: String
+  headquartersCity: String
+  headquartersCountry: String
+  industryId: String
+  industryName: String
+  companyType: String
+  employeeCount: Int
+  foundedYear: Int
+  specialties: [String!]
+  page: CompanyPage
+  products: [ProductPage!]
+  showcases: [Showcase!]
+  jobPostings(first: Int, after: String): JobPostingConnection
+}
+
+"""
+LinkedIn Company Page with follower and post analytics.
+"""
+type CompanyPage {
+  company: Company!
+  followersCount: Int
+  posts(first: Int, after: String): PostConnection
+  analytics: Analytics
+  adminMembers: [Member!]
+}
+
+"""
+A product page associated with a LinkedIn company.
+"""
+type ProductPage {
+  id: ID!
+  urn: URN!
+  name: String!
+  description: String
+  company: Company!
+  logoUrl: URL
+  url: URL
+}
+
+"""
+A LinkedIn Showcase page beneath a company.
+"""
+type Showcase {
+  id: ID!
+  urn: URN!
+  name: String!
+  description: String
+  company: Company!
+  followersCount: Int
+  posts(first: Int, after: String): PostConnection
+}
+
+"""
+An educational institution entity on LinkedIn.
+"""
+type School implements Organization {
+  id: ID!
+  urn: URN!
+  name: String!
+  description: String
+  websiteUrl: URL
+  logoUrl: URL
+  followersCount: Int
+  alumni(first: Int, after: String): ConnectionsConnection
+}
+
+# ─────────────────────────────────────────────
+# Content and Engagement Types
+# ─────────────────────────────────────────────
+
+"""
+A LinkedIn content post (text, image, video, document, or poll).
+"""
+type Post {
+  id: ID!
+  urn: URN!
+  author: Member!
+  commentary: String
+  visibility: Visibility!
+  mediaType: PostMediaType
+  mediaUrls: [URL!]
+  articleContent: Article
+  publishedAt: DateTime
+  lastModifiedAt: DateTime
+  likeCount: Int
+  commentCount: Int
+  shareCount: Int
+  resharedFrom: Post
+}
+
+"""
+A reshare of an existing LinkedIn post.
+"""
+type Share {
+  id: ID!
+  urn: URN!
+  author: Member!
+  commentary: String
+  originalPost: Post!
+  publishedAt: DateTime
+  visibility: Visibility!
+}
+
+"""
+A long-form LinkedIn article (LinkedIn Pulse).
+"""
+type Article {
+  id: ID!
+  urn: URN!
+  author: Member!
+  title: String!
+  content: String
+  coverImageUrl: URL
+  publishedAt: DateTime
+  lastModifiedAt: DateTime
+  visibility: Visibility!
+  likeCount: Int
+  commentCount: Int
+}
+
+"""
+A LinkedIn Event (live or virtual).
+"""
+type Event {
+  id: ID!
+  urn: URN!
+  name: String!
+  description: String
+  organizer: Member
+  organizingCompany: Company
+  startAt: DateTime
+  endAt: DateTime
+  timezone: String
+  onlineEventUrl: URL
+  attendeesCount: Int
+  isOnline: Boolean!
+  coverImageUrl: URL
+}
+
+"""
+Pagination connection for posts.
+"""
+type PostConnection {
+  nodes: [Post!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Messaging and Communication Types
+# ─────────────────────────────────────────────
+
+"""
+A LinkedIn messaging conversation thread between members.
+"""
+type Conversation {
+  id: ID!
+  urn: URN!
+  participants: [Member!]!
+  lastActivityAt: DateTime
+  unreadCount: Int
+  messages(first: Int, after: String): MessageConnection
+}
+
+"""
+An individual message within a LinkedIn conversation.
+"""
+type Message {
+  id: ID!
+  urn: URN!
+  conversation: Conversation!
+  sender: Member!
+  body: String!
+  sentAt: DateTime!
+  deliveredAt: DateTime
+  readAt: DateTime
+  attachmentUrls: [URL!]
+}
+
+"""
+A LinkedIn activity notification record.
+"""
+type Notification {
+  id: ID!
+  urn: URN!
+  recipient: Member!
+  type: String!
+  message: String
+  entityUrn: URN
+  createdAt: DateTime!
+  isRead: Boolean!
+}
+
+"""
+Pagination connection for messages.
+"""
+type MessageConnection {
+  nodes: [Message!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+"""
+Pagination connection for notifications.
+"""
+type NotificationConnection {
+  nodes: [Notification!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+"""
+Pagination connection for conversations.
+"""
+type ConversationConnection {
+  nodes: [Conversation!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Jobs and Talent Types
+# ─────────────────────────────────────────────
+
+"""
+A job listing published on LinkedIn through the Talent Solutions API.
+"""
+type JobPosting {
+  id: ID!
+  urn: URN!
+  title: String!
+  description: String
+  company: Company!
+  location: String
+  workplaceType: WorkplaceType
+  jobType: JobType
+  seniorityLevel: String
+  industryId: String
+  salary: SalaryRange
+  publishedAt: DateTime
+  expiresAt: DateTime
+  applyUrl: URL
+  applicationsCount: Int
+  isEasyApply: Boolean
+  skills: [String!]
+}
+
+"""
+Salary range for a job posting.
+"""
+type SalaryRange {
+  minAmount: Float
+  maxAmount: Float
+  currency: String
+  period: String
+}
+
+"""
+A job application submitted through LinkedIn.
+"""
+type JobApplication {
+  id: ID!
+  urn: URN!
+  jobPosting: JobPosting!
+  applicant: Member!
+  appliedAt: DateTime!
+  status: ApplicationStatus!
+  resume: URL
+  coverLetter: String
+}
+
+"""
+Pagination connection for job postings.
+"""
+type JobPostingConnection {
+  nodes: [JobPosting!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Community and Groups
+# ─────────────────────────────────────────────
+
+"""
+A LinkedIn Group entity.
+"""
+type Group {
+  id: ID!
+  urn: URN!
+  name: String!
+  description: String
+  logoUrl: URL
+  memberCount: Int
+  isPrivate: Boolean!
+  owner: Member
+  posts(first: Int, after: String): PostConnection
+  members(first: Int, after: String): ConnectionsConnection
+}
+
+# ─────────────────────────────────────────────
+# Analytics and Insights Types
+# ─────────────────────────────────────────────
+
+"""
+Aggregated analytics metric result for a page, post, or campaign.
+"""
+type Analytics {
+  entityUrn: URN!
+  impressionCount: Int
+  clickCount: Int
+  engagementCount: Int
+  likeCount: Int
+  commentCount: Int
+  shareCount: Int
+  followerGain: Int
+  period: DateRange
+}
+
+"""
+A single analytics insight record.
+"""
+type Insight {
+  id: ID!
+  type: String!
+  value: JSON
+  entityUrn: URN
+  computedAt: DateTime
+}
+
+"""
+A profile view event summary for a LinkedIn member.
+"""
+type ProfileViewSummary {
+  member: Member!
+  viewCount: Int!
+  uniqueViewerCount: Int!
+  period: DateRange
+}
+
+"""
+A profile view event record (who viewed a profile).
+"""
+type ProfileView {
+  id: ID!
+  viewer: Member
+  viewedProfile: Profile!
+  viewedAt: DateTime!
+  isAnonymous: Boolean!
+}
+
+"""
+A member or entity search result from LinkedIn search.
+"""
+type SearchResult {
+  entityUrn: URN!
+  entity: SearchEntity
+  relevanceScore: Float
+  highlights: [String!]
+}
+
+"""
+Union of searchable LinkedIn entity types.
+"""
+union SearchEntity = Member | Company | JobPosting | Group | School
+
+"""
+A listed service provider on LinkedIn.
+"""
+type ServiceProvider {
+  id: ID!
+  urn: URN!
+  member: Member!
+  services: [String!]!
+  ratingCount: Int
+  averageRating: Float
+  profileUrl: URL
+}
+
+# ─────────────────────────────────────────────
+# Marketing and Advertising Types
+# ─────────────────────────────────────────────
+
+"""
+A LinkedIn advertiser account.
+"""
+type AdAccount {
+  id: ID!
+  urn: URN!
+  name: String!
+  currency: String
+  status: String
+  type: String
+  campaigns(first: Int, after: String): CampaignConnection
+}
+
+"""
+A LinkedIn ad campaign.
+"""
+type Campaign {
+  id: ID!
+  urn: URN!
+  name: String!
+  account: AdAccount!
+  campaignGroup: CampaignGroup
+  objective: CampaignObjective!
+  status: CampaignStatus!
+  startAt: DateTime
+  endAt: DateTime
+  totalBudget: Float
+  dailyBudget: Float
+  currency: String
+  creatives: [Creative!]
+  targetingAudience: Audience
+  analytics: AdAnalytics
+}
+
+"""
+A grouping of LinkedIn ad campaigns.
+"""
+type CampaignGroup {
+  id: ID!
+  urn: URN!
+  name: String!
+  account: AdAccount!
+  status: CampaignStatus!
+  campaigns(first: Int, after: String): CampaignConnection
+}
+
+"""
+A LinkedIn ad creative asset.
+"""
+type Creative {
+  id: ID!
+  urn: URN!
+  campaign: Campaign!
+  type: String!
+  title: String
+  body: String
+  imageUrl: URL
+  destinationUrl: URL
+  status: String
+}
+
+"""
+A targeting audience definition for LinkedIn ads.
+"""
+type Audience {
+  id: ID!
+  urn: URN!
+  name: String
+  facets: JSON
+  estimatedReach: Int
+  matchedMembersCount: Int
+}
+
+"""
+Aggregated audience demographic insight data.
+"""
+type AudienceInsight {
+  audience: Audience!
+  facetType: String!
+  facetValues: JSON
+  computedAt: DateTime
+}
+
+"""
+A conversion event recorded through the LinkedIn Conversions API.
+"""
+type Conversion {
+  id: ID!
+  urn: URN!
+  name: String!
+  account: AdAccount!
+  type: String!
+  attributionType: String
+  postClickAttributionWindowSize: Int
+  viewThroughAttributionWindowSize: Int
+  enabled: Boolean!
+}
+
+"""
+A LinkedIn Lead Gen Form definition.
+"""
+type LeadGenForm {
+  id: ID!
+  urn: URN!
+  name: String!
+  headline: String
+  description: String
+  questions: [LeadGenQuestion!]
+  callToAction: String
+  privacyPolicyUrl: URL
+  createdAt: DateTime
+}
+
+"""
+A question on a LinkedIn Lead Gen Form.
+"""
+type LeadGenQuestion {
+  questionId: String!
+  label: String!
+  type: String!
+  required: Boolean!
+  predefinedField: String
+}
+
+"""
+A submitted Lead Gen Form response (lead).
+"""
+type LeadGenFormResponse {
+  id: ID!
+  urn: URN!
+  form: LeadGenForm!
+  submittedAt: DateTime!
+  responseAnswers: JSON
+  campaignUrn: URN
+  creativeUrn: URN
+}
+
+"""
+Campaign-level advertising analytics metrics.
+"""
+type AdAnalytics {
+  campaign: Campaign!
+  impressions: Int
+  clicks: Int
+  ctr: Float
+  costPerClick: Float
+  costPerImpression: Float
+  spend: Float
+  conversions: Int
+  leads: Int
+  videoViews: Int
+  period: DateRange
+}
+
+"""
+Pagination connection for campaigns.
+"""
+type CampaignConnection {
+  nodes: [Campaign!]
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Sales Navigator Types
+# ─────────────────────────────────────────────
+
+"""
+A CRM account record synced with LinkedIn Sales Navigator.
+"""
+type SalesAccount {
+  id: ID!
+  urn: URN!
+  name: String!
+  crmId: String
+  company: Company
+  ownerMember: Member
+  lastActivityAt: DateTime
+  tags: [String!]
+}
+
+"""
+A lead record in LinkedIn Sales Navigator.
+"""
+type SalesLead {
+  id: ID!
+  urn: URN!
+  member: Member!
+  salesAccount: SalesAccount
+  crmLeadId: String
+  ownerMember: Member
+  savedAt: DateTime
+  notes: String
+}
+
+"""
+CRM synchronization state for a Sales Navigator integration.
+"""
+type CrmSync {
+  id: ID!
+  crmType: String!
+  status: String!
+  lastSyncedAt: DateTime
+  errorMessage: String
+}
+
+# ─────────────────────────────────────────────
+# Learning Types
+# ─────────────────────────────────────────────
+
+"""
+A LinkedIn Learning course.
+"""
+type LearningCourse {
+  id: ID!
+  urn: URN!
+  title: String!
+  description: String
+  url: URL
+  thumbnailUrl: URL
+  durationSeconds: Int
+  difficultyLevel: String
+  topics: [String!]
+  skills: [String!]
+  publishedAt: DateTime
+}
+
+"""
+A learner activity record for a LinkedIn Learning course.
+"""
+type LearningActivity {
+  id: ID!
+  urn: URN!
+  learner: Member!
+  course: LearningCourse!
+  startedAt: DateTime
+  completedAt: DateTime
+  progressPercent: Float
+  lastAccessedAt: DateTime
+}
+
+# ─────────────────────────────────────────────
+# Compliance Types
+# ─────────────────────────────────────────────
+
+"""
+An archived compliance message record.
+"""
+type ArchivedMessage {
+  id: ID!
+  urn: URN!
+  sender: Member!
+  recipients: [Member!]!
+  body: String!
+  sentAt: DateTime!
+  archivedAt: DateTime!
+  threadUrn: URN
+  attachmentUrls: [URL!]
+}
+
+"""
+A compliance event record for regulated activity monitoring.
+"""
+type ComplianceEvent {
+  id: ID!
+  urn: URN!
+  eventType: ComplianceEventType!
+  actor: Member!
+  entityUrn: URN
+  occurredAt: DateTime!
+  metadata: JSON
+}
+
+# ─────────────────────────────────────────────
+# Shared Utility Types
+# ─────────────────────────────────────────────
+
+"""
+A date range with optional month and day granularity.
+"""
+type DateRange {
+  year: Int!
+  month: Int
+  day: Int
+}
+
+"""
+Relay-compatible pagination info.
+"""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# ─────────────────────────────────────────────
+# Root Query Type
+# ─────────────────────────────────────────────
+
+type Query {
+  """
+  Fetch the authenticated LinkedIn member.
+  Maps to GET /v2/me
+  """
+  me: Member
+
+  """
+  Fetch a LinkedIn member by URN.
+  Maps to GET /v2/members/{memberUrn}
+  """
+  member(urn: URN!): Member
+
+  """
+  Fetch a LinkedIn company by URN.
+  Maps to GET /v2/organizations/{organizationId}
+  """
+  company(urn: URN!): Company
+
+  """
+  Fetch a LinkedIn school by URN.
+  """
+  school(urn: URN!): School
+
+  """
+  Fetch a job posting by URN.
+  Maps to GET /v2/simpleJobPostings/{jobPostingUrn}
+  """
+  jobPosting(urn: URN!): JobPosting
+
+  """
+  Search for members, companies, or jobs.
+  Maps to GET /v2/search
+  """
+  search(query: String!, entityTypes: [String!], first: Int, after: String): [SearchResult!]
+
+  """
+  Fetch an ad account by URN.
+  Maps to GET /v2/adAccounts/{adAccountId}
+  """
+  adAccount(urn: URN!): AdAccount
+
+  """
+  Fetch a campaign by URN.
+  Maps to GET /v2/adCampaignsV2/{campaignId}
+  """
+  campaign(urn: URN!): Campaign
+
+  """
+  Fetch a Lead Gen Form by URN.
+  Maps to GET /v2/leadGenForms/{leadGenFormUrn}
+  """
+  leadGenForm(urn: URN!): LeadGenForm
+
+  """
+  Fetch a LinkedIn Group by URN.
+  """
+  group(urn: URN!): Group
+
+  """
+  Fetch a LinkedIn Learning course by URN.
+  Maps to GET /v2/learningAssets/{learningAssetUrn}
+  """
+  learningCourse(urn: URN!): LearningCourse
+
+  """
+  Fetch a Sales Navigator account by URN.
+  Maps to GET /v2/salesNavigatorAccounts/{accountId}
+  """
+  salesAccount(urn: URN!): SalesAccount
+
+  """
+  Fetch a post by URN.
+  Maps to GET /v2/posts/{postUrn}
+  """
+  post(urn: URN!): Post
+
+  """
+  Fetch a conversation by URN.
+  Maps to GET /v2/conversations/{conversationId}
+  """
+  conversation(urn: URN!): Conversation
+
+  """
+  Fetch analytics for a company page.
+  Maps to GET /v2/organizationalEntityShareStatistics
+  """
+  companyAnalytics(companyUrn: URN!, startDate: DateTime, endDate: DateTime): Analytics
+
+  """
+  Fetch profile view summary for the authenticated member.
+  Maps to GET /v2/profileViews
+  """
+  profileViewSummary: ProfileViewSummary
+}
