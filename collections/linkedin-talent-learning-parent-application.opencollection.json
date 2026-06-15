@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Parent Application Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Application Retrieval",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Child Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/provisionedApplications",
+            "params": [
+              {
+                "name": "q",
+                "value": "credentialsByUniqueForeignId",
+                "type": "query",
+                "description": "Query type for retrieving applications"
+              },
+              {
+                "name": "uniqueForeignId",
+                "value": "acme-corp-12345",
+                "type": "query",
+                "description": "Partner's unique identifier for the customer"
+              }
+            ]
+          },
+          "docs": "Retrieves the credentials and details of a child application for a mutual customer using the partner's unique foreign identifier.\nFor more information, refer to the [Get Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#get-application)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Child Application Provisioning",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Provision Child Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/provisionedApplications",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new child application for a mutual customer. Partners use this endpoint to provision developer applications that enable customer integrations with LinkedIn services.\nFor more information, refer to the [Create Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#create-application)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Application Updates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Update OAuth 2.0 Callback URLs for Child Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/provisionedApplications/:customer_application_urn",
+            "params": [
+              {
+                "name": "customer_application_urn",
+                "value": "urn:li:developerApplication:12345678",
+                "type": "path",
+                "description": "URN of the customer application to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the OAuth 2.0 authorized callback URLs for a child application. Partners use this endpoint to modify the callback URLs configuration for customer applications.\nFor more information, refer to the [Update Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#update-application)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Compliance Authorization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Check Member Regulation Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/memberComplianceAuthorizations",
+            "params": [
+              {
+                "name": "q",
+                "value": "member",
+                "type": "query",
+                "description": "Query type for member lookup"
+              }
+            ]
+          },
+          "docs": "Check if a member is currently opted in for compliance monitoring."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Opt in Member for Compliance Monitoring",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/memberComplianceAuthorizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Opt in a member to be regulated on LinkedIn for compliance monitoring. Once authorized, the member's activities can be retrieved using the Compliance Events API."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Opt Out Member from Compliance Monitoring",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication::DeveloperApplicationId&member=urn:li:person::PersonId",
+            "params": [
+              {
+                "name": "DeveloperApplicationId",
+                "value": "12345678",
+                "type": "path",
+                "description": "Developer application ID"
+              },
+              {
+                "name": "PersonId",
+                "value": "ABC123def",
+                "type": "path",
+                "description": "Person ID of the member"
+              }
+            ]
+          },
+          "docs": "Opt out a member from being regulated on LinkedIn. A member will not opt out due to access token expiration. Opt out occurs when the application invokes this DELETE API or the member removes authorization through LinkedIn's Privacy Settings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Compliance Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Compliance Events for Regulated Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/complianceEvents",
+            "params": [
+              {
+                "name": "q",
+                "value": "memberAndApplication",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "projection",
+                "value": "(elements*(id,capturedAt,processedAt,configVersion,owner~(firstName,lastName,headline),actor~(firstName,lastName,headline),resourceName,resourceId,resourceUri,method,activity,processedActivity,siblingActivities,parentActivity,parentSiblingActivities),paging)",
+                "type": "query",
+                "description": "Fields to include in the response"
+              },
+              {
+                "name": "startTime",
+                "value": "1640000000000",
+                "type": "query",
+                "description": "Start time in milliseconds since epoch"
+              },
+              {
+                "name": "count",
+                "value": "10",
+                "type": "query",
+                "description": "Number of events to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieve compliance events for a regulated member. Returns monitored activities as individual event records for archiving and remediation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

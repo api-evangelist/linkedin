@@ -1,0 +1,695 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Community Management",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn 2. Create a Share with a Company Mention",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/shares",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mention a company name by using the annotations. [Learn more](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/share-api?tabs=http#share-text-and-mentions) by viewing our public documentation.\n\nThis example uses the LinkedIn organization."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 3. Retrieve Notifications for the Authenticated Member's Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/eventSubscriptions",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "Linkedin-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "subscriberAndEventType",
+                "type": "query"
+              },
+              {
+                "name": "eventType",
+                "value": "ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "[Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#pull-organizational-notifications) by viewing our public documentation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn 5. Retrieve Subscription by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/eventSubscriptions/(developerApplication:urn:li:developerApplication::application_id,user:urn:li:person::person_id,entity:urn:li:organization::organization_id,eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "application_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "person_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve all the subscriptions details such as webhook url and expiration for the logged in user. [Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#retrieve-subscriptions-for-an-authenticated-member) by viewing our online documentation."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 3. Create a Subscription Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/eventSubscriptions/(developerApplication:urn:li:developerApplication::application_id,user:urn:li:person::person_id,entity:urn:li:organization::organization_id,eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "Linkedin-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "application_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "person_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "[Create a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#creating-and-updating-subscriptions) record to include the webhook URL where your app will receive notifications. The subscription request will only succeed if the subscribing member is an administrator of the organization being subscribed to."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 6. Remove a Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/eventSubscriptions/(developerApplication::application_id,user::person_id,entity::organization_id,eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "application_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "person_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "[Remove a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#remove-a-subscription) for a your developer application and Organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Use Cases > Statistics APIs > Organization Follower Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Time-Bound Follower Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationalEntityFollowerStatistics",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "organizationalEntity",
+                "type": "query"
+              },
+              {
+                "name": "organizationalEntity",
+                "value": "urn%3Ali%3Aorganization%3A2414183",
+                "type": "query"
+              },
+              {
+                "name": "timeIntervals.timeGranularityType",
+                "value": "DAY",
+                "type": "query"
+              },
+              {
+                "name": "timeIntervals.timeRange.start",
+                "value": "1634018799000",
+                "type": "query"
+              },
+              {
+                "name": "timeIntervals.timeRange.end",
+                "value": "1634623599000",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Time-Bound Follower Statistics"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Use Cases > Statistics APIs > Organization Page Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Lifetime Page Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationPageStatistics",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "organization",
+                "type": "query"
+              },
+              {
+                "name": "organization",
+                "value": "urn%3Ali%3Aorganization%3A2414183",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Lifetime Page Statistics"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Use Cases > Statistics APIs > Organization Share Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Time Bound Share Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationalEntityShareStatistics",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "organizationalEntity",
+                "type": "query"
+              },
+              {
+                "name": "organizationalEntity",
+                "value": "urn%3Ali%3Aorganization%3A2414183",
+                "type": "query"
+              },
+              {
+                "name": "timeIntervals.timeGranularityType",
+                "value": "DAY",
+                "type": "query"
+              },
+              {
+                "name": "timeIntervals.timeRange.start",
+                "value": "1634018799000",
+                "type": "query"
+              },
+              {
+                "name": "timeIntervals.timeRange.end",
+                "value": "1634623599000",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Time Bound Share Statistics"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Use Cases > Organization Followers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Search by Keyword",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/peopleTypeahead",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "organizationFollowers",
+                "type": "query"
+              },
+              {
+                "name": "keywords",
+                "value": "chris",
+                "type": "query"
+              },
+              {
+                "name": "organization",
+                "value": "urn%3Ali%3Aorganization%3A{{organization_id}}",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Search by Keyword"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Search by Vanity URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/vanityUrl",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "vanityUrlAsOrganization",
+                "type": "query"
+              },
+              {
+                "name": "vanityUrl",
+                "value": "https%3A//www.linkedin.com/in/vanityName/",
+                "type": "query"
+              },
+              {
+                "name": "organization",
+                "value": "urn%3Ali%3Aorganization%3A{{organization_id}}",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Search by Vanity URL"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Use Cases > Organization Lookup > Organization Brands",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Find Administered Organization Brands by Parent Org",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizations",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "parentOrganization",
+                "type": "query"
+              },
+              {
+                "name": "parent",
+                "value": "urn:li:organization:{{organization_id}}",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Find Administered Organization Brands by Parent Org"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch GET on Administered Organization Brands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationBrands",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({{organizationBrand_id}},{{organizationBrand_id1}})",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Batch GET on Administered Organization Brands"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Retrieve an Administered Organization Brand",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationBrands/:organizationBrand_id",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "organizationBrand_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "LinkedIn Retrieve an Administered Organization Brand"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch GET on Non-Administered Organization Brands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationBrandsLookup",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({{organizationBrand_id}},{{organizationBrand_id1}})",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Batch GET on Non-Administered Organization Brands"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Use Cases > Organization Lookup > Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Lookup by Organization Primary Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizations/:organization_id",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "projection",
+                "value": "(primaryOrganizationType)",
+                "type": "query"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "LinkedIn Lookup by Organization Primary Type"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Find Non-Administered Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationsLookup",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({{organization_id}},{{organization_id1}})",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Find Non-Administered Organization"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Organization Follower Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/networkSizes/urn:li:organization::organization_id",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "edgeType",
+                "value": "CompanyFollowedByMember",
+                "type": "query"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "LinkedIn Retrieve Organization Follower Count"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Use Cases > Organization Access Controls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Find Organization Access Control",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationAcls",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "Linkedin-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "organization",
+                "type": "query"
+              },
+              {
+                "name": "organization",
+                "value": "urn%3Ali%3Aorganization%3A{{organization_id}}",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Find Organization Access Control"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

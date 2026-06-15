@@ -1,0 +1,850 @@
+{
+  "info": {
+    "_postman_id": "48ab70b3-33f0-469c-adb9-8cb4581d1fc2",
+    "name": "LinkedIn Compliance Events API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:17:25.000Z",
+    "updatedAt": "2026-06-05T13:17:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-48ab70b3-33f0-469c-adb9-8cb4581d1fc2"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "memberComplianceAuthorizations",
+          "item": [
+            {
+              "name": "developerApplication=urn:li:developerApplication:{DeveloperApplicationId}&member=urn:li:person:{PersonId}",
+              "item": [
+                {
+                  "name": "LinkedIn Opt Out Member from Compliance Monitoring",
+                  "id": "17a0e2c2-f54d-4338-981a-9f3c0ad360c1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{{DeveloperApplicationId}}&member=urn:li:person:{{PersonId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "memberComplianceAuthorizations",
+                        "developerApplication=urn:li:developerApplication:{{DeveloperApplicationId}}&member=urn:li:person:{{PersonId}}"
+                      ]
+                    },
+                    "description": "Opt out a member from being regulated on LinkedIn. A member will not opt out due to access token expiration. Opt out occurs when the application invokes this DELETE API or the member removes authorization through LinkedIn's Privacy Settings."
+                  },
+                  "response": [
+                    {
+                      "id": "d6746bb4-69da-4166-9294-9ef4c7eb69fe",
+                      "name": "Member successfully opted out from compliance monitoring",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{{DeveloperApplicationId}}&member=urn:li:person:{{PersonId}}",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "memberComplianceAuthorizations",
+                            "developerApplication=urn:li:developerApplication:{{DeveloperApplicationId}}&member=urn:li:person:{{PersonId}}"
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T13:17:25.000Z",
+                      "updatedAt": "2026-06-05T13:17:25.000Z",
+                      "uid": "35240-d6746bb4-69da-4166-9294-9ef4c7eb69fe"
+                    },
+                    {
+                      "id": "608cd690-6fb2-4ccd-ad42-1ede4c2bebbc",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{{DeveloperApplicationId}}&member=urn:li:person:{{PersonId}}",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "memberComplianceAuthorizations",
+                            "developerApplication=urn:li:developerApplication:{{DeveloperApplicationId}}&member=urn:li:person:{{PersonId}}"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:17:25.000Z",
+                      "updatedAt": "2026-06-05T13:17:25.000Z",
+                      "uid": "35240-608cd690-6fb2-4ccd-ad42-1ede4c2bebbc"
+                    },
+                    {
+                      "id": "eaa799e3-c872-429d-98e1-814b012699db",
+                      "name": "Authorization not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{{DeveloperApplicationId}}&member=urn:li:person:{{PersonId}}",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "memberComplianceAuthorizations",
+                            "developerApplication=urn:li:developerApplication:{{DeveloperApplicationId}}&member=urn:li:person:{{PersonId}}"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:17:25.000Z",
+                      "updatedAt": "2026-06-05T13:17:25.000Z",
+                      "uid": "35240-eaa799e3-c872-429d-98e1-814b012699db"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T13:17:25.000Z",
+                  "updatedAt": "2026-06-05T13:17:25.000Z",
+                  "uid": "35240-17a0e2c2-f54d-4338-981a-9f3c0ad360c1"
+                }
+              ],
+              "id": "52d7e4bb-93b3-4ff0-97f3-99bdc09c40e8",
+              "createdAt": "2026-06-05T13:17:25.000Z",
+              "updatedAt": "2026-06-05T13:17:25.000Z",
+              "uid": "35240-52d7e4bb-93b3-4ff0-97f3-99bdc09c40e8"
+            },
+            {
+              "name": "LinkedIn Opt in Member for Compliance Monitoring",
+              "id": "f57bdd9d-3798-4825-88df-381eab8c249c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"member\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "memberComplianceAuthorizations"
+                  ]
+                },
+                "description": "Opt in a member to be regulated on LinkedIn for compliance monitoring. Once authorized, the member's activities can be retrieved using the Compliance Events API."
+              },
+              "response": [
+                {
+                  "id": "f8039a16-47f4-4296-ad16-77c51015136b",
+                  "name": "Member successfully opted in for compliance monitoring",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"member\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "memberComplianceAuthorizations"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"developerApplication\": \"<string>\",\n  \"member\": \"<string>\",\n  \"status\": \"AUTHORIZED\",\n  \"createdAt\": \"<long>\"\n}",
+                  "createdAt": "2026-06-05T13:17:25.000Z",
+                  "updatedAt": "2026-06-05T13:17:25.000Z",
+                  "uid": "35240-f8039a16-47f4-4296-ad16-77c51015136b"
+                },
+                {
+                  "id": "7dfa752f-c083-492c-a021-1f621d8f0952",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"member\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "memberComplianceAuthorizations"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:25.000Z",
+                  "updatedAt": "2026-06-05T13:17:25.000Z",
+                  "uid": "35240-7dfa752f-c083-492c-a021-1f621d8f0952"
+                },
+                {
+                  "id": "6326a3fd-c8ed-434a-8c59-a0474301b00d",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"member\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "memberComplianceAuthorizations"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:25.000Z",
+                  "updatedAt": "2026-06-05T13:17:25.000Z",
+                  "uid": "35240-6326a3fd-c8ed-434a-8c59-a0474301b00d"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:25.000Z",
+              "updatedAt": "2026-06-05T13:17:25.000Z",
+              "uid": "35240-f57bdd9d-3798-4825-88df-381eab8c249c"
+            },
+            {
+              "name": "LinkedIn Check Member Regulation Status",
+              "id": "ca965fc7-699c-4b8c-b041-0c340bb1d0ba",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations?q=member",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "memberComplianceAuthorizations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type for member lookup",
+                      "key": "q",
+                      "value": "member"
+                    }
+                  ]
+                },
+                "description": "Check if a member is currently opted in for compliance monitoring."
+              },
+              "response": [
+                {
+                  "id": "90365c9f-2f05-412a-80e7-8b3b0bae13d0",
+                  "name": "Successfully retrieved member compliance authorization status",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations?q=member",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "memberComplianceAuthorizations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type for member lookup",
+                          "key": "q",
+                          "value": "member"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"developerApplication\": \"<string>\",\n      \"member\": \"<string>\",\n      \"status\": \"UNAUTHORIZED\",\n      \"createdAt\": \"<long>\"\n    },\n    {\n      \"developerApplication\": \"<string>\",\n      \"member\": \"<string>\",\n      \"status\": \"AUTHORIZED\",\n      \"createdAt\": \"<long>\"\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T13:17:25.000Z",
+                  "updatedAt": "2026-06-05T13:17:25.000Z",
+                  "uid": "35240-90365c9f-2f05-412a-80e7-8b3b0bae13d0"
+                },
+                {
+                  "id": "72091040-43ed-4317-949e-b559f91dae9c",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/memberComplianceAuthorizations?q=member",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "memberComplianceAuthorizations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type for member lookup",
+                          "key": "q",
+                          "value": "member"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:25.000Z",
+                  "updatedAt": "2026-06-05T13:17:25.000Z",
+                  "uid": "35240-72091040-43ed-4317-949e-b559f91dae9c"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:25.000Z",
+              "updatedAt": "2026-06-05T13:17:25.000Z",
+              "uid": "35240-ca965fc7-699c-4b8c-b041-0c340bb1d0ba"
+            }
+          ],
+          "id": "4a9889f1-3f49-458a-878b-b8a3f92c4071",
+          "createdAt": "2026-06-05T13:17:25.000Z",
+          "updatedAt": "2026-06-05T13:17:25.000Z",
+          "uid": "35240-4a9889f1-3f49-458a-878b-b8a3f92c4071"
+        },
+        {
+          "name": "complianceEvents",
+          "item": [
+            {
+              "name": "LinkedIn Retrieve Compliance Events for Regulated Member",
+              "id": "4f8a0d56-b5f1-4e24-80db-9f64f6910e1f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/complianceEvents?q=memberAndApplication&projection=<string>&startTime=<long>&count=10",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "complianceEvents"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "memberAndApplication"
+                    },
+                    {
+                      "description": "Fields to include in the response",
+                      "key": "projection",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start time in milliseconds since epoch",
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "Number of events to retrieve",
+                      "key": "count",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "Retrieve compliance events for a regulated member. Returns monitored activities as individual event records for archiving and remediation."
+              },
+              "response": [
+                {
+                  "id": "535546b3-6029-45a9-a627-0f841290c361",
+                  "name": "Successfully retrieved compliance events",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/complianceEvents?q=memberAndApplication&projection=<string>&startTime=<long>&count=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "complianceEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "memberAndApplication"
+                        },
+                        {
+                          "description": "Fields to include in the response",
+                          "key": "projection",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start time in milliseconds since epoch",
+                          "key": "startTime",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "Number of events to retrieve",
+                          "key": "count",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"id\": \"<string>\",\n      \"capturedAt\": \"<long>\",\n      \"resourceName\": \"<string>\",\n      \"method\": \"CREATE\",\n      \"processedAt\": \"<long>\",\n      \"configVersion\": \"<string>\",\n      \"owner\": {\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"headline\": \"<string>\"\n      },\n      \"actor\": {\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"headline\": \"<string>\"\n      },\n      \"resourceId\": \"<string>\",\n      \"resourceUri\": \"<string>\",\n      \"activity\": {\n        \"reprehenderit1\": false,\n        \"et_829\": \"sint sunt\"\n      },\n      \"processedActivity\": {\n        \"ut61\": -86023090.99517828\n      },\n      \"parentActivity\": {\n        \"sint_c9\": \"amet ullamco minim esse\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"capturedAt\": \"<long>\",\n      \"resourceName\": \"<string>\",\n      \"method\": \"DELETE\",\n      \"processedAt\": \"<long>\",\n      \"configVersion\": \"<string>\",\n      \"owner\": {\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"headline\": \"<string>\"\n      },\n      \"actor\": {\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"headline\": \"<string>\"\n      },\n      \"resourceId\": \"<string>\",\n      \"resourceUri\": \"<string>\",\n      \"activity\": {\n        \"laborumc29\": -79029058.72156355,\n        \"in2\": \"anim nostrud sed\"\n      },\n      \"processedActivity\": {\n        \"ida\": \"incididunt id Duis\",\n        \"enimb\": false,\n        \"voluptate_84c\": false\n      },\n      \"parentActivity\": {\n        \"aliquip99\": -75082254,\n        \"dolore28\": true\n      }\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T13:17:25.000Z",
+                  "updatedAt": "2026-06-05T13:17:25.000Z",
+                  "uid": "35240-535546b3-6029-45a9-a627-0f841290c361"
+                },
+                {
+                  "id": "09d9557b-14e4-4b58-bf4f-cdc47cc9f554",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/complianceEvents?q=memberAndApplication&projection=<string>&startTime=<long>&count=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "complianceEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "memberAndApplication"
+                        },
+                        {
+                          "description": "Fields to include in the response",
+                          "key": "projection",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start time in milliseconds since epoch",
+                          "key": "startTime",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "Number of events to retrieve",
+                          "key": "count",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:25.000Z",
+                  "updatedAt": "2026-06-05T13:17:25.000Z",
+                  "uid": "35240-09d9557b-14e4-4b58-bf4f-cdc47cc9f554"
+                },
+                {
+                  "id": "c3ba3f49-123f-4b81-a983-dafeca0037f6",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/complianceEvents?q=memberAndApplication&projection=<string>&startTime=<long>&count=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "complianceEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "memberAndApplication"
+                        },
+                        {
+                          "description": "Fields to include in the response",
+                          "key": "projection",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start time in milliseconds since epoch",
+                          "key": "startTime",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "Number of events to retrieve",
+                          "key": "count",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:25.000Z",
+                  "updatedAt": "2026-06-05T13:17:25.000Z",
+                  "uid": "35240-c3ba3f49-123f-4b81-a983-dafeca0037f6"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:25.000Z",
+              "updatedAt": "2026-06-05T13:17:25.000Z",
+              "uid": "35240-4f8a0d56-b5f1-4e24-80db-9f64f6910e1f"
+            }
+          ],
+          "id": "28a83939-3a11-4294-b33b-5dd285e538c2",
+          "createdAt": "2026-06-05T13:17:25.000Z",
+          "updatedAt": "2026-06-05T13:17:25.000Z",
+          "uid": "35240-28a83939-3a11-4294-b33b-5dd285e538c2"
+        }
+      ],
+      "id": "10e08ed1-d896-40b8-9a40-db93d06c4ac4",
+      "createdAt": "2026-06-05T13:17:25.000Z",
+      "updatedAt": "2026-06-05T13:17:25.000Z",
+      "uid": "35240-10e08ed1-d896-40b8-9a40-db93d06c4ac4"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    },
+    {
+      "key": "DeveloperApplicationId",
+      "value": "<string>"
+    },
+    {
+      "key": "PersonId",
+      "value": "<string>"
+    }
+  ]
+}

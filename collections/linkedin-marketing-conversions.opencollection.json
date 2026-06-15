@@ -1,0 +1,223 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Conversions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversion Events Streaming Workflow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn 2. Retrieve Authenticated User's Sponsored Ad Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccountUsers",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "authenticatedUser",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "role,account,user",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn 2. Retrieve Authenticated User's Sponsored Ad Accounts"
+        },
+        {
+          "info": {
+            "name": "LinkedIn 4. Fetch Existing Conversion Rules for CAPI in the Selected Ad Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/conversions",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "account",
+                "type": "query"
+              },
+              {
+                "name": "account",
+                "value": "urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}}",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "conversionMethod,enabled,type,name,id,campaigns,attributionType",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 6. Create a New Conversion Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/conversions",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 7. Fetch Active Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccounts/:sponsoredaccount_id/adCampaigns",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "search",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "(status:(values:List(ACTIVE,DRAFT)))",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "id,name",
+                "type": "query"
+              },
+              {
+                "name": "sponsoredaccount_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 8. Associate Campaigns to Conversion Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/campaignConversions/(campaign:urn:li:sponsoredCampaign::campaign_id,conversion:urn:lla:llaPartnerConversion::conversion_id)",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "conversion_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 10. Stream Multiple Conversion Events to the Conversion Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/conversionEvents",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "X-RestLi-Method",
+                "value": "BATCH_CREATE"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

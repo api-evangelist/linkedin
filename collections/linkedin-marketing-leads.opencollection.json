@@ -1,0 +1,284 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lead Sync",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Sponsored",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn 4. Validate the User's Organization Role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationAcls",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "APPROVED",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "View the [Organization Access Control](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-access-control-by-role?tabs=http#organization-roles) documentation.\n\nTake note of the organization (company page) from the previous request (`referenceInfo.organization.id`). A member must have access to not only the Sponsored Account (step 2) but also have one of the roles mentioned in our [permissions](https://learn.microsoft.com/en-us/linkedin/marke"
+        },
+        {
+          "info": {
+            "name": "LinkedIn 5. Get Forms for the Chosen Sponsored Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/leadForms",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "owner",
+                "type": "query"
+              },
+              {
+                "name": "owner",
+                "value": "(sponsoredAccount:urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}})",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "10",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "At this point, the user has picked the sponsored account they are trying to collect leads for and you have validated they have proper access to the ad account and associated company page. This step will retrieve the form(s) associated with the selected sponsored account.\n\n---\n\n**6\\. Map Lead Gen Form fields to destination fields**\n\nUsing the API response data from the previous step, your application should ask the user to map questions, consents, and hidden fields to the appropriate fields in th"
+        },
+        {
+          "info": {
+            "name": "LinkedIn 8. Schedule Periodic Form Response (lead) Pulls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/leadFormResponses",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "owner",
+                "type": "query"
+              },
+              {
+                "name": "owner",
+                "value": "(sponsoredAccount:urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}})",
+                "type": "query"
+              },
+              {
+                "name": "leadType",
+                "value": "(leadType:{{leadtype_sponsored}})",
+                "type": "query"
+              },
+              {
+                "name": "limitedToTestLeads",
+                "value": "false",
+                "type": "query"
+              },
+              {
+                "name": "submittedAtTimeRange",
+                "value": "(start:{{timerange_start}},end:{{timerange_end}})",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "ownerInfo,associatedEntityInfo,leadMetadataInfo,owner,leadType,versionedLeadGenFormUrn,id,submittedAt,testLead,formResponse,form:(hiddenFields,creationLocale,name,id,content)",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "10",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This example pulls back all form responses (leads) for the chosen sponsored account. It also uses [field projection](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/projections?context=linkedin/marketing/context) to pull back specific fields in the response and the `submittedAtTimeRange` field to pull back leads up to 365 days in the past.\n\nCurrently the only sponsored leadType is `SPONSORED`\n\nLinkedIn will store form response (lead) data for up to 365 days. It is a best pra"
+        },
+        {
+          "info": {
+            "name": "LinkedIn 8. Subscribe for Lead Notification Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/leadNotifications",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "[Register a lead notification webhook](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#lead-notification-subscriptions) to receive notifications for new leads. Lead notifications can also be subscribed at a more granular level - see the linked documentation.\n\nThis example registers the webhook url, [https://www.example.com](https://www.example.com/), at the Ad Account level (sponsoredAccount). For any new lead submitted for campaigns that live withi"
+        },
+        {
+          "info": {
+            "name": "LinkedIn 9. Fetch Full Lead Data After a Lead Notification is Received",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/leadFormResponses/:lead_id",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "fields",
+                "value": "ownerInfo,associatedEntityInfo,leadMetadataInfo,owner,leadType,versionedLeadGenFormUrn,id,submittedAt,testLead,formResponse,form:(hiddenFields,creationLocale,name,id,content)",
+                "type": "query"
+              },
+              {
+                "name": "lead_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "[Responses can be fetched](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses) for a single form response, multiple form responses, or at the form or Ad Account level.\n\nWhen a lead notification event is received, the form response id exists in the lead notification [content](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event"
+        },
+        {
+          "info": {
+            "name": "LinkedIn [PUSH] Delete a Registered Webhook by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/leadnotifications/<webhook id>",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ]
+          },
+          "docs": "[Delete a lead notification subsription](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#delete-lead-notification-url)\n\nWhen an integration is deleted, the associated webhooks should also be deleted to ensure that lead notifications are not unnecessarily being sent."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 2. Get the User's Sponsored Accounts (ad Accounts)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccounts",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "search",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "(status:(values:List(ACTIVE)),test:false)",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "id,name,test,referenceInfo",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "10",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "View [Search for Accounts](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#search-for-accounts) documentation for more information.\n\nThis API call pulls back Ad Accounts that the member has access to where the status = ACTIVE and test = false (NOT a test Ad Account).\n\nLearn more about Test Ad Accounts [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

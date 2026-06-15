@@ -1,0 +1,1125 @@
+{
+  "item": [
+    {
+      "id": "99e3426a-91dd-462a-93e4-ce5397d17619",
+      "name": "Apply Connect Jobs",
+      "description": {
+        "content": "APIs for creating and managing Apply Connect enabled job postings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "816839f0-2a8f-4816-ac0e-323ed7022ce7",
+          "name": "LinkedIn Create or Update Apply Connect Job Posting",
+          "request": {
+            "name": "LinkedIn Create or Update Apply Connect Job Posting",
+            "description": {
+              "content": "Creates a new Apply Connect enabled job posting or updates/closes an existing one. Use the `jobPostingOperationType` field to specify the operation:\n- `CREATE`: Create a new job posting - `UPDATE`: Update an existing job posting - `CLOSE`: Close an existing job posting\nFor more information, refer to the [Apply Connect Jobs Lifecycle documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/sync-jobs-onsite-apply#apply-connect-jobs-lifecycle).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "simpleJobPostings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Rest.li method for batch operations",
+                "key": "x-restli-method",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"elements\": [\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"<string>\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"<string>\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"voluntarySelfIdentificationQuestions\": \"<object>\",\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"<string>\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"<string>\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"voluntarySelfIdentificationQuestions\": \"<object>\",\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0be2b406-8fa1-41bc-98c9-d74ddcaa337f",
+              "name": "Job posting request accepted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Rest.li method for batch operations",
+                    "key": "x-restli-method",
+                    "value": "batch_create"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elements\": [\n    {\n      \"externalJobPostingId\": \"JOB-2024-001\",\n      \"title\": \"Software Developer in Test\",\n      \"description\": \"We are looking for a talented Software Developer in Test to join our engineering team. You will be responsible for designing and implementing automated tests.\",\n      \"integrationContext\": \"urn:li:organization:12345678\",\n      \"jobPostingOperationType\": \"CREATE\",\n      \"listingType\": \"BASIC\",\n      \"listedAt\": 1702693664000,\n      \"location\": \"San Francisco, CA\",\n      \"companyApplyUrl\": \"https://company.com/careers/apply\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"https://ats.company.com/webhooks/linkedin\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"REQUIRED\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"OPTIONAL\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"elements\": [\n    {\n      \"status\": \"ACCEPTED\",\n      \"taskUrn\": \"urn:li:simpleJobPostingTask:12345678\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48545b82-bcdb-4c03-bc83-971a65ff2133",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Rest.li method for batch operations",
+                    "key": "x-restli-method",
+                    "value": "batch_create"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elements\": [\n    {\n      \"externalJobPostingId\": \"JOB-2024-001\",\n      \"title\": \"Software Developer in Test\",\n      \"description\": \"We are looking for a talented Software Developer in Test to join our engineering team. You will be responsible for designing and implementing automated tests.\",\n      \"integrationContext\": \"urn:li:organization:12345678\",\n      \"jobPostingOperationType\": \"CREATE\",\n      \"listingType\": \"BASIC\",\n      \"listedAt\": 1702693664000,\n      \"location\": \"San Francisco, CA\",\n      \"companyApplyUrl\": \"https://company.com/careers/apply\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"https://ats.company.com/webhooks/linkedin\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"REQUIRED\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"OPTIONAL\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52c8a5e2-03ec-425c-888d-023a32324fa2",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Rest.li method for batch operations",
+                    "key": "x-restli-method",
+                    "value": "batch_create"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elements\": [\n    {\n      \"externalJobPostingId\": \"JOB-2024-001\",\n      \"title\": \"Software Developer in Test\",\n      \"description\": \"We are looking for a talented Software Developer in Test to join our engineering team. You will be responsible for designing and implementing automated tests.\",\n      \"integrationContext\": \"urn:li:organization:12345678\",\n      \"jobPostingOperationType\": \"CREATE\",\n      \"listingType\": \"BASIC\",\n      \"listedAt\": 1702693664000,\n      \"location\": \"San Francisco, CA\",\n      \"companyApplyUrl\": \"https://company.com/careers/apply\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"https://ats.company.com/webhooks/linkedin\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"REQUIRED\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"OPTIONAL\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d30d6913-b1c3-4586-b14f-1f40788b0bcc",
+      "name": "Job Lifecycle Management",
+      "description": {
+        "content": "APIs for managing the lifecycle of job postings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8eb68fcd-5f56-4e1c-bddf-dfd610fbc648",
+          "name": "LinkedIn Check Job Posting Task Status",
+          "request": {
+            "name": "LinkedIn Check Job Posting Task Status",
+            "description": {
+              "content": "Retrieves the status of a job posting task to track whether the job has been successfully created, updated, or closed.\nAfter successful completion, the response includes the `jobPostingUrn` which can be used to view the job at: `https://www.linkedin.com/jobs/view/{jobPostingId}`\nFor more information, refer to the [Check Job Task Status documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "simpleJobPostingTasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) Task URN(s) to check status"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae04144b-3856-415c-ba1d-71a247d695f5",
+              "name": "Successfully retrieved task status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostingTasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "urn:li:simpleJobPostingTask:12345678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"urn:li:simpleJobPostingTask:12345678\": {\n      \"status\": \"SUCCEEDED\",\n      \"jobPostingUrn\": \"urn:li:jobPosting:2722131308\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cdd7ae0-73eb-4fab-87f6-4d781370db88",
+              "name": "Bad request - invalid task URN",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostingTasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "urn:li:simpleJobPostingTask:12345678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f52bc51d-581d-419a-8487-95895c8254ff",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostingTasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "urn:li:simpleJobPostingTask:12345678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f7dcb41-ead2-4eee-85b4-d6daee5d4326",
+              "name": "Task not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostingTasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "urn:li:simpleJobPostingTask:12345678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3cf52d1c-5c68-482e-9ea2-ecaa27f1546d",
+      "name": "Customer Integrations",
+      "description": {
+        "content": "APIs for managing customer ATS integrations for premium job posting",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cc48338f-78a6-482e-b863-6d3e904ef74b",
+          "name": "LinkedIn Update Customer ATS Integrations",
+          "request": {
+            "name": "LinkedIn Update Customer ATS Integrations",
+            "description": {
+              "content": "Updates customer ATS integrations for premium job posting capabilities. Partners use this endpoint to configure the integration name and other settings for their customers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsIntegrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) Integration context URN"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationType",
+                  "value": "<string>",
+                  "description": "(Required) Type of integration"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].tenantType",
+                  "value": "<string>",
+                  "description": "(Required) Tenant type for the integration"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) Data provider identifier"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entities\": {\n    \"key_0\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"key_1\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"key_2\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e07920f9-391b-48a5-a86f-e9ebe3a3375c",
+              "name": "Successfully updated the integration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"integrationContext\": \"urn:li:contract:12345\",\n      \"integrationType\": \"PREMIUM_JOB_POSTING\",\n      \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\",\n      \"status\": \"ENABLED\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4312c854-8db1-4fc5-b974-f09c7ef26103",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66d4d704-5fd9-49a7-9d50-8f33fa00c8d3",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5cc543bd-4c9c-4a67-ab78-49102e24ccc7",
+          "name": "LinkedIn Get Customer ATS Integration Details",
+          "request": {
+            "name": "LinkedIn Get Customer ATS Integration Details",
+            "description": {
+              "content": "Retrieves the details of a customer's ATS integration for premium job posting. Use this endpoint to verify integration configuration and status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsIntegrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) Integration context URN"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationType",
+                  "value": "<string>",
+                  "description": "(Required) Type of integration"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].tenantType",
+                  "value": "<string>",
+                  "description": "(Required) Tenant type for the integration"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) Data provider identifier"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "927abcd7-be08-45dc-ac35-e0a492070371",
+              "name": "Successfully retrieved integration details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"integrationContext\": \"urn:li:contract:12345\",\n      \"integrationType\": \"PREMIUM_JOB_POSTING\",\n      \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\",\n      \"status\": \"ENABLED\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ce7c7e4-2046-4f52-a1d0-506cdc0e0408",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1908b8fe-65bc-4112-b5b1-3b414961f2d8",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a99b84e-598d-4c15-882b-40392e828955",
+              "name": "Integration not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "w_organization_social"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "10004f29-17ba-4190-af5e-51278e45434f",
+    "name": "LinkedIn Job Posting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn's Job Posting API enables authorized third parties such as clients, ATS systems, and Job Distributors to post jobs directly to LinkedIn on behalf of customers.\nThis API supports two job categories:\n- **Basic Jobs**: Free job posts gathered by LinkedIn from external sources - **Promoted Jobs**: Paid job postings with enhanced visibility\nThe use of these APIs is restricted to developers approved by LinkedIn. Please reach out to your LinkedIn Relationship Manager or Business Development contact for access.\nFor more information, refer to the [Job Posting Overview](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/job-posting-overview).\n\nContact Support:\n Name: LinkedIn Talent Solutions",
+      "type": "text/plain"
+    }
+  }
+}

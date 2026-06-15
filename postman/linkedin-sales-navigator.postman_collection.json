@@ -1,0 +1,1958 @@
+{
+  "info": {
+    "_postman_id": "2e7892d9-d678-483e-9d21-00ecf3c85493",
+    "name": "LinkedIn Sales Navigator API",
+    "description": "API for accessing LinkedIn Sales Navigator features including sales contracts, analytics export jobs, access tokens, profile associations, and CRM data validation.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:17:27.000Z",
+    "updatedAt": "2026-06-05T13:17:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2e7892d9-d678-483e-9d21-00ecf3c85493"
+  },
+  "item": [
+    {
+      "name": "salesContracts",
+      "item": [
+        {
+          "name": "LinkedIn Find All Contracts Where User Has Active Seat",
+          "id": "2e8cd2cc-6720-4cce-95ab-2fec973a60cf",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/salesContracts?q=contractsByMember",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "salesContracts"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Query parameter to fetch contracts for the member",
+                  "key": "q",
+                  "value": "contractsByMember"
+                }
+              ]
+            },
+            "description": "Retrieve all Sales Navigator contracts where the authenticated user has an active seat."
+          },
+          "response": [
+            {
+              "id": "70b2b1da-f59c-4aa4-92b0-6dd668c2646b",
+              "name": "A list of sales contracts",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesContracts?q=contractsByMember",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesContracts"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query parameter to fetch contracts for the member",
+                      "key": "q",
+                      "value": "contractsByMember"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"elements\": [\n    {\n      \"contract\": \"<string>\",\n      \"name\": \"<string>\",\n      \"hasReportingAccess\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"contract\": \"<string>\",\n      \"name\": \"<string>\",\n      \"hasReportingAccess\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"paging\": {\n    \"count\": \"<integer>\",\n    \"start\": \"<integer>\",\n    \"links\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-70b2b1da-f59c-4aa4-92b0-6dd668c2646b"
+            },
+            {
+              "id": "2ff90342-3980-403b-b480-ef1e4409fd82",
+              "name": "Unauthorized, invalid token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesContracts?q=contractsByMember",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesContracts"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query parameter to fetch contracts for the member",
+                      "key": "q",
+                      "value": "contractsByMember"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-2ff90342-3980-403b-b480-ef1e4409fd82"
+            }
+          ],
+          "createdAt": "2026-06-05T13:17:27.000Z",
+          "updatedAt": "2026-06-05T13:17:27.000Z",
+          "uid": "35240-2e8cd2cc-6720-4cce-95ab-2fec973a60cf"
+        }
+      ],
+      "id": "635946e8-d3e8-4096-a1e4-d387436717a2",
+      "createdAt": "2026-06-05T13:17:27.000Z",
+      "updatedAt": "2026-06-05T13:17:27.000Z",
+      "uid": "35240-635946e8-d3e8-4096-a1e4-d387436717a2"
+    },
+    {
+      "name": "salesAnalyticsExportJobs",
+      "item": [
+        {
+          "name": "{JobId}",
+          "item": [
+            {
+              "name": "LinkedIn Fetch Sales Analytics Export Job by Id",
+              "id": "c1d7eb7c-c5cd-4315-ba3c-c03cd44d549c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesAnalyticsExportJobs/:JobId?contract=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAnalyticsExportJobs",
+                    ":JobId"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Sales Navigator contract URN",
+                      "key": "contract",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "1f0cd0e9-3193-4207-86e1-d09a6f8dc580",
+                      "key": "JobId",
+                      "value": "<integer>",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "description": "Retrieve the status and details of a sales analytics export job by its ID."
+              },
+              "response": [
+                {
+                  "id": "aea8c8a1-3e27-4fa8-8232-602b7f12d6f3",
+                  "name": "Details of the export job",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesAnalyticsExportJobs/:JobId?contract=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesAnalyticsExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Sales Navigator contract URN",
+                          "key": "contract",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<integer>\",\n  \"status\": \"PROCESSING\",\n  \"downloadUrl\": \"<string>\",\n  \"expireAt\": \"<integer>\",\n  \"rowCount\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-aea8c8a1-3e27-4fa8-8232-602b7f12d6f3"
+                },
+                {
+                  "id": "9b0e4043-9bb2-4bad-a6e0-00b88e4cb682",
+                  "name": "Unauthorized, invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesAnalyticsExportJobs/:JobId?contract=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesAnalyticsExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Sales Navigator contract URN",
+                          "key": "contract",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-9b0e4043-9bb2-4bad-a6e0-00b88e4cb682"
+                },
+                {
+                  "id": "c301eff4-323e-44d3-a9e8-9525464b5a17",
+                  "name": "Job not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesAnalyticsExportJobs/:JobId?contract=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesAnalyticsExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Sales Navigator contract URN",
+                          "key": "contract",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-c301eff4-323e-44d3-a9e8-9525464b5a17"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-c1d7eb7c-c5cd-4315-ba3c-c03cd44d549c"
+            }
+          ],
+          "id": "e7677ad9-eecd-4eee-b639-f3fffb13baec",
+          "createdAt": "2026-06-05T13:17:27.000Z",
+          "updatedAt": "2026-06-05T13:17:27.000Z",
+          "uid": "35240-e7677ad9-eecd-4eee-b639-f3fffb13baec"
+        },
+        {
+          "name": "LinkedIn Create New Sales Analytics Export Job",
+          "id": "9eab02bc-e942-4c58-a31f-fafb745dfe5e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contract\": \"<string>\",\n  \"startAt\": \"<integer>\",\n  \"endAt\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/salesAnalyticsExportJobs?action=exportSeatData",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "salesAnalyticsExportJobs"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The type of export job to create",
+                  "key": "action",
+                  "value": "exportSeatData"
+                }
+              ]
+            },
+            "description": "Create a new sales analytics export job to export seat data, activity outcome data, or activity data."
+          },
+          "response": [
+            {
+              "id": "a6554a4b-44de-4fb8-8cfb-fecb6ef84b2c",
+              "name": "Export job successfully created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract\": \"<string>\",\n  \"startAt\": \"<integer>\",\n  \"endAt\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/salesAnalyticsExportJobs?action=exportSeatData",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAnalyticsExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The type of export job to create",
+                      "key": "action",
+                      "value": "exportSeatData"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": {\n    \"id\": \"<integer>\",\n    \"status\": \"ENQUEUED\",\n    \"downloadUrl\": \"<string>\",\n    \"expireAt\": \"<integer>\",\n    \"rowCount\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-a6554a4b-44de-4fb8-8cfb-fecb6ef84b2c"
+            },
+            {
+              "id": "f2e3d245-6356-45d2-b74f-1bd6d1df5c9c",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract\": \"<string>\",\n  \"startAt\": \"<integer>\",\n  \"endAt\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/salesAnalyticsExportJobs?action=exportSeatData",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAnalyticsExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The type of export job to create",
+                      "key": "action",
+                      "value": "exportSeatData"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-f2e3d245-6356-45d2-b74f-1bd6d1df5c9c"
+            },
+            {
+              "id": "d43735f6-3183-40ef-9566-279260c70c7d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract\": \"<string>\",\n  \"startAt\": \"<integer>\",\n  \"endAt\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/salesAnalyticsExportJobs?action=exportSeatData",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAnalyticsExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The type of export job to create",
+                      "key": "action",
+                      "value": "exportSeatData"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-d43735f6-3183-40ef-9566-279260c70c7d"
+            }
+          ],
+          "createdAt": "2026-06-05T13:17:27.000Z",
+          "updatedAt": "2026-06-05T13:17:27.000Z",
+          "uid": "35240-9eab02bc-e942-4c58-a31f-fafb745dfe5e"
+        }
+      ],
+      "id": "0acddd70-2d1b-404c-aceb-f3be145f0012",
+      "createdAt": "2026-06-05T13:17:27.000Z",
+      "updatedAt": "2026-06-05T13:17:27.000Z",
+      "uid": "35240-0acddd70-2d1b-404c-aceb-f3be145f0012"
+    },
+    {
+      "name": "salesAccessTokens",
+      "item": [
+        {
+          "name": "LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions",
+          "id": "74ec51c2-212f-4488-9f96-35cdc811ddc5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/salesAccessTokens?q=viewerAndDeveloperApp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "salesAccessTokens"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Query parameter for retrieving a Sales Access Token",
+                  "key": "q",
+                  "value": "viewerAndDeveloperApp"
+                }
+              ]
+            },
+            "description": "Get a short-lived, limited-scope OAuth token for authenticated iframe sessions."
+          },
+          "response": [
+            {
+              "id": "47036bcb-26e0-4bd8-bd51-bcd15101d8ab",
+              "name": "A list of Sales Access Tokens",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesAccessTokens?q=viewerAndDeveloperApp",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAccessTokens"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query parameter for retrieving a Sales Access Token",
+                      "key": "q",
+                      "value": "viewerAndDeveloperApp"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"elements\": [\n    {\n      \"token\": \"<string>\",\n      \"expiryTime\": \"<integer>\"\n    },\n    {\n      \"token\": \"<string>\",\n      \"expiryTime\": \"<integer>\"\n    }\n  ],\n  \"paging\": {\n    \"count\": \"<integer>\",\n    \"start\": \"<integer>\",\n    \"links\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-47036bcb-26e0-4bd8-bd51-bcd15101d8ab"
+            },
+            {
+              "id": "c01e98f7-05af-4f30-a37d-590613207d90",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesAccessTokens?q=viewerAndDeveloperApp",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAccessTokens"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query parameter for retrieving a Sales Access Token",
+                      "key": "q",
+                      "value": "viewerAndDeveloperApp"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-c01e98f7-05af-4f30-a37d-590613207d90"
+            }
+          ],
+          "createdAt": "2026-06-05T13:17:27.000Z",
+          "updatedAt": "2026-06-05T13:17:27.000Z",
+          "uid": "35240-74ec51c2-212f-4488-9f96-35cdc811ddc5"
+        }
+      ],
+      "id": "8a55d9ba-25d1-479a-ae59-9287c84a69b5",
+      "createdAt": "2026-06-05T13:17:27.000Z",
+      "updatedAt": "2026-06-05T13:17:27.000Z",
+      "uid": "35240-8a55d9ba-25d1-479a-ae59-9287c84a69b5"
+    },
+    {
+      "name": "salesNavigatorProfileAssociations",
+      "item": [
+        {
+          "name": "{InstanceId},{Partner},{RecordId}",
+          "item": [
+            {
+              "name": "LinkedIn Fetch Profile Association by Key",
+              "id": "d9caa0bb-9f7e-40fd-a12d-2c2c1fc6a4f9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ]
+                },
+                "description": "Fetch the corresponding match when provided with a SalesNavigatorProfileAssociationKey."
+              },
+              "response": [
+                {
+                  "id": "21c9d083-254e-4702-add8-877e6f29c828",
+                  "name": "Successfully retrieved Sales Navigator Profile Association",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesNavigatorProfileAssociations",
+                        "{{InstanceId}},{{Partner}},{{RecordId}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"member\": \"<string>\",\n  \"profile\": \"<uri>\",\n  \"profilePhoto\": \"<uri>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-21c9d083-254e-4702-add8-877e6f29c828"
+                },
+                {
+                  "id": "57474572-f33a-4d98-b937-f737a129ea5d",
+                  "name": "Bad request, missing parameter",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesNavigatorProfileAssociations",
+                        "{{InstanceId}},{{Partner}},{{RecordId}}"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-57474572-f33a-4d98-b937-f737a129ea5d"
+                },
+                {
+                  "id": "d6cb9fe2-e6b0-445a-b695-9d50778e9da1",
+                  "name": "Unauthorized, invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesNavigatorProfileAssociations",
+                        "{{InstanceId}},{{Partner}},{{RecordId}}"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-d6cb9fe2-e6b0-445a-b695-9d50778e9da1"
+                },
+                {
+                  "id": "9dbe80c4-ed95-4110-909b-2d4849a1127b",
+                  "name": "Insufficient application access",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesNavigatorProfileAssociations",
+                        "{{InstanceId}},{{Partner}},{{RecordId}}"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-9dbe80c4-ed95-4110-909b-2d4849a1127b"
+                },
+                {
+                  "id": "df857ae9-2776-4f51-a962-bc22a7b852fe",
+                  "name": "Match unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesNavigatorProfileAssociations",
+                        "{{InstanceId}},{{Partner}},{{RecordId}}"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-df857ae9-2776-4f51-a962-bc22a7b852fe"
+                },
+                {
+                  "id": "ac63ab82-3ef3-4f83-a6ce-6808d722ac3e",
+                  "name": "Too many requests",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesNavigatorProfileAssociations",
+                        "{{InstanceId}},{{Partner}},{{RecordId}}"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-ac63ab82-3ef3-4f83-a6ce-6808d722ac3e"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-d9caa0bb-9f7e-40fd-a12d-2c2c1fc6a4f9"
+            }
+          ],
+          "id": "7fbc6853-1183-41b1-a885-0dfb9f1ff2c5",
+          "createdAt": "2026-06-05T13:17:27.000Z",
+          "updatedAt": "2026-06-05T13:17:27.000Z",
+          "uid": "35240-7fbc6853-1183-41b1-a885-0dfb9f1ff2c5"
+        },
+        {
+          "name": "LinkedIn Batch Fetch Profile Associations",
+          "id": "f8500056-0d7f-40d3-8a2e-52e9ff97c901",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/salesNavigatorProfileAssociations?ids=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "salesNavigatorProfileAssociations"
+              ],
+              "query": [
+                {
+                  "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))",
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Batch fetch matches when provided with multiple SalesNavigatorProfileAssociationKeys."
+          },
+          "response": [
+            {
+              "id": "387a323a-dca1-4eef-8b12-d3fa937ef626",
+              "name": "Successfully retrieved batch Sales Navigator Profile Associations",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesNavigatorProfileAssociations?ids=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesNavigatorProfileAssociations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))",
+                      "key": "ids",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"statuses\": {\n    \"id8\": \"<integer>\",\n    \"dolor_e2\": \"<integer>\"\n  },\n  \"results\": {\n    \"veniam_b\": {\n      \"member\": \"<string>\",\n      \"profile\": \"<uri>\",\n      \"profilePhoto\": \"<uri>\"\n    }\n  },\n  \"errors\": {\n    \"aute_3\": \"<string>\",\n    \"ex_f\": \"<string>\",\n    \"Duis_9f7\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-387a323a-dca1-4eef-8b12-d3fa937ef626"
+            },
+            {
+              "id": "ee7feb71-9031-4792-bb67-6e825136430e",
+              "name": "Bad request, missing parameter",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesNavigatorProfileAssociations?ids=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesNavigatorProfileAssociations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))",
+                      "key": "ids",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-ee7feb71-9031-4792-bb67-6e825136430e"
+            },
+            {
+              "id": "f9e22d58-87a1-404a-bea1-fea18f71583b",
+              "name": "Unauthorized, invalid token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesNavigatorProfileAssociations?ids=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesNavigatorProfileAssociations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))",
+                      "key": "ids",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-f9e22d58-87a1-404a-bea1-fea18f71583b"
+            }
+          ],
+          "createdAt": "2026-06-05T13:17:27.000Z",
+          "updatedAt": "2026-06-05T13:17:27.000Z",
+          "uid": "35240-f8500056-0d7f-40d3-8a2e-52e9ff97c901"
+        }
+      ],
+      "id": "f6ce3bb6-e1e5-4468-bc8f-57b21a9e319d",
+      "createdAt": "2026-06-05T13:17:27.000Z",
+      "updatedAt": "2026-06-05T13:17:27.000Z",
+      "uid": "35240-f6ce3bb6-e1e5-4468-bc8f-57b21a9e319d"
+    },
+    {
+      "name": "crmDataValidationExportJobs",
+      "item": [
+        {
+          "name": "{JobId}",
+          "item": [
+            {
+              "name": "LinkedIn Get CRM Data Validation Export Job Status",
+              "id": "3b19bc5e-58e3-4fa0-905d-6c22b1dcea62",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
+                      "key": "crmInstanceId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "c19713e7-2bb1-4858-b986-c307a36bae92",
+                      "key": "JobId",
+                      "value": "<long>",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "description": "Retrieve the status and details of a CRM data validation export job."
+              },
+              "response": [
+                {
+                  "id": "c7132e78-dcf0-4c3f-b4c0-4a9c7f44e777",
+                  "name": "Export job status returned successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "crmDataValidationExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
+                          "key": "crmInstanceId",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"jobId\": \"<long>\",\n  \"exportStartAt\": \"<long>\",\n  \"exportEndAt\": \"<long>\",\n  \"status\": \"FAILED_DUE_TO_INTERNAL_ERROR\",\n  \"downloadUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nextExportStartAt\": \"<long>\",\n  \"expireAt\": \"<long>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-c7132e78-dcf0-4c3f-b4c0-4a9c7f44e777"
+                },
+                {
+                  "id": "81f9ba0e-1b1f-49c0-93ea-d4c116ef81cf",
+                  "name": "Bad request, missing or invalid parameter",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "crmDataValidationExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
+                          "key": "crmInstanceId",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-81f9ba0e-1b1f-49c0-93ea-d4c116ef81cf"
+                },
+                {
+                  "id": "38507700-6ff0-42e2-9e0f-c1d243388394",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "crmDataValidationExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
+                          "key": "crmInstanceId",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-38507700-6ff0-42e2-9e0f-c1d243388394"
+                },
+                {
+                  "id": "6b95177f-3c23-4150-9255-863ebe2dd63d",
+                  "name": "Forbidden, insufficient access",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "crmDataValidationExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
+                          "key": "crmInstanceId",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-6b95177f-3c23-4150-9255-863ebe2dd63d"
+                },
+                {
+                  "id": "f1a18fc5-8835-4358-9cc0-f21c21308345",
+                  "name": "Job ID not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "crmDataValidationExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
+                          "key": "crmInstanceId",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:27.000Z",
+                  "updatedAt": "2026-06-05T13:17:27.000Z",
+                  "uid": "35240-f1a18fc5-8835-4358-9cc0-f21c21308345"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-3b19bc5e-58e3-4fa0-905d-6c22b1dcea62"
+            }
+          ],
+          "id": "dfe8433b-40b3-462d-9caa-f9ee19e9ebe1",
+          "createdAt": "2026-06-05T13:17:27.000Z",
+          "updatedAt": "2026-06-05T13:17:27.000Z",
+          "uid": "35240-dfe8433b-40b3-462d-9caa-f9ee19e9ebe1"
+        },
+        {
+          "name": "LinkedIn Create CRM Data Validation Export Job",
+          "id": "4c1e8cdb-f337-4184-bf1d-958e08284443",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "crmDataValidationExportJobs"
+              ],
+              "query": [
+                {
+                  "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
+                  "key": "crmInstanceId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Create a new CRM data validation export job to validate CRM data against LinkedIn."
+          },
+          "response": [
+            {
+              "id": "a1b3d877-0735-4d8e-ab99-ad0823291e94",
+              "name": "Export job created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
+                      "key": "crmInstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Resource location of created job",
+                    "type": "text/plain"
+                  },
+                  "key": "Location",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Job ID",
+                    "type": "text/plain"
+                  },
+                  "key": "X-RestLi-Id",
+                  "value": "<long>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"jobId\": \"<long>\",\n  \"exportStartAt\": \"<long>\",\n  \"exportEndAt\": \"<long>\",\n  \"status\": \"FAILED_DUE_TO_INTERNAL_ERROR\",\n  \"downloadUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nextExportStartAt\": \"<long>\",\n  \"expireAt\": \"<long>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-a1b3d877-0735-4d8e-ab99-ad0823291e94"
+            },
+            {
+              "id": "a9bd08f9-11b2-4e55-8c3d-efbc48c33a0e",
+              "name": "Bad request, missing or invalid parameter",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
+                      "key": "crmInstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-a9bd08f9-11b2-4e55-8c3d-efbc48c33a0e"
+            },
+            {
+              "id": "8a057f86-ade8-481a-8ae7-2cc6f8796c5b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
+                      "key": "crmInstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-8a057f86-ade8-481a-8ae7-2cc6f8796c5b"
+            },
+            {
+              "id": "accb22a1-63f0-4def-9762-6914fbc67258",
+              "name": "Forbidden, insufficient access",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
+                      "key": "crmInstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:17:27.000Z",
+              "updatedAt": "2026-06-05T13:17:27.000Z",
+              "uid": "35240-accb22a1-63f0-4def-9762-6914fbc67258"
+            }
+          ],
+          "createdAt": "2026-06-05T13:17:27.000Z",
+          "updatedAt": "2026-06-05T13:17:27.000Z",
+          "uid": "35240-4c1e8cdb-f337-4184-bf1d-958e08284443"
+        }
+      ],
+      "id": "a16d37c3-c850-4e39-a23c-4d6b08bcad7b",
+      "createdAt": "2026-06-05T13:17:27.000Z",
+      "updatedAt": "2026-06-05T13:17:27.000Z",
+      "uid": "35240-a16d37c3-c850-4e39-a23c-4d6b08bcad7b"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com/v2"
+    },
+    {
+      "key": "InstanceId",
+      "value": "<string>"
+    },
+    {
+      "key": "Partner",
+      "value": "<string>"
+    },
+    {
+      "key": "RecordId",
+      "value": "<string>"
+    }
+  ]
+}

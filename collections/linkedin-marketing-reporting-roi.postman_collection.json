@@ -1,0 +1,301 @@
+{
+  "item": [
+    {
+      "id": "5fab0e4e-3f01-4d3e-b9f7-3d6bb573aae9",
+      "name": "Use Cases",
+      "description": {
+        "content": "LinkedIn's Reporting & ROI APIs enable you to leverage LinkedIn marketing data to automate internal reporting and gain valuable insights. Partners can integrate LinkedIn data into their solutions to retrieve performance data, targeting information, audience insights, and much more. This guide provides a brief look at how these APIs can be used to provide valuable insights into audiences, impressions, targeting, and budgeting data.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "aa7d06ec-b853-4af0-9172-b15cc1587b8b",
+      "name": "Use Cases > Ad Analytics",
+      "description": {
+        "content": "[Ad Analytics APIs](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/ads-reporting) provide key insights on performance such as clicks, impressions, and ad spend, and demographics information such as metrics by demographic values at the account, campaign, and creative levels.\n\nThe /adAnalytics endpoint supports two finder methods: Analytics and Statistics. The [Analytics Finder](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/ads-reporting#analytics-finder) should be used when grouping by one element (known as a pivot). The [Statistics Finder](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/ads-reporting#statistics-finder) should be used when grouping by up to three elements.\n\nThe /adAnalytics endpoint will require you to define [Field Projections](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/projections?context=linkedin/marketing/context) using the &fields= query parameter and narrowed by providing a comma-separated list of field names that you want to return. You can specify up to 20 fields in the response.\n\nThe response may contain URNs referencing the different types of objects provided by LinkedIn's services. You can use the [Response Decoration](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/decoration?context=linkedin/marketing/context) to fetch data belonging to a URN object without having to make an extra call to that object's API.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "6bb375fe-b141-47cd-89e6-c8b5d3e2b340",
+      "name": "Use Cases > B2B Templates",
+      "description": {
+        "content": "This is LinkedIn’s scaled solution enabling partners and direct advertisers to pull B2B-relevant performance metrics so advertisers can better understand performance, optimize, and manage time spent on analytics.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "c406a4dc-d707-4c7d-a2d4-7f7e21d6d9e8",
+      "name": "Use Cases > B2B Templates > ABM Metrics",
+      "description": {
+        "content": "This template provides a snapshot of account engagement, ideal for in-flight optimization",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "604f046a-6ad5-4876-bd34-23c9539cd2b9",
+      "name": "Use Cases > B2B Templates > Conversions Deep Dive",
+      "description": {
+        "content": "This template provides detailed conversion analyses, ideal for in-flight optimization, check-ins, QBRs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64331da4-fca5-4332-bacc-c522ceb0b74b",
+          "name": "LinkedIn Conversions by Member Company Size",
+          "request": {
+            "name": "LinkedIn Conversions by Member Company Size",
+            "description": {},
+            "url": {
+              "path": [
+                "adAnalytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pivot",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateRange",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeGranularity",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "accounts",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "524c9d84-cc9d-4f1f-9b88-5a2fe85b6079",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "adAnalytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "analytics"
+                    },
+                    {
+                      "key": "pivot",
+                      "value": "MEMBER_COMPANY_SIZE"
+                    },
+                    {
+                      "key": "dateRange",
+                      "value": "(start:(day:1,month:1,year:2022),end:(day:31,month:12,year:2022))"
+                    },
+                    {
+                      "key": "timeGranularity",
+                      "value": "(value:ALL)"
+                    },
+                    {
+                      "key": "accounts",
+                      "value": "List(urn%3Ali%3AsponsoredAccount%3A{{sponsoredAccount}})"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "externalWebsiteConversions,pivotValues"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "Bearer {{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Fri, 09 Jun 2023 08:34:51 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-ltx1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAX9rj4N6JgsAjUFoNOkWw==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=TB52:s=T:r=T:a=T:p=T:g=3861:u=592:x=1:i=1686299691:t=1686305165:v=2:sig=AQGuOtz49pASmSKUoFg-lXHMZbMOAgmM\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=TB52:s=T:r=T:a=T:p=T:g=3861:u=592:x=1:i=1686299691:t=1686305165:v=2:sig=AQGuOtz49pASmSKUoFg-lXHMZbMOAgmM\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 10,\n    \"links\": []\n  },\n  \"elements\": [\n    {\n      \"pivotValues\": [\n        \"SIZE_11_TO_50\"\n      ],\n      \"externalWebsiteConversions\": 49\n    },\n    {\n      \"pivotValues\": [\n        \"SIZE_201_TO_500\"\n      ],\n      \"externalWebsiteConversions\": 6\n    },\n    {\n      \"pivotValues\": [\n        \"SIZE_51_TO_200\"\n      ],\n      \"externalWebsiteConversions\": 17\n    },\n    {\n      \"pivotValues\": [\n        \"SIZE_2_TO_10\"\n      ],\n      \"externalWebsiteConversions\": 85\n    },\n    {\n      \"pivotValues\": [\n        \"SIZE_10001_OR_MORE\"\n      ],\n      \"externalWebsiteConversions\": 4\n    },\n    {\n      \"pivotValues\": [\n        \"SIZE_1001_TO_5000\"\n      ],\n      \"externalWebsiteConversions\": 8\n    },\n    {\n      \"pivotValues\": [\n        \"SIZE_501_TO_1000\"\n      ],\n      \"externalWebsiteConversions\": 7\n    },\n    {\n      \"pivotValues\": [\n        \"SIZE_1\"\n      ],\n      \"externalWebsiteConversions\": 12\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5b7f3bce-a8d4-40c7-9fc8-b55ad99b0189",
+      "name": "Use Cases > B2B Templates > Standard Metrics",
+      "description": {
+        "content": "This template provides performance deep dive with detailed analysis by ad format + objective, ideal for check-in calls + QBRs",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d2973399-67b9-49a7-bc6e-c5e3e712d4fb",
+    "name": "Reporting & ROI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "**You must apply for access to the LinkedIn Advertising APIs in order to gain access to these APIs. See the** [**Developer Platform**](https://developer.linkedin.com/product-catalog/marketing/reporting-and-roi) **on how to apply.**\n\n[LinkedIn's Reporting & ROI APIs](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/getting-started) enable you to leverage LinkedIn marketing data to automate internal reporting and gain valuable insights. Partners can integrate LinkedIn data into their solutions to retrieve performance data, targeting information, audience insights, and much more.\n\nThis collection aims to focus on different Reporting & ROI use cases and should be used with the **reporting-roi-env-versioning** environment.\n\n\\--All requests for the Reporting & ROI API collection are in the Restli 2.0 format--\n\nAuthorizationOAuth 2.0",
+      "type": "text/plain"
+    }
+  }
+}

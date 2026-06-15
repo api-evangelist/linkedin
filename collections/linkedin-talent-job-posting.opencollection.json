@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Job Posting API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Apply Connect Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Create or Update Apply Connect Job Posting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/simpleJobPostings",
+            "headers": [
+              {
+                "name": "x-restli-method",
+                "value": "batch_create"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Apply Connect enabled job posting or updates/closes an existing one. Use the `jobPostingOperationType` field to specify the operation:\n- `CREATE`: Create a new job posting - `UPDATE`: Update an existing job posting - `CLOSE`: Close an existing job posting\nFor more information, refer to the [Apply Connect Jobs Lifecycle documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/sync-jobs-onsite-apply#apply-connect-jobs-lifecycle)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Job Lifecycle Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Check Job Posting Task Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/simpleJobPostingTasks",
+            "params": [
+              {
+                "name": "ids",
+                "value": "urn:li:simpleJobPostingTask:12345678",
+                "type": "query",
+                "description": "Task URN(s) to check status"
+              }
+            ]
+          },
+          "docs": "Retrieves the status of a job posting task to track whether the job has been successfully created, updated, or closed.\nAfter successful completion, the response includes the `jobPostingUrn` which can be used to view the job at: `https://www.linkedin.com/jobs/view/{jobPostingId}`\nFor more information, refer to the [Check Job Task Status documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customer Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Customer ATS Integration Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/atsIntegrations",
+            "params": [
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:contract:12345",
+                "type": "query",
+                "description": "Integration context URN"
+              },
+              {
+                "name": "ids[0].integrationType",
+                "value": "PREMIUM_JOB_POSTING",
+                "type": "query",
+                "description": "Type of integration"
+              },
+              {
+                "name": "ids[0].tenantType",
+                "value": "JOBS",
+                "type": "query",
+                "description": "Tenant type for the integration"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query",
+                "description": "Data provider identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a customer's ATS integration for premium job posting. Use this endpoint to verify integration configuration and status."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Customer ATS Integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/atsIntegrations",
+            "params": [
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:contract:12345",
+                "type": "query",
+                "description": "Integration context URN"
+              },
+              {
+                "name": "ids[0].integrationType",
+                "value": "PREMIUM_JOB_POSTING",
+                "type": "query",
+                "description": "Type of integration"
+              },
+              {
+                "name": "ids[0].tenantType",
+                "value": "JOBS",
+                "type": "query",
+                "description": "Tenant type for the integration"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query",
+                "description": "Data provider identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates customer ATS integrations for premium job posting capabilities. Partners use this endpoint to configure the integration name and other settings for their customers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

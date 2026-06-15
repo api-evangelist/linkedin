@@ -1,0 +1,4499 @@
+{
+  "item": [
+    {
+      "id": "8f524a2b-c8e9-4974-92e3-95c6d5180948",
+      "name": "Use Cases",
+      "description": {
+        "content": "The schemas for the new APIs are more simplified and consistent when compared to previous creative APIs. We recommend that you not map to previous API schemas (e.g., Assets, ugcPosts, and others) as LinkedIn is working towards onboarding for all types of ad formats.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "76c6d32d-db8f-483e-a1a2-d0ec49a26c06",
+      "name": "Use Cases > Conversation Ad",
+      "description": {
+        "content": "A Conversation Ad is a LinkedIn ad format that allows advertisers to deliver pre-determined messages to an inbox of a targeted LinkedIn member. It provides a chat-like experience between both the member and the advertiser. The Conversation Ads API allows advertisers to deliver customizable, branded messages directly to members' LinkedIn messaging inboxes.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "4630b0d3-9451-4859-873d-3a53ebb5d70f",
+      "name": "Use Cases > Conversation Ad > Sponsored Conversations",
+      "description": {
+        "content": "Linkedin is introducing its next generation of APIs to create and manage Conversation Ads, enabling advertisers to better deliver automated messages to a targeted LinkedIn member's inbox. This API replaces the previous [/sponsoredConversations](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/create-and-manage-conversation-ads?view=li-lms-2022-08) API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8f6c54e1-2fe6-40c9-9b48-ac7f1cfa9c33",
+          "name": "LinkedIn Create a Sponsored Conversation",
+          "request": {
+            "name": "LinkedIn Create a Sponsored Conversation",
+            "description": {
+              "content": "Successful response will have Status `201 Created` and the ID in the `x-linkedin-id` response header. For example,`urn:li:sponsoredConversation:164380864`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            }
+          },
+          "response": [
+            {
+              "id": "1300d395-bf17-4d9e-a998-d6436fc8d6e4",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ee335b1-ee77-462c-ade6-8c9bf68c6beb",
+          "name": "LinkedIn Get Multiple Sponsored Conversations",
+          "request": {
+            "name": "LinkedIn Get Multiple Sponsored Conversations",
+            "description": {
+              "content": "Makes a BATCH_GET request to let a list of conversations that are created.\n\n#### Sample Response\n\nJSONCopy\n\n```\n{\n    \"statuses\": {\n        \"urn:li:sponsoredConversation:704255\": 200,\n        \"urn:li:sponsoredConversation:703695\": 200\n    },\n    \"results\": {\n        \"urn:li:sponsoredConversation:704255\": \n         {\n            \"id\": \"urn:li:sponsoredConversation:704255\",\n            \"parentAccount\": \"urn:li:sponsoredAccount:520866471\"\n            \n        },\n        \"urn:li:sponsoredConversation:703695\": \n        {\n            \"id\": \"urn:li:sponsoredConversation:703695\",\n            \"parentAccount\": \"urn:li:sponsoredAccount:520866471\",\n        }\n    },\n    \"errors\": {}\n}\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-RestLi-Method",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7963c8bf-9300-432a-b34d-43ee0d509381",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List({conversation-urn1},{conversation-urn2})'"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-RestLi-Method",
+                    "value": "BATCH_GET",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93fd46db-1d07-420a-934f-6e28146699fe",
+          "name": "LinkedIn Get a Sponsored Conversation",
+          "request": {
+            "name": "LinkedIn Get a Sponsored Conversation",
+            "description": {
+              "content": "#### Sample Response\n\nJSONCopy\n\n```\n{\n  \"id\": \"urn:li:sponsoredConversation:185204\",\n  \"parentAccount\": \"urn:li:sponsoredAccount:520866471\"\n}\n\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds",
+                ":conversationUrn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationUrn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1169a3b-70b1-43a8-86ce-765398aaea86",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds",
+                    ":conversationUrn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationUrn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f476a3ef-7c7e-4ae6-b664-f3a95562b15f",
+          "name": "LinkedIn Update a Sponsored Conversation",
+          "request": {
+            "name": "LinkedIn Update a Sponsored Conversation",
+            "description": {
+              "content": "In the following example, the `firstMessageContent` field is changed to point to the first message of the conversation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds",
+                ":conversationUrn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationUrn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "df9440e7-8ee0-44dd-8fb7-88b894ef851b",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds",
+                    ":conversationUrn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationUrn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n  \\\"patch\\\": {\\n     \\\"$set\\\": {\\n        \\\"firstMessageContent\\\": \\\"urn:li:sponsoredMessageContent:(urn:li:sponsoredConversation:185204:14253)”\\n     }\\n  } \\n}\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0e33c934-1af2-4895-9d81-0950b73cdd5d",
+      "name": "Use Cases > Conversation Ad > Sponsored Message Contents",
+      "description": {
+        "content": "Within our API, Conversation Ads are represented by the Sponsored Conversation entity. Sponsored Conversations are composed of Sponsored Message Content.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ad0c710a-620c-401f-8dce-4d808146a86d",
+          "name": "LinkedIn Batch Create Sponsored Message Content",
+          "request": {
+            "name": "LinkedIn Batch Create Sponsored Message Content",
+            "description": {
+              "content": "Creates Sponsored Message Content in Batches.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds",
+                ":conversationAdsId",
+                "sponsoredMessageContents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationAdsId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-RestLi-Method",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "f087fdd5-9ecd-4dc1-b646-bec4414f64ac",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds",
+                    ":conversationAdsId",
+                    "sponsoredMessageContents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationAdsId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-RestLi-Method",
+                    "value": "BATCH_CREATE",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n    \\\"elements\\\": [ {\\n              \\\"bodySource\\\": {\\n         \\\"leadGenerationForm\\\": \\\"urn:li:adForm:434835\\\"\\n       },\\n               \\\"nextAction\\\":{\\n                  \\\"options\\\":[\\n                    {\\n                        \\\"replyType\\\": \\\"LEAD_GENERATION_THANK_YOU\\\",\\n                        \\\"optionText\\\": \\\"Visit website\\\"\\n                    },\\n                    {\\n                        \\\"replyType\\\": \\\"SIMPLE_REPLY\\\",\\n                                                \\\"nextContent\\\": \\\"urn:li:sponsoredMessageContent:(urn:li:sponsoredConversation:186604,14253)\\\",\\n                        \\\"optionText\\\": \\\"Simple reply\\\"\\n                    },\\n                    {\\n                        \\\"replyType\\\": \\\"EXTERNAL_WEBSITE\\\",\\n                        \\\"optionText\\\": \\\"Visit website\\\",\\n                        \\\"landingPage\\\": \\\"http://www.linkedin.com\\\"\\n                    }\\n                  ]\\n               }\\n        },{\\n            \\\"bodySource\\\": {\\n        \\\"text\\\": \\\"Sample text\\\"\\n      },\\n             \\\"nextAction\\\":{\\n                  \\\"options\\\":[\\n                    {\\n                        \\\"replyType\\\": \\\"EXTERNAL_WEBSITE\\\",\\n                        \\\"optionText\\\": \\\"Other website\\\",\\n                        \\\"landingPage\\\": \\\"http://www.microsoft.com\\\"\\n                    }\\n                  ]\\n               }\\n\\n        }]\\n}\\n\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb241680-c951-434e-9b07-bba68afc2345",
+          "name": "LinkedIn Get Sponsored Message Content",
+          "request": {
+            "name": "LinkedIn Get Sponsored Message Content",
+            "description": {
+              "content": "Retrieves just a single message content from all the conversations in a conversation Ad.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds",
+                ":conversationUrn",
+                "sponsoredMessageContents",
+                ":messageUrn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationUrn",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "messageUrn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93db1270-f7d4-42a8-bc1a-4f2248b562c6",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds",
+                    ":conversationUrn",
+                    "sponsoredMessageContents",
+                    ":messageUrn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationUrn",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageUrn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4f29e87-4ef2-4d39-bf03-d41f6463dd3c",
+          "name": "LinkedIn Update Sponsored Message Content",
+          "request": {
+            "name": "LinkedIn Update Sponsored Message Content",
+            "description": {
+              "content": "Updates the message contents from all the conversations in a conversation Ad.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds",
+                ":conversationUrn",
+                "sponsoredMessageContents",
+                ":messageUrn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationUrn",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "messageUrn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "a2dfe768-bc92-4acf-94fa-d2d6c6d5a8a1",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds",
+                    ":conversationUrn",
+                    "sponsoredMessageContents",
+                    ":messageUrn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationUrn",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageUrn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n  \\\"patch\\\": {\\n    \\\"$set\\\": {\\n      \\\"bodySource\\\": {\\n         “text”: “New updated text”\\n      }\\n    }\\n  }\\n}\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b599096-35dc-4559-bc4f-ff2b727707cb",
+          "name": "LinkedIn Batch Get Sponsored Message Content",
+          "request": {
+            "name": "LinkedIn Batch Get Sponsored Message Content",
+            "description": {
+              "content": "Retrieves Sponsored Message Content in Batches.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds",
+                ":conversationUrn",
+                "sponsoredMessageContents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationUrn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-RestLi-Method",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ccaaac5e-9309-4ec9-b8c9-30320e5b3195",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds",
+                    ":conversationUrn",
+                    "sponsoredMessageContents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List({message-urn1},{message-urn2})"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationUrn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-RestLi-Method",
+                    "value": "BATCH_GET",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ef6b469-caf1-4284-a023-054df85d08f9",
+          "name": "LinkedIn Batch Update Sponsored Message Content",
+          "request": {
+            "name": "LinkedIn Batch Update Sponsored Message Content",
+            "description": {
+              "content": "Updates Sponsored Message Content in Batches.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds",
+                ":conversationUrn",
+                "sponsoredMessageContents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationUrn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "'Authorization",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-RestLi-Method",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "d28aa3f4-1b4f-4793-900f-ca54fe150cba",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds",
+                    ":conversationUrn",
+                    "sponsoredMessageContents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List({message-urn1},{message-urn2})"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationUrn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "'Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-RestLi-Method",
+                    "value": "BATCH_UPDATE",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n       \\\"entities\\\": {\\n        \\\"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\\\": {\\n              \\\"patch\\\": {\\n                  \\\"$set\\\": {\\n                      \\\"bodySource\\\": {\\n                         “text”: “New updated text”\\n                      }\\n                   }\\n                }\\n    },\\n         \\\"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\\\": {\\n              \\\"patch\\\": {\\n                  \\\"$set\\\": {\\n                      \\\"bodySource\\\": {\\n                         “text”: “New updated text2”\\n                      }\\n                   }\\n                }\\n    }\\n    }\\n}\\n\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b63f5918-ef9a-4d6f-81fa-b8168e3ae797",
+          "name": "LinkedIn Batch Delete Sponsored Message Content",
+          "request": {
+            "name": "LinkedIn Batch Delete Sponsored Message Content",
+            "description": {
+              "content": "Deletes Sponsored Message Content in Batches.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversationAds",
+                ":conversationUrn",
+                "sponsoredMessageContents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversationUrn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-RestLi-Method",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2e6ff13-efd1-4e8f-abd0-93cd5270c1fa",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversationAds",
+                    ":conversationUrn",
+                    "sponsoredMessageContents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List({message-urn1},{message-urn2})'"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversationUrn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-RestLi-Method",
+                    "value": "BATCH_DELETE",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "eccc53fe-75ef-40ae-a32b-69f2d8aaba01",
+      "name": "Use Cases > Creatives",
+      "description": {
+        "content": "The Creatives API contains all the data and information for visually rendering an ad. There are several types of Ad Creatives that you can associate with campaigns including:",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6d3f3ac4-9da9-4992-9c98-2cc379769fbd",
+          "name": "LinkedIn Search for Creative",
+          "request": {
+            "name": "LinkedIn Search for Creative",
+            "description": {
+              "content": "You can search for creative content in order to get a collection of creatives matching your search parameters. The Creative API currently supports search by `creative id`, `campaign`, `account`, `content reference`, `intendedStatus`, `leadgenCreativeCallToActionDestinations` and test fields. The API supports finding creatives from multiple accounts. The values within each field are displayed with 'or' (ORed) and values across fields are displayed with 'and' (ANDed).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "accounts",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "campaigns",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "contentReferences",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "creatives",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "intendedStatuses",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "isTestAccount",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "isTotalIncluded",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "leadgenCreativeCallToActionDestinations",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d4013780-d93b-40ad-9677-82dfc1e3e514",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accounts",
+                      "value": "List(id1,id2,id3)"
+                    },
+                    {
+                      "key": "campaigns",
+                      "value": "List(id1,id2,id3)"
+                    },
+                    {
+                      "key": "contentReferences",
+                      "value": "List(id1,id2,id3)"
+                    },
+                    {
+                      "key": "creatives",
+                      "value": "List(id1,id2,id3)"
+                    },
+                    {
+                      "key": "intendedStatuses",
+                      "value": "List(ARCHIVED,CANCELED,ARCHIVED)"
+                    },
+                    {
+                      "key": "isTestAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "isTotalIncluded",
+                      "value": "false"
+                    },
+                    {
+                      "key": "leadgenCreativeCallToActionDestinations",
+                      "value": "List()"
+                    },
+                    {
+                      "key": "q",
+                      "value": "criteria"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "ASCENDING"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f14de062-a9f5-443a-aeb2-9058b8043819",
+          "name": "LinkedIn Get a Sponsored Creative",
+          "request": {
+            "name": "LinkedIn Get a Sponsored Creative",
+            "description": {},
+            "url": {
+              "path": [
+                "creatives",
+                ":urn_creatives"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "urn_creatives",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6292f63-06de-439f-9c05-6c812ce68f38",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives",
+                    ":urn_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "urn_creatives",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ecde561-bcdd-49df-9837-a238e4f6f064",
+          "name": "LinkedIn Update a Creative",
+          "request": {
+            "name": "LinkedIn Update a Creative",
+            "description": {
+              "content": "You can change the details of following Creatives fields:\n\n\\*   `intendedStatus`:\n\\*   `leadgenCallToAction`: field `adFormUrn` - The ad form that is a target destination for the `callToAction` button. It can only be modified when the creative is in DRAFT status. It is read only once it is set for a creative and once it transitions to any non-draft intended status.\n\\*   `leadgenCallToAction`: field label `-Label` for the `callToAction` button\n    \n\n  \nThis API updates a sponsored creative.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives",
+                ":creative ID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            }
+          },
+          "response": [
+            {
+              "id": "7a4a9013-e521-42e1-a493-113ef12c5005",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives",
+                    ":creative ID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "149caccc-0ceb-454c-9f85-efc662add069",
+          "name": "LinkedIn Delete a Creative",
+          "request": {
+            "name": "LinkedIn Delete a Creative",
+            "description": {
+              "content": "A Creative can be deleted. Use DELETE method to delete a creative that meets one of the following conditions. To start the process of deleting other creative, update the status to `PENDING_DELETION`.\n\n\\*   It is in a DRAFT state.\n\\*   It is linked to a Campaign in a DRAFT state.\n\\*   It is a video ad creative and `processingState` is `PROCESSING_FAILED`.\n    \n\nThe header X-RestLi-Method must be included in the request and set to `DELETE`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives",
+                ":creative ID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9c7516c-b573-451e-975b-445d834c5aed",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives",
+                    ":creative ID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1277b515-50bc-45c5-9d30-76ae7084936e",
+      "name": "Use Cases > Document Ad",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d454544e-747c-45fc-923d-66cf93f52b85",
+          "name": "LinkedIn Upload the Document File (select a Document File in the Body for Postman to Use)",
+          "request": {
+            "name": "LinkedIn Upload the Document File (select a Document File in the Body for Postman to Use)",
+            "description": {},
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            }
+          },
+          "response": [
+            {
+              "id": "f317205a-cf17-4fe0-b0eb-51527eab4ff2",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fab23d10-e4e3-4e3d-b934-cfcdad4f9416",
+          "name": "LinkedIn Get Multiple Documents",
+          "request": {
+            "name": "LinkedIn Get Multiple Documents",
+            "description": {},
+            "url": {
+              "path": [
+                "rest",
+                "images"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6b31fb3-7fe4-428f-87d3-c5e976f74f96",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "images"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List({{document_urn1}},{{document_urn2}})"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16db3edf-d198-455a-acab-8f2a343872b6",
+          "name": "LinkedIn Create Document Content",
+          "request": {
+            "name": "LinkedIn Create Document Content",
+            "description": {},
+            "url": {
+              "path": [
+                "posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "667fd13a-a8a7-4a8d-ae5a-42c15a0721b7",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n    \\\"author\\\": \\\"urn:li:organization:{{organization_id}}\\\",\\n    \\\"commentary\\\": \\\"test strings!\\\",\\n    \\\"visibility\\\": \\\"PUBLIC\\\",\\n    \\\"distribution\\\": {\\n        \\\"feedDistribution\\\": \\\"MAIN_FEED\\\",\\n        \\\"targetEntities\\\": [],\\n        \\\"thirdPartyDistributionChannels\\\": []\\n    },\\n    \\\"content\\\": {\\n        \\\"media\\\": {\\n            \\\"title\\\":\\\"Example.pdf\\\",\\n            \\\"id\\\": \\\"urn:li:document:{{document_asset_id}}\\\"\\n        }\\n    },\\n    \\\"lifecycleState\\\": \\\"PUBLISHED\\\",\\n    \\\"isReshareDisabledByAuthor\\\": false\\n}\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d75d96f2-0381-4b62-bddd-56831143ebe1",
+          "name": "LinkedIn Fetch Multiple Document Content",
+          "request": {
+            "name": "LinkedIn Fetch Multiple Document Content",
+            "description": {},
+            "url": {
+              "path": [
+                "posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ea1f23e-e9a1-4ebb-a3f8-1ac76b397573",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List({encoded postId},{encoded postId})"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a626ad4c-5130-4a00-80dd-9b91263c7ada",
+          "name": "LinkedIn Initialize Document Upload",
+          "request": {
+            "name": "LinkedIn Initialize Document Upload",
+            "description": {},
+            "url": {
+              "path": [
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            }
+          },
+          "response": [
+            {
+              "id": "cbcca17e-a18c-48fa-86f0-b3f5ac574c69",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "initializeUpload"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e3adfa0-b35a-4ace-bc66-8cb769373c3b",
+          "name": "LinkedIn Get a Single Document",
+          "request": {
+            "name": "LinkedIn Get a Single Document",
+            "description": {},
+            "url": {
+              "path": [
+                "",
+                "documents",
+                ":document_asset_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_asset_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "96209884-b1c9-41b7-b1ec-1d9b1ade798e",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "",
+                    "documents",
+                    ":document_asset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_asset_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b91b752b-38f8-4843-b07b-f8d142a43bce",
+      "name": "Use Cases > Dynamic Follower Ad",
+      "description": {
+        "content": "Linkedin is introducing its next generation of APIs for the creation and management of Dynamic Follower Ads.\n\nThis ad format replaces the previous [/adCreativesV2](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-creatives?view=li-lms-2022-08#create-a-dynamic-follower-ad) ad format for follower ads.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "b63ff638-561d-4a12-a749-a18273706886",
+      "name": "Use Cases > Image Ad",
+      "description": {
+        "content": "Image ads help you engage business decision-makers on LinkedIn's mobile and desktop news feed. You can create image ads in two ways:\n\n\\*   Post images to your Company Page and sponsor the post to reach more than just followers. Your organization can share a first-hand look into your company culture, products, news, and events with a company page image to drive further engagement and conversation.\n\\*   Create image ads that bypass Company Page followers and go directly to your news feed.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3bce5339-33e6-43d6-a58d-2330e1ea69ab",
+          "name": "LinkedIn Initialize Image Upload",
+          "request": {
+            "name": "LinkedIn Initialize Image Upload",
+            "description": {
+              "content": "Use the `initializeUpload` action to register the upload. When you initialize, you declare the upcoming upload. Use the upload URL to upload the image.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "images"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "f84296cd-c725-4a9b-aeab-50cd9b497374",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "images"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "initializeUpload"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n  \\\"initializeUploadRequest\\\": {\\n        \\\"owner\\\": \\\"urn:li:organization:5583111\\\"\\n  }\\n}\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2408282-90bb-4326-a2fd-42dd63045fa8",
+          "name": "LinkedIn Get a Single Image",
+          "request": {
+            "name": "LinkedIn Get a Single Image",
+            "description": {
+              "content": "This API rerieve a single image.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "images",
+                ":image_urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "image_urn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "45015daa-342b-4129-bbf2-92094f1dc45b",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "images",
+                    ":image_urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "image_urn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "181e498d-1dc7-4152-a01f-464501d41dce",
+          "name": "LinkedIn Fetch Multiple Image Content",
+          "request": {
+            "name": "LinkedIn Fetch Multiple Image Content",
+            "description": {
+              "content": "This API rerieve content from multiple images.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85c2304d-220a-4451-be2b-b0170eee6d9f",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List({encoded postId},{encoded postId})"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7b2fe07-0740-49ae-9f65-188990682538",
+          "name": "LinkedIn Get Image Content",
+          "request": {
+            "name": "LinkedIn Get Image Content",
+            "description": {
+              "content": "This API rerieve the content associated with a single image.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "posts",
+                ":postId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "postId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6799eb9b-fb1d-4c51-88bb-133841c6d860",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "posts",
+                    ":postId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "postId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "18a0ae56-306b-4b41-96ad-3ebb4221da60",
+      "name": "Use Cases > InMail Content",
+      "description": {
+        "content": "You can set up the message contents sent to targeted LinkedIn members' inbox, either as a Message Ad or a Conversation Ad.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eda5575b-5535-450e-b1fd-ff9a9da6cc74",
+          "name": "LinkedIn Create InMail Content",
+          "request": {
+            "name": "LinkedIn Create InMail Content",
+            "description": {
+              "content": "API to create an inMail Content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "inMailContents",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "0a235bad-8aa2-4a83-af1d-5dfd9c9393e0",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "inMailContents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n \\\"account\\\": \\\"<Account Number>\\\",\\n \\\"name\\\": \\\"test strings\\\",\\n \\\"subject\\\": \\\"test subject\\\",\\n \\\"sender\\\": \\\"<person urn>\\\",\\n \\\"customFooter\\\": \\\"terms and conditions\\\",\\n \\\"htmlBody\\\":\\\"sample body\\\",\\n \\\"subContent\\\": {\\n   \\\"regular\\\": {\\n     \\\"callToActionText\\\": \\\"sample string\\\",\\n     \\\"callToActionLandingPageUrl\\\":\\\"http://www.linkedin.com\\\",\\n     \\\"rightRailAdPicture\\\": \\\"<image urn>\\\"\\n   }\\n }\\n}\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ccd422c-f2f8-480c-9351-6aaed4bdd502",
+          "name": "LinkedIn Get InMail Content",
+          "request": {
+            "name": "LinkedIn Get InMail Content",
+            "description": {
+              "content": "API to retrieve an inMail Content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "inMailContents",
+                ":adInMailContentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "adInMailContentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d036042-b0b2-463c-9bd0-1c54ded7e857",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "inMailContents",
+                    ":adInMailContentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "adInMailContentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3f525e1-c49b-4187-8df5-683eb240c2c1",
+          "name": "LinkedIn Update InMail Content",
+          "request": {
+            "name": "LinkedIn Update InMail Content",
+            "description": {
+              "content": "API to update an inMail Content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "inMailContents",
+                ":adInMailContentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "adInMailContentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "71f1f7f6-47a2-40ea-8246-20d8abbea9d9",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "inMailContents",
+                    ":adInMailContentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "adInMailContentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n \\\"patch\\\": {\\n   \\\"$set\\\": {\\n     \\\"name\\\": \\\"test strings new\\\"\\n   }\\n }\\n}\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d8805d9-0eec-4b39-bfa1-60498d9875e8",
+          "name": "LinkedIn Batch Get InMail Content",
+          "request": {
+            "name": "LinkedIn Batch Get InMail Content",
+            "description": {
+              "content": "API to retrieve an inMail Content in Batches.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "inMailContents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-RestLi-Method",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "956ab041-c7cc-4ed8-92d4-53d803fc5b69",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "inMailContents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "{encoded adInMailContentId}"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-RestLi-Method",
+                    "value": "BATCH_CREATE",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23ea4b56-be6e-4a33-9959-bf74133b5bed",
+          "name": "LinkedIn Send Test InMail",
+          "request": {
+            "name": "LinkedIn Send Test InMail",
+            "description": {
+              "content": "API to send/share an inMail Content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "inMailContents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            }
+          },
+          "response": [
+            {
+              "id": "1e42032d-d5a1-4d2a-b9f9-28a9206fa473",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "inMailContents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "sendTestInMail"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "Authorization",
+                    "value": "{{insert_token}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "87251cfb-1ad6-4618-ad4b-47f0d184854a",
+      "name": "Use Cases > Posts",
+      "description": {
+        "content": "The Posts API facilities the creation and retrieval of organic and sponsored posts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ffe5ce9a-0542-40be-8d57-093a25beba35",
+          "name": "LinkedIn Get Posts by URN",
+          "request": {
+            "name": "LinkedIn Get Posts by URN",
+            "description": {
+              "content": "Creating posts with image requires uploading an image asset to obtain a Image URN (urn:li:image:{id}) for creating the post. See the [Images API](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/images-api?view=li-lms-2022-08) for instructions on how to do this.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "posts",
+                ":encoded ugcPostUrn|shareUrn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cdd559a7-3509-444e-b2e5-0a82d26f1a04",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "posts",
+                    ":encoded ugcPostUrn|shareUrn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9f889c2-7514-4b45-821e-d7332602df35",
+          "name": "LinkedIn Delete a Post",
+          "request": {
+            "name": "LinkedIn Delete a Post",
+            "description": {
+              "content": "Post deletions are idempotent. Deletion requests for a previously deleted UGC Post will return a `204` code - No Content.\n\n####",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "posts",
+                ":encoded ugcPostUrn|shareUrn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f7a17b2-bfea-4cc9-accf-9fb8ad10051c",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "posts",
+                    ":encoded ugcPostUrn|shareUrn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac41055f-fdb5-4b90-bbb9-5a09c954530b",
+          "name": "LinkedIn Update a Post",
+          "request": {
+            "name": "LinkedIn Update a Post",
+            "description": {
+              "content": "The following `posts` field are available to update. Refer to [Schema](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/posts-api?view=li-lms-2022-08&tabs=http#post-schema) for complete field details.\n\n| Field | Description |\n| --- | --- |\n| commentary | String |\n| contentCallToActionLabel | contentCallToActionLabel text |\n| contentLandingPage | URL of the landing page |\n| reshareContext |  |\n| lifecycleState |  |\n| adContext | \\*   dscName: Update the name of the sponsored content<br>\\*   dscStatus: Update the status of the sponsored content |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "posts",
+                ":shared ID",
+                ":ugcPosts ID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "1134a069-36fd-4d9b-a9c8-e3d8c5054213",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "posts",
+                    ":shared ID",
+                    ":ugcPosts ID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n  \\\"patch\\\": {\\n    \\\"$set\\\": {\\n      \\\"commentary\\\": \\\"Update to the post\\\",\\n      \\\"contentCallToActionLabel\\\": \\\"LEARN_MORE\\\"\\n    }\\n  }\\n}\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "04a7606e-7bc6-4c7e-9837-31fd64681070",
+      "name": "Use Cases > Spotlight Ad",
+      "description": {
+        "content": "Spotlight Ads allow you to showcase your product, service, event, content, and more. Upon clicking your Ad, you navigate to the website or landing page of your choice. Learn more about [Spotlight Ads](https://www.linkedin.com/help/lms/answer/a420806).\n\n##",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16d6f172-d487-4ced-bd11-8111ee9620c7",
+          "name": "LinkedIn Create a Dynamic Spotlight Ad",
+          "request": {
+            "name": "LinkedIn Create a Dynamic Spotlight Ad",
+            "description": {
+              "content": "Creates a Dynamic Spotlight Ad Creative.\n\nA successful response returns a `201 Created HTTP` status code and the ID in the `x-linkedin-id` response header. For example, `urn:li:sponsoredCreative:123456789`\n\n##",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "d0ae3f42-a474-4e2a-a759-8d1199e02da9",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n    \\\"content\\\": {\\n        \\\"spotlight\\\": {\\n            \\\"callToAction\\\": \\\"Join Us Now\\\",\\n            \\\"description\\\": \\\"Check out this demo\\\",\\n            \\\"headline\\\": \\\"Spotlight Ad Demo\\\",\\n            \\\"landingPage\\\": \\\"http://www.linkedin.com\\\",\\n            \\\"logo\\\": \\\"urn:li:image:abc\\\",\\n            \\\"organizationName\\\": \\\"LinkedIn Demo\\\",\\n            \\\"showMemberProfilePhoto\\\": true\\n        }\\n     },\\n     \\\"campaign\\\": \\\"urn:li:sponsoredCampaign:123\\\",\\n     \\\"intendedStatus\\\": \\\"ACTIVE\\\"\\n}\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c97627c-ca5d-4d8d-aa64-1d4a22e3b0ca",
+          "name": "LinkedIn Get a Dynamic Spotlight Ad",
+          "request": {
+            "name": "LinkedIn Get a Dynamic Spotlight Ad",
+            "description": {
+              "content": "Retrives a Dynamic Spotlight Ad.\n\n#### Sample Response\n\nJSONCopy\n\n```\n{\n    \"servingHoldReasons\": [\n        \"UNDER_REVIEW\",\n        \"CAMPAIGN_STOPPED\"\n    ],\n    \"lastModifiedAt\": 1648512200000,\n    \"lastModifiedBy\": \"urn:li:member:123\",\n    \"content\": {\n        \"spotlight\": {\n            \"organizationName\": \"LinkedIn Demo\",\n            \"showMemberProfilePhoto\": true,\n            \"landingPage\": \"http://linkedin.com\",\n            \"description\": \"Check out this demo\",\n            \"logo\": \"urn:li:image:abc\",\n            \"headline\": \"Spotlight Ad Demo\",\n            \"callToAction\": \"Join Us Now\"\n        }\n    },\n    \"createdAt\": 1648512200000,\n    \"createdBy\": \"urn:li:member:123\",\n    \"isTest\": false,\n    \"review\": {\n        \"status\": \"PENDING\"\n    },\n    \"isServing\": false,\n    \"campaign\": \"urn:li:sponsoredCampaign:123\",\n    \"id\": \"urn:li:sponsoredCreative:123456789\",\n    \"intendedStatus\": \"ACTIVE\",\n    \"account\": \"urn:li:sponsoredAccount:123\"\n}\n```\n\n##",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives",
+                ":sponsoredCreative-urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sponsoredCreative-urn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac9967f0-4b5b-4996-8185-6dda05ddfad3",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives",
+                    ":sponsoredCreative-urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sponsoredCreative-urn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02ea9046-6429-43cb-a16e-e5e7ff5fb080",
+          "name": "LinkedIn Update a Dynamic Spotlight Ad",
+          "request": {
+            "name": "LinkedIn Update a Dynamic Spotlight Ad",
+            "description": {
+              "content": "## Update a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_curl)\n    \n\nHTTPCopy\n\n```\nPOST https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nJSONCopy\n\n```\n{\n    \"patch\": {\n        \"$set\": {\n            \"content\": {\n                \"spotlight\": {\n                    \"callToAction\": \"New Action\",\n                    \"description\": \"New Description\",\n                    \"headline\": \"New Headline\",\n                    \"landingPage\": \"http://example.com\",                       \n                    \"organizationName\": \"New Organization Name\",\n                    \"logo\": \"urn:li:image:def\",\n                    \"showMemberProfilePhoto\": false\n                }\n            }\n        }\n    }\n}\n\n```\n\nA successful response returns a `204 No Content`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives",
+                ":sponsoredCreative-urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sponsoredCreative-urn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "b3289867-d2dd-4294-b5ab-56643580b7d6",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives",
+                    ":sponsoredCreative-urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sponsoredCreative-urn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n    \\\"patch\\\": {\\n        \\\"$set\\\": {\\n            \\\"content\\\": {\\n                \\\"spotlight\\\": {\\n        \\\"callToAction\\\": \\\"New Action\\\",\\n        \\\"description\\\": \\\"New Description\\\",\\n        \\\"headline\\\": \\\"New Headline\\\",\\n        \\\"landingPage\\\": \\\"http://example.com\\\",                       \\n                    \\\"organizationName\\\": \\\"New Organization Name\\\",\\n                    \\\"logo\\\": \\\"urn:li:image:def\\\",\\n\\t        \\\"showMemberProfilePhoto\\\": false\\n                }\\n            }\\n        }\\n    }\\n}\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "718a7ada-0688-42bf-8cb6-8455d5fd37eb",
+          "name": "LinkedIn Delete a Dynamic Spotlight Ad",
+          "request": {
+            "name": "LinkedIn Delete a Dynamic Spotlight Ad",
+            "description": {
+              "content": "## Delete a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_curl)\n    \n\nHTTPCopy\n\n```\nDELETE https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nA successful response returns a `204 No Content`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives",
+                ":sponsoredCreative-urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sponsoredCreative-urn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecda482f-3034-4043-8f6e-38aa10ad1379",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives",
+                    ":sponsoredCreative-urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sponsoredCreative-urn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1a87fd5c-3ab3-400e-b781-1ad59127faea",
+      "name": "Use Cases > Video Ad",
+      "description": {
+        "content": "The Videos API is a new offering from LinkedIn that features the ability to upload a captions file as well as thumbnail video functionality.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e67a392-e0ec-4f5b-acbc-82511d1d48e4",
+          "name": "LinkedIn Get Multiple Videos",
+          "request": {
+            "name": "LinkedIn Get Multiple Videos",
+            "description": {
+              "content": "This API retrieves multiple videos.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "images"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "35d74336-7104-4e77-b4fc-13833ef8619b",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "images"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List({{image_urn1}},{{image_urn2}})"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "143de242-e87c-4030-94d6-1135c0ac612a",
+          "name": "LinkedIn Initialize Video Upload",
+          "request": {
+            "name": "LinkedIn Initialize Video Upload",
+            "description": {
+              "content": "Use the `initializeUpload` action to register the upload. When you initialize, you declare the upcoming upload. Use the upload URL from the `uploadInstructions` to upload the video.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "videos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "59f94716-a584-4786-93b1-4b83f6191566",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "initializeUpload"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{ \\\"initializeUploadRequest\\\": {\\n       \\\"owner\\\": \\\"organization_urn\\\",\\n       \\\"fileSizeBytes\\\": 1055736 ,\\n       \\\"uploadCaptions\\\": false, //set to true to upload video with caption\\n       \\\"uploadThumbnail\\\": false //set to true to upload video with thumbnail\\n}}\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82b28b86-58ac-45a8-a31a-a6bf19dbc8ce",
+          "name": "LinkedIn Get a Single Video",
+          "request": {
+            "name": "LinkedIn Get a Single Video",
+            "description": {
+              "content": "This API retrieves a single video.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "images",
+                ":image_urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "image_urn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "414e80fd-d8bd-47a9-95d6-ab8fe0f58286",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "images",
+                    ":image_urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "image_urn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "031d501b-a445-4e0c-b9f0-0abff5674aee",
+    "name": "Content APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Please note that these are versioned set of APIs and they are different than the earlier one.\n\nThese must be used with the **content-api-env-versioning** environment.\n\nContent APIs are the APIs that are published with the versioned release. These APIs bring capabilities to partners/developers to create rich content via LinkedIn Ads with minimal operational and technical overhead.\n\n**You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** [**Developer Portal**](https://developer.linkedin.com/product-catalog/marketing/campaign-management) **on how to apply.**",
+      "type": "text/plain"
+    }
+  }
+}

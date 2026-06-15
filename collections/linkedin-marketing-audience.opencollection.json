@@ -1,0 +1,276 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Marketing Audiences API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ad Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve User Ad Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adAccounts",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "search",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "search",
+                "value": "(type:(values:List(BUSINESS)),status:(values:List(ACTIVE)),test:false)",
+                "type": "query",
+                "description": "Search criteria"
+              },
+              {
+                "name": "fields",
+                "value": "id,name,test,reference",
+                "type": "query",
+                "description": "Fields to include in response"
+              }
+            ]
+          },
+          "docs": "Retrieve the authenticated user's ad accounts. Filter by type, status, and test flag to get relevant accounts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DMP Segments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Monitor DMP Segment Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmpSegments",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "account",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "account",
+                "value": "urn%3Ali%3AsponsoredAccount%3A123456",
+                "type": "query",
+                "description": "Sponsored account URN (URL encoded)"
+              },
+              {
+                "name": "sourcePlatform",
+                "value": "LIST_UPLOAD",
+                "type": "query",
+                "description": "Filter by source platform"
+              }
+            ]
+          },
+          "docs": "Retrieve DMP segments for a specific ad account. Monitor status, match rate, and audience size."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create DMP Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/dmpSegments",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new DMP segment for list upload or streaming. Note: There must be at least a 5 second delay between creating the segment and attaching data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Company Streaming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Stream Company Data to Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/dmpSegments/:CompanySegmentId/companies",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Method",
+                "value": "BATCH_CREATE"
+              }
+            ],
+            "params": [
+              {
+                "name": "CompanySegmentId",
+                "value": "987654321",
+                "type": "path",
+                "description": "ID of the company DMP segment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add or remove multiple companies from a DMP segment. The more information provided on a company, the better chance of a higher match rate."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Streaming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Stream User Data to Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/dmpSegments/:UserSegmentId/users",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "X-RestLi-Method",
+                "value": "BATCH_CREATE"
+              }
+            ],
+            "params": [
+              {
+                "name": "UserSegmentId",
+                "value": "987654322",
+                "type": "path",
+                "description": "ID of the user DMP segment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add or remove multiple users from a DMP segment. The more information provided on a user, the better chance of a higher match rate."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "List Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Attach Uploaded List to DMP Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/dmpSegments/:ListUploadSegmentId/listUploads",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ListUploadSegmentId",
+                "value": "987654323",
+                "type": "path",
+                "description": "ID of the list upload DMP segment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach an uploaded CSV list file to a DMP segment. Use the media URN returned from the file upload step."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

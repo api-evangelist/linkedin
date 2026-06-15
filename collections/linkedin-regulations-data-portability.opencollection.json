@@ -1,0 +1,499 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Pages Data Portability API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Batch Get Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaOrganizations",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List(10002687,10002688)",
+                "type": "query",
+                "description": "List of entity IDs to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves multiple organization profiles in a single request for data portability compliance. Returns organization details including name, description, locations, and settings."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaOrganizations/:organizationId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "10002687",
+                "type": "path",
+                "description": "Organization identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves a single organization profile by ID for data portability compliance. Returns comprehensive organization details including profile, settings, and metadata."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organization Access Control",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Organization ACLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaOrganizationAcls",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "role",
+                "value": "ADMINISTRATOR",
+                "type": "query",
+                "description": "Role filter for ACL queries"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves organization access control list entries showing role assignments for organization administrators and content managers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Page Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Page Content Analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaOrganizationalPageContentAnalytics",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "organizationUrn",
+                "value": "urn:li:organization:10002687",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves content analytics data for organizational pages including impressions, clicks, engagement rates, and social interactions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Feed Content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Posts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaPosts",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "author",
+                "value": "urn:li:organization:10002687",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves posts published by an organization for data portability compliance. Returns post content, visibility settings, and engagement metadata."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Reactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaReactions",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "activityUrn",
+                "value": "urn:li:share:7012345678901234567",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves reactions on content for data portability compliance. Returns reaction types and actor information."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaComments",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "activityUrn",
+                "value": "urn:li:share:7012345678901234567",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves comments on content for data portability compliance. Returns comment text, author information, and timestamps."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lead Generation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Lead Generation Responses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaLeadGenResponses",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "owner",
+                "value": "urn:li:organization:10002687",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves lead generation form responses for data portability compliance. Returns submitted form data and timestamps."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaEvents",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "organizer",
+                "value": "urn:li:organization:10002687",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves event data for data portability compliance. Returns event details including name, description, schedule, and organizer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Business Manager",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Business Manager Account Relationships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaBusinessManagerAccountRelationships",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "businessManagerAccount",
+                "value": "urn:li:businessManagerAccount:21002",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves business manager account relationships for data portability compliance. Returns relationship types and status between business manager accounts and organizations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

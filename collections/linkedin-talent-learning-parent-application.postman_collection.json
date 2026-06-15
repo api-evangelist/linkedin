@@ -1,0 +1,915 @@
+{
+  "item": [
+    {
+      "id": "f9e2e5cc-87ef-4779-89db-79aa3b3a87f5",
+      "name": "Child Application Provisioning",
+      "description": {
+        "content": "APIs for provisioning and managing customer (child) applications",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04fc6fa8-02d3-4ddf-97ad-cc01cfac89ea",
+          "name": "LinkedIn Provision Child Application",
+          "request": {
+            "name": "LinkedIn Provision Child Application",
+            "description": {
+              "content": "Creates a new child application for a mutual customer. Partners use this endpoint to provision developer applications that enable customer integrations with LinkedIn services.\nFor more information, refer to the [Create Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#create-application).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "provisionedApplications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"uniqueForeignId\": \"<string>\",\n  \"oauth2AuthorizedCallbackUrls\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"description\": \"<string>\",\n  \"validJsSdkDomains\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f1db9da-1f31-4f53-996a-4c9ef976f879",
+              "name": "Successfully provisioned the child application",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of the request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Acme Corporation\",\n  \"description\": \"Test application for Acme Corporation\",\n  \"uniqueForeignId\": \"acme-corp-12345\",\n  \"oauth2AuthorizedCallbackUrls\": [\n    \"https://app.acme.com/oauth2/callback\"\n  ],\n  \"validJsSdkDomains\": [\n    \"https://app.acme.com\",\n    \"http://localhost:5000\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applicationUrn\": \"urn:li:developerApplication:12345678\",\n  \"clientId\": \"78abc123def456\",\n  \"clientSecret\": \"secretXYZ789\",\n  \"name\": \"Acme Corporation\",\n  \"uniqueForeignId\": \"acme-corp-12345\",\n  \"oauth2AuthorizedCallbackUrls\": [\n    \"https://app.acme.com/oauth2/callback\"\n  ],\n  \"validJsSdkDomains\": [\n    \"https://app.acme.com\"\n  ],\n  \"createdAt\": 1702693664000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b3315e5-9746-4cf5-8e2c-93b832324e41",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of the request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Acme Corporation\",\n  \"description\": \"Test application for Acme Corporation\",\n  \"uniqueForeignId\": \"acme-corp-12345\",\n  \"oauth2AuthorizedCallbackUrls\": [\n    \"https://app.acme.com/oauth2/callback\"\n  ],\n  \"validJsSdkDomains\": [\n    \"https://app.acme.com\",\n    \"http://localhost:5000\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91e5965d-5248-4171-9079-a174831fb39e",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of the request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Acme Corporation\",\n  \"description\": \"Test application for Acme Corporation\",\n  \"uniqueForeignId\": \"acme-corp-12345\",\n  \"oauth2AuthorizedCallbackUrls\": [\n    \"https://app.acme.com/oauth2/callback\"\n  ],\n  \"validJsSdkDomains\": [\n    \"https://app.acme.com\",\n    \"http://localhost:5000\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e94e954-84ce-4c6f-a801-bd83cba4a3b0",
+              "name": "Conflict - application with uniqueForeignId already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of the request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Acme Corporation\",\n  \"description\": \"Test application for Acme Corporation\",\n  \"uniqueForeignId\": \"acme-corp-12345\",\n  \"oauth2AuthorizedCallbackUrls\": [\n    \"https://app.acme.com/oauth2/callback\"\n  ],\n  \"validJsSdkDomains\": [\n    \"https://app.acme.com\",\n    \"http://localhost:5000\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "34562704-85c2-4464-974d-969581eb0459",
+      "name": "Application Retrieval",
+      "description": {
+        "content": "APIs for retrieving child application details",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2527ff78-2183-4275-8299-e6e45e3cafb3",
+          "name": "LinkedIn Get Child Application",
+          "request": {
+            "name": "LinkedIn Get Child Application",
+            "description": {
+              "content": "Retrieves the credentials and details of a child application for a mutual customer using the partner's unique foreign identifier.\nFor more information, refer to the [Get Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#get-application).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "provisionedApplications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Query type for retrieving applications"
+                },
+                {
+                  "disabled": false,
+                  "key": "uniqueForeignId",
+                  "value": "<string>",
+                  "description": "(Required) Partner's unique identifier for the customer"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "835fa1a0-e6cf-4260-a7f5-54c23e78e22e",
+              "name": "Successfully retrieved application details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "credentialsByUniqueForeignId"
+                    },
+                    {
+                      "key": "uniqueForeignId",
+                      "value": "acme-corp-12345"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"elements\": [\n    {\n      \"applicationUrn\": \"urn:li:developerApplication:12345678\",\n      \"clientId\": \"78abc123def456\",\n      \"clientSecret\": \"secretXYZ789\",\n      \"uniqueForeignId\": \"acme-corp-12345\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "247d7c91-29b1-4320-a172-2434def0f41a",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "credentialsByUniqueForeignId"
+                    },
+                    {
+                      "key": "uniqueForeignId",
+                      "value": "acme-corp-12345"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "583382b6-b4f4-459f-abc2-6cf86be20cb8",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "credentialsByUniqueForeignId"
+                    },
+                    {
+                      "key": "uniqueForeignId",
+                      "value": "acme-corp-12345"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "392cf02b-b857-48c5-8c40-adf9d62f3499",
+              "name": "Application not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "credentialsByUniqueForeignId"
+                    },
+                    {
+                      "key": "uniqueForeignId",
+                      "value": "acme-corp-12345"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1260248c-cac4-4bc7-91c9-92abbbb1f2aa",
+      "name": "Application Updates",
+      "description": {
+        "content": "APIs for updating child application configurations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d685c11a-c606-4b77-b645-d8e463451d5c",
+          "name": "LinkedIn Update OAuth 2.0 Callback URLs for Child Application",
+          "request": {
+            "name": "LinkedIn Update OAuth 2.0 Callback URLs for Child Application",
+            "description": {
+              "content": "Updates the OAuth 2.0 authorized callback URLs for a child application. Partners use this endpoint to modify the callback URLs configuration for customer applications.\nFor more information, refer to the [Update Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#update-application).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "provisionedApplications",
+                ":customer_application_urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_application_urn",
+                  "description": "(Required) URN of the customer application to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"<uri>\",\n        \"<uri>\"\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c45ff891-1750-48a6-8e17-366a80fd1d03",
+              "name": "Successfully updated the application callback URLs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications",
+                    ":customer_application_urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_application_urn",
+                      "description": "(Required) URN of the customer application to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"https://app.acme.com/oauth2/callback\",\n        \"https://new-domain.acme.com/oauth2/callback\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applicationUrn\": \"urn:li:developerApplication:12345678\",\n  \"clientId\": \"78abc123def456\",\n  \"clientSecret\": \"secretXYZ789\",\n  \"name\": \"Acme Corporation\",\n  \"uniqueForeignId\": \"acme-corp-12345\",\n  \"oauth2AuthorizedCallbackUrls\": [\n    \"https://app.acme.com/oauth2/callback\"\n  ],\n  \"validJsSdkDomains\": [\n    \"https://app.acme.com\"\n  ],\n  \"createdAt\": 1702693664000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d10ab7f1-cbfd-4e3e-baaf-fe3c27b77f09",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications",
+                    ":customer_application_urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_application_urn",
+                      "description": "(Required) URN of the customer application to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"https://app.acme.com/oauth2/callback\",\n        \"https://new-domain.acme.com/oauth2/callback\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71b8ef6e-df3a-4c7c-b53d-0c5082a6a0f4",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications",
+                    ":customer_application_urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_application_urn",
+                      "description": "(Required) URN of the customer application to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"https://app.acme.com/oauth2/callback\",\n        \"https://new-domain.acme.com/oauth2/callback\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d281a050-6d21-40ad-9e07-c8a70ae4770e",
+              "name": "Application not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "provisionedApplications",
+                    ":customer_application_urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_application_urn",
+                      "description": "(Required) URN of the customer application to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"https://app.acme.com/oauth2/callback\",\n        \"https://new-domain.acme.com/oauth2/callback\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_liteprofile w_member_social"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "13099712-b27b-41b2-8746-1bd6108a8a82",
+    "name": "LinkedIn Parent Application Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn's Provisioning APIs allow partners to create and configure developer applications on behalf of their customers. This is an initial step to manage and enable customer integrations.\nFor more information, refer to the [Provisioning API documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api).\n\nContact Support:\n Name: LinkedIn Talent Solutions",
+      "type": "text/plain"
+    }
+  }
+}

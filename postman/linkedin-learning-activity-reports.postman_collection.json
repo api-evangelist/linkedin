@@ -1,0 +1,622 @@
+{
+  "info": {
+    "_postman_id": "73946f44-73f0-44e6-a8f0-eadf777c2064",
+    "name": "LinkedIn Learning Activity Reports API",
+    "description": "The LinkedIn Learning APIs enable access to Learning Content and Learning Activity Reports. This API provides learning activity reports including course completions, seconds of content viewed, and learner logins. Activity data can be aggregated by account, group, individual, or content.\nAccess to LinkedIn Learning APIs is available to members of the Partner Program and organizations that have purchased LinkedIn Learning site licenses.\n\nContact Support:\n Name: LinkedIn Learning API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:16:58.000Z",
+    "updatedAt": "2026-06-05T13:16:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-73946f44-73f0-44e6-a8f0-eadf777c2064"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "learningActivityReports",
+          "item": [
+            {
+              "name": "LinkedIn Get Learning Activity Reports",
+              "id": "1ddfb99b-1dfb-428f-8810-5f39d38c8cc4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Referrer URN for the request",
+                    "key": "referer",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/learningActivityReports?q=criteria&count=10&startedAt=<long>&timeOffset.unit=DAY&timeOffset.duration=<integer>&aggregationCriteria.primary=CONTENT&contentSource=CUSTOM_CONTENT&locale.language=<string>&start=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "learningActivityReports"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "criteria"
+                    },
+                    {
+                      "description": "Number of results to return",
+                      "key": "count",
+                      "value": "10"
+                    },
+                    {
+                      "description": "(Required) Start timestamp in milliseconds since epoch",
+                      "key": "startedAt",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "(Required) Time offset unit",
+                      "key": "timeOffset.unit",
+                      "value": "DAY"
+                    },
+                    {
+                      "description": "(Required) Time offset duration",
+                      "key": "timeOffset.duration",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) Primary aggregation criteria",
+                      "key": "aggregationCriteria.primary",
+                      "value": "CONTENT"
+                    },
+                    {
+                      "description": "Source of learning content to include",
+                      "key": "contentSource",
+                      "value": "CUSTOM_CONTENT"
+                    },
+                    {
+                      "description": "Locale language code",
+                      "key": "locale.language",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Starting index for pagination",
+                      "key": "start",
+                      "value": "0"
+                    }
+                  ]
+                },
+                "description": "Retrieve LinkedIn Learning activity reports including course completions, seconds of content viewed, and learner logins. Data can be aggregated by account, group, individual, or content."
+              },
+              "response": [
+                {
+                  "id": "07774421-8976-4cf5-93e3-85d4b5419c78",
+                  "name": "Successfully retrieved learning activity reports",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Referrer URN for the request",
+                        "key": "referer",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/learningActivityReports?q=criteria&count=10&startedAt=<long>&timeOffset.unit=DAY&timeOffset.duration=<integer>&aggregationCriteria.primary=CONTENT&contentSource=CUSTOM_CONTENT&locale.language=<string>&start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "learningActivityReports"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "criteria"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "10"
+                        },
+                        {
+                          "description": "(Required) Start timestamp in milliseconds since epoch",
+                          "key": "startedAt",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "(Required) Time offset unit",
+                          "key": "timeOffset.unit",
+                          "value": "DAY"
+                        },
+                        {
+                          "description": "(Required) Time offset duration",
+                          "key": "timeOffset.duration",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "(Required) Primary aggregation criteria",
+                          "key": "aggregationCriteria.primary",
+                          "value": "CONTENT"
+                        },
+                        {
+                          "description": "Source of learning content to include",
+                          "key": "contentSource",
+                          "value": "CUSTOM_CONTENT"
+                        },
+                        {
+                          "description": "Locale language code",
+                          "key": "locale.language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Starting index for pagination",
+                          "key": "start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"latestDataAt\": \"<long>\",\n      \"activities\": [\n        {\n          \"engagementType\": \"LOGINS\",\n          \"engagementValue\": \"<integer>\",\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"AUDIO\",\n          \"firstEngagedAt\": \"<long>\",\n          \"lastEngagedAt\": \"<long>\"\n        },\n        {\n          \"engagementType\": \"LOGINS\",\n          \"engagementValue\": \"<integer>\",\n          \"engagementMetricQualifier\": \"UNIQUE\",\n          \"assetType\": \"DOCUMENT\",\n          \"firstEngagedAt\": \"<long>\",\n          \"lastEngagedAt\": \"<long>\"\n        }\n      ],\n      \"learnerDetails\": {\n        \"entity\": {\n          \"accountUrn\": \"<string>\",\n          \"groupUrn\": \"<string>\",\n          \"learnerUrn\": \"<string>\",\n          \"contentUrn\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"latestDataAt\": \"<long>\",\n      \"activities\": [\n        {\n          \"engagementType\": \"SECONDS_VIEWED\",\n          \"engagementValue\": \"<integer>\",\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"COURSE\",\n          \"firstEngagedAt\": \"<long>\",\n          \"lastEngagedAt\": \"<long>\"\n        },\n        {\n          \"engagementType\": \"SECONDS_VIEWED\",\n          \"engagementValue\": \"<integer>\",\n          \"engagementMetricQualifier\": \"UNIQUE\",\n          \"assetType\": \"BOOK\",\n          \"firstEngagedAt\": \"<long>\",\n          \"lastEngagedAt\": \"<long>\"\n        }\n      ],\n      \"learnerDetails\": {\n        \"entity\": {\n          \"accountUrn\": \"<string>\",\n          \"groupUrn\": \"<string>\",\n          \"learnerUrn\": \"<string>\",\n          \"contentUrn\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"paging\": {\n    \"total\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"start\": \"<integer>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T13:16:59.000Z",
+                  "updatedAt": "2026-06-05T13:16:59.000Z",
+                  "uid": "35240-07774421-8976-4cf5-93e3-85d4b5419c78"
+                },
+                {
+                  "id": "815c875a-64af-422a-ac9b-3ed94de0d5d0",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Referrer URN for the request",
+                        "key": "referer",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/learningActivityReports?q=criteria&count=10&startedAt=<long>&timeOffset.unit=DAY&timeOffset.duration=<integer>&aggregationCriteria.primary=CONTENT&contentSource=CUSTOM_CONTENT&locale.language=<string>&start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "learningActivityReports"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "criteria"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "10"
+                        },
+                        {
+                          "description": "(Required) Start timestamp in milliseconds since epoch",
+                          "key": "startedAt",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "(Required) Time offset unit",
+                          "key": "timeOffset.unit",
+                          "value": "DAY"
+                        },
+                        {
+                          "description": "(Required) Time offset duration",
+                          "key": "timeOffset.duration",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "(Required) Primary aggregation criteria",
+                          "key": "aggregationCriteria.primary",
+                          "value": "CONTENT"
+                        },
+                        {
+                          "description": "Source of learning content to include",
+                          "key": "contentSource",
+                          "value": "CUSTOM_CONTENT"
+                        },
+                        {
+                          "description": "Locale language code",
+                          "key": "locale.language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Starting index for pagination",
+                          "key": "start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:16:59.000Z",
+                  "updatedAt": "2026-06-05T13:16:59.000Z",
+                  "uid": "35240-815c875a-64af-422a-ac9b-3ed94de0d5d0"
+                },
+                {
+                  "id": "3497a0a1-fc5d-46b9-bf7a-dac4154a8209",
+                  "name": "Unauthorized - invalid or missing access token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Referrer URN for the request",
+                        "key": "referer",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/learningActivityReports?q=criteria&count=10&startedAt=<long>&timeOffset.unit=DAY&timeOffset.duration=<integer>&aggregationCriteria.primary=CONTENT&contentSource=CUSTOM_CONTENT&locale.language=<string>&start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "learningActivityReports"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "criteria"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "10"
+                        },
+                        {
+                          "description": "(Required) Start timestamp in milliseconds since epoch",
+                          "key": "startedAt",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "(Required) Time offset unit",
+                          "key": "timeOffset.unit",
+                          "value": "DAY"
+                        },
+                        {
+                          "description": "(Required) Time offset duration",
+                          "key": "timeOffset.duration",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "(Required) Primary aggregation criteria",
+                          "key": "aggregationCriteria.primary",
+                          "value": "CONTENT"
+                        },
+                        {
+                          "description": "Source of learning content to include",
+                          "key": "contentSource",
+                          "value": "CUSTOM_CONTENT"
+                        },
+                        {
+                          "description": "Locale language code",
+                          "key": "locale.language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Starting index for pagination",
+                          "key": "start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:16:59.000Z",
+                  "updatedAt": "2026-06-05T13:16:59.000Z",
+                  "uid": "35240-3497a0a1-fc5d-46b9-bf7a-dac4154a8209"
+                },
+                {
+                  "id": "410fae18-185b-4383-a0a0-107640efe974",
+                  "name": "Forbidden - insufficient permissions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Referrer URN for the request",
+                        "key": "referer",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/learningActivityReports?q=criteria&count=10&startedAt=<long>&timeOffset.unit=DAY&timeOffset.duration=<integer>&aggregationCriteria.primary=CONTENT&contentSource=CUSTOM_CONTENT&locale.language=<string>&start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "learningActivityReports"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "criteria"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "10"
+                        },
+                        {
+                          "description": "(Required) Start timestamp in milliseconds since epoch",
+                          "key": "startedAt",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "(Required) Time offset unit",
+                          "key": "timeOffset.unit",
+                          "value": "DAY"
+                        },
+                        {
+                          "description": "(Required) Time offset duration",
+                          "key": "timeOffset.duration",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "(Required) Primary aggregation criteria",
+                          "key": "aggregationCriteria.primary",
+                          "value": "CONTENT"
+                        },
+                        {
+                          "description": "Source of learning content to include",
+                          "key": "contentSource",
+                          "value": "CUSTOM_CONTENT"
+                        },
+                        {
+                          "description": "Locale language code",
+                          "key": "locale.language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Starting index for pagination",
+                          "key": "start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:16:59.000Z",
+                  "updatedAt": "2026-06-05T13:16:59.000Z",
+                  "uid": "35240-410fae18-185b-4383-a0a0-107640efe974"
+                },
+                {
+                  "id": "11de3f8d-4cd3-4fbd-9bbf-8731c7078f16",
+                  "name": "Too many requests - rate limit exceeded",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Referrer URN for the request",
+                        "key": "referer",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/learningActivityReports?q=criteria&count=10&startedAt=<long>&timeOffset.unit=DAY&timeOffset.duration=<integer>&aggregationCriteria.primary=CONTENT&contentSource=CUSTOM_CONTENT&locale.language=<string>&start=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "learningActivityReports"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "criteria"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "10"
+                        },
+                        {
+                          "description": "(Required) Start timestamp in milliseconds since epoch",
+                          "key": "startedAt",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "(Required) Time offset unit",
+                          "key": "timeOffset.unit",
+                          "value": "DAY"
+                        },
+                        {
+                          "description": "(Required) Time offset duration",
+                          "key": "timeOffset.duration",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "(Required) Primary aggregation criteria",
+                          "key": "aggregationCriteria.primary",
+                          "value": "CONTENT"
+                        },
+                        {
+                          "description": "Source of learning content to include",
+                          "key": "contentSource",
+                          "value": "CUSTOM_CONTENT"
+                        },
+                        {
+                          "description": "Locale language code",
+                          "key": "locale.language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Starting index for pagination",
+                          "key": "start",
+                          "value": "0"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:16:59.000Z",
+                  "updatedAt": "2026-06-05T13:16:59.000Z",
+                  "uid": "35240-11de3f8d-4cd3-4fbd-9bbf-8731c7078f16"
+                }
+              ],
+              "createdAt": "2026-06-05T13:16:59.000Z",
+              "updatedAt": "2026-06-05T13:16:59.000Z",
+              "uid": "35240-1ddfb99b-1dfb-428f-8810-5f39d38c8cc4"
+            }
+          ],
+          "id": "340a4022-188d-4636-9ab3-e722d5ba76cd",
+          "createdAt": "2026-06-05T13:16:59.000Z",
+          "updatedAt": "2026-06-05T13:16:59.000Z",
+          "uid": "35240-340a4022-188d-4636-9ab3-e722d5ba76cd"
+        }
+      ],
+      "id": "6ddb6010-3720-4429-a3b9-bfb01a6e4b60",
+      "createdAt": "2026-06-05T13:16:59.000Z",
+      "updatedAt": "2026-06-05T13:16:59.000Z",
+      "uid": "35240-6ddb6010-3720-4429-a3b9-bfb01a6e4b60"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_lms_learning",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

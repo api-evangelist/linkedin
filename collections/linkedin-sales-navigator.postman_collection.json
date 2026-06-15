@@ -1,0 +1,1949 @@
+{
+  "item": [
+    {
+      "id": "7cf8fb9a-6642-4ea7-befe-164bf4acdec5",
+      "name": "Sales Contracts",
+      "description": {
+        "content": "Manage and retrieve Sales Navigator contracts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aa2a8a02-0827-41f2-b76d-e94a409931d3",
+          "name": "LinkedIn Find All Contracts Where User Has Active Seat",
+          "request": {
+            "name": "LinkedIn Find All Contracts Where User Has Active Seat",
+            "description": {
+              "content": "Retrieve all Sales Navigator contracts where the authenticated user has an active seat.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "salesContracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Query parameter to fetch contracts for the member"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8424add-8c96-46ab-a070-e459828af1dc",
+              "name": "A list of sales contracts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesContracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "contractsByMember"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"elements\": [\n    {\n      \"contract\": \"urn:li:salesContract:12345\",\n      \"name\": \"Enterprise Sales Contract\",\n      \"description\": \"Annual enterprise subscription for sales team\",\n      \"hasReportingAccess\": true\n    },\n    {\n      \"contract\": \"urn:li:salesContract:67890\",\n      \"name\": \"Professional Sales Contract\",\n      \"description\": \"Monthly professional subscription\",\n      \"hasReportingAccess\": false\n    }\n  ],\n  \"paging\": {\n    \"count\": 10,\n    \"start\": 0,\n    \"links\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74319375-ac19-42e8-a4fa-f7e8e8440240",
+              "name": "Unauthorized, invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesContracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "contractsByMember"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c5413689-0104-400d-b5ca-cb6dc3ba5e98",
+      "name": "Sales Analytics Export",
+      "description": {
+        "content": "Create and manage sales analytics export jobs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "488a6390-7cba-4bc3-9633-78f759bde0f3",
+          "name": "LinkedIn Fetch Sales Analytics Export Job by Id",
+          "request": {
+            "name": "LinkedIn Fetch Sales Analytics Export Job by Id",
+            "description": {
+              "content": "Retrieve the status and details of a sales analytics export job by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "salesAnalyticsExportJobs",
+                ":JobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "contract",
+                  "value": "<string>",
+                  "description": "(Required) Sales Navigator contract URN"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "JobId",
+                  "description": "(Required) The ID of the export job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d2403a6-7acc-41f7-b93b-56740624389f",
+              "name": "Details of the export job",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesAnalyticsExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "contract",
+                      "value": "urn:li:salesContract:12345"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 987654321,\n  \"status\": \"COMPLETED\",\n  \"downloadUrl\": \"https://media.licdn.com/exports/analytics_123.csv\",\n  \"expireAt\": 1640200000,\n  \"rowCount\": 5000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98be537c-f144-48f2-b9f8-69ef46cdf58e",
+              "name": "Unauthorized, invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesAnalyticsExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "contract",
+                      "value": "urn:li:salesContract:12345"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a267417-bdf8-407a-9384-12f7ca32f2fc",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesAnalyticsExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "contract",
+                      "value": "urn:li:salesContract:12345"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91f60f2d-9b22-4c2c-845d-4b4da9f401af",
+          "name": "LinkedIn Create New Sales Analytics Export Job",
+          "request": {
+            "name": "LinkedIn Create New Sales Analytics Export Job",
+            "description": {
+              "content": "Create a new sales analytics export job to export seat data, activity outcome data, or activity data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "salesAnalyticsExportJobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>",
+                  "description": "(Required) The type of export job to create"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contract\": \"<string>\",\n  \"startAt\": \"<integer>\",\n  \"endAt\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "57ded4ff-c3de-4c7a-8008-f4881cec7b8f",
+              "name": "Export job successfully created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesAnalyticsExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "exportSeatData"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract\": \"urn:li:salesContract:12345\",\n  \"startAt\": 1638316800000,\n  \"endAt\": 1640908800000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"id\": 987654321,\n    \"status\": \"ENQUEUED\",\n    \"downloadUrl\": null,\n    \"expireAt\": null,\n    \"rowCount\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "967edc27-dc95-46f0-a254-d8559aa05bc4",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesAnalyticsExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "exportSeatData"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract\": \"urn:li:salesContract:12345\",\n  \"startAt\": 1638316800000,\n  \"endAt\": 1640908800000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ed11966-85e0-4e7c-8cf8-96192798f1a7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesAnalyticsExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "exportSeatData"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract\": \"urn:li:salesContract:12345\",\n  \"startAt\": 1638316800000,\n  \"endAt\": 1640908800000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "47282645-aaf0-4f1f-9305-e87faec182a0",
+      "name": "Sales Access Tokens",
+      "description": {
+        "content": "Retrieve sales access tokens for authenticated iframe sessions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f24b650e-b71a-49d5-96bb-e1a0ebdb62fd",
+          "name": "LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions",
+          "request": {
+            "name": "LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions",
+            "description": {
+              "content": "Get a short-lived, limited-scope OAuth token for authenticated iframe sessions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "salesAccessTokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Query parameter for retrieving a Sales Access Token"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11c96ccd-0988-4262-81b6-f604b6328664",
+              "name": "A list of Sales Access Tokens",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesAccessTokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "viewerAndDeveloperApp"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"elements\": [\n    {\n      \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n      \"expiryTime\": 1640100000\n    }\n  ],\n  \"paging\": {\n    \"count\": 1,\n    \"start\": 0,\n    \"links\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf0d8e5c-3542-4288-bc99-f2de13415a34",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesAccessTokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "viewerAndDeveloperApp"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c1f1ad09-cffc-4d7c-8b1a-5ddc19f87d73",
+      "name": "Profile Associations",
+      "description": {
+        "content": "Fetch Sales Navigator profile associations from CRM records",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04e403c0-b2e4-4dfe-80fc-77049c7f7807",
+          "name": "LinkedIn Fetch Profile Association by Key",
+          "request": {
+            "name": "LinkedIn Fetch Profile Association by Key",
+            "description": {
+              "content": "Fetch the corresponding match when provided with a SalesNavigatorProfileAssociationKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "salesNavigatorProfileAssociations",
+                "{{InstanceId}},{{Partner}},{{RecordId}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "129986a9-d410-4a07-a72b-b3737406e671",
+              "name": "Successfully retrieved Sales Navigator Profile Association",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"member\": \"urn:li:person:ABC123def\",\n  \"profile\": \"https://www.linkedin.com/sales/people/ABC123def\",\n  \"profilePhoto\": \"https://media.licdn.com/dms/image/ABC123/profile.jpg\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86c89efd-ec0c-4001-85f3-513450fe695c",
+              "name": "Bad request, missing parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63531588-4018-47d4-b2d4-fca2fbe09009",
+              "name": "Unauthorized, invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d7b42a8-8646-4171-b870-3a5e07c89243",
+              "name": "Insufficient application access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05e98eaa-8397-45fc-815d-90d4afe18971",
+              "name": "Match unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "271f04ce-10cb-4592-bc47-75c836baafec",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aaf7aa7a-370c-40fb-a496-a167849e7050",
+          "name": "LinkedIn Batch Fetch Profile Associations",
+          "request": {
+            "name": "LinkedIn Batch Fetch Profile Associations",
+            "description": {
+              "content": "Batch fetch matches when provided with multiple SalesNavigatorProfileAssociationKeys.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "salesNavigatorProfileAssociations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2cf7fa2-55e1-425c-89a8-468673825e93",
+              "name": "Successfully retrieved batch Sales Navigator Profile Associations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statuses\": {\n    \"(sf-instance-001,salesforce,contact-12345)\": 200,\n    \"(sf-instance-001,salesforce,contact-67890)\": 200\n  },\n  \"results\": {\n    \"(sf-instance-001,salesforce,contact-12345)\": {\n      \"member\": \"urn:li:person:ABC123def\",\n      \"profile\": \"https://www.linkedin.com/sales/people/ABC123def\",\n      \"profilePhoto\": \"https://media.licdn.com/dms/image/ABC123/profile.jpg\"\n    },\n    \"(sf-instance-001,salesforce,contact-67890)\": {\n      \"member\": \"urn:li:person:XYZ789ghi\",\n      \"profile\": \"https://www.linkedin.com/sales/people/XYZ789ghi\"\n    }\n  },\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3d4dec5-e1a9-4cb3-b7d1-cbe2c11da614",
+              "name": "Bad request, missing parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45046108-bf35-48f7-a73d-6d63d5ef595c",
+              "name": "Unauthorized, invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7c90798a-723f-4355-b640-49a8379146b6",
+      "name": "CRM Data Validation",
+      "description": {
+        "content": "Create and manage CRM data validation export jobs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "98fb881f-f2b7-4dc0-bdc4-30e71cb154e7",
+          "name": "LinkedIn Create CRM Data Validation Export Job",
+          "request": {
+            "name": "LinkedIn Create CRM Data Validation Export Job",
+            "description": {
+              "content": "Create a new CRM data validation export job to validate CRM data against LinkedIn.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "crmDataValidationExportJobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "crmInstanceId",
+                  "value": "<string>",
+                  "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fd72b3d2-2fdf-46f1-95d7-7120f66189a0",
+              "name": "Export job created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exportStartAt\": 1640000000000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Resource location of created job",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Job ID",
+                  "key": "X-RestLi-Id",
+                  "value": "7720"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": 123456789,\n  \"exportStartAt\": 1640000000000,\n  \"status\": \"PROCESSING\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71ab0a69-4cfe-430f-b4e8-dfa839940b4b",
+              "name": "Bad request, missing or invalid parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exportStartAt\": 1640000000000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fcb61f9-3d1a-460b-921f-ac90498839e5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exportStartAt\": 1640000000000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0b14e50-a2a2-4dcc-8f28-72e65bcbd5e0",
+              "name": "Forbidden, insufficient access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exportStartAt\": 1640000000000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e9e4a6c-11d9-4096-ad26-72e3c08400eb",
+          "name": "LinkedIn Get CRM Data Validation Export Job Status",
+          "request": {
+            "name": "LinkedIn Get CRM Data Validation Export Job Status",
+            "description": {
+              "content": "Retrieve the status and details of a CRM data validation export job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "crmDataValidationExportJobs",
+                ":JobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "crmInstanceId",
+                  "value": "<string>",
+                  "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "JobId",
+                  "description": "(Required) The ID of the export job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2747dcbb-120f-430d-bd83-9b1ee924bd7e",
+              "name": "Export job status returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": 123456789,\n  \"exportStartAt\": 1640000000000,\n  \"exportEndAt\": 1640001000000,\n  \"status\": \"COMPLETED\",\n  \"downloadUrls\": [\n    \"https://media.licdn.com/crm-validation/export_1.csv\"\n  ],\n  \"nextExportStartAt\": 1640001000000,\n  \"expireAt\": 1640100000000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08585229-c837-414f-8047-e44636ff3dc4",
+              "name": "Bad request, missing or invalid parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4f45e0c-f9b1-40fa-8538-c27406c777f8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b87bd7e-fc9b-41b3-8783-a09fea8f9034",
+              "name": "Forbidden, insufficient access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "438ad317-09f2-4a39-a794-37abaecc17e5",
+              "name": "Job ID not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com/v2",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ID of the CRM instance that synced with Sales Navigator",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "InstanceId"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ID of the CRM partner that synced with Sales Navigator",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "Partner"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ID of the CRM record",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "RecordId"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b0245ef7-f18d-44bd-903a-fe4e5938b3ab",
+    "name": "LinkedIn Sales Navigator API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for accessing LinkedIn Sales Navigator features including sales contracts, analytics export jobs, access tokens, profile associations, and CRM data validation.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
+    }
+  }
+}

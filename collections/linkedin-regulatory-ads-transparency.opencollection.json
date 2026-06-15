@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Ads Transparency API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Advertiser Transparency",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Advertiser Transparency Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/advertiserTransparencyData/urn:li:sponsoredAccount::sponsoredaccount_id",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "sponsoredaccount_id",
+                "value": "123456789",
+                "type": "path",
+                "description": "The sponsored account identifier"
+              },
+              {
+                "name": "month",
+                "value": "202312",
+                "type": "query",
+                "description": "Month for transparency data in YYYYMM format"
+              }
+            ]
+          },
+          "docs": "Retrieves transparency data for a specific sponsored account. This endpoint provides information about advertising spend, impressions, and advertiser details for regulatory compliance and transparency reporting purposes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

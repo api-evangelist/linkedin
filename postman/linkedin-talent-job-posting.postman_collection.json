@@ -1,0 +1,1171 @@
+{
+  "info": {
+    "_postman_id": "24d111e5-90ed-40ca-b24a-4c3882701634",
+    "name": "LinkedIn Job Posting API",
+    "description": "LinkedIn's Job Posting API enables authorized third parties such as clients, ATS systems, and Job Distributors to post jobs directly to LinkedIn on behalf of customers.\nThis API supports two job categories:\n- **Basic Jobs**: Free job posts gathered by LinkedIn from external sources - **Promoted Jobs**: Paid job postings with enhanced visibility\nThe use of these APIs is restricted to developers approved by LinkedIn. Please reach out to your LinkedIn Relationship Manager or Business Development contact for access.\nFor more information, refer to the [Job Posting Overview](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/job-posting-overview).\n\nContact Support:\n Name: LinkedIn Talent Solutions",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:17:00.000Z",
+    "updatedAt": "2026-06-05T13:17:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-24d111e5-90ed-40ca-b24a-4c3882701634"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "simpleJobPostings",
+          "item": [
+            {
+              "name": "LinkedIn Create or Update Apply Connect Job Posting",
+              "id": "9b5fdec4-24e2-49a7-8e7b-29060fa8a7a1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Rest.li method for batch operations",
+                    "key": "x-restli-method",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elements\": [\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"PREMIUM\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"UPDATE\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"REQUIRED\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"OPTIONAL\"\n          },\n          \"voluntarySelfIdentificationQuestions\": {},\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {}\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {}\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": [\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"DROPDOWN\"\n                      }\n                    }\n                  }\n                ]\n              },\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      }\n    },\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"PREMIUM\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"UPDATE\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"OPTIONAL\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"NOT_AVAILABLE\"\n          },\n          \"voluntarySelfIdentificationQuestions\": {},\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {}\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {}\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": [\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  }\n                ]\n              },\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"DROPDOWN\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v2/simpleJobPostings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "simpleJobPostings"
+                  ]
+                },
+                "description": "Creates a new Apply Connect enabled job posting or updates/closes an existing one. Use the `jobPostingOperationType` field to specify the operation:\n- `CREATE`: Create a new job posting - `UPDATE`: Update an existing job posting - `CLOSE`: Close an existing job posting\nFor more information, refer to the [Apply Connect Jobs Lifecycle documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/sync-jobs-onsite-apply#apply-connect-jobs-lifecycle)."
+              },
+              "response": [
+                {
+                  "id": "563459d6-0476-49b5-8a49-73f6a2031ff8",
+                  "name": "Job posting request accepted successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method for batch operations",
+                        "key": "x-restli-method",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"elements\": [\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"PREMIUM\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"UPDATE\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"REQUIRED\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"OPTIONAL\"\n          },\n          \"voluntarySelfIdentificationQuestions\": {},\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {}\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {}\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": [\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"DROPDOWN\"\n                      }\n                    }\n                  }\n                ]\n              },\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      }\n    },\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"PREMIUM\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"UPDATE\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"OPTIONAL\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"NOT_AVAILABLE\"\n          },\n          \"voluntarySelfIdentificationQuestions\": {},\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {}\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {}\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": [\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  }\n                ]\n              },\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"DROPDOWN\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/simpleJobPostings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "simpleJobPostings"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"status\": \"<string>\",\n      \"taskUrn\": \"<string>\"\n    },\n    {\n      \"status\": \"<string>\",\n      \"taskUrn\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-563459d6-0476-49b5-8a49-73f6a2031ff8"
+                },
+                {
+                  "id": "18e48949-0ddf-483c-b19b-457663df34b9",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method for batch operations",
+                        "key": "x-restli-method",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"elements\": [\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"PREMIUM\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"UPDATE\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"REQUIRED\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"OPTIONAL\"\n          },\n          \"voluntarySelfIdentificationQuestions\": {},\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {}\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {}\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": [\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"DROPDOWN\"\n                      }\n                    }\n                  }\n                ]\n              },\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      }\n    },\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"PREMIUM\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"UPDATE\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"OPTIONAL\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"NOT_AVAILABLE\"\n          },\n          \"voluntarySelfIdentificationQuestions\": {},\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {}\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {}\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": [\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  }\n                ]\n              },\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"DROPDOWN\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/simpleJobPostings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "simpleJobPostings"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-18e48949-0ddf-483c-b19b-457663df34b9"
+                },
+                {
+                  "id": "19c7c7de-1b80-465a-99ee-813b7e705d4e",
+                  "name": "Unauthorized - invalid or missing authentication",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method for batch operations",
+                        "key": "x-restli-method",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"elements\": [\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"PREMIUM\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"UPDATE\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"REQUIRED\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"OPTIONAL\"\n          },\n          \"voluntarySelfIdentificationQuestions\": {},\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {}\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {}\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": [\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"DROPDOWN\"\n                      }\n                    }\n                  }\n                ]\n              },\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      }\n    },\n    {\n      \"externalJobPostingId\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"integrationContext\": \"<string>\",\n      \"listingType\": \"PREMIUM\",\n      \"location\": \"<string>\",\n      \"jobPostingOperationType\": \"UPDATE\",\n      \"listedAt\": \"<long>\",\n      \"companyApplyUrl\": \"<uri>\",\n      \"onsiteApplyConfiguration\": {\n        \"jobApplicationWebhookUrl\": \"<uri>\",\n        \"questions\": {\n          \"resumeQuestions\": {\n            \"resumeQuestionRequirement\": \"OPTIONAL\"\n          },\n          \"coverLetterQuestions\": {\n            \"coverLetterQuestionRequirement\": \"NOT_AVAILABLE\"\n          },\n          \"voluntarySelfIdentificationQuestions\": {},\n          \"educationQuestions\": {\n            \"educationExperienceQuestionSet\": {}\n          },\n          \"workQuestions\": {\n            \"workExperienceQuestionSet\": {}\n          },\n          \"additionalQuestions\": {\n            \"customQuestionSets\": [\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"CHECKBOXES\"\n                      }\n                    }\n                  }\n                ]\n              },\n              {\n                \"questionSetId\": \"<string>\",\n                \"questions\": [\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"DROPDOWN\"\n                      }\n                    }\n                  },\n                  {\n                    \"required\": \"<boolean>\",\n                    \"partnerQuestionIdentifier\": \"<string>\",\n                    \"questionText\": \"<string>\",\n                    \"questionDetails\": {\n                      \"multipleChoiceQuestionDetails\": {\n                        \"choices\": [\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          },\n                          {\n                            \"symbolicName\": \"<string>\",\n                            \"displayValue\": \"<string>\"\n                          }\n                        ],\n                        \"selectMultiple\": \"<boolean>\",\n                        \"preferredFormComponent\": \"RADIO_BUTTONS\"\n                      }\n                    }\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/simpleJobPostings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "simpleJobPostings"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-19c7c7de-1b80-465a-99ee-813b7e705d4e"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:00.000Z",
+              "updatedAt": "2026-06-05T13:17:00.000Z",
+              "uid": "35240-9b5fdec4-24e2-49a7-8e7b-29060fa8a7a1"
+            }
+          ],
+          "id": "a79b67a4-cd8b-42b2-b8fa-ecf66094c05f",
+          "createdAt": "2026-06-05T13:17:00.000Z",
+          "updatedAt": "2026-06-05T13:17:00.000Z",
+          "uid": "35240-a79b67a4-cd8b-42b2-b8fa-ecf66094c05f"
+        },
+        {
+          "name": "simpleJobPostingTasks",
+          "item": [
+            {
+              "name": "LinkedIn Check Job Posting Task Status",
+              "id": "804205ee-b180-498f-9bd8-99d585cae0fb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "simpleJobPostingTasks"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Task URN(s) to check status",
+                      "key": "ids",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves the status of a job posting task to track whether the job has been successfully created, updated, or closed.\nAfter successful completion, the response includes the `jobPostingUrn` which can be used to view the job at: `https://www.linkedin.com/jobs/view/{jobPostingId}`\nFor more information, refer to the [Check Job Task Status documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus)."
+              },
+              "response": [
+                {
+                  "id": "2aeecf83-f92e-4927-832d-d647477ce143",
+                  "name": "Successfully retrieved task status",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "simpleJobPostingTasks"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Task URN(s) to check status",
+                          "key": "ids",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"results\": {\n    \"laborum_e\": {\n      \"status\": \"PENDING\",\n      \"jobPostingUrn\": \"<string>\",\n      \"errorMessage\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-2aeecf83-f92e-4927-832d-d647477ce143"
+                },
+                {
+                  "id": "bff75837-2cc7-4b78-910e-6be4423f268c",
+                  "name": "Bad request - invalid task URN",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "simpleJobPostingTasks"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Task URN(s) to check status",
+                          "key": "ids",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-bff75837-2cc7-4b78-910e-6be4423f268c"
+                },
+                {
+                  "id": "cfca3737-6bd1-4990-a9a3-4fff05986d1a",
+                  "name": "Unauthorized - invalid or missing authentication",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "simpleJobPostingTasks"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Task URN(s) to check status",
+                          "key": "ids",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-cfca3737-6bd1-4990-a9a3-4fff05986d1a"
+                },
+                {
+                  "id": "11a88877-105f-49dc-af6e-24b68e056e17",
+                  "name": "Task not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "simpleJobPostingTasks"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Task URN(s) to check status",
+                          "key": "ids",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-11a88877-105f-49dc-af6e-24b68e056e17"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:00.000Z",
+              "updatedAt": "2026-06-05T13:17:00.000Z",
+              "uid": "35240-804205ee-b180-498f-9bd8-99d585cae0fb"
+            }
+          ],
+          "id": "447ff3ef-eeb1-48c8-9f95-c160f46b34da",
+          "createdAt": "2026-06-05T13:17:00.000Z",
+          "updatedAt": "2026-06-05T13:17:00.000Z",
+          "uid": "35240-447ff3ef-eeb1-48c8-9f95-c160f46b34da"
+        },
+        {
+          "name": "atsIntegrations",
+          "item": [
+            {
+              "name": "LinkedIn Update Customer ATS Integrations",
+              "id": "ab76b4ca-ec13-4f36-b615-7e5a5abc3846",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"aliquipc\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"proident_8\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Integration context URN",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Type of integration",
+                      "key": "ids[0].integrationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Tenant type for the integration",
+                      "key": "ids[0].tenantType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Data provider identifier",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Updates customer ATS integrations for premium job posting capabilities. Partners use this endpoint to configure the integration name and other settings for their customers."
+              },
+              "response": [
+                {
+                  "id": "55e35915-40ff-4fd4-8316-075a3d510ca5",
+                  "name": "Successfully updated the integration",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {\n    \"aliquipc\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"proident_8\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Integration context URN",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Type of integration",
+                          "key": "ids[0].integrationType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Tenant type for the integration",
+                          "key": "ids[0].tenantType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Data provider identifier",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"results\": {\n    \"magna4d2\": {\n      \"integrationContext\": \"<string>\",\n      \"integrationType\": \"<string>\",\n      \"integrationName\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    \"ipsum_7f\": {\n      \"integrationContext\": \"<string>\",\n      \"integrationType\": \"<string>\",\n      \"integrationName\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-55e35915-40ff-4fd4-8316-075a3d510ca5"
+                },
+                {
+                  "id": "27783041-d6ae-438f-adf7-af17a199818f",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {\n    \"aliquipc\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"proident_8\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Integration context URN",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Type of integration",
+                          "key": "ids[0].integrationType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Tenant type for the integration",
+                          "key": "ids[0].tenantType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Data provider identifier",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-27783041-d6ae-438f-adf7-af17a199818f"
+                },
+                {
+                  "id": "1a47cbbd-6ee0-49a6-8107-be9467fcb87f",
+                  "name": "Unauthorized - invalid or missing authentication",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {\n    \"aliquipc\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"proident_8\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Integration context URN",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Type of integration",
+                          "key": "ids[0].integrationType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Tenant type for the integration",
+                          "key": "ids[0].tenantType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Data provider identifier",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-1a47cbbd-6ee0-49a6-8107-be9467fcb87f"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:00.000Z",
+              "updatedAt": "2026-06-05T13:17:00.000Z",
+              "uid": "35240-ab76b4ca-ec13-4f36-b615-7e5a5abc3846"
+            },
+            {
+              "name": "LinkedIn Get Customer ATS Integration Details",
+              "id": "5616fa95-4f89-422d-8ba7-34c92b17f1db",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Integration context URN",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Type of integration",
+                      "key": "ids[0].integrationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Tenant type for the integration",
+                      "key": "ids[0].tenantType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Data provider identifier",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves the details of a customer's ATS integration for premium job posting. Use this endpoint to verify integration configuration and status."
+              },
+              "response": [
+                {
+                  "id": "04fc0bd1-35b0-4f2f-a591-dc837f14f0b8",
+                  "name": "Successfully retrieved integration details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Integration context URN",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Type of integration",
+                          "key": "ids[0].integrationType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Tenant type for the integration",
+                          "key": "ids[0].tenantType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Data provider identifier",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"results\": {\n    \"magna4d2\": {\n      \"integrationContext\": \"<string>\",\n      \"integrationType\": \"<string>\",\n      \"integrationName\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    \"ipsum_7f\": {\n      \"integrationContext\": \"<string>\",\n      \"integrationType\": \"<string>\",\n      \"integrationName\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-04fc0bd1-35b0-4f2f-a591-dc837f14f0b8"
+                },
+                {
+                  "id": "74551a65-42b7-4180-9c5f-c44fa927a927",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Integration context URN",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Type of integration",
+                          "key": "ids[0].integrationType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Tenant type for the integration",
+                          "key": "ids[0].tenantType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Data provider identifier",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-74551a65-42b7-4180-9c5f-c44fa927a927"
+                },
+                {
+                  "id": "2bcbf3f9-3ba5-437d-8c07-c135cd8261dd",
+                  "name": "Unauthorized - invalid or missing authentication",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Integration context URN",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Type of integration",
+                          "key": "ids[0].integrationType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Tenant type for the integration",
+                          "key": "ids[0].tenantType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Data provider identifier",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-2bcbf3f9-3ba5-437d-8c07-c135cd8261dd"
+                },
+                {
+                  "id": "a1c816cd-f40b-4a3e-9666-97f933c8f8ec",
+                  "name": "Integration not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Integration context URN",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Type of integration",
+                          "key": "ids[0].integrationType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Tenant type for the integration",
+                          "key": "ids[0].tenantType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Data provider identifier",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:00.000Z",
+                  "updatedAt": "2026-06-05T13:17:00.000Z",
+                  "uid": "35240-a1c816cd-f40b-4a3e-9666-97f933c8f8ec"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:00.000Z",
+              "updatedAt": "2026-06-05T13:17:00.000Z",
+              "uid": "35240-5616fa95-4f89-422d-8ba7-34c92b17f1db"
+            }
+          ],
+          "id": "26af0935-00fb-4588-bcd0-3ecdfa9a8553",
+          "createdAt": "2026-06-05T13:17:00.000Z",
+          "updatedAt": "2026-06-05T13:17:00.000Z",
+          "uid": "35240-26af0935-00fb-4588-bcd0-3ecdfa9a8553"
+        }
+      ],
+      "id": "3b0bec11-dd91-4b51-9b20-fccf67b74f54",
+      "createdAt": "2026-06-05T13:17:00.000Z",
+      "updatedAt": "2026-06-05T13:17:00.000Z",
+      "uid": "35240-3b0bec11-dd91-4b51-9b20-fccf67b74f54"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "w_organization_social",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

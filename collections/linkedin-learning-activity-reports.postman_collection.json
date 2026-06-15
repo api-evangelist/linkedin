@@ -1,0 +1,585 @@
+{
+  "item": [
+    {
+      "id": "5c78114b-245e-41cb-9f4b-987ab6cf2542",
+      "name": "Learning Activity Reports",
+      "description": {
+        "content": "APIs to retrieve learning activity reports including completions, views, and logins",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b00a54d1-9921-47ff-85fb-fa7a3823ed6c",
+          "name": "LinkedIn Get Learning Activity Reports",
+          "request": {
+            "name": "LinkedIn Get Learning Activity Reports",
+            "description": {
+              "content": "Retrieve LinkedIn Learning activity reports including course completions, seconds of content viewed, and learner logins. Data can be aggregated by account, group, individual, or content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "learningActivityReports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Query type"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "10",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "startedAt",
+                  "value": "<long>",
+                  "description": "(Required) Start timestamp in milliseconds since epoch"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeOffset.unit",
+                  "value": "<string>",
+                  "description": "(Required) Time offset unit"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeOffset.duration",
+                  "value": "<integer>",
+                  "description": "(Required) Time offset duration"
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregationCriteria.primary",
+                  "value": "<string>",
+                  "description": "(Required) Primary aggregation criteria"
+                },
+                {
+                  "disabled": false,
+                  "key": "contentSource",
+                  "value": "<string>",
+                  "description": "Source of learning content to include"
+                },
+                {
+                  "disabled": false,
+                  "key": "locale.language",
+                  "value": "<string>",
+                  "description": "Locale language code"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "Starting index for pagination"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Referrer URN for the request",
+                "key": "referer",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "197eb157-1583-434a-84ed-cd81b3b0b9cf",
+              "name": "Successfully retrieved learning activity reports",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "learningActivityReports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "criteria"
+                    },
+                    {
+                      "key": "count",
+                      "value": "1"
+                    },
+                    {
+                      "key": "startedAt",
+                      "value": "1627267600000"
+                    },
+                    {
+                      "key": "timeOffset.unit",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "timeOffset.duration",
+                      "value": "7"
+                    },
+                    {
+                      "key": "aggregationCriteria.primary",
+                      "value": "ACCOUNT"
+                    },
+                    {
+                      "key": "contentSource",
+                      "value": "ALL_SOURCES"
+                    },
+                    {
+                      "key": "locale.language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Referrer URN for the request",
+                    "key": "referer",
+                    "value": "urn:li:enterpriseAccount:999"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"elements\": [\n    {\n      \"latestDataAt\": 1632207540000,\n      \"activities\": [\n        {\n          \"engagementType\": \"LOGINS\",\n          \"engagementValue\": 88,\n          \"engagementMetricQualifier\": \"UNIQUE\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"VIEWS\",\n          \"engagementValue\": 12,\n          \"engagementMetricQualifier\": \"UNIQUE\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"SECONDS_VIEWED\",\n          \"engagementValue\": 2505,\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"VIDEO\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"VIEWS\",\n          \"engagementValue\": 0,\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"ARTICLE\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"COMPLETIONS\",\n          \"engagementValue\": 0,\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"ARTICLE\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"VIEWS\",\n          \"engagementValue\": 16,\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"COURSE\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"COMPLETIONS\",\n          \"engagementValue\": 1,\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"COURSE\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"VIEWS\",\n          \"engagementValue\": 2,\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"LEARNING_PATH\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"COMPLETIONS\",\n          \"engagementValue\": 0,\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"LEARNING_PATH\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"VIEWS\",\n          \"engagementValue\": 66,\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"VIDEO\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        },\n        {\n          \"engagementType\": \"COMPLETIONS\",\n          \"engagementValue\": 22,\n          \"engagementMetricQualifier\": \"TOTAL\",\n          \"assetType\": \"VIDEO\",\n          \"firstEngagedAt\": 1627267600000,\n          \"lastEngagedAt\": 1627354000000\n        }\n      ],\n      \"learnerDetails\": {\n        \"entity\": {\n          \"accountUrn\": \"urn:li:enterpriseAccount:999\"\n        }\n      }\n    }\n  ],\n  \"paging\": {\n    \"total\": 1,\n    \"count\": 1,\n    \"start\": 0,\n    \"links\": [\n      {\n        \"rel\": \"next\",\n        \"href\": \"/v2/learningActivityReports?aggregationCriteria.primary=ACCOUNT&count=1&q=criteria&start=1&startedAt=1627267600000&timeOffset.duration=7&timeOffset.unit=DAY\",\n        \"type\": \"application/json\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6be969b2-95e1-4c1e-bf73-83e1c39dffb2",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "learningActivityReports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "criteria"
+                    },
+                    {
+                      "key": "count",
+                      "value": "1"
+                    },
+                    {
+                      "key": "startedAt",
+                      "value": "1627267600000"
+                    },
+                    {
+                      "key": "timeOffset.unit",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "timeOffset.duration",
+                      "value": "7"
+                    },
+                    {
+                      "key": "aggregationCriteria.primary",
+                      "value": "ACCOUNT"
+                    },
+                    {
+                      "key": "contentSource",
+                      "value": "ALL_SOURCES"
+                    },
+                    {
+                      "key": "locale.language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Referrer URN for the request",
+                    "key": "referer",
+                    "value": "urn:li:enterpriseAccount:999"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid aggregation criteria\",\n  \"code\": \"INVALID_AGGREGATION_CRITERIA\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4357a8a1-a03d-4f48-b860-f97ab442a28f",
+              "name": "Unauthorized - invalid or missing access token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "learningActivityReports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "criteria"
+                    },
+                    {
+                      "key": "count",
+                      "value": "1"
+                    },
+                    {
+                      "key": "startedAt",
+                      "value": "1627267600000"
+                    },
+                    {
+                      "key": "timeOffset.unit",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "timeOffset.duration",
+                      "value": "7"
+                    },
+                    {
+                      "key": "aggregationCriteria.primary",
+                      "value": "ACCOUNT"
+                    },
+                    {
+                      "key": "contentSource",
+                      "value": "ALL_SOURCES"
+                    },
+                    {
+                      "key": "locale.language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Referrer URN for the request",
+                    "key": "referer",
+                    "value": "urn:li:enterpriseAccount:999"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"message\": \"Invalid access token\",\n  \"code\": \"UNAUTHORIZED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb7398be-f72d-4236-9c2a-5a9506a683a3",
+              "name": "Forbidden - insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "learningActivityReports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "criteria"
+                    },
+                    {
+                      "key": "count",
+                      "value": "1"
+                    },
+                    {
+                      "key": "startedAt",
+                      "value": "1627267600000"
+                    },
+                    {
+                      "key": "timeOffset.unit",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "timeOffset.duration",
+                      "value": "7"
+                    },
+                    {
+                      "key": "aggregationCriteria.primary",
+                      "value": "ACCOUNT"
+                    },
+                    {
+                      "key": "contentSource",
+                      "value": "ALL_SOURCES"
+                    },
+                    {
+                      "key": "locale.language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Referrer URN for the request",
+                    "key": "referer",
+                    "value": "urn:li:enterpriseAccount:999"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"message\": \"Access to LinkedIn Learning APIs requires Partner Program membership\",\n  \"code\": \"FORBIDDEN\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6996c26e-a39a-401e-aa7f-5c883653bb19",
+              "name": "Too many requests - rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "learningActivityReports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "criteria"
+                    },
+                    {
+                      "key": "count",
+                      "value": "1"
+                    },
+                    {
+                      "key": "startedAt",
+                      "value": "1627267600000"
+                    },
+                    {
+                      "key": "timeOffset.unit",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "timeOffset.duration",
+                      "value": "7"
+                    },
+                    {
+                      "key": "aggregationCriteria.primary",
+                      "value": "ACCOUNT"
+                    },
+                    {
+                      "key": "contentSource",
+                      "value": "ALL_SOURCES"
+                    },
+                    {
+                      "key": "locale.language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Referrer URN for the request",
+                    "key": "referer",
+                    "value": "urn:li:enterpriseAccount:999"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 429,\n  \"message\": \"Rate limit exceeded\",\n  \"code\": \"RATE_LIMIT_EXCEEDED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_lms_learning"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4057ebda-01a7-4331-9606-5141b20a884a",
+    "name": "LinkedIn Learning Activity Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The LinkedIn Learning APIs enable access to Learning Content and Learning Activity Reports. This API provides learning activity reports including course completions, seconds of content viewed, and learner logins. Activity data can be aggregated by account, group, individual, or content.\nAccess to LinkedIn Learning APIs is available to members of the Partner Program and organizations that have purchased LinkedIn Learning site licenses.\n\nContact Support:\n Name: LinkedIn Learning API Support",
+      "type": "text/plain"
+    }
+  }
+}

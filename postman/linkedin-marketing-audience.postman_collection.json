@@ -1,0 +1,1663 @@
+{
+  "info": {
+    "_postman_id": "02cd71f3-3387-41da-82e0-051369a18606",
+    "name": "LinkedIn Marketing Audiences API",
+    "description": "LinkedIn Audiences API enables combining LinkedIn's data with your own data to reach the right audiences on LinkedIn. This includes streaming companies for account targeting, streaming users for contact targeting, and CSV list uploads for both account and contact targeting.\n\nContact Support:\n Name: LinkedIn Marketing API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:16:39.000Z",
+    "updatedAt": "2026-06-05T13:16:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-02cd71f3-3387-41da-82e0-051369a18606"
+  },
+  "item": [
+    {
+      "name": "adAccounts",
+      "item": [
+        {
+          "name": "LinkedIn Retrieve User Ad Accounts",
+          "id": "74bfbfb5-68b0-48d8-8159-1c07b03d0c77",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) RestLi protocol version",
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "description": "(Required) LinkedIn API version",
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/adAccounts?q=search&search=<string>&fields=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "adAccounts"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Query type",
+                  "key": "q",
+                  "value": "search"
+                },
+                {
+                  "description": "Search criteria",
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Fields to include in response",
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve the authenticated user's ad accounts. Filter by type, status, and test flag to get relevant accounts."
+          },
+          "response": [
+            {
+              "id": "eb163931-93dc-4fde-b707-980758946e6b",
+              "name": "Successfully retrieved ad accounts",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) RestLi protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) LinkedIn API version",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/adAccounts?q=search&search=<string>&fields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adAccounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "search"
+                    },
+                    {
+                      "description": "Search criteria",
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Fields to include in response",
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"elements\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"test\": \"<boolean>\",\n      \"reference\": \"<string>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"test\": \"<boolean>\",\n      \"reference\": \"<string>\"\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"links\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-eb163931-93dc-4fde-b707-980758946e6b"
+            },
+            {
+              "id": "9d847e13-c35e-48ea-bc3e-2daa35d3d8bf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) RestLi protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) LinkedIn API version",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/adAccounts?q=search&search=<string>&fields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adAccounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "search"
+                    },
+                    {
+                      "description": "Search criteria",
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Fields to include in response",
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-9d847e13-c35e-48ea-bc3e-2daa35d3d8bf"
+            }
+          ],
+          "createdAt": "2026-06-05T13:16:40.000Z",
+          "updatedAt": "2026-06-05T13:16:40.000Z",
+          "uid": "35240-74bfbfb5-68b0-48d8-8159-1c07b03d0c77"
+        }
+      ],
+      "id": "c162a90c-cfb9-43f2-8414-92eca47b1ca5",
+      "createdAt": "2026-06-05T13:16:40.000Z",
+      "updatedAt": "2026-06-05T13:16:40.000Z",
+      "uid": "35240-c162a90c-cfb9-43f2-8414-92eca47b1ca5"
+    },
+    {
+      "name": "dmpSegments",
+      "item": [
+        {
+          "name": "{CompanySegmentId}",
+          "item": [
+            {
+              "name": "companies",
+              "item": [
+                {
+                  "name": "LinkedIn Stream Company Data to Segment",
+                  "id": "7bc86b8f-6f6b-4e5b-965c-84a218c33927",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) ",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ",
+                        "key": "X-RestLi-Method",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"elements\": [\n    {\n      \"action\": \"ADD\",\n      \"companyName\": \"<string>\",\n      \"companyDomain\": \"<string>\",\n      \"companyPageUrl\": \"<string>\"\n    },\n    {\n      \"action\": \"ADD\",\n      \"companyName\": \"<string>\",\n      \"companyDomain\": \"<string>\",\n      \"companyPageUrl\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dmpSegments/:CompanySegmentId/companies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dmpSegments",
+                        ":CompanySegmentId",
+                        "companies"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e5682a25-37c3-419a-bc16-6611d08b80e4",
+                          "key": "CompanySegmentId",
+                          "value": "<string>",
+                          "description": "(Required) ID of the company DMP segment"
+                        }
+                      ]
+                    },
+                    "description": "Add or remove multiple companies from a DMP segment. The more information provided on a company, the better chance of a higher match rate."
+                  },
+                  "response": [
+                    {
+                      "id": "04e90ad9-1478-40b2-88b4-962c4c998e73",
+                      "name": "Companies streamed successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Method",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"elements\": [\n    {\n      \"action\": \"ADD\",\n      \"companyName\": \"<string>\",\n      \"companyDomain\": \"<string>\",\n      \"companyPageUrl\": \"<string>\"\n    },\n    {\n      \"action\": \"ADD\",\n      \"companyName\": \"<string>\",\n      \"companyDomain\": \"<string>\",\n      \"companyPageUrl\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dmpSegments/:CompanySegmentId/companies",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dmpSegments",
+                            ":CompanySegmentId",
+                            "companies"
+                          ],
+                          "variable": [
+                            {
+                              "key": "CompanySegmentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"elements\": [\n    {\n      \"status\": \"<integer>\"\n    },\n    {\n      \"status\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T13:16:40.000Z",
+                      "updatedAt": "2026-06-05T13:16:40.000Z",
+                      "uid": "35240-04e90ad9-1478-40b2-88b4-962c4c998e73"
+                    },
+                    {
+                      "id": "b71a6e7f-fc2b-4fe9-acc2-daf8697cdb4b",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Method",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"elements\": [\n    {\n      \"action\": \"ADD\",\n      \"companyName\": \"<string>\",\n      \"companyDomain\": \"<string>\",\n      \"companyPageUrl\": \"<string>\"\n    },\n    {\n      \"action\": \"ADD\",\n      \"companyName\": \"<string>\",\n      \"companyDomain\": \"<string>\",\n      \"companyPageUrl\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dmpSegments/:CompanySegmentId/companies",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dmpSegments",
+                            ":CompanySegmentId",
+                            "companies"
+                          ],
+                          "variable": [
+                            {
+                              "key": "CompanySegmentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:16:40.000Z",
+                      "updatedAt": "2026-06-05T13:16:40.000Z",
+                      "uid": "35240-b71a6e7f-fc2b-4fe9-acc2-daf8697cdb4b"
+                    },
+                    {
+                      "id": "ab83f712-56d0-4568-99b9-1f381625cc43",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Method",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"elements\": [\n    {\n      \"action\": \"ADD\",\n      \"companyName\": \"<string>\",\n      \"companyDomain\": \"<string>\",\n      \"companyPageUrl\": \"<string>\"\n    },\n    {\n      \"action\": \"ADD\",\n      \"companyName\": \"<string>\",\n      \"companyDomain\": \"<string>\",\n      \"companyPageUrl\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dmpSegments/:CompanySegmentId/companies",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dmpSegments",
+                            ":CompanySegmentId",
+                            "companies"
+                          ],
+                          "variable": [
+                            {
+                              "key": "CompanySegmentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:16:40.000Z",
+                      "updatedAt": "2026-06-05T13:16:40.000Z",
+                      "uid": "35240-ab83f712-56d0-4568-99b9-1f381625cc43"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T13:16:40.000Z",
+                  "updatedAt": "2026-06-05T13:16:40.000Z",
+                  "uid": "35240-7bc86b8f-6f6b-4e5b-965c-84a218c33927"
+                }
+              ],
+              "id": "62284c40-0c53-4474-8d45-06259e70eb46",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-62284c40-0c53-4474-8d45-06259e70eb46"
+            }
+          ],
+          "id": "c1a03127-5ab4-4411-957e-19bcb79c304c",
+          "createdAt": "2026-06-05T13:16:40.000Z",
+          "updatedAt": "2026-06-05T13:16:40.000Z",
+          "uid": "35240-c1a03127-5ab4-4411-957e-19bcb79c304c"
+        },
+        {
+          "name": "{UserSegmentId}",
+          "item": [
+            {
+              "name": "users",
+              "item": [
+                {
+                  "name": "LinkedIn Stream User Data to Segment",
+                  "id": "c39cd9eb-1b66-46f1-b589-236bdaf9a3c3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) ",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ",
+                        "key": "X-RestLi-Method",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"elements\": [\n    {\n      \"action\": \"ADD\",\n      \"userIds\": [\n        {\n          \"idType\": \"SHA256_EMAIL\",\n          \"idValue\": \"<string>\"\n        },\n        {\n          \"idType\": \"GOOGLE_AID\",\n          \"idValue\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"action\": \"ADD\",\n      \"userIds\": [\n        {\n          \"idType\": \"APPLE_IDFA\",\n          \"idValue\": \"<string>\"\n        },\n        {\n          \"idType\": \"SHA256_EMAIL\",\n          \"idValue\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dmpSegments/:UserSegmentId/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dmpSegments",
+                        ":UserSegmentId",
+                        "users"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f9b2859d-9135-4413-9043-3b9403c93918",
+                          "key": "UserSegmentId",
+                          "value": "<string>",
+                          "description": "(Required) ID of the user DMP segment"
+                        }
+                      ]
+                    },
+                    "description": "Add or remove multiple users from a DMP segment. The more information provided on a user, the better chance of a higher match rate."
+                  },
+                  "response": [
+                    {
+                      "id": "6e658657-a26d-418e-8aae-dae1727b9559",
+                      "name": "Users streamed successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Method",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"elements\": [\n    {\n      \"action\": \"ADD\",\n      \"userIds\": [\n        {\n          \"idType\": \"SHA256_EMAIL\",\n          \"idValue\": \"<string>\"\n        },\n        {\n          \"idType\": \"GOOGLE_AID\",\n          \"idValue\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"action\": \"ADD\",\n      \"userIds\": [\n        {\n          \"idType\": \"APPLE_IDFA\",\n          \"idValue\": \"<string>\"\n        },\n        {\n          \"idType\": \"SHA256_EMAIL\",\n          \"idValue\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dmpSegments/:UserSegmentId/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dmpSegments",
+                            ":UserSegmentId",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "UserSegmentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"elements\": [\n    {\n      \"status\": \"<integer>\"\n    },\n    {\n      \"status\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T13:16:40.000Z",
+                      "updatedAt": "2026-06-05T13:16:40.000Z",
+                      "uid": "35240-6e658657-a26d-418e-8aae-dae1727b9559"
+                    },
+                    {
+                      "id": "2d4d4a2b-78a0-4163-bc69-d31def7c1515",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Method",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"elements\": [\n    {\n      \"action\": \"ADD\",\n      \"userIds\": [\n        {\n          \"idType\": \"SHA256_EMAIL\",\n          \"idValue\": \"<string>\"\n        },\n        {\n          \"idType\": \"GOOGLE_AID\",\n          \"idValue\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"action\": \"ADD\",\n      \"userIds\": [\n        {\n          \"idType\": \"APPLE_IDFA\",\n          \"idValue\": \"<string>\"\n        },\n        {\n          \"idType\": \"SHA256_EMAIL\",\n          \"idValue\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dmpSegments/:UserSegmentId/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dmpSegments",
+                            ":UserSegmentId",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "UserSegmentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:16:40.000Z",
+                      "updatedAt": "2026-06-05T13:16:40.000Z",
+                      "uid": "35240-2d4d4a2b-78a0-4163-bc69-d31def7c1515"
+                    },
+                    {
+                      "id": "2f489158-f6cb-45d9-994c-349774b549d8",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Method",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"elements\": [\n    {\n      \"action\": \"ADD\",\n      \"userIds\": [\n        {\n          \"idType\": \"SHA256_EMAIL\",\n          \"idValue\": \"<string>\"\n        },\n        {\n          \"idType\": \"GOOGLE_AID\",\n          \"idValue\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"action\": \"ADD\",\n      \"userIds\": [\n        {\n          \"idType\": \"APPLE_IDFA\",\n          \"idValue\": \"<string>\"\n        },\n        {\n          \"idType\": \"SHA256_EMAIL\",\n          \"idValue\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dmpSegments/:UserSegmentId/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dmpSegments",
+                            ":UserSegmentId",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "UserSegmentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:16:40.000Z",
+                      "updatedAt": "2026-06-05T13:16:40.000Z",
+                      "uid": "35240-2f489158-f6cb-45d9-994c-349774b549d8"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T13:16:40.000Z",
+                  "updatedAt": "2026-06-05T13:16:40.000Z",
+                  "uid": "35240-c39cd9eb-1b66-46f1-b589-236bdaf9a3c3"
+                }
+              ],
+              "id": "f15b9342-a0aa-4d7b-a64c-9f00b326f4b6",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-f15b9342-a0aa-4d7b-a64c-9f00b326f4b6"
+            }
+          ],
+          "id": "023058cd-dab8-46eb-8d0f-9ff09898acf6",
+          "createdAt": "2026-06-05T13:16:40.000Z",
+          "updatedAt": "2026-06-05T13:16:40.000Z",
+          "uid": "35240-023058cd-dab8-46eb-8d0f-9ff09898acf6"
+        },
+        {
+          "name": "{ListUploadSegmentId}",
+          "item": [
+            {
+              "name": "listUploads",
+              "item": [
+                {
+                  "name": "LinkedIn Attach Uploaded List to DMP Segment",
+                  "id": "d0318914-8e14-4e7f-a407-8f9c693d8afd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) ",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputFile\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dmpSegments/:ListUploadSegmentId/listUploads",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dmpSegments",
+                        ":ListUploadSegmentId",
+                        "listUploads"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4e469879-1bb2-4cd5-af81-b55665206aba",
+                          "key": "ListUploadSegmentId",
+                          "value": "<string>",
+                          "description": "(Required) ID of the list upload DMP segment"
+                        }
+                      ]
+                    },
+                    "description": "Attach an uploaded CSV list file to a DMP segment. Use the media URN returned from the file upload step."
+                  },
+                  "response": [
+                    {
+                      "id": "4ede07d7-66de-4d89-94d9-2eade4164301",
+                      "name": "List attached successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputFile\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dmpSegments/:ListUploadSegmentId/listUploads",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dmpSegments",
+                            ":ListUploadSegmentId",
+                            "listUploads"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ListUploadSegmentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:16:40.000Z",
+                      "updatedAt": "2026-06-05T13:16:40.000Z",
+                      "uid": "35240-4ede07d7-66de-4d89-94d9-2eade4164301"
+                    },
+                    {
+                      "id": "288e1c98-fcf1-4013-a1f5-5cf9e86afe36",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputFile\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dmpSegments/:ListUploadSegmentId/listUploads",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dmpSegments",
+                            ":ListUploadSegmentId",
+                            "listUploads"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ListUploadSegmentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:16:40.000Z",
+                      "updatedAt": "2026-06-05T13:16:40.000Z",
+                      "uid": "35240-288e1c98-fcf1-4013-a1f5-5cf9e86afe36"
+                    },
+                    {
+                      "id": "b5675aa0-cdbc-49b9-b634-5a8914d81988",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputFile\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dmpSegments/:ListUploadSegmentId/listUploads",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dmpSegments",
+                            ":ListUploadSegmentId",
+                            "listUploads"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ListUploadSegmentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:16:40.000Z",
+                      "updatedAt": "2026-06-05T13:16:40.000Z",
+                      "uid": "35240-b5675aa0-cdbc-49b9-b634-5a8914d81988"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T13:16:40.000Z",
+                  "updatedAt": "2026-06-05T13:16:40.000Z",
+                  "uid": "35240-d0318914-8e14-4e7f-a407-8f9c693d8afd"
+                }
+              ],
+              "id": "a6607a9c-42c0-483a-93f4-3a8c6f54a4d2",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-a6607a9c-42c0-483a-93f4-3a8c6f54a4d2"
+            }
+          ],
+          "id": "086e498e-671d-4669-abfa-46c3a3aea0bc",
+          "createdAt": "2026-06-05T13:16:40.000Z",
+          "updatedAt": "2026-06-05T13:16:40.000Z",
+          "uid": "35240-086e498e-671d-4669-abfa-46c3a3aea0bc"
+        },
+        {
+          "name": "LinkedIn Monitor DMP Segment Status",
+          "id": "5c1e66ff-ad16-4848-ad6b-711a98bc840f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) ",
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "description": "(Required) ",
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dmpSegments?q=account&account=<string>&sourcePlatform=LIST_UPLOAD",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dmpSegments"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Query type",
+                  "key": "q",
+                  "value": "account"
+                },
+                {
+                  "description": "(Required) Sponsored account URN (URL encoded)",
+                  "key": "account",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by source platform",
+                  "key": "sourcePlatform",
+                  "value": "LIST_UPLOAD"
+                }
+              ]
+            },
+            "description": "Retrieve DMP segments for a specific ad account. Monitor status, match rate, and audience size."
+          },
+          "response": [
+            {
+              "id": "a137f944-b053-473d-a501-9db47dc9f7c2",
+              "name": "Successfully retrieved DMP segments",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) ",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) ",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dmpSegments?q=account&account=<string>&sourcePlatform=LIST_UPLOAD",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dmpSegments"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "account"
+                    },
+                    {
+                      "description": "(Required) Sponsored account URN (URL encoded)",
+                      "key": "account",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by source platform",
+                      "key": "sourcePlatform",
+                      "value": "LIST_UPLOAD"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"elements\": [\n    {\n      \"name\": \"<string>\",\n      \"account\": \"<string>\",\n      \"type\": \"USER_LIST_UPLOAD\",\n      \"sourcePlatform\": \"LIST_UPLOAD\",\n      \"id\": \"<long>\",\n      \"accessPolicy\": \"PUBLIC\",\n      \"status\": \"EXPIRED\",\n      \"matchedCount\": \"<integer>\",\n      \"inputCount\": \"<integer>\",\n      \"audienceSize\": \"<integer>\",\n      \"destinations\": [\n        {\n          \"destination\": \"LINKEDIN\"\n        },\n        {\n          \"destination\": \"LINKEDIN\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"account\": \"<string>\",\n      \"type\": \"COMPANY_STREAMING\",\n      \"sourcePlatform\": \"LIST_UPLOAD\",\n      \"id\": \"<long>\",\n      \"accessPolicy\": \"PUBLIC\",\n      \"status\": \"FAILED\",\n      \"matchedCount\": \"<integer>\",\n      \"inputCount\": \"<integer>\",\n      \"audienceSize\": \"<integer>\",\n      \"destinations\": [\n        {\n          \"destination\": \"LINKEDIN\"\n        },\n        {\n          \"destination\": \"LINKEDIN\"\n        }\n      ]\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"links\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-a137f944-b053-473d-a501-9db47dc9f7c2"
+            },
+            {
+              "id": "60a623d5-6b7f-495f-84c3-866bdb051200",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) ",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) ",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dmpSegments?q=account&account=<string>&sourcePlatform=LIST_UPLOAD",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dmpSegments"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "account"
+                    },
+                    {
+                      "description": "(Required) Sponsored account URN (URL encoded)",
+                      "key": "account",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by source platform",
+                      "key": "sourcePlatform",
+                      "value": "LIST_UPLOAD"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-60a623d5-6b7f-495f-84c3-866bdb051200"
+            }
+          ],
+          "createdAt": "2026-06-05T13:16:40.000Z",
+          "updatedAt": "2026-06-05T13:16:40.000Z",
+          "uid": "35240-5c1e66ff-ad16-4848-ad6b-711a98bc840f"
+        },
+        {
+          "name": "LinkedIn Create DMP Segment",
+          "id": "4bdfa98f-351e-4de5-85b9-0100c4fbcf60",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) ",
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "description": "(Required) ",
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessPolicy\": \"PUBLIC\",\n  \"account\": \"<string>\",\n  \"destinations\": [\n    {\n      \"destination\": \"LINKEDIN\"\n    },\n    {\n      \"destination\": \"LINKEDIN\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"sourcePlatform\": \"STREAMING\",\n  \"type\": \"USER_STREAMING\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/dmpSegments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dmpSegments"
+              ]
+            },
+            "description": "Create a new DMP segment for list upload or streaming. Note: There must be at least a 5 second delay between creating the segment and attaching data."
+          },
+          "response": [
+            {
+              "id": "b4431c86-5812-45de-b47d-ec62f1afdb6c",
+              "name": "DMP segment created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) ",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) ",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessPolicy\": \"PUBLIC\",\n  \"account\": \"<string>\",\n  \"destinations\": [\n    {\n      \"destination\": \"LINKEDIN\"\n    },\n    {\n      \"destination\": \"LINKEDIN\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"sourcePlatform\": \"STREAMING\",\n  \"type\": \"USER_STREAMING\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dmpSegments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dmpSegments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "ID of the created segment",
+                    "type": "text/plain"
+                  },
+                  "key": "X-RestLi-Id",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"name\": \"<string>\",\n  \"account\": \"<string>\",\n  \"type\": \"USER_LIST_UPLOAD\",\n  \"sourcePlatform\": \"LIST_UPLOAD\",\n  \"id\": \"<long>\",\n  \"accessPolicy\": \"PUBLIC\",\n  \"status\": \"READY\",\n  \"matchedCount\": \"<integer>\",\n  \"inputCount\": \"<integer>\",\n  \"audienceSize\": \"<integer>\",\n  \"destinations\": [\n    {\n      \"destination\": \"LINKEDIN\"\n    },\n    {\n      \"destination\": \"LINKEDIN\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-b4431c86-5812-45de-b47d-ec62f1afdb6c"
+            },
+            {
+              "id": "9e61f0f8-37af-4f3d-b479-0e9343a5cae1",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) ",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) ",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessPolicy\": \"PUBLIC\",\n  \"account\": \"<string>\",\n  \"destinations\": [\n    {\n      \"destination\": \"LINKEDIN\"\n    },\n    {\n      \"destination\": \"LINKEDIN\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"sourcePlatform\": \"STREAMING\",\n  \"type\": \"USER_STREAMING\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dmpSegments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dmpSegments"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-9e61f0f8-37af-4f3d-b479-0e9343a5cae1"
+            },
+            {
+              "id": "e79ff59d-c3ba-4407-86d3-0efc9b9a73bf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) ",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) ",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessPolicy\": \"PUBLIC\",\n  \"account\": \"<string>\",\n  \"destinations\": [\n    {\n      \"destination\": \"LINKEDIN\"\n    },\n    {\n      \"destination\": \"LINKEDIN\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"sourcePlatform\": \"STREAMING\",\n  \"type\": \"USER_STREAMING\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dmpSegments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dmpSegments"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:16:40.000Z",
+              "updatedAt": "2026-06-05T13:16:40.000Z",
+              "uid": "35240-e79ff59d-c3ba-4407-86d3-0efc9b9a73bf"
+            }
+          ],
+          "createdAt": "2026-06-05T13:16:40.000Z",
+          "updatedAt": "2026-06-05T13:16:40.000Z",
+          "uid": "35240-4bdfa98f-351e-4de5-85b9-0100c4fbcf60"
+        }
+      ],
+      "id": "46bd8a09-e036-4672-9568-bfbf82f09717",
+      "createdAt": "2026-06-05T13:16:40.000Z",
+      "updatedAt": "2026-06-05T13:16:40.000Z",
+      "uid": "35240-46bd8a09-e036-4672-9568-bfbf82f09717"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "rw_ads",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com/rest"
+    }
+  ]
+}

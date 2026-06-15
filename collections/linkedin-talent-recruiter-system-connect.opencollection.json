@@ -1,0 +1,559 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Recruiter System Connect API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Customer Application Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/oauth/v2/accessToken",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Obtains an OAuth 2.0 access token using client credentials grant for customer application authentication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Integration Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Integration Status Change Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/atsIntegrations",
+            "params": [
+              {
+                "name": "q",
+                "value": "request",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "requestId",
+                "value": "req-12345-abcde",
+                "type": "query",
+                "description": "Request ID from push notification"
+              }
+            ]
+          },
+          "docs": "Retrieves details about integration status changes when a customer enables or modifies an integration.\nFor more information, refer to the [Verify Customer Integrations documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#5-verify-customer-integrations-enablement)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Customer ATS Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/atsIntegrations",
+            "headers": [
+              {
+                "name": "x-restli-method",
+                "value": "batch_update"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:contract:12345",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationType",
+                "value": "CSA_API",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].tenantType",
+                "value": "RECRUITER",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates customer ATS integration settings including CSA_API, ONE_CLICK_EXPORT, IN_ATS_INDICATOR, and PROFILE_PLUGIN integrations.\nFor more information, refer to the [RSC Customer Configuration documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#sample-request)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Candidate Synchronization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Candidate Matches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/atsCandidates",
+            "params": [
+              {
+                "name": "ids[0].atsCandidateId",
+                "value": "CAND-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves candidate details including algorithmic and user-supplied matches with LinkedIn members.\nFor more information, refer to the [Retrieve Candidate Matches documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#retrieve-candidate-matches)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Sync Candidates to LinkedIn",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/v2/atsCandidates",
+            "headers": [
+              {
+                "name": "x-restli-method",
+                "value": "batch_update"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids[0].atsCandidateId",
+                "value": "CAND-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates candidate records in LinkedIn from the ATS system.\nFor more information, refer to the [Sync Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Data Deletion",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Delete Synced Candidates",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/v2/atsCandidates",
+            "params": [
+              {
+                "name": "ids[0].atsCandidateId",
+                "value": "CAND-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes previously synced candidate records.\nFor more information, refer to the [Delete Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-candidates)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Synced Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/v2/atsApplications",
+            "params": [
+              {
+                "name": "ids[0].atsJobApplicationId",
+                "value": "APP-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes previously synced job application records.\nFor more information, refer to the [Delete Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-applications)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Application Synchronization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Sync Job Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/v2/atsApplications",
+            "headers": [
+              {
+                "name": "x-restli-method",
+                "value": "batch_update"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids[0].atsJobApplicationId",
+                "value": "APP-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates job application records in LinkedIn.\nFor more information, refer to the [Sync Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create Resume Upload URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/hireMediaUrl",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a signed URL for uploading resume files to LinkedIn.\nFor more information, refer to the [Resume Upload documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications#resume-upload)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Data Retrieval",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Exported Candidate Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/exportedCandidates",
+            "params": [
+              {
+                "name": "q",
+                "value": "request",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "requestId",
+                "value": "req-12345-abcde",
+                "type": "query",
+                "description": "Request ID from push notification"
+              }
+            ]
+          },
+          "docs": "Retrieves limited profile information of candidates exported via One-Click Export.\nFor more information, refer to the [Retrieve Exported Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/retrieve-exported-candidates#retrieving-exported-candidate-information)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Recruiter Seatholders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/seats",
+            "params": [
+              {
+                "name": "q",
+                "value": "seatsByAttributes",
+                "type": "query"
+              },
+              {
+                "name": "active",
+                "value": "true",
+                "type": "query"
+              },
+              {
+                "name": "contracts",
+                "value": "urn:li:contract:12345",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "100",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves details of contract seat holders including name, email, and unique ID.\nFor more information, refer to the [Recruiter Seatholders documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/recruiter-seatholders)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Access Control",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Entity ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/atsEntityAcls",
+            "params": [
+              {
+                "name": "q",
+                "value": "criteria",
+                "type": "query"
+              },
+              {
+                "name": "atsEntityId",
+                "value": "JOB-2024-001",
+                "type": "query"
+              },
+              {
+                "name": "atsEntityType",
+                "value": "JOB_POSTING",
+                "type": "query"
+              },
+              {
+                "name": "dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "100",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves details of previously synced entity ACLs.\nFor more information, refer to the [Retrieve Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#retrieve-entity-acls)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Upsert Entity ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/v2/atsEntityAcls",
+            "headers": [
+              {
+                "name": "x-restli-method",
+                "value": "batch_update"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids[0].atsEntityAclId",
+                "value": "ACL-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].atsEntityType",
+                "value": "JOB_POSTING",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].atsEntityId",
+                "value": "JOB-2024-001",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates entity ACLs that control visibility of synced entities within LinkedIn products.\nFor more information, refer to the [Sync ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#sync-entity-acls)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Entity ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/v2/atsEntityAcls",
+            "params": [
+              {
+                "name": "ids[0].atsEntityAclId",
+                "value": "ACL-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].atsEntityId",
+                "value": "JOB-2024-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].atsEntityType",
+                "value": "JOB_POSTING",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes previously synced entity ACLs.\nFor more information, refer to the [Delete Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#delete-entity-acls)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

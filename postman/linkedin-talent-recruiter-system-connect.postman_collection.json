@@ -1,0 +1,2873 @@
+{
+  "info": {
+    "_postman_id": "9c92585d-39a3-4071-b6a7-3977db1986c0",
+    "name": "LinkedIn Recruiter System Connect API",
+    "description": "The LinkedIn Recruiter System Connect (RSC) API enables partners to integrate their Applicant Tracking Systems (ATS) with LinkedIn Recruiter. This API supports:\n- Configuring customer middleware integrations - Syncing data from ATS to LinkedIn (jobs, candidates, applications) - Retrieving data from LinkedIn (exported candidates, InMail history) - Defining permissions via Access Control Lists (ACLs) - Managing synced data lifecycle\nFor comprehensive documentation, visit the [RSC Documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/).\n\nContact Support:\n Name: LinkedIn Talent Solutions",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:17:05.000Z",
+    "updatedAt": "2026-06-05T13:17:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9c92585d-39a3-4071-b6a7-3977db1986c0"
+  },
+  "item": [
+    {
+      "name": "oauth",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "accessToken",
+              "item": [
+                {
+                  "name": "LinkedIn Get Customer Application Access Token",
+                  "id": "00d99666-dc1a-45cf-a8d2-751f879f2354",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) ",
+                          "key": "grant_type",
+                          "value": "client_credentials"
+                        },
+                        {
+                          "description": "(Required) OAuth 2.0 client ID",
+                          "key": "client_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) OAuth 2.0 client secret",
+                          "key": "client_secret",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/oauth/v2/accessToken",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "oauth",
+                        "v2",
+                        "accessToken"
+                      ]
+                    },
+                    "description": "Obtains an OAuth 2.0 access token using client credentials grant for customer application authentication."
+                  },
+                  "response": [
+                    {
+                      "id": "80b31416-8227-404c-a198-84955196fe5e",
+                      "name": "Successfully obtained access token",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "grant_type",
+                              "value": "client_credentials"
+                            },
+                            {
+                              "description": "(Required) OAuth 2.0 client ID",
+                              "key": "client_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) OAuth 2.0 client secret",
+                              "key": "client_secret",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/oauth/v2/accessToken",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "oauth",
+                            "v2",
+                            "accessToken"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"access_token\": \"<string>\",\n  \"expires_in\": \"<integer>\",\n  \"token_type\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T13:17:05.000Z",
+                      "updatedAt": "2026-06-05T13:17:05.000Z",
+                      "uid": "35240-80b31416-8227-404c-a198-84955196fe5e"
+                    },
+                    {
+                      "id": "52e0188a-4415-4728-8f5c-2119afd09a51",
+                      "name": "Invalid client credentials",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "grant_type",
+                              "value": "client_credentials"
+                            },
+                            {
+                              "description": "(Required) OAuth 2.0 client ID",
+                              "key": "client_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) OAuth 2.0 client secret",
+                              "key": "client_secret",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/oauth/v2/accessToken",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "oauth",
+                            "v2",
+                            "accessToken"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T13:17:05.000Z",
+                      "updatedAt": "2026-06-05T13:17:05.000Z",
+                      "uid": "35240-52e0188a-4415-4728-8f5c-2119afd09a51"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-00d99666-dc1a-45cf-a8d2-751f879f2354"
+                }
+              ],
+              "id": "f82a32b9-b407-4bc2-b1c9-76b8a8d010ca",
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-f82a32b9-b407-4bc2-b1c9-76b8a8d010ca"
+            }
+          ],
+          "id": "dac5b4bb-e628-4f21-a857-357eb23c2719",
+          "createdAt": "2026-06-05T13:17:05.000Z",
+          "updatedAt": "2026-06-05T13:17:05.000Z",
+          "uid": "35240-dac5b4bb-e628-4f21-a857-357eb23c2719"
+        }
+      ],
+      "id": "b32cddc3-a108-488a-9a87-67c686edd946",
+      "createdAt": "2026-06-05T13:17:05.000Z",
+      "updatedAt": "2026-06-05T13:17:05.000Z",
+      "uid": "35240-b32cddc3-a108-488a-9a87-67c686edd946"
+    },
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "atsIntegrations",
+          "item": [
+            {
+              "name": "LinkedIn Update Customer ATS Integration",
+              "id": "3c099a4b-f4c5-42cb-8eff-70e6437b97ac",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"Ut_d1_\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"sint7f1\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=CSA_API&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].integrationType",
+                      "value": "CSA_API"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].tenantType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Updates customer ATS integration settings including CSA_API, ONE_CLICK_EXPORT, IN_ATS_INDICATOR, and PROFILE_PLUGIN integrations.\nFor more information, refer to the [RSC Customer Configuration documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#sample-request)."
+              },
+              "response": [
+                {
+                  "id": "55296f14-d69d-4c98-a051-9ee202f8ddde",
+                  "name": "Successfully updated integration",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method type",
+                        "key": "x-restli-method",
+                        "value": "batch_update"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {\n    \"Ut_d1_\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"sint7f1\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=CSA_API&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationType",
+                          "value": "CSA_API"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].tenantType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-55296f14-d69d-4c98-a051-9ee202f8ddde"
+                },
+                {
+                  "id": "1a89a5bb-b1a4-4627-8c60-c9f47817367c",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method type",
+                        "key": "x-restli-method",
+                        "value": "batch_update"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {\n    \"Ut_d1_\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"sint7f1\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=CSA_API&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationType",
+                          "value": "CSA_API"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].tenantType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-1a89a5bb-b1a4-4627-8c60-c9f47817367c"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-3c099a4b-f4c5-42cb-8eff-70e6437b97ac"
+            },
+            {
+              "name": "LinkedIn Get Integration Status Change Notification",
+              "id": "035ff766-a6b0-478b-b413-04d629ce1b44",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsIntegrations?q=<string>&requestId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Request ID from push notification",
+                      "key": "requestId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves details about integration status changes when a customer enables or modifies an integration.\nFor more information, refer to the [Verify Customer Integrations documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#5-verify-customer-integrations-enablement)."
+              },
+              "response": [
+                {
+                  "id": "f4abe74b-315a-432e-9881-8624e3701056",
+                  "name": "Successfully retrieved notification details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?q=<string>&requestId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Request ID from push notification",
+                          "key": "requestId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-f4abe74b-315a-432e-9881-8624e3701056"
+                },
+                {
+                  "id": "160bb68a-b389-4012-b259-cbb2f72ff234",
+                  "name": "Notification not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsIntegrations?q=<string>&requestId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsIntegrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Request ID from push notification",
+                          "key": "requestId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-160bb68a-b389-4012-b259-cbb2f72ff234"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-035ff766-a6b0-478b-b413-04d629ce1b44"
+            }
+          ],
+          "id": "43680d8f-50c5-4e92-8a4c-5d35595ce995",
+          "createdAt": "2026-06-05T13:17:05.000Z",
+          "updatedAt": "2026-06-05T13:17:05.000Z",
+          "uid": "35240-43680d8f-50c5-4e92-8a4c-5d35595ce995"
+        },
+        {
+          "name": "atsCandidates",
+          "item": [
+            {
+              "name": "LinkedIn Sync Candidates to LinkedIn",
+              "id": "8f87df4b-975f-474f-918e-79b7bd967be9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"proident_a8\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"PROVINCE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"STATE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsCandidates"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsCandidateId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Creates or updates candidate records in LinkedIn from the ATS system.\nFor more information, refer to the [Sync Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates)."
+              },
+              "response": [
+                {
+                  "id": "e74a49e3-54cc-49f2-9399-e414d40aaa52",
+                  "name": "Successfully synced candidates",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method type",
+                        "key": "x-restli-method",
+                        "value": "batch_update"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {\n    \"proident_a8\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"PROVINCE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"STATE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsCandidateId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-e74a49e3-54cc-49f2-9399-e414d40aaa52"
+                },
+                {
+                  "id": "1b00e516-a97e-4e08-83af-5ff21f4873f9",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method type",
+                        "key": "x-restli-method",
+                        "value": "batch_update"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {\n    \"proident_a8\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"PROVINCE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"STATE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsCandidateId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-1b00e516-a97e-4e08-83af-5ff21f4873f9"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-8f87df4b-975f-474f-918e-79b7bd967be9"
+            },
+            {
+              "name": "LinkedIn Retrieve Candidate Matches",
+              "id": "03753d45-6ce2-4888-a9c5-8c1cc9ae4397",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsCandidates"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsCandidateId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves candidate details including algorithmic and user-supplied matches with LinkedIn members.\nFor more information, refer to the [Retrieve Candidate Matches documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#retrieve-candidate-matches)."
+              },
+              "response": [
+                {
+                  "id": "c2ca4555-f925-4edc-b7d3-b061037cc3c4",
+                  "name": "Successfully retrieved candidate matches",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsCandidateId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"middleInitial\": \"<string>\",\n  \"prefix\": \"<string>\",\n  \"suffix\": \"<string>\",\n  \"emailAddresses\": [\n    \"<email>\",\n    \"<email>\"\n  ],\n  \"phoneNumbers\": [\n    {\n      \"number\": \"<string>\",\n      \"extension\": \"<string>\"\n    },\n    {\n      \"number\": \"<string>\",\n      \"extension\": \"<string>\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"geographicArea\": \"<string>\",\n      \"geographicAreaType\": \"PROVINCE\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"geographicArea\": \"<string>\",\n      \"geographicAreaType\": \"PROVINCE\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"currentCompanyName\": \"<string>\",\n  \"currentJobTitle\": \"<string>\",\n  \"externalProfileUrl\": \"<uri>\",\n  \"atsCreatedAt\": \"<long>\",\n  \"atsLastModifiedAt\": \"<long>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-c2ca4555-f925-4edc-b7d3-b061037cc3c4"
+                },
+                {
+                  "id": "5fc2601b-57f2-44d2-888e-51d4974c2e2e",
+                  "name": "Candidate not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsCandidateId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-5fc2601b-57f2-44d2-888e-51d4974c2e2e"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-03753d45-6ce2-4888-a9c5-8c1cc9ae4397"
+            },
+            {
+              "name": "LinkedIn Delete Synced Candidates",
+              "id": "a35f491c-9383-431c-9263-30e09c421a9f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsCandidates"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsCandidateId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Deletes previously synced candidate records.\nFor more information, refer to the [Delete Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-candidates)."
+              },
+              "response": [
+                {
+                  "id": "2c947f3b-b014-4086-b31f-99596d2148dd",
+                  "name": "Successfully deleted candidates",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsCandidateId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-2c947f3b-b014-4086-b31f-99596d2148dd"
+                },
+                {
+                  "id": "6411e6e2-e620-4acf-b088-35410c1f007d",
+                  "name": "Candidate not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsCandidateId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-6411e6e2-e620-4acf-b088-35410c1f007d"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-a35f491c-9383-431c-9263-30e09c421a9f"
+            }
+          ],
+          "id": "a6f29a75-86d7-4b2c-95a0-6b46831b5020",
+          "createdAt": "2026-06-05T13:17:05.000Z",
+          "updatedAt": "2026-06-05T13:17:05.000Z",
+          "uid": "35240-a6f29a75-86d7-4b2c-95a0-6b46831b5020"
+        },
+        {
+          "name": "atsApplications",
+          "item": [
+            {
+              "name": "LinkedIn Sync Job Applications",
+              "id": "83e3e5a8-ff61-463f-961b-2d819ca18615",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"quis__e\": {\n      \"atsCandidateId\": \"<string>\",\n      \"atsJobPostingId\": \"<string>\",\n      \"atsJobPostingName\": \"<string>\",\n      \"candidateEmail\": \"<email>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"source\": \"<string>\",\n      \"dispositionReason\": \"<string>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsApplications?ids[0].atsJobApplicationId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsApplications"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsJobApplicationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Creates or updates job application records in LinkedIn.\nFor more information, refer to the [Sync Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications)."
+              },
+              "response": [
+                {
+                  "id": "f057a5e4-1714-4383-be49-1838b331cf1b",
+                  "name": "Successfully synced applications",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method type",
+                        "key": "x-restli-method",
+                        "value": "batch_update"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {\n    \"quis__e\": {\n      \"atsCandidateId\": \"<string>\",\n      \"atsJobPostingId\": \"<string>\",\n      \"atsJobPostingName\": \"<string>\",\n      \"candidateEmail\": \"<email>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"source\": \"<string>\",\n      \"dispositionReason\": \"<string>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsApplications?ids[0].atsJobApplicationId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsApplications"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsJobApplicationId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-f057a5e4-1714-4383-be49-1838b331cf1b"
+                },
+                {
+                  "id": "3acbedb3-30de-46e8-a897-f8b030de8128",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method type",
+                        "key": "x-restli-method",
+                        "value": "batch_update"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {\n    \"quis__e\": {\n      \"atsCandidateId\": \"<string>\",\n      \"atsJobPostingId\": \"<string>\",\n      \"atsJobPostingName\": \"<string>\",\n      \"candidateEmail\": \"<email>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"source\": \"<string>\",\n      \"dispositionReason\": \"<string>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsApplications?ids[0].atsJobApplicationId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsApplications"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsJobApplicationId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-3acbedb3-30de-46e8-a897-f8b030de8128"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-83e3e5a8-ff61-463f-961b-2d819ca18615"
+            },
+            {
+              "name": "LinkedIn Delete Synced Applications",
+              "id": "9b47c2b4-370c-4410-a1b0-3d99db05c837",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsApplications?ids[0].atsJobApplicationId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsApplications"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsJobApplicationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Deletes previously synced job application records.\nFor more information, refer to the [Delete Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-applications)."
+              },
+              "response": [
+                {
+                  "id": "7a8ee88b-32d5-453d-bbe0-82207a916e88",
+                  "name": "Successfully deleted applications",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsApplications?ids[0].atsJobApplicationId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsApplications"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsJobApplicationId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-7a8ee88b-32d5-453d-bbe0-82207a916e88"
+                },
+                {
+                  "id": "50dbaad7-20db-4209-912c-a939f49a5f8c",
+                  "name": "Application not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsApplications?ids[0].atsJobApplicationId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsApplications"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsJobApplicationId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-50dbaad7-20db-4209-912c-a939f49a5f8c"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-9b47c2b4-370c-4410-a1b0-3d99db05c837"
+            }
+          ],
+          "id": "7b3f26ca-fbfa-4b3e-9e52-153fb37a8976",
+          "createdAt": "2026-06-05T13:17:05.000Z",
+          "updatedAt": "2026-06-05T13:17:05.000Z",
+          "uid": "35240-7b3f26ca-fbfa-4b3e-9e52-153fb37a8976"
+        },
+        {
+          "name": "hireMediaUrl",
+          "item": [
+            {
+              "name": "LinkedIn Create Resume Upload URL",
+              "id": "ef2849eb-3847-4246-82d4-a6cae869ba2e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Rest.li protocol version",
+                    "key": "X-RestLi-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contentType\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"blobTtl\": {\n    \"duration\": \"<integer>\",\n    \"unit\": \"HOUR\"\n  },\n  \"hiringContext\": \"<string>\",\n  \"usageParameters\": {\n    \"recruiterSystemConnectResumeParameters\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v2/hireMediaUrl",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "hireMediaUrl"
+                  ]
+                },
+                "description": "Creates a signed URL for uploading resume files to LinkedIn.\nFor more information, refer to the [Resume Upload documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications#resume-upload)."
+              },
+              "response": [
+                {
+                  "id": "fcc18219-8004-4116-8816-feb6983e7369",
+                  "name": "Successfully created upload URL",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Rest.li protocol version",
+                        "key": "X-RestLi-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"contentType\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"blobTtl\": {\n    \"duration\": \"<integer>\",\n    \"unit\": \"HOUR\"\n  },\n  \"hiringContext\": \"<string>\",\n  \"usageParameters\": {\n    \"recruiterSystemConnectResumeParameters\": {}\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/hireMediaUrl",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "hireMediaUrl"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"uploadUrl\": \"<uri>\",\n  \"resumeUrn\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-fcc18219-8004-4116-8816-feb6983e7369"
+                },
+                {
+                  "id": "6e4f6c74-1a31-4a9c-8e52-41da3906f581",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Rest.li protocol version",
+                        "key": "X-RestLi-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"contentType\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"blobTtl\": {\n    \"duration\": \"<integer>\",\n    \"unit\": \"HOUR\"\n  },\n  \"hiringContext\": \"<string>\",\n  \"usageParameters\": {\n    \"recruiterSystemConnectResumeParameters\": {}\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/hireMediaUrl",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "hireMediaUrl"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-6e4f6c74-1a31-4a9c-8e52-41da3906f581"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-ef2849eb-3847-4246-82d4-a6cae869ba2e"
+            }
+          ],
+          "id": "e7728974-d77d-4dec-8dee-774f6323959c",
+          "createdAt": "2026-06-05T13:17:05.000Z",
+          "updatedAt": "2026-06-05T13:17:05.000Z",
+          "uid": "35240-e7728974-d77d-4dec-8dee-774f6323959c"
+        },
+        {
+          "name": "exportedCandidates",
+          "item": [
+            {
+              "name": "LinkedIn Get Exported Candidate Profile",
+              "id": "7f1a4fe9-b6f8-4f1c-88b7-957106e2edb9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/exportedCandidates?q=<string>&requestId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "exportedCandidates"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Request ID from push notification",
+                      "key": "requestId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves limited profile information of candidates exported via One-Click Export.\nFor more information, refer to the [Retrieve Exported Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/retrieve-exported-candidates#retrieving-exported-candidate-information)."
+              },
+              "response": [
+                {
+                  "id": "1486da14-5ec1-4b3a-a461-68f89df232ce",
+                  "name": "Successfully retrieved exported candidate",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/exportedCandidates?q=<string>&requestId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "exportedCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Request ID from push notification",
+                          "key": "requestId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"personUrn\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"headline\": \"<string>\",\n      \"profilePictureUrl\": \"<uri>\"\n    },\n    {\n      \"personUrn\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"headline\": \"<string>\",\n      \"profilePictureUrl\": \"<uri>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-1486da14-5ec1-4b3a-a461-68f89df232ce"
+                },
+                {
+                  "id": "43259b60-a9ed-4c45-b29f-b175c5cd3203",
+                  "name": "Export request not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/exportedCandidates?q=<string>&requestId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "exportedCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Request ID from push notification",
+                          "key": "requestId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-43259b60-a9ed-4c45-b29f-b175c5cd3203"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-7f1a4fe9-b6f8-4f1c-88b7-957106e2edb9"
+            }
+          ],
+          "id": "642b132c-b0d8-408b-99ee-e3bf1e16818e",
+          "createdAt": "2026-06-05T13:17:05.000Z",
+          "updatedAt": "2026-06-05T13:17:05.000Z",
+          "uid": "35240-642b132c-b0d8-408b-99ee-e3bf1e16818e"
+        },
+        {
+          "name": "seats",
+          "item": [
+            {
+              "name": "LinkedIn Retrieve Recruiter Seatholders",
+              "id": "b4bc5e25-7b10-4a79-a732-d4b36b5cfd95",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/seats?q=<string>&active=<boolean>&contracts=<string>&start=<integer>&count=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "seats"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "contracts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Retrieves details of contract seat holders including name, email, and unique ID.\nFor more information, refer to the [Recruiter Seatholders documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/recruiter-seatholders)."
+              },
+              "response": [
+                {
+                  "id": "78c089ac-2791-466e-acee-8f90cc4d5cc9",
+                  "name": "Successfully retrieved seatholders",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/seats?q=<string>&active=<boolean>&contracts=<string>&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "seats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "active",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "contracts",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"seatUrn\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"emailAddress\": \"<email>\",\n      \"active\": \"<boolean>\"\n    },\n    {\n      \"seatUrn\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"emailAddress\": \"<email>\",\n      \"active\": \"<boolean>\"\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-78c089ac-2791-466e-acee-8f90cc4d5cc9"
+                },
+                {
+                  "id": "5b3a4b91-7330-4997-a907-1d43671614f1",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/seats?q=<string>&active=<boolean>&contracts=<string>&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "seats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "active",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "contracts",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-5b3a4b91-7330-4997-a907-1d43671614f1"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-b4bc5e25-7b10-4a79-a732-d4b36b5cfd95"
+            }
+          ],
+          "id": "bc07da9a-3a3f-496f-a337-7994f77abea3",
+          "createdAt": "2026-06-05T13:17:05.000Z",
+          "updatedAt": "2026-06-05T13:17:05.000Z",
+          "uid": "35240-bc07da9a-3a3f-496f-a337-7994f77abea3"
+        },
+        {
+          "name": "atsEntityAcls",
+          "item": [
+            {
+              "name": "LinkedIn Upsert Entity ACL",
+              "id": "70444725-caa1-4ae4-b527-0f017fdb3623",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityType=JOB_POSTING&ids[0].atsEntityId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsEntityAcls"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsEntityAclId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsEntityType",
+                      "value": "JOB_POSTING"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsEntityId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Creates or updates entity ACLs that control visibility of synced entities within LinkedIn products.\nFor more information, refer to the [Sync ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#sync-entity-acls)."
+              },
+              "response": [
+                {
+                  "id": "a6b8fa74-9512-4816-b759-2b3b10de306e",
+                  "name": "Successfully upserted entity ACL",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method type",
+                        "key": "x-restli-method",
+                        "value": "batch_update"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityType=JOB_POSTING&ids[0].atsEntityId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsEntityAcls"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityAclId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityType",
+                          "value": "JOB_POSTING"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-a6b8fa74-9512-4816-b759-2b3b10de306e"
+                },
+                {
+                  "id": "aa29f742-48b3-463a-a309-6c364bed50c5",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "description": "(Required) Rest.li method type",
+                        "key": "x-restli-method",
+                        "value": "batch_update"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"entities\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityType=JOB_POSTING&ids[0].atsEntityId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsEntityAcls"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityAclId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityType",
+                          "value": "JOB_POSTING"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-aa29f742-48b3-463a-a309-6c364bed50c5"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-70444725-caa1-4ae4-b527-0f017fdb3623"
+            },
+            {
+              "name": "LinkedIn Retrieve Entity ACL",
+              "id": "dfee1ef5-fdeb-4fb1-b481-696289575533",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsEntityAcls?q=<string>&atsEntityId=<string>&atsEntityType=<string>&dataProvider=<string>&integrationContext=<string>&start=<integer>&count=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsEntityAcls"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "atsEntityId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "atsEntityType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "dataProvider",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "integrationContext",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Retrieves details of previously synced entity ACLs.\nFor more information, refer to the [Retrieve Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#retrieve-entity-acls)."
+              },
+              "response": [
+                {
+                  "id": "41bd6865-961b-4432-a2f7-deb2f21a1b7f",
+                  "name": "Successfully retrieved entity ACL",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsEntityAcls?q=<string>&atsEntityId=<string>&atsEntityType=<string>&dataProvider=<string>&integrationContext=<string>&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsEntityAcls"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "atsEntityId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "atsEntityType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-41bd6865-961b-4432-a2f7-deb2f21a1b7f"
+                },
+                {
+                  "id": "da3cfc21-65f0-4690-bda3-51e903e42abd",
+                  "name": "ACL not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsEntityAcls?q=<string>&atsEntityId=<string>&atsEntityType=<string>&dataProvider=<string>&integrationContext=<string>&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsEntityAcls"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "atsEntityId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "atsEntityType",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-da3cfc21-65f0-4690-bda3-51e903e42abd"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-dfee1ef5-fdeb-4fb1-b481-696289575533"
+            },
+            {
+              "name": "LinkedIn Delete Entity ACL",
+              "id": "37a73dad-d6fc-45cb-baee-6379c4c5f8df",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityId=<string>&ids[0].atsEntityType=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "atsEntityAcls"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsEntityAclId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].dataProvider",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].integrationContext",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsEntityId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "ids[0].atsEntityType",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Deletes previously synced entity ACLs.\nFor more information, refer to the [Delete Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#delete-entity-acls)."
+              },
+              "response": [
+                {
+                  "id": "8a6f7ccb-cc88-4a32-9723-10da132cea7d",
+                  "name": "Successfully deleted entity ACL",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityId=<string>&ids[0].atsEntityType=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsEntityAcls"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityAclId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityType",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-8a6f7ccb-cc88-4a32-9723-10da132cea7d"
+                },
+                {
+                  "id": "cce2f17a-04b1-40a7-b597-f168fe85d558",
+                  "name": "ACL not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityId=<string>&ids[0].atsEntityType=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "atsEntityAcls"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityAclId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].dataProvider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].integrationContext",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "ids[0].atsEntityType",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T13:17:05.000Z",
+                  "updatedAt": "2026-06-05T13:17:05.000Z",
+                  "uid": "35240-cce2f17a-04b1-40a7-b597-f168fe85d558"
+                }
+              ],
+              "createdAt": "2026-06-05T13:17:05.000Z",
+              "updatedAt": "2026-06-05T13:17:05.000Z",
+              "uid": "35240-37a73dad-d6fc-45cb-baee-6379c4c5f8df"
+            }
+          ],
+          "id": "071711f3-0ed5-43fa-b47c-492a28c30d86",
+          "createdAt": "2026-06-05T13:17:05.000Z",
+          "updatedAt": "2026-06-05T13:17:05.000Z",
+          "uid": "35240-071711f3-0ed5-43fa-b47c-492a28c30d86"
+        }
+      ],
+      "id": "5259c452-51bb-44f7-8acd-d2a5d4caf71d",
+      "createdAt": "2026-06-05T13:17:05.000Z",
+      "updatedAt": "2026-06-05T13:17:05.000Z",
+      "uid": "35240-5259c452-51bb-44f7-8acd-d2a5d4caf71d"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

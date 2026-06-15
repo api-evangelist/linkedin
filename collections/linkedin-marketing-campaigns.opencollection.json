@@ -1,0 +1,713 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Marketing Campaign Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Fetch Ad Account User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adAccountUsers/(account:urn:li:sponsoredAccount::SponsoredAccountId,user:urn:li:person::PersonId)",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "PersonId",
+                "value": "ABC123def",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve an ad account user by account and user identifiers."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Ad Account User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/adAccountUsers/(account:urn:li:sponsoredAccount::SponsoredAccountId,user:urn:li:person::PersonId)",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "PersonId",
+                "value": "ABC123def",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an ad account user's role."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create Ad Account User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/rest/adAccountUsers/(account:urn:li:sponsoredAccount::SponsoredAccountId,user:urn:li:person::PersonId)",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "PersonId",
+                "value": "ABC123def",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Grant a member access to an ad account with a specified role."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Ad Account User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/rest/adAccountUsers/(account:urn:li:sponsoredAccount::SponsoredAccountId,user:urn:li:person::PersonId)",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "PersonId",
+                "value": "ABC123def",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a member from ad account access."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Authenticated User Ad Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adAccountUsers",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "authenticatedUser",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve all ad accounts the authenticated user has access to."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Authenticated User Organization Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/organizationAcls",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve organization roles for the authenticated user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Search Ad Accounts by Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adAccounts",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "search",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "(type:(values:List(BUSINESS)))",
+                "type": "query",
+                "description": "Search criteria"
+              }
+            ]
+          },
+          "docs": "Search for ad accounts by ID, name, reference, type, or status."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create Test Ad Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/adAccounts",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new ad account. Set test flag to true for test accounts."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Ad Account by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adAccounts/:SponsoredAccountId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve an ad account by its ID."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Ad Account Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/adAccounts/:SponsoredAccountId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an ad account using partial update."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campaign Group Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Search Campaign Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adAccounts/:AdAccountsId/adCampaignGroups",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "q",
+                "value": "search",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "(status:(values:List(ACTIVE,DRAFT)))",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "(field:ID,order:DESCENDING)",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search for campaign groups by ID, account, name, and status."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Multiple Campaign Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/rest/adAccounts/:AdAccountsId/adCampaignGroups",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "ids",
+                "value": "List(111222333,111222334)",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete multiple campaign groups. Only DRAFT campaign groups can be deleted."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Campaign Group by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignGroupId",
+                "value": "111222333",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a campaign group by its ID."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Campaign Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignGroupId",
+                "value": "111222333",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a campaign group using partial update."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Campaign Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/rest/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignGroupId",
+                "value": "111222333",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a campaign group. Only DRAFT campaign groups can be deleted."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campaign Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Search Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adAccounts/:AdAccountsId/adCampaigns",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "q",
+                "value": "search",
+                "type": "query"
+              },
+              {
+                "name": "search.campaignGroup.values[0]",
+                "value": "urn:li:sponsoredCampaignGroup:111222333",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search for campaigns by various criteria."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Campaign by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adAccounts/:AdAccountsId/adCampaigns/:CampaignId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignId",
+                "value": "444555666",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a campaign by its ID."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Archive Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/adAccounts/:AdAccountsId/adCampaigns/:CampaignId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignId",
+                "value": "444555666",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a campaign status to archived."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Creative Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Create Creative",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/creatives",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new ad creative."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audience Counts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Audience Count by Targeting Criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/audienceCounts",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer YOUR_ACCESS_TOKEN"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "targetingCriteriaV2",
+                "type": "query"
+              },
+              {
+                "name": "targetingCriteria",
+                "value": "(include:(and:List((or:({encoded facet_URN_1}:List({encoded facet_URN_1_value_1}))))))",
+                "type": "query",
+                "description": "URL-encoded targeting criteria"
+              }
+            ]
+          },
+          "docs": "Get the number of member accounts that fit your targeting criteria. Minimum audience size of 300 is required to run a campaign."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

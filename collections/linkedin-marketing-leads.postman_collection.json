@@ -1,0 +1,1202 @@
+{
+  "item": [
+    {
+      "id": "73ac514d-37e7-47f7-8aaf-5679a863f53c",
+      "name": "Use Cases",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "d4833ae6-5459-4344-a2a7-d25af149a8e8",
+      "name": "Use Cases > Organic",
+      "description": {
+        "content": "In order to support collecting leads for organic use cases (company/showcase page, events, or product pages), a partner app needs to build a UX where a user is able to select the organizations and forms to collect leads for.\n\n###### Step 1: Obtain user authorization to access their leads\n\n###### Step 2: Ask the user what lead types they would like to sync - Events (EVENT), company/showcase pages (COMPANY), Product pages (ORGANIZATION_PRODUCT)\n\n###### Step 3: Get the user's Organization(s) and validate their role to sync leads\n\n###### Step 4: Ask the user to select the organization(s) whose leads they are interested in syncing\n\n###### Step 5: Retrieve forms for the user's selected organization\n\n###### Step 6: Ask the user to select and map fields to the target destination (e.g. a CRM)\n\n###### Step 7: Allow the user to do a one time pull of all form responses looking back up to 365 days to grab any missed leads for the chosen lead types\n\n###### Step 8: \\[PULL\\] Schedule periodic form response pulls to collect leads\n\n###### Step 8: \\[PUSH\\] Allow the user to subscribe for lead notification webhooks\n\n###### Step 9: \\[PUSH\\] Fetch full lead data after a webhook notification is received",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "05717307-6ac1-4667-84cd-61e04fe5d8ef",
+      "name": "Use Cases > Sponsored",
+      "description": {
+        "content": "In order to support collecting leads for sponsored use cases, a partner app needs to build a UX where a user is able to select the sponsored accounts and forms to collect leads for.\n\n###### Step 1: Obtain user authorization to access their leads\n\n###### Step 2: Get the user's sponsored accounts\n\n###### Step 3: Ask the user to select the sponsored account(s) whose leads they are interested in syncing\n\n###### Step 4: Validate the user's organization role tied to the chosen sponsored account\n\n###### Step 5: Retrieve forms for the user's selected sponsored account\n\n###### Step 6: Ask the user to select and map fields to the target destination (e.g. a CRM)\n\n###### Step 7: Allow the user to do a one time pull of all form responses looking back up to 365 days to grab any missed leads\n\n###### Step 8: \\[PULL\\] Schedule periodic form response pulls to collect leads\n\n###### Step 8: \\[PUSH\\] Allow the user to subscribe for lead notification webhooks\n\n###### Step 9: \\[PUSH\\] Fetch full lead data after a webhook notification is received",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "57733b27-096c-45b3-a246-8006e930ef88",
+          "name": "LinkedIn 4. Validate the User's Organization Role",
+          "request": {
+            "name": "LinkedIn 4. Validate the User's Organization Role",
+            "description": {
+              "content": "View the [Organization Access Control](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-access-control-by-role?tabs=http#organization-roles) documentation.\n\nTake note of the organization (company page) from the previous request (`referenceInfo.organization.id`). A member must have access to not only the Sponsored Account (step 2) but also have one of the roles mentioned in our [permissions](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#permissions) table for the associated company page to successfully sync leads.\n\nIf the user's role is not one of the approved roles for pulling leads, or the ad account does not have a company page associated to it (empty `referenceInfo` object in previous request) you should display a helpful message to the user guiding them on next steps.\n\nBelow are two resources to better understand Page Admin vs Paid Media Admin:\n\n- [Permissions for Lead Gen Forms](https://www.linkedin.com/help/lms/answer/a421620/permissions-for-lead-gen-forms?lang=en)\n    \n- [LinkedIn Page Admiin Roles - Overview](https://www.linkedin.com/help/lms/answer/4783)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizationAcls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "155c202d-05da-47dc-bc8f-2c47eb984b1b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizationAcls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "roleAssignee"
+                    },
+                    {
+                      "key": "state",
+                      "value": "APPROVED"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Wed, 03 May 2023 00:02:38 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "Play",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAX6vsYdZ5H4tUsf+cOOmw==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB05:s=O:r=O:a=O:p=O:g=5005:u=1258:x=1:i=1683072158:t=1683155872:v=2:sig=AQGPZ1ePhNBON7apSXcQgZo360QqxGG0\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB05:s=O:r=O:a=O:p=O:g=5005:u=1258:x=1:i=1683072158:t=1683155872:v=2:sig=AQGPZ1ePhNBON7apSXcQgZo360QqxGG0\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 10,\n    \"links\": []\n  },\n  \"elements\": [\n    {\n      \"roleAssignee\": \"urn:li:person:BcLKbjuipL\",\n      \"state\": \"APPROVED\",\n      \"lastModified\": {\n        \"actor\": \"urn:li:person:BcLKbjuipL\",\n        \"impersonator\": \"urn:li:servicePrincipal:organization\",\n        \"time\": 1683063892716\n      },\n      \"role\": \"LEAD_GEN_FORMS_MANAGER\",\n      \"created\": {\n        \"actor\": \"urn:li:person:BcLKbjuipL\",\n        \"impersonator\": \"urn:li:servicePrincipal:organization\",\n        \"time\": 1655913677098\n      },\n      \"organization\": \"urn:li:organization:11223344\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c56d880c-4f90-4c75-a75f-e7d0a2d7a2da",
+          "name": "LinkedIn 5. Get Forms for the Chosen Sponsored Account",
+          "request": {
+            "name": "LinkedIn 5. Get Forms for the Chosen Sponsored Account",
+            "description": {
+              "content": "At this point, the user has picked the sponsored account they are trying to collect leads for and you have validated they have proper access to the ad account and associated company page. This step will retrieve the form(s) associated with the selected sponsored account.\n\n---\n\n**6\\. Map Lead Gen Form fields to destination fields**\n\nUsing the API response data from the previous step, your application should ask the user to map questions, consents, and hidden fields to the appropriate fields in the destination system (e.g. a CRM). All questions, consents, and hidden fields from the form should be mappable. `predefinedField` fields may be mapped automatically for the user, but all others will require the user to map them manually. Optionally, allow the user to map the ad account id, ad account name, campaign id, campaign name, creative id, creative name, form id, and form name (this additional metadata can be pulled back via the `leadFormResponses` endpoint in the next step). This additional metadata helps your customers with lead attribution.\n\n**Quick tip:** When it comes to mapping the `predefinedField` fields that are auto populated from the member’s profile, it's important to understand that the localized language of the form could be a language other than English. Due to this, you should use the `predefinedField` field so the user doesn't have to map the same field in different form languages separately. For custom questions you will need to use the `question` field as there is no predefinedField for custom questions.\n\n| **Field** | **Language Information** |\n| --- | --- |\n| name | This value will be translated to the localized language of the user who created the form (which could be different than the localized language of the form) |\n| predefinedField | ENUM for the pre-populated field |\n| question | This value will be translated to the localized form language |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leadForms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "owner",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e68ea86f-c024-41ea-8587-09691baa2054",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leadForms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "owner"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "(sponsoredAccount:urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}})"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Sat, 02 Sep 2023 16:28:52 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lor1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAYEYsXLJrWbIXOYZ3541w==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693672132:t=1693676563:v=2:sig=AQHJKR3ozyeM8s9oUsu7Qq-fch5CveYt\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693672132:t=1693676563:v=2:sig=AQHJKR3ozyeM8s9oUsu7Qq-fch5CveYt\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 10,\n    \"links\": [],\n    \"total\": 4\n  },\n  \"elements\": [\n    {\n      \"reviewInfo\": {\n        \"rejectionReasons\": [],\n        \"lastUpdated\": 1690422364241,\n        \"reviewStatus\": \"NEEDS_REVIEW\"\n      },\n      \"owner\": {\n        \"sponsoredAccount\": \"urn:li:sponsoredAccount:1234567\"\n      },\n      \"hiddenFields\": [],\n      \"versionId\": 1,\n      \"created\": 1691014589690,\n      \"creationLocale\": {\n        \"country\": \"SE\",\n        \"language\": \"sv\"\n      },\n      \"name\": \"swedish - Jul 26, 2023\",\n      \"id\": 7992706,\n      \"lastModified\": 1691014589690,\n      \"state\": \"PUBLISHED\",\n      \"content\": {\n        \"questions\": [\n          {\n            \"questionId\": 10107992706,\n            \"question\": {\n              \"localized\": {\n                \"sv_SE\": \"Förnamn\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"First name\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"FIRST_NAME\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 10207992706,\n            \"question\": {\n              \"localized\": {\n                \"sv_SE\": \"Efternamn\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Last name\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"LAST_NAME\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 10307992706,\n            \"question\": {\n              \"localized\": {\n                \"sv_SE\": \"E-postadress\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Email address\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"EMAIL\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 10407992706,\n            \"question\": {\n              \"localized\": {\n                \"sv_SE\": \"Jobbtitel\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Job title\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"JOB_TITLE\",\n            \"responseRequired\": true\n          }\n        ],\n        \"description\": {\n          \"localized\": {\n            \"sv_SE\": \"testing swedish\"\n          }\n        },\n        \"postSubmissionInfo\": {\n          \"message\": {\n            \"localized\": {\n              \"sv_SE\": \"testing swedish\"\n            }\n          },\n          \"callToAction\": {\n            \"callToActionTarget\": {\n              \"landingPageUrl\": \"https://www.linkedin.com\"\n            },\n            \"callToActionLabel\": \"VISIT_COMPANY_WEBSITE\"\n          }\n        },\n        \"legalInfo\": {\n          \"consents\": [],\n          \"legalInfoId\": 1007992706,\n          \"privacyPolicyUrl\": \"http://example.com/privacy\",\n          \"legalDisclaimer\": {\n            \"localized\": {\n              \"sv_SE\": \"testing swedish\"\n            }\n          }\n        },\n        \"headline\": {\n          \"localized\": {\n            \"sv_SE\": \"testing swedish\"\n          }\n        }\n      }\n    },\n    {\n      \"reviewInfo\": {\n        \"rejectionReasons\": [],\n        \"lastUpdated\": 1677209409563,\n        \"reviewStatus\": \"NEEDS_REVIEW\"\n      },\n      \"owner\": {\n        \"sponsoredAccount\": \"urn:li:sponsoredAccount:1234567\"\n      },\n      \"hiddenFields\": [\n        {\n          \"name\": \"hidden_field\",\n          \"value\": \"abc678\"\n        },\n        {\n          \"name\": \"campo_escondido\",\n          \"value\": \"def789\"\n        }\n      ],\n      \"versionId\": 1,\n      \"created\": 1677209077832,\n      \"creationLocale\": {\n        \"country\": \"ES\",\n        \"language\": \"es\"\n      },\n      \"name\": \"Form with written spanish\",\n      \"id\": 7234246,\n      \"lastModified\": 1677209424470,\n      \"state\": \"PUBLISHED\",\n      \"content\": {\n        \"questions\": [\n          {\n            \"questionId\": 107234246,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Nombre\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"First name\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"FIRST_NAME\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 207234246,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Apellidos\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Last name\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"LAST_NAME\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 307234246,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Correo electrónico\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Email address\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"EMAIL\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 407234246,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Cargo\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Job title\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"JOB_TITLE\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 507234246,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Función\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Function\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"JOB_FUNCTION\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 607234246,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Correo electrónico del trabajo\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Work email\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"WORK_EMAIL\",\n            \"responseRequired\": true\n          },\n          {\n            \"name\": \"Custom question 0\",\n            \"questionDetails\": {\n              \"multipleChoiceQuestionDetails\": {\n                \"options\": [\n                  {\n                    \"text\": {\n                      \"localized\": {\n                        \"es_ES\": \"Rojo\"\n                      }\n                    },\n                    \"id\": 0\n                  },\n                  {\n                    \"text\": {\n                      \"localized\": {\n                        \"es_ES\": \"Azul\"\n                      }\n                    },\n                    \"id\": 1\n                  }\n                ]\n              }\n            },\n            \"questionId\": 707234246,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Cuál es tu color favorito\"\n              }\n            },\n            \"responseEditable\": true,\n            \"responseRequired\": true\n          },\n          {\n            \"name\": \"Custom question 1\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"questionId\": 807234246,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"¿Dónde creciste?\"\n              }\n            },\n            \"responseEditable\": true,\n            \"responseRequired\": true\n          }\n        ],\n        \"description\": {\n          \"localized\": {\n            \"es_ES\": \"Mis detalles de súper gran oferta!\"\n          }\n        },\n        \"postSubmissionInfo\": {\n          \"message\": {\n            \"localized\": {\n              \"es_ES\": \"muchas gracias!\"\n            }\n          },\n          \"callToAction\": {\n            \"callToActionTarget\": {\n              \"landingPageUrl\": \"https://www.linkedin.com\"\n            },\n            \"callToActionLabel\": \"VISIT_COMPANY_WEBSITE\"\n          }\n        },\n        \"legalInfo\": {\n          \"consents\": [\n            {\n              \"consent\": {\n                \"localized\": {\n                  \"es_ES\": \" marque mi casilla de verificación personalizada!\"\n                }\n              },\n              \"checkRequired\": true,\n              \"id\": 0\n            }\n          ],\n          \"legalInfoId\": 107234246,\n          \"privacyPolicyUrl\": \"http://example.com/privacy\",\n          \"legalDisclaimer\": {\n            \"localized\": {\n              \"es_ES\": \"tanto texto de política\"\n            }\n          }\n        },\n        \"headline\": {\n          \"localized\": {\n            \"es_ES\": \"mi super gran titular\"\n          }\n        }\n      }\n    },\n    {\n      \"reviewInfo\": {\n        \"rejectionReasons\": [],\n        \"lastUpdated\": 1675881696317,\n        \"reviewStatus\": \"NEEDS_REVIEW\"\n      },\n      \"owner\": {\n        \"sponsoredAccount\": \"urn:li:sponsoredAccount:1234567\"\n      },\n      \"hiddenFields\": [],\n      \"versionId\": 1,\n      \"created\": 1675881726023,\n      \"creationLocale\": {\n        \"country\": \"ES\",\n        \"language\": \"es\"\n      },\n      \"name\": \"spanish with custom questions and consent\",\n      \"id\": 7157016,\n      \"lastModified\": 1675881726023,\n      \"state\": \"PUBLISHED\",\n      \"content\": {\n        \"questions\": [\n          {\n            \"questionId\": 107157016,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Nombre\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"First name\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"FIRST_NAME\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 207157016,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Apellidos\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Last name\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"LAST_NAME\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 307157016,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Correo electrónico\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Email address\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"EMAIL\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 407157016,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Cargo\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Job title\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"JOB_TITLE\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 507157016,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Función\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Function\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"JOB_FUNCTION\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 607157016,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Correo electrónico del trabajo\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Work email\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"WORK_EMAIL\",\n            \"responseRequired\": true\n          },\n          {\n            \"name\": \"Custom question 0\",\n            \"questionDetails\": {\n              \"multipleChoiceQuestionDetails\": {\n                \"options\": [\n                  {\n                    \"text\": {\n                      \"localized\": {\n                        \"es_ES\": \"red\"\n                      }\n                    },\n                    \"id\": 0\n                  },\n                  {\n                    \"text\": {\n                      \"localized\": {\n                        \"es_ES\": \"blue\"\n                      }\n                    },\n                    \"id\": 1\n                  }\n                ]\n              }\n            },\n            \"questionId\": 707157016,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"What's your favorite color?\"\n              }\n            },\n            \"responseEditable\": true,\n            \"responseRequired\": true\n          },\n          {\n            \"name\": \"Custom question 1\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"questionId\": 807157016,\n            \"question\": {\n              \"localized\": {\n                \"es_ES\": \"Where did you grow up?\"\n              }\n            },\n            \"responseEditable\": true,\n            \"responseRequired\": true\n          }\n        ],\n        \"description\": {\n          \"localized\": {\n            \"es_ES\": \"My great offer detials\"\n          }\n        },\n        \"postSubmissionInfo\": {\n          \"message\": {\n            \"localized\": {\n              \"es_ES\": \"Thanks!\"\n            }\n          },\n          \"callToAction\": {\n            \"callToActionTarget\": {\n              \"landingPageUrl\": \"https://www.linkedin.com\"\n            },\n            \"callToActionLabel\": \"VISIT_COMPANY_WEBSITE\"\n          }\n        },\n        \"legalInfo\": {\n          \"consents\": [\n            {\n              \"consent\": {\n                \"localized\": {\n                  \"es_ES\": \"check my custom checkbox!\"\n                }\n              },\n              \"checkRequired\": true,\n              \"id\": 0\n            }\n          ],\n          \"legalInfoId\": 107157016,\n          \"privacyPolicyUrl\": \"http://example.com/privacy\",\n          \"legalDisclaimer\": {\n            \"localized\": {\n              \"es_ES\": \"this is my policy text\"\n            }\n          }\n        },\n        \"headline\": {\n          \"localized\": {\n            \"es_ES\": \"A fabulous headline\"\n          }\n        }\n      }\n    },\n    {\n      \"reviewInfo\": {\n        \"rejectionReasons\": [],\n        \"lastUpdated\": 1675795969949,\n        \"reviewStatus\": \"NEEDS_REVIEW\"\n      },\n      \"owner\": {\n        \"sponsoredAccount\": \"urn:li:sponsoredAccount:1234567\"\n      },\n      \"hiddenFields\": [],\n      \"versionId\": 1,\n      \"created\": 1675795978299,\n      \"creationLocale\": {\n        \"country\": \"US\",\n        \"language\": \"en\"\n      },\n      \"name\": \"custom questions\",\n      \"id\": 7149246,\n      \"lastModified\": 1675795978299,\n      \"state\": \"PUBLISHED\",\n      \"content\": {\n        \"questions\": [\n          {\n            \"questionId\": 107149246,\n            \"question\": {\n              \"localized\": {\n                \"en_US\": \"First name\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"First name\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"FIRST_NAME\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 207149246,\n            \"question\": {\n              \"localized\": {\n                \"en_US\": \"Last name\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Last name\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"LAST_NAME\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 307149246,\n            \"question\": {\n              \"localized\": {\n                \"en_US\": \"Email address\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Email address\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"EMAIL\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 407149246,\n            \"question\": {\n              \"localized\": {\n                \"en_US\": \"Seniority\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Seniority\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"SENIORITY\",\n            \"responseRequired\": true\n          },\n          {\n            \"questionId\": 507149246,\n            \"question\": {\n              \"localized\": {\n                \"en_US\": \"Industry\"\n              }\n            },\n            \"responseEditable\": true,\n            \"name\": \"Industry\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": 300\n              }\n            },\n            \"predefinedField\": \"INDUSTRY\",\n            \"responseRequired\": true\n          },\n          {\n            \"name\": \"Custom question 0\",\n            \"questionDetails\": {\n              \"multipleChoiceQuestionDetails\": {\n                \"options\": [\n                  {\n                    \"text\": {\n                      \"localized\": {\n                        \"en_US\": \"blue\"\n                      }\n                    },\n                    \"id\": 0\n                  },\n                  {\n                    \"text\": {\n                      \"localized\": {\n                        \"en_US\": \"red\"\n                      }\n                    },\n                    \"id\": 1\n                  }\n                ]\n              }\n            },\n            \"questionId\": 607149246,\n            \"question\": {\n              \"localized\": {\n                \"en_US\": \"favorite color\"\n              }\n            },\n            \"responseEditable\": true,\n            \"responseRequired\": true\n          }\n        ],\n        \"description\": {\n          \"localized\": {\n            \"en_US\": \"offer\"\n          }\n        },\n        \"postSubmissionInfo\": {\n          \"message\": {\n            \"localized\": {\n              \"en_US\": \"thanks\"\n            }\n          },\n          \"callToAction\": {\n            \"callToActionTarget\": {\n              \"landingPageUrl\": \"https://www.linkedin.com\"\n            },\n            \"callToActionLabel\": \"VISIT_COMPANY_WEBSITE\"\n          }\n        },\n        \"legalInfo\": {\n          \"consents\": [],\n          \"legalInfoId\": 107149246,\n          \"privacyPolicyUrl\": \"http://example.com/privacy\",\n          \"legalDisclaimer\": {\n            \"localized\": {\n              \"en_US\": \"nada\"\n            }\n          }\n        },\n        \"headline\": {\n          \"localized\": {\n            \"en_US\": \"custom questions\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bbffc53-b11f-4bb5-9f6d-0c58cfc76ac3",
+          "name": "LinkedIn 8. Schedule Periodic Form Response (lead) Pulls",
+          "request": {
+            "name": "LinkedIn 8. Schedule Periodic Form Response (lead) Pulls",
+            "description": {
+              "content": "This example pulls back all form responses (leads) for the chosen sponsored account. It also uses [field projection](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/projections?context=linkedin/marketing/context) to pull back specific fields in the response and the `submittedAtTimeRange` field to pull back leads up to 365 days in the past.\n\nCurrently the only sponsored leadType is `SPONSORED`\n\nLinkedIn will store form response (lead) data for up to 365 days. It is a best practice to allow the user to do a one time pull upon integration setup to ensure no leads are missed.\n\nRefer to [Lead Form Responses](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses) documentation for more information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leadFormResponses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "owner",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "leadType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limitedToTestLeads",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "submittedAtTimeRange",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93812390-82f4-497c-84e5-20e6bbbb05b6",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leadFormResponses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "owner"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "(sponsoredAccount:urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}})"
+                    },
+                    {
+                      "key": "leadType",
+                      "value": "(leadType:{{leadtype_sponsored}})"
+                    },
+                    {
+                      "key": "limitedToTestLeads",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "submittedAtTimeRange",
+                      "value": "(start:{{timerange_start}},end:{{timerange_end}})"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "ownerInfo,associatedEntityInfo,leadMetadataInfo,owner,leadType,versionedLeadGenFormUrn,id,submittedAt,testLead,formResponse,form:(hiddenFields,creationLocale,name,id,content)"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da76a438-1c8e-49aa-a1bd-7c1f5349a400",
+          "name": "LinkedIn 8. Subscribe for Lead Notification Webhooks",
+          "request": {
+            "name": "LinkedIn 8. Subscribe for Lead Notification Webhooks",
+            "description": {
+              "content": "[Register a lead notification webhook](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#lead-notification-subscriptions) to receive notifications for new leads. Lead notifications can also be subscribed at a more granular level - see the linked documentation.\n\nThis example registers the webhook url, [https://www.example.com](https://www.example.com/), at the Ad Account level (sponsoredAccount). For any new lead submitted for campaigns that live within this Ad Account, a webhook notification will be sent.\n\n**Listen for lead notifications**\n\nAs leads flow into the user's ad account, LinkedIn will send your webhook endpoint a notification for each lead. The notification body will contain content as laid out in our documentation [here.](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leadNotifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "94dc1104-0bdb-4d16-9b12-8ad5939e565b",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leadNotifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": \"https://www.example.com\",\n  \"owner\": {\n    \"sponsoredAccount\": \"urn:li:sponsoredAccount:{{sponsoredaccount_id}}\"\n  },\n  \"leadType\": \"{{leadtype_sponsored}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d7ce68b-3975-40c3-9057-4687a93b0fb4",
+          "name": "LinkedIn 9. Fetch Full Lead Data After a Lead Notification is Received",
+          "request": {
+            "name": "LinkedIn 9. Fetch Full Lead Data After a Lead Notification is Received",
+            "description": {
+              "content": "[Responses can be fetched](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses) for a single form response, multiple form responses, or at the form or Ad Account level.\n\nWhen a lead notification event is received, the form response id exists in the lead notification [content](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event).\n\nThis example pulls back data for a single form response (lead) by ID and uses field projection to pull back specific fields in the request response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leadFormResponses",
+                ":lead_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": null,
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lead_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2275bf08-18a6-4369-a851-2f2e396ba91b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leadFormResponses",
+                    ":lead_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "null",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "ownerInfo,associatedEntityInfo,leadMetadataInfo,owner,leadType,versionedLeadGenFormUrn,id,submittedAt,testLead,formResponse,form:(hiddenFields,creationLocale,name,id,content)"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lead_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Sun, 03 Sep 2023 00:56:45 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lor1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAYEad4i/cczw/xzb6uK4Q==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693702605:t=1693784804:v=2:sig=AQF2lXKW3JuyKC8eiTiIfScGy1CoyI0Q\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693702605:t=1693784804:v=2:sig=AQF2lXKW3JuyKC8eiTiIfScGy1CoyI0Q\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"owner\": {\n    \"sponsoredAccount\": \"urn:li:sponsoredAccount:1234567\"\n  },\n  \"submitter\": \"urn:li:person:BcLKblgopR\",\n  \"leadType\": \"SPONSORED\",\n  \"leadMetadata\": {\n    \"sponsoredLeadMetadata\": {\n      \"campaign\": \"urn:li:sponsoredCampaign:198356826\"\n    }\n  },\n  \"versionedLeadGenFormUrn\": \"urn:li:versionedLeadGenForm:(urn:li:leadGenForm:7234246,1)\",\n  \"id\": \"249592fc-d272-44ba-a7db-c2bdce579507-6\",\n  \"submittedAt\": 1689894599288,\n  \"testLead\": true,\n  \"associatedEntity\": {\n    \"associatedCreative\": \"urn:li:sponsoredCreative:241257736\"\n  },\n  \"formResponse\": {\n    \"consentResponses\": [\n      {\n        \"accepted\": true,\n        \"consentId\": 0\n      }\n    ],\n    \"answers\": [\n      {\n        \"answerDetails\": {\n          \"textQuestionAnswer\": {\n            \"answer\": \"kevjohonson@email.com\"\n          }\n        },\n        \"questionId\": 307234246\n      },\n      {\n        \"answerDetails\": {\n          \"textQuestionAnswer\": {\n            \"answer\": \"kjohonson@email.com\"\n          }\n        },\n        \"questionId\": 607234246\n      },\n      {\n        \"answerDetails\": {\n          \"multipleChoiceAnswer\": {\n            \"options\": [\n              0\n            ]\n          }\n        },\n        \"questionId\": 707234246\n      },\n      {\n        \"answerDetails\": {\n          \"textQuestionAnswer\": {\n            \"answer\": \"Mexico\"\n          }\n        },\n        \"questionId\": 807234246\n      },\n      {\n        \"answerDetails\": {\n          \"textQuestionAnswer\": {\n            \"answer\": \"Kevin\"\n          }\n        },\n        \"questionId\": 107234246\n      },\n      {\n        \"answerDetails\": {\n          \"textQuestionAnswer\": {\n            \"answer\": \"Johonson\"\n          }\n        },\n        \"questionId\": 207234246\n      },\n      {\n        \"answerDetails\": {\n          \"textQuestionAnswer\": {\n            \"answer\": \"Senior Engineer\"\n          }\n        },\n        \"questionId\": 407234246\n      },\n      {\n        \"answerDetails\": {\n          \"textQuestionAnswer\": {\n            \"answer\": \"Ingeniería\"\n          }\n        },\n        \"questionId\": 507234246\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da1883c6-720d-4ca5-870c-693c9a9e038c",
+          "name": "LinkedIn [PUSH] Delete a Registered Webhook by Id",
+          "request": {
+            "name": "LinkedIn [PUSH] Delete a Registered Webhook by Id",
+            "description": {
+              "content": "[Delete a lead notification subsription](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#delete-lead-notification-url)\n\nWhen an integration is deleted, the associated webhooks should also be deleted to ensure that lead notifications are not unnecessarily being sent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leadnotifications",
+                "<webhook id>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2da9ef3a-0213-4fae-9aac-0378ea83aaf8",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leadnotifications",
+                    "<webhook id>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b68dbdbe-5d85-4b69-8133-3e5af10f75b9",
+          "name": "LinkedIn 2. Get the User's Sponsored Accounts (ad Accounts)",
+          "request": {
+            "name": "LinkedIn 2. Get the User's Sponsored Accounts (ad Accounts)",
+            "description": {
+              "content": "View [Search for Accounts](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#search-for-accounts) documentation for more information.\n\nThis API call pulls back Ad Accounts that the member has access to where the status = ACTIVE and test = false (NOT a test Ad Account).\n\nLearn more about Test Ad Accounts [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#working-with-test-ad-accounts).\n\nFor testing purposes, if you wish to use this example api to pull back a Test Ad Account, simply remove `test:false` from the search parameter.\n\n---\n\n**3\\. Allow the user to select an Ad Account**",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "adAccounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bf616aa8-5a09-4a32-a0b2-04239cdf8aff",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "adAccounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "search"
+                    },
+                    {
+                      "key": "search",
+                      "value": "(status:(values:List(ACTIVE)),test:false)"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "id,name,test,referenceInfo"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Sat, 02 Sep 2023 23:46:44 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lor1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAYEaOPCVPCH8cztJX/9lw==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693698404:t=1693784804:v=2:sig=AQHu1AiyYtvva0ZoA063AajzXMZkjXiD\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB05:s=O:r=O:a=O:p=O:g=6969:u=1367:x=1:i=1693698404:t=1693784804:v=2:sig=AQHu1AiyYtvva0ZoA063AajzXMZkjXiD\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 10,\n    \"links\": [],\n    \"total\": 2\n  },\n  \"elements\": [\n    {\n      \"name\": \"Ad Account A\",\n      \"id\": 1234567,\n      \"test\": false,\n      \"referenceInfo\": {\n        \"organization\": {\n          \"name\": {\n            \"localized\": {\n              \"en_US\": \"Highlander Cranberries LLC\"\n            },\n            \"preferredLocale\": {\n              \"country\": \"US\",\n              \"language\": \"en\"\n            }\n          },\n          \"vanityName\": \"highlander-cranberries-llc\",\n          \"localizedName\": \"Highlander Cranberries LLC\",\n          \"id\": 11223344\n        }\n      }\n    },\n    {\n      \"name\": \"New Ad Account B\",\n      \"id\": 5678910,\n      \"test\": false,\n      \"referenceInfo\": {\n        \"organization\": {\n          \"name\": {\n            \"localized\": {\n              \"en_US\": \"Highlander Cranberries LLC\"\n            },\n            \"preferredLocale\": {\n              \"country\": \"US\",\n              \"language\": \"en\"\n            }\n          },\n          \"vanityName\": \"highlander-cranberries-llc\",\n          \"localizedName\": \"Highlander Cranberries LLC\",\n          \"id\": 11223344\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a65d6970-b683-4637-8a81-77d2c8c2bc10",
+    "name": "Lead Sync",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This collection aims to focus on different lead syncing use cases and should be used with the **lead-sync-env-versioning** environment.\n\n_All requests for the Lead Sync collection are in the Restli 2.0 format and uses OAuth 2.0_",
+      "type": "text/plain"
+    }
+  }
+}

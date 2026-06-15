@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Media Planning",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ad Targeting Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get a List of Available Ad Targeting Facets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adTargetingFacets",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ]
+          },
+          "docs": "LinkedIn Get a List of Available Ad Targeting Facets"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Bing Geo Locations Using Search Typeahead",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adTargetingEntities",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "typeahead",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "united%20states",
+                "type": "query"
+              },
+              {
+                "name": "facet",
+                "value": "urn%3Ali%3AadTargetingFacet%3Alocations",
+                "type": "query"
+              },
+              {
+                "name": "queryVersion",
+                "value": "QUERY_USES_URNS",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "10",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Get Bing Geo Locations Using Search Typeahead"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Fetch Media Plan",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Forecast Avg Lifetime Frequency",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/mediaPlanning",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {{Access_Token}}"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "Linkedin-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "action",
+                "value": "forecastImpressions",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "LinkedIn Forecast Avg Lifetime Frequency"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

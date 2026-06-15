@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Reporting & ROI",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > B2B Templates > Conversions Deep Dive",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Conversions by Member Company Size",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAnalytics",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer {{insert_token}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "analytics",
+                "type": "query"
+              },
+              {
+                "name": "pivot",
+                "value": "MEMBER_COMPANY_SIZE",
+                "type": "query"
+              },
+              {
+                "name": "dateRange",
+                "value": "(start:(day:1,month:1,year:2022),end:(day:31,month:12,year:2022))",
+                "type": "query"
+              },
+              {
+                "name": "timeGranularity",
+                "value": "(value:ALL)",
+                "type": "query"
+              },
+              {
+                "name": "accounts",
+                "value": "List(urn%3Ali%3AsponsoredAccount%3A{{sponsoredAccount}})",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "externalWebsiteConversions,pivotValues",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Conversions by Member Company Size"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

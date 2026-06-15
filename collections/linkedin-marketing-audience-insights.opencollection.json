@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Marketing Audience Insights API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ad Targeting Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get List of Available Ad Targeting Facets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adTargetingFacets",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ]
+          },
+          "docs": "Retrieve the list of available ad targeting facets. Facets are high-level categories of targeting types available for ad campaigns."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Ad Targeting Entities Using Typeahead Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/adTargetingEntities",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "typeahead",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "query",
+                "value": "united%20states",
+                "type": "query",
+                "description": "Search query string (URL encoded)"
+              },
+              {
+                "name": "facet",
+                "value": "urn%3Ali%3AadTargetingFacet%3Alocations",
+                "type": "query",
+                "description": "Facet URN to search within (URL encoded)"
+              },
+              {
+                "name": "queryVersion",
+                "value": "QUERY_USES_URNS",
+                "type": "query",
+                "description": "Query version format"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Starting index for pagination"
+              },
+              {
+                "name": "count",
+                "value": "10",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Search for ad targeting entities within a facet using typeahead search. Returns entities matching the search query."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audience Insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Fetch Audience Insights by Targeting Criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/targetingAudienceInsights",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "action",
+                "value": "audienceInsights",
+                "type": "query",
+                "description": "Action to perform"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve aggregated demographic insights, firmographic details, locations, and interests/behaviors for a target audience based on specified targeting criteria."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

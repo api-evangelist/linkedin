@@ -1,0 +1,240 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Sales Navigator API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sales Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Find All Contracts Where User Has Active Seat",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/salesContracts",
+            "params": [
+              {
+                "name": "q",
+                "value": "contractsByMember",
+                "type": "query",
+                "description": "Query parameter to fetch contracts for the member"
+              }
+            ]
+          },
+          "docs": "Retrieve all Sales Navigator contracts where the authenticated user has an active seat."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sales Analytics Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Fetch Sales Analytics Export Job by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/salesAnalyticsExportJobs/:JobId",
+            "params": [
+              {
+                "name": "JobId",
+                "value": "987654321",
+                "type": "path",
+                "description": "The ID of the export job"
+              },
+              {
+                "name": "contract",
+                "value": "urn:li:salesContract:12345",
+                "type": "query",
+                "description": "Sales Navigator contract URN"
+              }
+            ]
+          },
+          "docs": "Retrieve the status and details of a sales analytics export job by its ID."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create New Sales Analytics Export Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/salesAnalyticsExportJobs",
+            "params": [
+              {
+                "name": "action",
+                "value": "exportSeatData",
+                "type": "query",
+                "description": "The type of export job to create"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new sales analytics export job to export seat data, activity outcome data, or activity data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sales Access Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/salesAccessTokens",
+            "params": [
+              {
+                "name": "q",
+                "value": "viewerAndDeveloperApp",
+                "type": "query",
+                "description": "Query parameter for retrieving a Sales Access Token"
+              }
+            ]
+          },
+          "docs": "Get a short-lived, limited-scope OAuth token for authenticated iframe sessions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profile Associations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Fetch Profile Association by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/salesNavigatorProfileAssociations/:InstanceId,:Partner,:RecordId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "sf-instance-001",
+                "type": "path",
+                "description": "ID of the CRM instance that synced with Sales Navigator"
+              },
+              {
+                "name": "Partner",
+                "value": "salesforce",
+                "type": "path",
+                "description": "ID of the CRM partner that synced with Sales Navigator"
+              },
+              {
+                "name": "RecordId",
+                "value": "contact-12345",
+                "type": "path",
+                "description": "ID of the CRM record"
+              }
+            ]
+          },
+          "docs": "Fetch the corresponding match when provided with a SalesNavigatorProfileAssociationKey."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch Fetch Profile Associations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/salesNavigatorProfileAssociations",
+            "params": [
+              {
+                "name": "ids",
+                "value": "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))",
+                "type": "query",
+                "description": "List of association keys in the format List((instanceId,partner,recordId))"
+              }
+            ]
+          },
+          "docs": "Batch fetch matches when provided with multiple SalesNavigatorProfileAssociationKeys."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "CRM Data Validation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Create CRM Data Validation Export Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/crmDataValidationExportJobs",
+            "params": [
+              {
+                "name": "crmInstanceId",
+                "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001",
+                "type": "query",
+                "description": "An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new CRM data validation export job to validate CRM data against LinkedIn."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get CRM Data Validation Export Job Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/crmDataValidationExportJobs/:JobId",
+            "params": [
+              {
+                "name": "JobId",
+                "value": "123456789",
+                "type": "path",
+                "description": "The ID of the export job"
+              },
+              {
+                "name": "crmInstanceId",
+                "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001",
+                "type": "query",
+                "description": "An URN containing the instance ID of the CRM. The URN must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Retrieve the status and details of a CRM data validation export job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
