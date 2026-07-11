@@ -1,0 +1,103 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/linkedin-compliance-events.yml, openapi/linkedin-learning-activity-reports.yml,
+  openapi/linkedin-marketing-audience-insights.yml, openapi/linkedin-marketing-audience.yml,
+  openapi/linkedin-marketing-campaigns.yml, openapi/linkedin-talent-job-posting.yml, openapi/linkedin-talent-learning-parent-application.yml,
+  openapi/linkedin-talent-recruiter-system-connect.yml
+schemes:
+- name: OAuth2Auth
+  source: openapi/linkedin-compliance-events.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+- name: OAuth2Auth
+  source: openapi/linkedin-learning-activity-reports.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+- name: OAuth2Auth
+  source: openapi/linkedin-marketing-audience-insights.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+- name: OAuth2Auth
+  source: openapi/linkedin-marketing-audience.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+- name: OAuth2Auth
+  source: openapi/linkedin-marketing-campaigns.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+- name: OAuth2Auth
+  source: openapi/linkedin-talent-job-posting.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+  description: OAuth 2.0 authentication
+- name: OAuth2Auth
+  source: openapi/linkedin-talent-learning-parent-application.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+  description: OAuth 2.0 authentication for partner applications
+- name: OAuth2Auth
+  source: openapi/linkedin-talent-recruiter-system-connect.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+  description: OAuth 2.0 authentication with 3-legged flow
+scopes:
+- scope: r_ads
+  description: Read advertising data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/linkedin-marketing-audience-insights.yml
+  - openapi/linkedin-marketing-campaigns.yml
+- scope: r_compliance
+  description: Read compliance data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/linkedin-compliance-events.yml
+- scope: r_liteprofile
+  description: Read basic profile data
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/linkedin-talent-learning-parent-application.yml
+  - openapi/linkedin-talent-recruiter-system-connect.yml
+- scope: r_lms_learning
+  description: Read learning management data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/linkedin-learning-activity-reports.yml
+- scope: rw_ads
+  description: Read and write advertising data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/linkedin-marketing-audience.yml
+  - openapi/linkedin-marketing-campaigns.yml
+- scope: w_member_social
+  description: Post, comment and like posts
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/linkedin-talent-learning-parent-application.yml
+- scope: w_organization_social
+  description: Write organization social content
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/linkedin-talent-job-posting.yml
