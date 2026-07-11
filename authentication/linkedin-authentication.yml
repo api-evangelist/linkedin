@@ -1,0 +1,59 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/linkedin-compliance-events.yml, openapi/linkedin-learning-activity-reports.yml,
+  openapi/linkedin-marketing-audience-insights.yml, openapi/linkedin-marketing-audience.yml,
+  openapi/linkedin-marketing-campaigns.yml, openapi/linkedin-marketing-community.yml, openapi/linkedin-marketing-content.yml,
+  openapi/linkedin-marketing-conversions.yml, openapi/linkedin-marketing-leads.yml, openapi/linkedin-marketing-reporting-roi.yml,
+  openapi/linkedin-regulations-data-portability.yml, openapi/linkedin-regulatory-ads-transparency.yml
+  ...
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: OAuth2Auth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+    scopes: 1
+  sources:
+  - openapi/linkedin-compliance-events.yml
+  - openapi/linkedin-learning-activity-reports.yml
+  - openapi/linkedin-marketing-audience-insights.yml
+  - openapi/linkedin-marketing-audience.yml
+  - openapi/linkedin-marketing-campaigns.yml
+  - openapi/linkedin-talent-recruiter-system-connect.yml
+- name: oauth2Auth
+  type: http
+  scheme: oauth2
+  sources:
+  - openapi/linkedin-marketing-community.yml
+  - openapi/linkedin-marketing-content.yml
+  - openapi/linkedin-marketing-conversions.yml
+  - openapi/linkedin-marketing-leads.yml
+  - openapi/linkedin-marketing-reporting-roi.yml
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: OAuth 2.0 Bearer Token for API access
+  sources:
+  - openapi/linkedin-regulations-data-portability.yml
+  - openapi/linkedin-regulatory-ads-transparency.yml
+  - openapi/linkedin-sales-navigator.yml
+  - openapi/linkedin-talent-job-posting.yml
+  - openapi/linkedin-talent-recruiter-system-connect.yml
+- name: OAuth2Auth
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+    scopes: 1
+  description: OAuth 2.0 authentication
+  sources:
+  - openapi/linkedin-talent-job-posting.yml
+  - openapi/linkedin-talent-learning-parent-application.yml
