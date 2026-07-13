@@ -1,3 +1,23 @@
+# linkedin — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 18/18 servers on linkedin.com
+#   - path-params-casing: pascal @ 42% (n=78)
+#   - query-params-casing: snake @ 63% (n=229)
+#   - operationid-casing: camel @ 100% (n=148)
+#   - schema-names-casing: pascal @ 100% (n=206)
+#   - schema-properties-casing: snake @ 59% (n=607)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - error-schema-defined: ErrorResponse
+#   - pagination params observed: ['count']
+#   - merge: kept 24 existing, added 4 measured, upgraded 0
+#   - added: servers-expected-domain, query-params-casing, operationid-casing, error-schema-defined
+extends:
+  - spectral:oas
 rules:
   info-title-required:
     description: API title must be present.
@@ -13,7 +33,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^LinkedIn "
+        match: '^LinkedIn '
   info-description-required:
     description: API description must be present.
     severity: error
@@ -36,7 +56,7 @@ rules:
       field: openapi
       function: pattern
       functionOptions:
-        match: "^3\\.0\\."
+        match: ^3\.0\.
   servers-defined:
     description: At least one server must be defined.
     severity: error
@@ -51,25 +71,25 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^https://"
+        match: ^https://
   paths-no-trailing-slash:
     description: Paths must not have trailing slashes.
     severity: error
     given: $.paths
     then:
-      field: "@key"
+      field: '@key'
       function: pattern
       functionOptions:
-        notMatch: "\\/$"
+        notMatch: \/$
   paths-camelcase:
     description: Path segments should use camelCase.
     severity: info
     given: $.paths
     then:
-      field: "@key"
+      field: '@key'
       function: pattern
       functionOptions:
-        notMatch: "\\/[a-z]+_[a-z]"
+        notMatch: \/[a-z]+_[a-z]
   operation-description-required:
     description: Every operation must have a description.
     severity: error
@@ -104,7 +124,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[A-Z][a-zA-Z0-9]*(\\s[A-Za-z0-9]+)*$"
+        match: ^[A-Z][a-zA-Z0-9]*(\s[A-Za-z0-9]+)*$
   parameter-description-required:
     description: All parameters must have a description.
     severity: error
@@ -120,7 +140,7 @@ rules:
       field: name
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9.]*$"
+        match: ^[a-z][a-zA-Z0-9.]*$
   request-body-json:
     description: Request bodies should use application/json.
     severity: warn
@@ -137,9 +157,12 @@ rules:
       functionOptions:
         schema:
           anyOf:
-            - required: ["200"]
-            - required: ["201"]
-            - required: ["204"]
+          - required:
+            - '200'
+          - required:
+            - '201'
+          - required:
+            - '204'
   response-description-required:
     description: All responses must have a description.
     severity: error
@@ -152,19 +175,19 @@ rules:
     severity: warn
     given: $.components.schemas
     then:
-      field: "@key"
+      field: '@key'
       function: pattern
       functionOptions:
-        match: "^[A-Z][a-zA-Z0-9]*$"
+        match: ^[A-Z][a-zA-Z0-9]*$
   schema-properties-camelcase:
     description: Schema properties should use camelCase.
     severity: info
     given: $.components.schemas[*].properties
     then:
-      field: "@key"
+      field: '@key'
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]*$"
+        match: ^[a-z][a-zA-Z0-9]*$
   security-schemes-defined:
     description: Security schemes should be defined.
     severity: warn
@@ -182,6 +205,38 @@ rules:
   no-empty-descriptions:
     description: Descriptions must not be empty.
     severity: error
-    given: "$..description"
+    given: $..description
     then:
+      function: truthy
+  servers-expected-domain:
+    description: Server URLs should be on the linkedin.com domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: linkedin\.com
+  query-params-casing:
+    description: Query parameters should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: snake
+  operationid-casing:
+    description: Operation IDs should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: ^[a-z][A-Za-z0-9]*$
+  error-schema-defined:
+    description: A shared error schema (ErrorResponse) should be defined for error payloads.
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: ErrorResponse
       function: truthy
