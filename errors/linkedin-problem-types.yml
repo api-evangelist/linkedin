@@ -1,0 +1,66 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/*.yml (4xx/5xx responses)
+format: linkedin-error
+note: 'LinkedIn returns a JSON error envelope with fields: status, message, and (for
+  Rest.li) serviceErrorCode; not RFC 9457 application/problem+json.'
+envelope:
+  fields:
+  - status
+  - message
+  - serviceErrorCode
+  content_type: application/json
+problems:
+- status: 400
+  title: Bad Request
+  observed_descriptions:
+  - Bad request
+  - Bad request - campaign group not in DRAFT status
+  - Bad request - campaign groups not in DRAFT status
+  - Bad request - invalid parameters
+  - Bad request - invalid targeting criteria
+  - Bad request - invalid task URN
+  remediation: Validate request parameters, body fields, and the Linkedin-Version
+    header (YYYYMM).
+- status: 401
+  title: Unauthorized
+  observed_descriptions:
+  - Invalid client credentials
+  - Unauthorized
+  - Unauthorized - invalid or missing access token
+  - Unauthorized - invalid or missing authentication
+  - Unauthorized, invalid token
+  remediation: 'Refresh the OAuth 2.0 access token; verify Authorization: Bearer header
+    and granted scopes.'
+- status: 403
+  title: Forbidden
+  observed_descriptions:
+  - Forbidden - insufficient permissions
+  - Forbidden - insufficient permissions for Audience Insights API
+  - Forbidden, insufficient access
+  - Insufficient application access
+  remediation: Confirm the application has the required product access and the member/organization
+    ACL permits the action.
+- status: 404
+  title: Not Found
+  observed_descriptions:
+  - ACL not found
+  - Account not found
+  - Application not found
+  - Authorization not found
+  - Campaign group not found
+  - Campaign not found
+  remediation: Verify the URN/id in the path exists and is visible to the authenticated
+    member or app.
+- status: 409
+  title: Conflict
+  observed_descriptions:
+  - Conflict - application with uniqueForeignId already exists
+  remediation: Resource already exists or is in a conflicting state; reconcile before
+    retrying.
+- status: 429
+  title: Too Many Requests
+  observed_descriptions:
+  - Too many requests
+  - Too many requests - rate limit exceeded
+  remediation: Back off and retry; you have exceeded application or member rate limits.

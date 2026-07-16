@@ -1,0 +1,127 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/*.yml + examples/*.json (urn:li:* references)
+note: >-
+  LinkedIn models entities as URNs of the form urn:li:<domain>:<id>. Relationships
+  below are derived from the URN reference types observed across the captured
+  OpenAPI specs and example payloads; frequency is the count of URN references
+  seen. This is a derived graph, not an authoritative LinkedIn schema.
+urn_pattern: 'urn:li:<domain>:<id>'
+entities:
+- entity: organization
+  urn: 'urn:li:organization'
+  frequency: 75
+  relationships:
+  - has_many: sponsoredAccount
+    via: reference
+  - has_many: ugcPost
+    via: author
+  - has_one: organizationBrand
+    via: brand
+- entity: sponsoredAccount
+  urn: 'urn:li:sponsoredAccount'
+  frequency: 60
+  relationships:
+  - belongs_to: organization
+    via: reference
+  - has_many: sponsoredCampaignGroup
+    via: account
+  - has_many: sponsoredCampaign
+    via: account
+- entity: sponsoredCampaignGroup
+  urn: 'urn:li:sponsoredCampaignGroup'
+  frequency: 7
+  relationships:
+  - belongs_to: sponsoredAccount
+    via: account
+  - has_many: sponsoredCampaign
+    via: campaignGroup
+- entity: sponsoredCampaign
+  urn: 'urn:li:sponsoredCampaign'
+  frequency: 18
+  relationships:
+  - belongs_to: sponsoredCampaignGroup
+    via: campaignGroup
+  - has_many: sponsoredCreative
+    via: campaign
+  - has_many: adTargetingFacet
+    via: targetingCriteria
+- entity: sponsoredCreative
+  urn: 'urn:li:sponsoredCreative'
+  frequency: 7
+  relationships:
+  - belongs_to: sponsoredCampaign
+    via: campaign
+- entity: adTargetingFacet
+  urn: 'urn:li:adTargetingFacet'
+  frequency: 73
+  relationships:
+  - has_many: geo
+    via: facetValues
+  - has_many: industry
+    via: facetValues
+  - has_many: interest
+    via: facetValues
+- entity: person
+  urn: 'urn:li:person'
+  frequency: 47
+  relationships:
+  - has_many: share
+    via: author
+  - has_many: ugcPost
+    via: author
+- entity: ugcPost
+  urn: 'urn:li:ugcPost'
+  frequency: 10
+  relationships:
+  - belongs_to: person
+    via: author
+  - belongs_to: organization
+    via: author
+  - has_many: comment
+    via: object
+- entity: sponsoredConversation
+  urn: 'urn:li:sponsoredConversation'
+  frequency: 10
+  relationships:
+  - has_one: sponsoredMessageContent
+    via: content
+- entity: leadGenForm
+  urn: 'urn:li:leadGenForm'
+  frequency: 2
+  relationships:
+  - has_many: leadGenResponse
+    via: form
+- entity: geo
+  urn: 'urn:li:geo'
+  frequency: 26
+  relationships: []
+- entity: developerApplication
+  urn: 'urn:li:developerApplication'
+  frequency: 14
+  relationships: []
+- entity: salesContract
+  urn: 'urn:li:salesContract'
+  frequency: 9
+  relationships:
+  - has_many: seat
+    via: contract
+- entity: jobPosting
+  urn: 'urn:li:jobPosting'
+  frequency: 2
+  relationships:
+  - belongs_to: organization
+    via: company
+- entity: learner
+  urn: 'urn:li:learner'
+  frequency: 2
+  relationships:
+  - belongs_to: learnerGroup
+    via: group
+  - has_many: learningCourse
+    via: activity
+- entity: digitalmediaAsset
+  urn: 'urn:li:digitalmediaAsset'
+  frequency: 3
+  relationships: []
+render: subway/

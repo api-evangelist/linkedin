@@ -1,0 +1,39 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/*.yml, well-known/linkedin-openid-configuration.json, LinkedIn API docs
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OpenAPI securitySchemes declare oauth2 (authorizationCode + clientCredentials flows).
+- id: oidc
+  conforms: true
+  evidence: >-
+    Sign In with LinkedIn publishes OpenID Connect discovery at
+    www.linkedin.com/oauth/.well-known/openid-configuration (RS256 id_token,
+    scopes openid/profile/email).
+- id: openid-connect-discovery
+  conforms: true
+  evidence: /.well-known/openid-configuration returns 200 with a valid OIDC provider metadata document.
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: www.linkedin.com/.well-known/security.txt returns 200 (Contact + Policy -> hackerone.com/linkedin).
+- id: restli-2.0.0
+  conforms: true
+  evidence: All APIs require X-Restli-Protocol-Version 2.0.0 (LinkedIn Rest.li framework, URN identifiers).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a LinkedIn/Rest.li JSON envelope (status/message/serviceErrorCode), not application/problem+json.
+- id: pagination
+  conforms: true
+  evidence: Standardized index-based pagination (start/count) with a paging response object across APIs.
+- id: rfc8414-oauth-authorization-server
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 (OAuth AS metadata is only exposed via the OIDC document).
+- id: fhir-r4
+  conforms: false
+- id: scim2
+  conforms: false
+- id: odata
+  conforms: false
+- id: json-api
+  conforms: false

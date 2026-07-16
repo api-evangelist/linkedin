@@ -1,0 +1,72 @@
+generated: '2026-06-20'
+method: searched
+source:
+- https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/pagination
+- https://learn.microsoft.com/en-us/linkedin/marketing/versioning
+- https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/error-handling
+- openapi/*.yml
+protocol:
+  name: Rest.li
+  protocol_version_header: X-Restli-Protocol-Version
+  protocol_version: 2.0.0
+  note: >-
+    LinkedIn APIs are built on the open-source Rest.li framework. Identifiers are
+    expressed as URNs (urn:li:<domain>:<id>). Requests must pin the Rest.li
+    protocol with X-Restli-Protocol-Version: 2.0.0.
+authentication:
+  style: OAuth 2.0 Bearer
+  header: 'Authorization: Bearer {token}'
+  flows: [authorizationCode, clientCredentials]
+  oidc: Sign In with LinkedIn uses OpenID Connect (openid, profile, email scopes)
+  see: authentication/linkedin-authentication.yml
+versioning:
+  header: Linkedin-Version
+  format: YYYYMM
+  required: true
+  see: lifecycle/linkedin-lifecycle.yml
+pagination:
+  style: index-based (offset)
+  params:
+  - name: start
+    description: Index of the first item to return.
+    default: 0
+  - name: count
+    description: Number of items per page (fewer may be returned).
+    default: 10
+  response_object: paging
+  response_fields: [start, count, total, links]
+  results_field: elements
+  end_of_dataset: fewer elements returned than the requested count
+  cursor_note: >-
+    Some newer/finder APIs use metadata cursor tokens; where present the response
+    carries a paging.links[] with rel next and a start/count derived from the cursor.
+field_projection:
+  mechanism: Rest.li field projections
+  param: 'fields (e.g. ?fields=id,firstName,lastName) and decoration via projection syntax'
+  note: >-
+    LinkedIn supports Rest.li decoration/field projection to shape response
+    payloads and expand referenced URN entities inline.
+batching:
+  mechanism: Rest.li batch operations
+  patterns: [BATCH_GET (ids=List(...)), batch create, batch update, batch delete]
+  note: Multiple entities addressed in one call via the ids query parameter with Rest.li encoding.
+request_tracing:
+  note: >-
+    LinkedIn returns an x-li-uuid / x-li-fabric response header on many endpoints
+    that uniquely identifies the request for support escalation.
+error_envelope:
+  content_type: application/json
+  fields: [status, message, serviceErrorCode]
+  format: LinkedIn/Rest.li error (not RFC 9457 problem+json)
+  see: errors/linkedin-problem-types.yml
+rate_limiting:
+  model: per-application and per-member daily throttles
+  signal: HTTP 429 (Too Many Requests)
+  docs: https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/rate-limits
+  see: rate-limits/linkedin-rate-limits.yml
+idempotency:
+  header: null
+  note: >-
+    LinkedIn does not document a general-purpose idempotency-key header; create
+    conflicts surface as 409 (e.g. uniqueForeignId already exists). Some
+    resources accept a client-supplied uniqueForeignId to dedupe.

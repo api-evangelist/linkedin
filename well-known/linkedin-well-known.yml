@@ -1,0 +1,38 @@
+generated: '2026-06-20'
+method: searched
+source: live probes of LinkedIn base hosts (.well-known discovery surface)
+hosts:
+- host: https://www.linkedin.com
+  documents:
+  - path: /oauth/.well-known/openid-configuration
+    standard: OpenID Connect Discovery 1.0
+    status: 200
+    file: linkedin-openid-configuration.json
+  - path: /.well-known/security.txt
+    standard: RFC 9116
+    status: 200
+    file: linkedin-security.txt
+  - path: /.well-known/oauth-authorization-server
+    standard: RFC 8414
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/api-catalog
+    standard: RFC 9727
+    status: 404
+- host: https://api.linkedin.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+notes: >-
+  LinkedIn publishes OpenID Connect discovery under the /oauth path prefix
+  (https://www.linkedin.com/oauth/.well-known/openid-configuration), not at the
+  host root. Sign In with LinkedIn is OIDC-based; scopes_supported = openid,
+  profile, email. security.txt on www.linkedin.com points disclosure at
+  hackerone.com/linkedin.
