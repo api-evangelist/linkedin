@@ -1,0 +1,340 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Campaign Management API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Campaign Management
+  description: APIs to create and manage campaigns
+paths:
+  /adAccounts/{AdAccountsId}/adCampaigns:
+    get:
+      tags:
+      - Campaign Management
+      summary: LinkedIn Search Campaigns
+      description: Search for campaigns by various criteria.
+      operationId: searchCampaigns
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - search
+        example: search
+      - name: search.campaignGroup.values[0]
+        in: query
+        required: false
+        schema:
+          type: string
+        example: urn:li:sponsoredCampaignGroup:111222333
+      responses:
+        '200':
+          description: Successfully retrieved campaigns
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  elements:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Campaign'
+                  paging:
+                    $ref: '#/components/schemas/Paging'
+              examples:
+                SuccessResponse:
+                  value:
+                    elements:
+                    - id: 444555666
+                      name: Spring Promotion Campaign
+                      account: urn:li:sponsoredAccount:123456
+                      campaignGroup: urn:li:sponsoredCampaignGroup:111222333
+                      status: ACTIVE
+                      type: SPONSORED_UPDATES
+                      objectiveType: WEBSITE_VISITS
+                    paging:
+                      start: 0
+                      count: 10
+                      total: 1
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /adAccounts/{AdAccountsId}/adCampaigns/{CampaignId}:
+    get:
+      tags:
+      - Campaign Management
+      summary: LinkedIn Fetch Campaign by Id
+      description: Retrieve a campaign by its ID.
+      operationId: getCampaignById
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: CampaignId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '444555666'
+      responses:
+        '200':
+          description: Successfully retrieved campaign
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+              examples:
+                SuccessResponse:
+                  value:
+                    id: 444555666
+                    name: Spring Promotion Campaign
+                    account: urn:li:sponsoredAccount:123456
+                    campaignGroup: urn:li:sponsoredCampaignGroup:111222333
+                    status: ACTIVE
+                    type: SPONSORED_UPDATES
+                    objectiveType: WEBSITE_VISITS
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+      - Campaign Management
+      summary: LinkedIn Archive Campaign
+      description: Update a campaign status to archived.
+      operationId: archiveCampaign
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: CampaignId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '444555666'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignUpdateRequest'
+            examples:
+              ArchiveCampaign:
+                $ref: '#/components/examples/CampaignArchiveExample'
+      responses:
+        '200':
+          description: Campaign updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CampaignUpdateRequest:
+      type: object
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: ARCHIVED
+                runSchedule:
+                  $ref: '#/components/schemas/RunSchedule'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: string
+    Budget:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: Budget amount
+          example: '1000'
+        currencyCode:
+          type: string
+          description: Currency code
+          example: USD
+    RunSchedule:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+          description: Start timestamp in milliseconds
+          example: 1647927789001
+        end:
+          type: integer
+          format: int64
+          description: End timestamp in milliseconds
+          example: 1648186989000
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
+    Campaign:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier
+          example: 444555666
+        name:
+          type: string
+          description: Campaign name
+          example: Spring Promotion Campaign
+        account:
+          type: string
+          description: Parent account URN
+          example: urn:li:sponsoredAccount:123456
+        campaignGroup:
+          type: string
+          description: Parent campaign group URN
+          example: urn:li:sponsoredCampaignGroup:111222333
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - ARCHIVED
+          - CANCELLED
+          - DRAFT
+          - PAUSED
+          - PENDING_DELETION
+          - REMOVED
+          description: Campaign status
+          example: ACTIVE
+        type:
+          type: string
+          enum:
+          - SPONSORED_UPDATES
+          - SPONSORED_INMAILS
+          - TEXT_AD
+          description: Campaign type
+          example: SPONSORED_UPDATES
+        objectiveType:
+          type: string
+          enum:
+          - BRAND_AWARENESS
+          - ENGAGEMENT
+          - JOB_APPLICANTS
+          - LEAD_GENERATION
+          - VIDEO_VIEWS
+          - WEBSITE_CONVERSIONS
+          - WEBSITE_VISITS
+          description: Campaign objective
+          example: WEBSITE_VISITS
+        runSchedule:
+          $ref: '#/components/schemas/RunSchedule'
+        dailyBudget:
+          $ref: '#/components/schemas/Budget'
+        totalBudget:
+          $ref: '#/components/schemas/Budget'
+  examples:
+    CampaignArchiveExample:
+      summary: Archive a campaign
+      value:
+        patch:
+          $set:
+            status: ARCHIVED
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

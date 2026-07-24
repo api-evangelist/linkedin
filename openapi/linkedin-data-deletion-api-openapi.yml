@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Data Deletion API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Data Deletion
+  description: Delete synced data from LinkedIn
+paths:
+  /v2/atsCandidates:
+    delete:
+      operationId: deleteCandidates
+      tags:
+      - Data Deletion
+      summary: LinkedIn Delete Synced Candidates
+      description: 'Deletes previously synced candidate records.
+
+        For more information, refer to the [Delete Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-candidates).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - name: ids[0].atsCandidateId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: CAND-001
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: ATS
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:organization:12345
+      responses:
+        '200':
+          description: Successfully deleted candidates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Candidate not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v2/atsApplications:
+    delete:
+      operationId: deleteApplications
+      tags:
+      - Data Deletion
+      summary: LinkedIn Delete Synced Applications
+      description: 'Deletes previously synced job application records.
+
+        For more information, refer to the [Delete Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-applications).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - name: ids[0].atsJobApplicationId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: APP-001
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: ATS
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:organization:12345
+      responses:
+        '200':
+          description: Successfully deleted applications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

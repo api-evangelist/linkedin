@@ -1,0 +1,109 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Organization Followers API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Organization Followers
+paths:
+  /peopleTypeahead:
+    get:
+      tags:
+      - Use Cases > Organization Followers
+      summary: LinkedIn Search by Keyword
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: organizationFollowers
+      - name: keywords
+        in: query
+        schema:
+          type: string
+        example: chris
+      - name: organization
+        in: query
+        schema:
+          type: string
+        example: urn%3Ali%3Aorganization%3A{{organization_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getSearchByKeyword
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /vanityUrl:
+    get:
+      tags:
+      - Use Cases > Organization Followers
+      summary: LinkedIn Search by Vanity URL
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: vanityUrlAsOrganization
+      - name: vanityUrl
+        in: query
+        schema:
+          type: string
+        example: https%3A//www.linkedin.com/in/vanityName/
+      - name: organization
+        in: query
+        schema:
+          type: string
+        example: urn%3Ali%3Aorganization%3A{{organization_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getSearchByVanityUrl
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

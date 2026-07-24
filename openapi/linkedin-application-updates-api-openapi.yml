@@ -1,0 +1,189 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Application Updates API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Application Updates
+  description: APIs for updating child application configurations
+paths:
+  /v2/provisionedApplications/{customer_application_urn}:
+    post:
+      operationId: updateChildApplicationCallbackUrls
+      tags:
+      - Application Updates
+      summary: LinkedIn Update OAuth 2.0 Callback URLs for Child Application
+      description: 'Updates the OAuth 2.0 authorized callback URLs for a child application. Partners use this endpoint to modify the callback URLs configuration for customer applications.
+
+        For more information, refer to the [Update Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#update-application).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/CustomerApplicationUrnPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCallbackUrlRequest'
+            examples:
+              UpdateCallbackRequest:
+                $ref: '#/components/examples/UpdateCallbackUrlRequestExample'
+      responses:
+        '200':
+          description: Successfully updated the application callback URLs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionApplicationResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ProvisionApplicationResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  parameters:
+    CustomerApplicationUrnPath:
+      name: customer_application_urn
+      in: path
+      required: true
+      description: URN of the customer application to update
+      schema:
+        type: string
+      example: urn:li:developerApplication:12345678
+  examples:
+    UpdateCallbackUrlRequestExample:
+      summary: Example request to update callback URLs
+      value:
+        patch:
+          $set:
+            oauth2AuthorizedCallbackUrls:
+            - https://app.acme.com/oauth2/callback
+            - https://new-domain.acme.com/oauth2/callback
+    ProvisionApplicationResponseExample:
+      summary: Example response for provisioned application
+      value:
+        applicationUrn: urn:li:developerApplication:12345678
+        clientId: 78abc123def456
+        clientSecret: secretXYZ789
+        name: Acme Corporation
+        uniqueForeignId: acme-corp-12345
+        oauth2AuthorizedCallbackUrls:
+        - https://app.acme.com/oauth2/callback
+        validJsSdkDomains:
+        - https://app.acme.com
+        createdAt: 1702693664000
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          description: LinkedIn service-specific error code
+          example: 100
+    UpdateCallbackUrlRequest:
+      type: object
+      description: Request body for updating OAuth 2.0 callback URLs
+      required:
+      - patch
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              type: object
+              properties:
+                oauth2AuthorizedCallbackUrls:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+                  example:
+                  - https://app.acme.com/oauth2/callback
+                  - https://new-domain.acme.com/oauth2/callback
+    ProvisionApplicationResponse:
+      type: object
+      description: Response containing provisioned application details
+      properties:
+        applicationUrn:
+          type: string
+          description: URN of the provisioned application
+          example: urn:li:developerApplication:12345678
+        clientId:
+          type: string
+          description: OAuth 2.0 client ID for the application
+          example: 78abc123def456
+        clientSecret:
+          type: string
+          description: OAuth 2.0 client secret for the application
+          example: secretXYZ789
+        name:
+          type: string
+          description: Name of the application
+          example: Acme Corporation
+        uniqueForeignId:
+          type: string
+          description: Partner's unique identifier for the customer
+          example: acme-corp-12345
+        oauth2AuthorizedCallbackUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          example:
+          - https://app.acme.com/oauth2/callback
+        validJsSdkDomains:
+          type: array
+          items:
+            type: string
+          example:
+          - https://app.acme.com
+        createdAt:
+          type: integer
+          format: int64
+          description: Timestamp of application creation
+          example: 1702693664000
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

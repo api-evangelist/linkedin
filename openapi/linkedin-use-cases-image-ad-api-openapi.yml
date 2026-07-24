@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Image Ad API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Image Ad
+  description: 'Image ads help you engage business decision-makers on LinkedIn''s mobile and desktop news feed. You can create image ads in two ways:
+
+
+    \*   Post images to your Company Page and sponsor the post to reach more than just followers. Your organization can share a first-hand look into your company culture, products, news, and events with a company page image to drive further engagement and conversation.
+
+    \*   Create image ads that bypass Company Page followers and go directly to your news feed.'
+paths:
+  /images:
+    post:
+      tags:
+      - Use Cases > Image Ad
+      summary: LinkedIn Initialize Image Upload
+      description: Use the `initializeUpload` action to register the upload. When you initialize, you declare the upcoming upload. Use the upload URL to upload the image.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/InitializeImageUploadRequest'
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: action
+        in: query
+        schema:
+          type: string
+        example: initializeUpload
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postInitializeImageUpload
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /rest/images/{image_urn}:
+    get:
+      tags:
+      - Use Cases > Image Ad
+      summary: LinkedIn Get a Single Image
+      description: This API rerieve a single image.
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: image_urn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetASingleImage
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /rest/posts:
+    get:
+      tags:
+      - Use Cases > Image Ad
+      summary: LinkedIn Fetch Multiple Image Content
+      description: This API rerieve content from multiple images.
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: List({encoded postId},{encoded postId})
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getFetchMultipleImageContent
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /rest/posts/{postId}:
+    get:
+      tags:
+      - Use Cases > Image Ad
+      summary: LinkedIn Get Image Content
+      description: This API rerieve the content associated with a single image.
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: postId
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetImageContent
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  schemas:
+    InitializeImageUploadRequest:
+      type: string
+      example: '"{\n  \"initializeUploadRequest\": {\n        \"owner\": \"urn:li:organization:5583111\"\n  }\n}\n"'
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

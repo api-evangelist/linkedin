@@ -1,0 +1,336 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Feed Content API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Feed Content
+  description: Posts, reactions, comments, and social metadata
+paths:
+  /rest/dmaPosts:
+    get:
+      operationId: getPosts
+      tags:
+      - Feed Content
+      summary: LinkedIn Get Posts
+      description: Retrieves posts published by an organization for data portability compliance. Returns post content, visibility settings, and engagement metadata.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: author
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:organization:10002687
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
+      responses:
+        '200':
+          description: Successfully retrieved posts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/PostResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /rest/dmaReactions:
+    get:
+      operationId: getReactions
+      tags:
+      - Feed Content
+      summary: LinkedIn Get Reactions
+      description: Retrieves reactions on content for data portability compliance. Returns reaction types and actor information.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: activityUrn
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:share:7012345678901234567
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
+      responses:
+        '200':
+          description: Successfully retrieved reactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReactionResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /rest/dmaComments:
+    get:
+      operationId: getComments
+      tags:
+      - Feed Content
+      summary: LinkedIn Get Comments
+      description: Retrieves comments on content for data portability compliance. Returns comment text, author information, and timestamps.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: activityUrn
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:share:7012345678901234567
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
+      responses:
+        '200':
+          description: Successfully retrieved comments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ReactionResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reaction'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    CommentResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 25
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: object
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:li:share:7012345678901234567
+        author:
+          type: string
+          example: urn:li:organization:10002687
+        commentary:
+          type: string
+          example: Exciting news from our team!
+        visibility:
+          type: string
+          enum:
+          - PUBLIC
+          - CONNECTIONS
+          example: PUBLIC
+        lifecycleState:
+          type: string
+          enum:
+          - PUBLISHED
+          - DRAFT
+          example: PUBLISHED
+        created:
+          $ref: '#/components/schemas/Timestamp'
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
+    PostResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Reaction:
+      type: object
+      properties:
+        actor:
+          type: string
+          example: urn:li:person:ABC123
+        reactionType:
+          type: string
+          enum:
+          - LIKE
+          - CELEBRATE
+          - SUPPORT
+          - LOVE
+          - INSIGHTFUL
+          - FUNNY
+          example: LIKE
+        created:
+          $ref: '#/components/schemas/Timestamp'
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:li:comment:(urn:li:share:123,456)
+        actor:
+          type: string
+          example: urn:li:person:ABC123
+        message:
+          type: string
+          example: Great post!
+        created:
+          $ref: '#/components/schemas/Timestamp'
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
+    Timestamp:
+      type: object
+      properties:
+        time:
+          type: integer
+          format: int64
+          example: 1702693664000
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+  examples:
+    PostResponseExample:
+      summary: Post response
+      value:
+        elements:
+        - id: urn:li:share:7012345678901234567
+          author: urn:li:organization:10002687
+          commentary: Exciting news from our team!
+          visibility: PUBLIC
+          lifecycleState: PUBLISHED
+        paging:
+          start: 0
+          count: 25
+  parameters:
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

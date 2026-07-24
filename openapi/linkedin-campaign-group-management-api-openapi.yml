@@ -1,0 +1,406 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Campaign Group Management API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Campaign Group Management
+  description: APIs to create and manage campaign groups
+paths:
+  /adAccounts/{AdAccountsId}/adCampaignGroups:
+    get:
+      tags:
+      - Campaign Group Management
+      summary: LinkedIn Search Campaign Groups
+      description: Search for campaign groups by ID, account, name, and status.
+      operationId: searchCampaignGroups
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - search
+        example: search
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        example: (status:(values:List(ACTIVE,DRAFT)))
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        example: (field:ID,order:DESCENDING)
+      responses:
+        '200':
+          description: Successfully retrieved campaign groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  elements:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CampaignGroup'
+                  paging:
+                    $ref: '#/components/schemas/Paging'
+              examples:
+                SuccessResponse:
+                  value:
+                    elements:
+                    - id: 111222333
+                      name: Q1 2024 Campaign Group
+                      account: urn:li:sponsoredAccount:123456
+                      status: ACTIVE
+                      totalBudget:
+                        amount: '1000'
+                        currencyCode: USD
+                    paging:
+                      start: 0
+                      count: 10
+                      total: 1
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+      - Campaign Group Management
+      summary: LinkedIn Delete Multiple Campaign Groups
+      description: Delete multiple campaign groups. Only DRAFT campaign groups can be deleted.
+      operationId: deleteCampaignGroups
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: ids
+        in: query
+        required: true
+        schema:
+          type: string
+        example: List(111222333,111222334)
+      responses:
+        '204':
+          description: Campaign groups deleted successfully
+        '400':
+          description: Bad request - campaign groups not in DRAFT status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /adAccounts/{AdAccountsId}/adCampaignGroups/{CampaignGroupId}:
+    get:
+      tags:
+      - Campaign Group Management
+      summary: LinkedIn Fetch Campaign Group by Id
+      description: Retrieve a campaign group by its ID.
+      operationId: getCampaignGroupById
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: CampaignGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '111222333'
+      responses:
+        '200':
+          description: Successfully retrieved campaign group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignGroup'
+              examples:
+                SuccessResponse:
+                  value:
+                    id: 111222333
+                    name: Q1 2024 Campaign Group
+                    account: urn:li:sponsoredAccount:123456
+                    status: ACTIVE
+                    totalBudget:
+                      amount: '1000'
+                      currencyCode: USD
+        '404':
+          description: Campaign group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+      - Campaign Group Management
+      summary: LinkedIn Update Campaign Group
+      description: Update a campaign group using partial update.
+      operationId: updateCampaignGroup
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: CampaignGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '111222333'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              UpdateBudget:
+                $ref: '#/components/examples/CampaignGroupUpdateExample'
+      responses:
+        '200':
+          description: Campaign group updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignGroup'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+      - Campaign Group Management
+      summary: LinkedIn Delete Campaign Group
+      description: Delete a campaign group. Only DRAFT campaign groups can be deleted.
+      operationId: deleteCampaignGroup
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-RestLi-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: AdAccountsId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: CampaignGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '111222333'
+      responses:
+        '204':
+          description: Campaign group deleted successfully
+        '400':
+          description: Bad request - campaign group not in DRAFT status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: string
+    Budget:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: Budget amount
+          example: '1000'
+        currencyCode:
+          type: string
+          description: Currency code
+          example: USD
+    RunSchedule:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+          description: Start timestamp in milliseconds
+          example: 1647927789001
+        end:
+          type: integer
+          format: int64
+          description: End timestamp in milliseconds
+          example: 1648186989000
+    CampaignGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier
+          example: 111222333
+        name:
+          type: string
+          description: Display name
+          example: Q1 2024 Campaign Group
+        account:
+          type: string
+          description: Parent account URN
+          example: urn:li:sponsoredAccount:123456
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - ARCHIVED
+          - CANCELLED
+          - DRAFT
+          - PAUSED
+          - PENDING_DELETION
+          - REMOVED
+          description: Campaign group status
+          example: ACTIVE
+        totalBudget:
+          $ref: '#/components/schemas/Budget'
+        runSchedule:
+          $ref: '#/components/schemas/RunSchedule'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
+  examples:
+    CampaignGroupUpdateExample:
+      summary: Update campaign group budget
+      value:
+        patch:
+          $set:
+            totalBudget:
+              amount: '3000'
+              currencyCode: USD
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

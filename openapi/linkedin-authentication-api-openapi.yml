@@ -1,0 +1,130 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Authentication API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Authentication
+  description: OAuth 2.0 token management for customer applications
+paths:
+  /oauth/v2/accessToken:
+    post:
+      operationId: getAccessToken
+      tags:
+      - Authentication
+      summary: LinkedIn Get Customer Application Access Token
+      description: Obtains an OAuth 2.0 access token using client credentials grant for customer application authentication.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AccessTokenRequest'
+      responses:
+        '200':
+          description: Successfully obtained access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/AccessTokenResponseExample'
+        '401':
+          description: Invalid client credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  examples:
+    AccessTokenResponseExample:
+      summary: Successful access token response
+      value:
+        access_token: AQV8vPRN5zF9BxJ...
+        expires_in: 5184000
+        token_type: Bearer
+  schemas:
+    AccessTokenRequest:
+      type: object
+      description: Request body for obtaining access token
+      required:
+      - grant_type
+      - client_id
+      - client_secret
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - client_credentials
+          example: client_credentials
+        client_id:
+          type: string
+          description: OAuth 2.0 client ID
+          example: 78abc123def456
+        client_secret:
+          type: string
+          description: OAuth 2.0 client secret
+          example: secretXYZ789
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    AccessTokenResponse:
+      type: object
+      description: Response containing access token
+      properties:
+        access_token:
+          type: string
+          description: OAuth 2.0 access token
+          example: AQV8vPRN5zF9BxJ...
+        expires_in:
+          type: integer
+          description: Token expiration time in seconds
+          example: 5184000
+        token_type:
+          type: string
+          description: Token type
+          example: Bearer
+  parameters:
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

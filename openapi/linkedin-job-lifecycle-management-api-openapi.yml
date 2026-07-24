@@ -1,0 +1,129 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Job Lifecycle Management API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Job Lifecycle Management
+  description: APIs for managing the lifecycle of job postings
+paths:
+  /v2/simpleJobPostingTasks:
+    get:
+      operationId: getJobPostingTaskStatus
+      tags:
+      - Job Lifecycle Management
+      summary: LinkedIn Check Job Posting Task Status
+      description: 'Retrieves the status of a job posting task to track whether the job has been successfully created, updated, or closed.
+
+        After successful completion, the response includes the `jobPostingUrn` which can be used to view the job at: `https://www.linkedin.com/jobs/view/{jobPostingId}`
+
+        For more information, refer to the [Check Job Task Status documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/TaskIdsQuery'
+      responses:
+        '200':
+          description: Successfully retrieved task status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobPostingTaskResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/JobPostingTaskResponseExample'
+        '400':
+          description: Bad request - invalid task URN
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  examples:
+    JobPostingTaskResponseExample:
+      summary: Example job posting task status response
+      value:
+        results:
+          urn:li:simpleJobPostingTask:12345678:
+            status: SUCCEEDED
+            jobPostingUrn: urn:li:jobPosting:2722131308
+  parameters:
+    TaskIdsQuery:
+      name: ids
+      in: query
+      required: true
+      description: Task URN(s) to check status
+      schema:
+        type: string
+      example: urn:li:simpleJobPostingTask:12345678
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    JobPostingTaskResponse:
+      type: object
+      description: Response for job posting task status
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/JobPostingTaskResult'
+    JobPostingTaskResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - SUCCEEDED
+          - FAILED
+          example: SUCCEEDED
+        jobPostingUrn:
+          type: string
+          description: URN of the created job posting
+          example: urn:li:jobPosting:2722131308
+        errorMessage:
+          type: string
+          description: Error message if task failed
+          example: example_value
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

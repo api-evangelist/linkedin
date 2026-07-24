@@ -1,0 +1,207 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Profile Associations API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Profile Associations
+  description: Fetch Sales Navigator profile associations from CRM records
+paths:
+  /salesNavigatorProfileAssociations/{InstanceId},{Partner},{RecordId}:
+    get:
+      tags:
+      - Profile Associations
+      summary: LinkedIn Fetch Profile Association by Key
+      description: Fetch the corresponding match when provided with a SalesNavigatorProfileAssociationKey.
+      operationId: getProfileAssociation
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: ID of the CRM instance that synced with Sales Navigator
+        schema:
+          type: string
+        example: sf-instance-001
+      - name: Partner
+        in: path
+        required: true
+        description: ID of the CRM partner that synced with Sales Navigator
+        schema:
+          type: string
+        example: salesforce
+      - name: RecordId
+        in: path
+        required: true
+        description: ID of the CRM record
+        schema:
+          type: string
+        example: contact-12345
+      responses:
+        '200':
+          description: Successfully retrieved Sales Navigator Profile Association
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesNavigatorProfileAssociation'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ProfileAssociationExample'
+        '400':
+          description: Bad request, missing parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized, invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Insufficient application access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Match unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /salesNavigatorProfileAssociations:
+    get:
+      tags:
+      - Profile Associations
+      summary: LinkedIn Batch Fetch Profile Associations
+      description: Batch fetch matches when provided with multiple SalesNavigatorProfileAssociationKeys.
+      operationId: batchGetProfileAssociations
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: ids
+        in: query
+        required: true
+        description: List of association keys in the format List((instanceId,partner,recordId))
+        schema:
+          type: string
+        example: List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))
+      responses:
+        '200':
+          description: Successfully retrieved batch Sales Navigator Profile Associations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProfileAssociationResponse'
+              examples:
+                SuccessResponse:
+                  value:
+                    statuses:
+                      (sf-instance-001,salesforce,contact-12345): 200
+                      (sf-instance-001,salesforce,contact-67890): 200
+                    results:
+                      (sf-instance-001,salesforce,contact-12345):
+                        member: urn:li:person:ABC123def
+                        profile: https://www.linkedin.com/sales/people/ABC123def
+                        profilePhoto: https://media.licdn.com/dms/image/ABC123/profile.jpg
+                      (sf-instance-001,salesforce,contact-67890):
+                        member: urn:li:person:XYZ789ghi
+                        profile: https://www.linkedin.com/sales/people/XYZ789ghi
+                    errors: {}
+        '400':
+          description: Bad request, missing parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized, invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    SalesNavigatorProfileAssociation:
+      type: object
+      properties:
+        member:
+          type: string
+          description: LinkedIn Person URN
+          example: urn:li:person:ABC123def
+        profile:
+          type: string
+          format: uri
+          description: Absolute URL of the Sales Navigator profile
+          example: https://www.linkedin.com/sales/people/ABC123def
+        profilePhoto:
+          type: string
+          format: uri
+          description: Absolute URL of the LinkedIn profile photo (optional)
+          example: https://media.licdn.com/dms/image/ABC123/profile.jpg
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    BatchProfileAssociationResponse:
+      type: object
+      properties:
+        statuses:
+          type: object
+          additionalProperties:
+            type: integer
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SalesNavigatorProfileAssociation'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+  examples:
+    ProfileAssociationExample:
+      summary: Profile association response
+      value:
+        member: urn:li:person:ABC123def
+        profile: https://www.linkedin.com/sales/people/ABC123def
+        profilePhoto: https://media.licdn.com/dms/image/ABC123/profile.jpg
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

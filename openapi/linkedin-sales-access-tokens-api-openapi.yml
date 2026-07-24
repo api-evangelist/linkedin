@@ -1,0 +1,127 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Sales Access Tokens API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Sales Access Tokens
+  description: Retrieve sales access tokens for authenticated iframe sessions
+paths:
+  /salesAccessTokens:
+    get:
+      tags:
+      - Sales Access Tokens
+      summary: LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions
+      description: Get a short-lived, limited-scope OAuth token for authenticated iframe sessions.
+      operationId: getSalesAccessToken
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - viewerAndDeveloperApp
+        description: Query parameter for retrieving a Sales Access Token
+        example: viewerAndDeveloperApp
+      responses:
+        '200':
+          description: A list of Sales Access Tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesAccessTokenResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/SalesAccessTokenResponseExample'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Paging:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 10
+        start:
+          type: integer
+          example: 0
+        links:
+          type: array
+          items:
+            type: string
+    SalesAccessTokenResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesAccessToken'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    SalesAccessToken:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Short-lived, limited-scope OAuth token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        expiryTime:
+          type: integer
+          description: Time at which this token will become invalid (seconds since epoch)
+          example: 1640100000
+      required:
+      - token
+      - expiryTime
+  examples:
+    SalesAccessTokenResponseExample:
+      summary: Sales access token response
+      value:
+        elements:
+        - token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          expiryTime: 1640100000
+        paging:
+          count: 1
+          start: 0
+          links: []
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

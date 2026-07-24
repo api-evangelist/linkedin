@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Audience Counts API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Audience Counts
+  description: APIs to retrieve audience counts based on targeting criteria
+paths:
+  /audienceCounts:
+    get:
+      tags:
+      - Audience Counts
+      summary: LinkedIn Get Audience Count by Targeting Criteria
+      description: Get the number of member accounts that fit your targeting criteria. Minimum audience size of 300 is required to run a campaign.
+      operationId: getAudienceCount
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer YOUR_ACCESS_TOKEN
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - targetingCriteriaV2
+        example: targetingCriteriaV2
+      - name: targetingCriteria
+        in: query
+        required: true
+        schema:
+          type: string
+        description: URL-encoded targeting criteria
+        example: (include:(and:List((or:({encoded facet_URN_1}:List({encoded facet_URN_1_value_1}))))))
+      responses:
+        '200':
+          description: Successfully retrieved audience count
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceCount'
+              examples:
+                SuccessResponse:
+                  value:
+                    total: 1500000
+                    activeCount: 1200000
+        '400':
+          description: Bad request - invalid targeting criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
+    AudienceCount:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total audience count
+          example: 1500000
+        activeCount:
+          type: integer
+          description: Active member count
+          example: 1200000
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

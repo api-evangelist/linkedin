@@ -1,0 +1,157 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Business Manager API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Business Manager
+  description: Business manager account relationships
+paths:
+  /rest/dmaBusinessManagerAccountRelationships:
+    get:
+      operationId: getBusinessManagerRelationships
+      tags:
+      - Business Manager
+      summary: LinkedIn Get Business Manager Account Relationships
+      description: Retrieves business manager account relationships for data portability compliance. Returns relationship types and status between business manager accounts and organizations.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: businessManagerAccount
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:businessManagerAccount:21002
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
+      responses:
+        '200':
+          description: Successfully retrieved relationships
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  elements:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        relationshipType:
+                          type: string
+                          example: OWN
+                        status:
+                          type: string
+                          example: APPROVED
+                        organization:
+                          type: string
+                          example: urn:li:organization:10002687
+                  paging:
+                    $ref: '#/components/schemas/Paging'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 25
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: object
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+  parameters:
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

@@ -1,0 +1,218 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Child Application Provisioning API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Child Application Provisioning
+  description: APIs for provisioning and managing customer (child) applications
+paths:
+  /v2/provisionedApplications:
+    post:
+      operationId: provisionChildApplication
+      tags:
+      - Child Application Provisioning
+      summary: LinkedIn Provision Child Application
+      description: 'Creates a new child application for a mutual customer. Partners use this endpoint to provision developer applications that enable customer integrations with LinkedIn services.
+
+        For more information, refer to the [Create Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#create-application).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProvisionApplicationRequest'
+            examples:
+              ProvisionRequest:
+                $ref: '#/components/examples/ProvisionApplicationRequestExample'
+      responses:
+        '200':
+          description: Successfully provisioned the child application
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionApplicationResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ProvisionApplicationResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                BadRequestError:
+                  $ref: '#/components/examples/ErrorResponseExample'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict - application with uniqueForeignId already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ProvisionApplicationRequest:
+      type: object
+      description: Request body for provisioning a new child application
+      required:
+      - name
+      - uniqueForeignId
+      - oauth2AuthorizedCallbackUrls
+      properties:
+        name:
+          type: string
+          description: Name of the customer application
+          example: Acme Corporation
+        description:
+          type: string
+          description: Description of the application
+          example: Test application for Acme Corporation
+        uniqueForeignId:
+          type: string
+          description: Unique identifier for the customer in the partner's system
+          example: acme-corp-12345
+        oauth2AuthorizedCallbackUrls:
+          type: array
+          description: List of authorized OAuth 2.0 callback URLs
+          items:
+            type: string
+            format: uri
+          example:
+          - https://app.acme.com/oauth2/callback
+          - https://staging.acme.com/oauth2/callback
+        validJsSdkDomains:
+          type: array
+          description: List of valid JavaScript SDK domains
+          items:
+            type: string
+          example:
+          - https://app.acme.com
+          - http://localhost:5000
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          description: LinkedIn service-specific error code
+          example: 100
+    ProvisionApplicationResponse:
+      type: object
+      description: Response containing provisioned application details
+      properties:
+        applicationUrn:
+          type: string
+          description: URN of the provisioned application
+          example: urn:li:developerApplication:12345678
+        clientId:
+          type: string
+          description: OAuth 2.0 client ID for the application
+          example: 78abc123def456
+        clientSecret:
+          type: string
+          description: OAuth 2.0 client secret for the application
+          example: secretXYZ789
+        name:
+          type: string
+          description: Name of the application
+          example: Acme Corporation
+        uniqueForeignId:
+          type: string
+          description: Partner's unique identifier for the customer
+          example: acme-corp-12345
+        oauth2AuthorizedCallbackUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          example:
+          - https://app.acme.com/oauth2/callback
+        validJsSdkDomains:
+          type: array
+          items:
+            type: string
+          example:
+          - https://app.acme.com
+        createdAt:
+          type: integer
+          format: int64
+          description: Timestamp of application creation
+          example: 1702693664000
+  examples:
+    ProvisionApplicationRequestExample:
+      summary: Example request to provision a child application
+      value:
+        name: Acme Corporation
+        description: Test application for Acme Corporation
+        uniqueForeignId: acme-corp-12345
+        oauth2AuthorizedCallbackUrls:
+        - https://app.acme.com/oauth2/callback
+        validJsSdkDomains:
+        - https://app.acme.com
+        - http://localhost:5000
+    ErrorResponseExample:
+      summary: Example error response
+      value:
+        status: 400
+        message: Invalid request parameters
+        serviceErrorCode: 100
+    ProvisionApplicationResponseExample:
+      summary: Example response for provisioned application
+      value:
+        applicationUrn: urn:li:developerApplication:12345678
+        clientId: 78abc123def456
+        clientSecret: secretXYZ789
+        name: Acme Corporation
+        uniqueForeignId: acme-corp-12345
+        oauth2AuthorizedCallbackUrls:
+        - https://app.acme.com/oauth2/callback
+        validJsSdkDomains:
+        - https://app.acme.com
+        createdAt: 1702693664000
+  parameters:
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of the request body
+      schema:
+        type: string
+      example: application/json
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

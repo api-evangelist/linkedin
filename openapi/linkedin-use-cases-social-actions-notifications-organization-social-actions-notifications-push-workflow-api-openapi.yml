@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow
+  description: Registered webhook URLs will receive notifications from LinkedIn for subscribed events.
+paths:
+  ? /eventSubscriptions/(developerApplication:urn:li:developerApplication:{application_id},user:urn:li:person:{person_id},entity:urn:li:organization:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)
+  : put:
+      tags:
+      - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow
+      summary: LinkedIn 3. Create a Subscription Request
+      description: '[Create a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#creating-and-updating-subscriptions) record to include the webhook URL where your app will receive notifications. The subscription request will only succeed if the subscribing member is an administrator of the organization being subscribed to.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateASubscriptionRequestRequest'
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: Linkedin-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: application_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      - name: person_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      - name: organization_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: putCreateASubscriptionRequest
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    get:
+      tags:
+      - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow
+      summary: LinkedIn 5. Retrieve Subscription by Key
+      description: Retrieve all the subscriptions details such as webhook url and expiration for the logged in user. [Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#retrieve-subscriptions-for-an-authenticated-member) by viewing our online documentation.
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: application_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      - name: person_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      - name: organization_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getRetrieveSubscriptionByKey
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  ? /eventSubscriptions/(developerApplication:{application_id},user:{person_id},entity:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)
+  : delete:
+      tags:
+      - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow
+      summary: LinkedIn 6. Remove a Subscription
+      description: '[Remove a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#remove-a-subscription) for a your developer application and Organization.'
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: application_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      - name: person_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      - name: organization_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: deleteRemoveASubscription
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  schemas:
+    CreateASubscriptionRequestRequest:
+      type: object
+      example:
+        webhook: https://www.example.com/callback
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

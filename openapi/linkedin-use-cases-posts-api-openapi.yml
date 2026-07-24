@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Posts API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Posts
+  description: The Posts API facilities the creation and retrieval of organic and sponsored posts.
+paths:
+  /posts/{encoded ugcPostUrn|shareUrn}:
+    get:
+      tags:
+      - Use Cases > Posts
+      summary: LinkedIn Get Posts by URN
+      description: Creating posts with image requires uploading an image asset to obtain a Image URN (urn:li:image:{id}) for creating the post. See the [Images API](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/images-api?view=li-lms-2022-08) for instructions on how to do this.
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetPostsByUrn
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    delete:
+      tags:
+      - Use Cases > Posts
+      summary: LinkedIn Delete a Post
+      description: 'Post deletions are idempotent. Deletion requests for a previously deleted UGC Post will return a `204` code - No Content.
+
+
+        ####'
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: deleteDeleteAPost
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /posts/{shared ID}/{ugcPosts ID}:
+    post:
+      tags:
+      - Use Cases > Posts
+      summary: LinkedIn Update a Post
+      description: 'The following `posts` field are available to update. Refer to [Schema](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/posts-api?view=li-lms-2022-08&tabs=http#post-schema) for complete field details.
+
+
+        | Field | Description |
+
+        | --- | --- |
+
+        | commentary | String |
+
+        | contentCallToActionLabel | contentCallToActionLabel text |
+
+        | contentLandingPage | URL of the landing page |
+
+        | reshareContext |  |
+
+        | lifecycleState |  |
+
+        | adContext | \*   dscName: Update the name of the sponsored content<br>\*   dscStatus: Update the status of the sponsored content |'
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/UpdateAPostRequest'
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postUpdateAPost
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  schemas:
+    UpdateAPostRequest:
+      type: string
+      example: '"{\n  \"patch\": {\n    \"$set\": {\n      \"commentary\": \"Update to the post\",\n      \"contentCallToActionLabel\": \"LEARN_MORE\"\n    }\n  }\n}\n"'
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

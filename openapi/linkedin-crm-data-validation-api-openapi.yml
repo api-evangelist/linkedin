@@ -1,0 +1,241 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control CRM Data Validation API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: CRM Data Validation
+  description: Create and manage CRM data validation export jobs
+paths:
+  /crmDataValidationExportJobs:
+    post:
+      tags:
+      - CRM Data Validation
+      summary: LinkedIn Create CRM Data Validation Export Job
+      description: Create a new CRM data validation export job to validate CRM data against LinkedIn.
+      operationId: createCrmDataValidationExportJob
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: crmInstanceId
+        in: query
+        required: true
+        description: An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.
+        schema:
+          type: string
+        example: urn%3Ali%3AcrmInstance%3Asf-instance-001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmDataValidationExportJobRequest'
+            examples:
+              CreateJobRequest:
+                value:
+                  exportStartAt: 1640000000000
+      responses:
+        '201':
+          description: Export job created successfully
+          headers:
+            Location:
+              description: Resource location of created job
+              schema:
+                type: string
+            X-RestLi-Id:
+              description: Job ID
+              schema:
+                type: integer
+                format: int64
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDataValidationExportJob'
+              examples:
+                SuccessResponse:
+                  value:
+                    jobId: 123456789
+                    exportStartAt: 1640000000000
+                    status: PROCESSING
+        '400':
+          description: Bad request, missing or invalid parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden, insufficient access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /crmDataValidationExportJobs/{JobId}:
+    get:
+      tags:
+      - CRM Data Validation
+      summary: LinkedIn Get CRM Data Validation Export Job Status
+      description: Retrieve the status and details of a CRM data validation export job.
+      operationId: getCrmDataValidationExportJob
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: JobId
+        in: path
+        required: true
+        description: The ID of the export job
+        schema:
+          type: integer
+          format: int64
+        example: 123456789
+      - name: crmInstanceId
+        in: query
+        required: true
+        description: An URN containing the instance ID of the CRM. The URN must be URL encoded.
+        schema:
+          type: string
+        example: urn%3Ali%3AcrmInstance%3Asf-instance-001
+      responses:
+        '200':
+          description: Export job status returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDataValidationExportJob'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/CrmDataValidationJobExample'
+        '400':
+          description: Bad request, missing or invalid parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden, insufficient access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Job ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CrmDataValidationExportJob:
+      type: object
+      properties:
+        jobId:
+          type: integer
+          format: int64
+          description: Export job ID
+          example: 123456789
+        exportStartAt:
+          type: integer
+          format: int64
+          description: Start time of the export
+          example: 1640000000000
+        exportEndAt:
+          type: integer
+          format: int64
+          nullable: true
+          description: End time of the export
+          example: 1640001000000
+        status:
+          type: string
+          enum:
+          - PROCESSING
+          - COMPLETED
+          - FAILED_DUE_TO_INTERNAL_ERROR
+          description: Current status of the export job
+          example: COMPLETED
+        downloadUrls:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: URLs for downloading the exported data
+          example:
+          - https://media.licdn.com/crm-validation/export_1.csv
+          - https://media.licdn.com/crm-validation/export_2.csv
+        nextExportStartAt:
+          type: integer
+          format: int64
+          nullable: true
+          description: Suggested start time for next export
+          example: 1640001000000
+        expireAt:
+          type: integer
+          format: int64
+          nullable: true
+          description: Expiration timestamp for download URLs
+          example: 1640100000000
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    CrmDataValidationExportJobRequest:
+      type: object
+      properties:
+        exportStartAt:
+          type: integer
+          format: int64
+          description: Time at which export was started
+          example: 1640000000000
+  examples:
+    CrmDataValidationJobExample:
+      summary: CRM data validation export job
+      value:
+        jobId: 123456789
+        exportStartAt: 1640000000000
+        exportEndAt: 1640001000000
+        status: COMPLETED
+        downloadUrls:
+        - https://media.licdn.com/crm-validation/export_1.csv
+        nextExportStartAt: 1640001000000
+        expireAt: 1640100000000
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

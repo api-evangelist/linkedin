@@ -1,0 +1,134 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Video Ad API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Video Ad
+  description: The Videos API is a new offering from LinkedIn that features the ability to upload a captions file as well as thumbnail video functionality.
+paths:
+  /images:
+    get:
+      tags:
+      - Use Cases > Video Ad
+      summary: LinkedIn Get Multiple Videos
+      description: This API retrieves multiple videos.
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: List({{image_urn1}},{{image_urn2}})
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetMultipleVideos
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /videos:
+    post:
+      tags:
+      - Use Cases > Video Ad
+      summary: LinkedIn Initialize Video Upload
+      description: Use the `initializeUpload` action to register the upload. When you initialize, you declare the upcoming upload. Use the upload URL from the `uploadInstructions` to upload the video.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/InitializeVideoUploadRequest'
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: action
+        in: query
+        schema:
+          type: string
+        example: initializeUpload
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postInitializeVideoUpload
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /images/{image_urn}:
+    get:
+      tags:
+      - Use Cases > Video Ad
+      summary: LinkedIn Get a Single Video
+      description: This API retrieves a single video.
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: image_urn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetASingleVideo
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  schemas:
+    InitializeVideoUploadRequest:
+      type: string
+      example: '"{ \"initializeUploadRequest\": {\n       \"owner\": \"organization_urn\",\n       \"fileSizeBytes\": 1055736 ,\n       \"uploadCaptions\": false, //set to true to upload video with caption\n       \"uploadThumbnail\": false //set to true to upload video with thumbnail\n}}\n"'
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

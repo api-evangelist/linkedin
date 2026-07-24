@@ -1,0 +1,270 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Access Control Compliance Events API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Compliance Events
+  description: APIs to retrieve compliance events for regulated members
+paths:
+  /v2/complianceEvents:
+    get:
+      tags:
+      - Compliance Events
+      summary: LinkedIn Retrieve Compliance Events for Regulated Member
+      description: Retrieve compliance events for a regulated member. Returns monitored activities as individual event records for archiving and remediation.
+      operationId: getComplianceEvents
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - memberAndApplication
+        description: Query type
+        example: memberAndApplication
+      - name: projection
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Fields to include in the response
+        example: (elements*(id,capturedAt,processedAt,configVersion,owner~(firstName,lastName,headline),actor~(firstName,lastName,headline),resourceName,resourceId,resourceUri,method,activity,processedActivity,siblingActivities,parentActivity,parentSiblingActivities),paging)
+      - name: startTime
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+        description: Start time in milliseconds since epoch
+        example: 1640000000000
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: Number of events to retrieve
+        example: 10
+      responses:
+        '200':
+          description: Successfully retrieved compliance events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceEventsResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ComplianceEventsResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    MemberProfile:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the member
+          example: John
+        lastName:
+          type: string
+          description: Last name of the member
+          example: Doe
+        headline:
+          type: string
+          description: Professional headline
+          example: Software Engineer at Tech Corp
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of elements returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of elements available
+          example: 100
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
+    ComplianceEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the compliance event
+          example: evt_123456789
+        capturedAt:
+          type: integer
+          format: int64
+          description: Timestamp when the event was captured
+          example: 1640000000000
+        processedAt:
+          type: integer
+          format: int64
+          description: Timestamp when the event was processed
+          example: 1640000001000
+        configVersion:
+          type: string
+          description: Configuration version
+          example: '1.0'
+        owner:
+          $ref: '#/components/schemas/MemberProfile'
+        actor:
+          $ref: '#/components/schemas/MemberProfile'
+        resourceName:
+          type: string
+          description: Name of the resource
+          example: MESSAGE
+        resourceId:
+          type: string
+          description: Identifier of the resource
+          example: res_987654321
+        resourceUri:
+          type: string
+          description: URI of the resource
+          example: urn:li:message:987654321
+        method:
+          type: string
+          enum:
+          - CREATE
+          - UPDATE
+          - DELETE
+          description: Action method performed
+          example: CREATE
+        activity:
+          type: object
+          description: Activity details
+          additionalProperties: true
+        processedActivity:
+          type: object
+          description: Processed activity details
+          additionalProperties: true
+        siblingActivities:
+          type: array
+          items:
+            type: object
+          description: Related sibling activities
+        parentActivity:
+          type: object
+          description: Parent activity if applicable
+          additionalProperties: true
+        parentSiblingActivities:
+          type: array
+          items:
+            type: object
+          description: Parent sibling activities
+      required:
+      - id
+      - capturedAt
+      - resourceName
+      - method
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /v2/complianceEvents?start=10&count=10
+        type:
+          type: string
+          example: application/json
+    ComplianceEventsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceEvent'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+  examples:
+    ComplianceEventsResponseExample:
+      summary: Compliance events response
+      value:
+        elements:
+        - id: evt_123456789
+          capturedAt: 1640000000000
+          processedAt: 1640000001000
+          configVersion: '1.0'
+          owner:
+            firstName: John
+            lastName: Doe
+            headline: Software Engineer at Tech Corp
+          actor:
+            firstName: Jane
+            lastName: Smith
+            headline: Product Manager at Innovation Inc
+          resourceName: MESSAGE
+          resourceId: res_987654321
+          resourceUri: urn:li:message:987654321
+          method: CREATE
+          activity: {}
+          processedActivity: {}
+          siblingActivities: []
+        paging:
+          start: 0
+          count: 10
+          total: 25
+          links:
+          - rel: next
+            href: /v2/complianceEvents?start=10&count=10
+            type: application/json
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

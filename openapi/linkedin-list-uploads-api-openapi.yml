@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control List Uploads API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: List Uploads
+  description: APIs to upload and attach CSV lists to DMP segments
+paths:
+  /dmpSegments/{ListUploadSegmentId}/listUploads:
+    post:
+      tags:
+      - List Uploads
+      summary: LinkedIn Attach Uploaded List to DMP Segment
+      description: Attach an uploaded CSV list file to a DMP segment. Use the media URN returned from the file upload step.
+      operationId: attachListToSegment
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: ListUploadSegmentId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID of the list upload DMP segment
+        example: '987654323'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListUploadRequest'
+            examples:
+              AttachList:
+                $ref: '#/components/examples/ListUploadRequestExample'
+      responses:
+        '200':
+          description: List attached successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: SUCCESS
+              examples:
+                SuccessResponse:
+                  value:
+                    status: SUCCESS
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    ListUploadRequest:
+      type: object
+      properties:
+        inputFile:
+          type: string
+          description: Media URN of the uploaded file
+          example: urn:li:digitalmediaAsset:C5605AQH2...
+      required:
+      - inputFile
+  examples:
+    ListUploadRequestExample:
+      summary: Attach uploaded list to segment
+      value:
+        inputFile: urn:li:digitalmediaAsset:C5605AQH2...
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

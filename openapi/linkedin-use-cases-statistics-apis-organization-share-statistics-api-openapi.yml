@@ -1,0 +1,79 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Statistics APIs > Organization Share Statistics API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Statistics APIs > Organization Share Statistics
+  description: This API describes usage of Organization Share Statistics. Fore more details, check [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/share-statistics?tabs=http).
+paths:
+  /organizationalEntityShareStatistics:
+    get:
+      tags:
+      - Use Cases > Statistics APIs > Organization Share Statistics
+      summary: LinkedIn Time Bound Share Statistics
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: organizationalEntity
+      - name: organizationalEntity
+        in: query
+        schema:
+          type: string
+        example: urn%3Ali%3Aorganization%3A2414183
+      - name: timeIntervals.timeGranularityType
+        in: query
+        schema:
+          type: string
+        example: DAY
+      - name: timeIntervals.timeRange.start
+        in: query
+        schema:
+          type: integer
+        example: '1634018799000'
+      - name: timeIntervals.timeRange.end
+        in: query
+        schema:
+          type: integer
+        example: '1634623599000'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getTimeBoundShareStatistics
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

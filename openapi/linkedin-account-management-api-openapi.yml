@@ -1,0 +1,402 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Account Management API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Account Management
+  description: APIs to create and manage ad accounts
+paths:
+  /adAccounts:
+    post:
+      tags:
+      - Account Management
+      summary: LinkedIn Create Test Ad Account
+      description: Create a new ad account. Set test flag to true for test accounts.
+      operationId: createAdAccount
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdAccountCreateRequest'
+            examples:
+              CreateTestAccount:
+                $ref: '#/components/examples/AdAccountCreateExample'
+      responses:
+        '201':
+          description: Ad account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccount'
+              examples:
+                SuccessResponse:
+                  value:
+                    id: 123456
+                    name: XYZ Company
+                    currency: USD
+                    type: BUSINESS
+                    status: ACTIVE
+                    reference: urn:li:organization:12345678
+                    test: true
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+      - Account Management
+      summary: LinkedIn Search Ad Accounts by Type
+      description: Search for ad accounts by ID, name, reference, type, or status.
+      operationId: searchAdAccounts
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - search
+        example: search
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Search criteria
+        example: (type:(values:List(BUSINESS)))
+      responses:
+        '200':
+          description: Successfully retrieved ad accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  elements:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdAccount'
+                  paging:
+                    $ref: '#/components/schemas/Paging'
+              examples:
+                SuccessResponse:
+                  value:
+                    elements:
+                    - id: 123456
+                      name: XYZ Company
+                      currency: USD
+                      type: BUSINESS
+                      status: ACTIVE
+                      reference: urn:li:organization:12345678
+                      test: false
+                    paging:
+                      start: 0
+                      count: 10
+                      total: 1
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /adAccounts/{SponsoredAccountId}:
+    get:
+      tags:
+      - Account Management
+      summary: LinkedIn Fetch Ad Account by Id
+      description: Retrieve an ad account by its ID.
+      operationId: getAdAccountById
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      responses:
+        '200':
+          description: Successfully retrieved ad account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccount'
+              examples:
+                SuccessResponse:
+                  value:
+                    id: 123456
+                    name: XYZ Company
+                    currency: USD
+                    type: BUSINESS
+                    status: ACTIVE
+                    reference: urn:li:organization:12345678
+                    test: false
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+      - Account Management
+      summary: LinkedIn Update Ad Account Name
+      description: Update an ad account using partial update.
+      operationId: updateAdAccount
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patch:
+                  type: object
+                  properties:
+                    $set:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+            examples:
+              UpdateName:
+                value:
+                  patch:
+                    $set:
+                      name: Updated Ad Account name
+      responses:
+        '200':
+          description: Ad account updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccount'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
+    AdAccountCreateRequest:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: USD
+        name:
+          type: string
+          example: XYZ Company
+        notifiedOnCampaignOptimization:
+          type: boolean
+          example: true
+        notifiedOnCreativeApproval:
+          type: boolean
+          example: true
+        notifiedOnCreativeRejection:
+          type: boolean
+          example: true
+        notifiedOnEndOfCampaign:
+          type: boolean
+          example: true
+        reference:
+          type: string
+          example: urn:li:organization:12345678
+        type:
+          type: string
+          enum:
+          - BUSINESS
+          - ENTERPRISE
+          example: BUSINESS
+        test:
+          type: boolean
+          example: true
+      required:
+      - currency
+      - name
+      - reference
+      - type
+    AdAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier
+          example: 123456
+        name:
+          type: string
+          description: Display name
+          example: XYZ Company
+        currency:
+          type: string
+          description: Account currency
+          example: USD
+        type:
+          type: string
+          enum:
+          - BUSINESS
+          - ENTERPRISE
+          description: Account type
+          example: BUSINESS
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - CANCELLED
+          - DRAFT
+          - PENDING_DELETION
+          - REMOVED
+          description: Account status
+          example: ACTIVE
+        reference:
+          type: string
+          description: Organization URN
+          example: urn:li:organization:12345678
+        test:
+          type: boolean
+          description: Whether this is a test account
+          example: true
+        notifiedOnCampaignOptimization:
+          type: boolean
+          example: true
+        notifiedOnCreativeApproval:
+          type: boolean
+          example: true
+        notifiedOnCreativeRejection:
+          type: boolean
+          example: true
+        notifiedOnEndOfCampaign:
+          type: boolean
+          example: true
+  examples:
+    AdAccountCreateExample:
+      summary: Create test ad account
+      value:
+        currency: USD
+        name: XYZ Company
+        notifiedOnCampaignOptimization: true
+        notifiedOnCreativeApproval: true
+        notifiedOnCreativeRejection: true
+        notifiedOnEndOfCampaign: true
+        reference: urn:li:organization:12345678
+        type: BUSINESS
+        test: true
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

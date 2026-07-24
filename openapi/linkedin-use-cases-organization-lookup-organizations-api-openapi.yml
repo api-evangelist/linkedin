@@ -1,0 +1,447 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Organization Lookup > Organizations API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Organization Lookup > Organizations
+paths:
+  /organizations/{organization_id}:
+    get:
+      tags:
+      - Use Cases > Organization Lookup > Organizations
+      summary: LinkedIn Lookup by Organization Primary Type
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: projection
+        in: query
+        schema:
+          type: string
+        example: (primaryOrganizationType)
+      - name: organization_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:20:52 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '34'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZYJXnc/8Zp667Zwp2w==
+            Set-Cookie:
+              schema:
+                type: string
+                example: lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693652:t=1671775286:v=2:sig=AQHsRg1CU_Z5pEdUEduKGxHDb8kz7ihJ"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: '"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693652:t=1671775286:v=2:sig=AQHsRg1CU_Z5pEdUEduKGxHDb8kz7ihJ"'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LookupByOrganizationPrimaryResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/LookupByOrganizationPrimaryResponse200Example'
+      operationId: getLookupByOrganizationPrimary
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /organizationsLookup:
+    get:
+      tags:
+      - Use Cases > Organization Lookup > Organizations
+      summary: LinkedIn Find Non-Administered Organization
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: List({{organization_id}},{{organization_id1}})
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:21:19 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '677'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZYPro52d92kEmROl/w==
+            Set-Cookie:
+              schema:
+                type: string
+                example: lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693679:t=1671775286:v=2:sig=AQE-fhpSOZouoPwPC-a8jtqO3DIDX2_x"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: '"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693679:t=1671775286:v=2:sig=AQE-fhpSOZouoPwPC-a8jtqO3DIDX2_x"'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindNonadministeredOrganizationResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/FindNonadministeredOrganizationResponse200Example'
+      operationId: getFindNonadministeredOrganization
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /networkSizes/urn:li:organization:{organization_id}:
+    get:
+      tags:
+      - Use Cases > Organization Lookup > Organizations
+      summary: LinkedIn Retrieve Organization Follower Count
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: edgeType
+        in: query
+        schema:
+          type: string
+        example: CompanyFollowedByMember
+      - name: organization_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            x-restli-protocol-version:
+              schema:
+                type: string
+                example: 1.0.0
+            x-source:
+              schema:
+                type: string
+                example: RULE
+            Content-Length:
+              schema:
+                type: integer
+                example: '21'
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:21:30 GMT
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZYSU7YcaYlLpJpOzOw==
+            Set-Cookie:
+              schema:
+                type: string
+                example: lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693690:t=1671775286:v=2:sig=AQEj5sBudl4cE2faxgSGmXR8LuaJ3zBE"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: '"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693690:t=1671775286:v=2:sig=AQEj5sBudl4cE2faxgSGmXR8LuaJ3zBE"'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveOrganizationFollowerCountResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/RetrieveOrganizationFollowerCountResponse200Example'
+      operationId: getRetrieveOrganizationFollowerCount
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  examples:
+    FindNonadministeredOrganizationResponse200Example:
+      summary: Example 200 response for FindNonadministeredOrganization
+      value:
+        results:
+          '3803':
+            name:
+              localized:
+                en_US: New Century
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: NONE
+            vanityName: new-century
+            locations:
+            - staffCountRange: SIZE_1
+              locationType: HEADQUARTERS
+              address:
+                country: US
+            - staffCountRange: SIZE_1
+              locationType: OTHER
+              address: {}
+            localizedName: New Century
+            id: 3803
+          '79988552':
+            name:
+              localized:
+                en_US: FirstDemoCompany
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: NONE
+            vanityName: firstdemocompany
+            locations: []
+            localizedName: FirstDemoCompany
+            id: 79988552
+        statuses:
+          '3803': 200
+          '79988552': 200
+        errors: {}
+    RetrieveOrganizationFollowerCountResponse200Example:
+      summary: Example 200 response for RetrieveOrganizationFollowerCount
+      value:
+        firstDegreeSize: 0
+    LookupByOrganizationPrimaryResponse200Example:
+      summary: Example 200 response for LookupByOrganizationPrimary
+      value:
+        primaryOrganizationType: NONE
+  schemas:
+    RetrieveOrganizationFollowerCountResponse200:
+      type: object
+      properties:
+        firstDegreeSize:
+          type: integer
+          example: 42
+    FindNonadministeredOrganizationResponse200:
+      type: object
+      properties:
+        results:
+          type: object
+          properties:
+            '3803':
+              type: object
+              properties:
+                name:
+                  type: object
+                  properties:
+                    localized:
+                      type: object
+                      properties:
+                        en_US:
+                          type: string
+                    preferredLocale:
+                      type: object
+                      properties:
+                        country:
+                          type: string
+                        language:
+                          type: string
+                primaryOrganizationType:
+                  type: string
+                vanityName:
+                  type: string
+                locations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      staffCountRange:
+                        type: string
+                      locationType:
+                        type: string
+                      address:
+                        type: object
+                        properties:
+                          country:
+                            type: string
+                localizedName:
+                  type: string
+                id:
+                  type: integer
+            '79988552':
+              type: object
+              properties:
+                name:
+                  type: object
+                  properties:
+                    localized:
+                      type: object
+                      properties:
+                        en_US:
+                          type: string
+                    preferredLocale:
+                      type: object
+                      properties:
+                        country:
+                          type: string
+                        language:
+                          type: string
+                primaryOrganizationType:
+                  type: string
+                vanityName:
+                  type: string
+                locations:
+                  type: array
+                  items: {}
+                localizedName:
+                  type: string
+                id:
+                  type: integer
+        statuses:
+          type: object
+          properties:
+            '3803':
+              type: integer
+            '79988552':
+              type: integer
+        errors:
+          type: object
+          properties: {}
+    LookupByOrganizationPrimaryResponse200:
+      type: object
+      properties:
+        primaryOrganizationType:
+          type: string
+          example: example_value
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

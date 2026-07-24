@@ -1,0 +1,198 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control User Streaming API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: User Streaming
+  description: APIs to stream user data for contact targeting
+paths:
+  /dmpSegments/{UserSegmentId}/users:
+    post:
+      tags:
+      - User Streaming
+      summary: LinkedIn Stream User Data to Segment
+      description: Add or remove multiple users from a DMP segment. The more information provided on a user, the better chance of a higher match rate.
+      operationId: streamUsersToSegment
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: X-RestLi-Method
+        in: header
+        required: true
+        schema:
+          type: string
+        example: BATCH_CREATE
+      - name: UserSegmentId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID of the user DMP segment
+        example: '987654322'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserStreamRequest'
+            examples:
+              AddUsers:
+                $ref: '#/components/examples/UserStreamRequestExample'
+      responses:
+        '200':
+          description: Users streamed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/StreamResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    UserStreamRequest:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserStreamElement'
+      required:
+      - elements
+    StreamResultElement:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code for this element
+          example: 201
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    StreamResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamResultElement'
+    UserId:
+      type: object
+      properties:
+        idType:
+          type: string
+          enum:
+          - SHA256_EMAIL
+          - GOOGLE_AID
+          - APPLE_IDFA
+          description: Type of user identifier
+          example: SHA256_EMAIL
+        idValue:
+          type: string
+          description: Hashed or identifier value
+          example: 6b56c85c1ce461e7ef77e3a52f13a6bc09feb93a04ce0670f9909e8ffde01f3a
+      required:
+      - idType
+      - idValue
+    UserStreamElement:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          description: Action to perform
+          example: ADD
+        userIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserId'
+      required:
+      - action
+      - userIds
+  examples:
+    UserStreamRequestExample:
+      summary: Add multiple users to segment
+      value:
+        elements:
+        - action: ADD
+          userIds:
+          - idType: SHA256_EMAIL
+            idValue: 6b56c85c1ce461e7ef77e3a52f13a6bc09feb93a04ce0670f9909e8ffde01f3a
+        - action: ADD
+          userIds:
+          - idType: SHA256_EMAIL
+            idValue: 0100c74de9670c6bf2882502a486ec9e9d259fd090f19895974bae7efdc87913
+        - action: ADD
+          userIds:
+          - idType: SHA256_EMAIL
+            idValue: 89147c81369d80ff259ed23a7d6949f2ce34b5e62619d7e00e880db0495bbed0
+        - action: ADD
+          userIds:
+          - idType: SHA256_EMAIL
+            idValue: 4f123dc421f679369532452374c003dd9e825273e9929bd61060a65cd8587bb3
+    StreamResponseExample:
+      summary: Successful stream response
+      value:
+        elements:
+        - status: 201
+        - status: 201
+        - status: 201
+        - status: 201
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

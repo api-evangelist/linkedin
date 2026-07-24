@@ -1,0 +1,167 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Conversation Ad > Sponsored Conversations API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Conversation Ad > Sponsored Conversations
+  description: Linkedin is introducing its next generation of APIs to create and manage Conversation Ads, enabling advertisers to better deliver automated messages to a targeted LinkedIn member's inbox. This API replaces the previous [/sponsoredConversations](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/create-and-manage-conversation-ads?view=li-lms-2022-08) API.
+paths:
+  /conversationAds:
+    post:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Conversations
+      summary: LinkedIn Create a Sponsored Conversation
+      description: Successful response will have Status `201 Created` and the ID in the `x-linkedin-id` response header. For example,`urn:li:sponsoredConversation:164380864`
+      requestBody:
+        content: {}
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postCreateASponsoredConversation
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    get:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Conversations
+      summary: LinkedIn Get Multiple Sponsored Conversations
+      description: "Makes a BATCH_GET request to let a list of conversations that are created.\n\n#### Sample Response\n\nJSONCopy\n\n```\n{\n    \"statuses\": {\n        \"urn:li:sponsoredConversation:704255\": 200,\n        \"urn:li:sponsoredConversation:703695\": 200\n    },\n    \"results\": {\n        \"urn:li:sponsoredConversation:704255\": \n         {\n            \"id\": \"urn:li:sponsoredConversation:704255\",\n            \"parentAccount\": \"urn:li:sponsoredAccount:520866471\"\n            \n        },\n        \"urn:li:sponsoredConversation:703695\": \n        {\n            \"id\": \"urn:li:sponsoredConversation:703695\",\n            \"parentAccount\": \"urn:li:sponsoredAccount:520866471\",\n        }\n    },\n    \"errors\": {}\n}\n```"
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: X-RestLi-Method
+        in: header
+        schema:
+          type: string
+        example: BATCH_GET
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: List({conversation-urn1},{conversation-urn2})'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetMultipleSponsoredConversations
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /conversationAds/{conversationUrn}:
+    get:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Conversations
+      summary: LinkedIn Get a Sponsored Conversation
+      description: "#### Sample Response\n\nJSONCopy\n\n```\n{\n  \"id\": \"urn:li:sponsoredConversation:185204\",\n  \"parentAccount\": \"urn:li:sponsoredAccount:520866471\"\n}\n\n```"
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: conversationUrn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetASponsoredConversation
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    post:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Conversations
+      summary: LinkedIn Update a Sponsored Conversation
+      description: In the following example, the `firstMessageContent` field is changed to point to the first message of the conversation.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/UpdateASponsoredConversationRequest'
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: conversationUrn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postUpdateASponsoredConversation
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  schemas:
+    UpdateASponsoredConversationRequest:
+      type: string
+      example: '"{\n  \"patch\": {\n     \"$set\": {\n        \"firstMessageContent\": \"urn:li:sponsoredMessageContent:(urn:li:sponsoredConversation:185204:14253)”\n     }\n  } \n}\n"'
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

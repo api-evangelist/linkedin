@@ -1,0 +1,232 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > InMail Content API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > InMail Content
+  description: You can set up the message contents sent to targeted LinkedIn members' inbox, either as a Message Ad or a Conversation Ad.
+paths:
+  /rest/inMailContents/:
+    post:
+      tags:
+      - Use Cases > InMail Content
+      summary: LinkedIn Create InMail Content
+      description: API to create an inMail Content.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/CreateInmailContentRequest'
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postCreateInmailContent
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /rest/inMailContents/{adInMailContentId}:
+    get:
+      tags:
+      - Use Cases > InMail Content
+      summary: LinkedIn Get InMail Content
+      description: API to retrieve an inMail Content.
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: adInMailContentId
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetInmailContent
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    post:
+      tags:
+      - Use Cases > InMail Content
+      summary: LinkedIn Update InMail Content
+      description: API to update an inMail Content.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/UpdateInmailContentRequest'
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: adInMailContentId
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postUpdateInmailContent
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /rest/inMailContents:
+    get:
+      tags:
+      - Use Cases > InMail Content
+      summary: LinkedIn Batch Get InMail Content
+      description: API to retrieve an inMail Content in Batches.
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: X-RestLi-Method
+        in: header
+        schema:
+          type: string
+        example: BATCH_CREATE
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: '{encoded adInMailContentId}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getBatchGetInmailContent
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    post:
+      tags:
+      - Use Cases > InMail Content
+      summary: LinkedIn Send Test InMail
+      description: API to send/share an inMail Content.
+      requestBody:
+        content: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: action
+        in: query
+        schema:
+          type: string
+        example: sendTestInMail
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postSendTestInmail
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  schemas:
+    UpdateInmailContentRequest:
+      type: string
+      example: '"{\n \"patch\": {\n   \"$set\": {\n     \"name\": \"test strings new\"\n   }\n }\n}\n"'
+    CreateInmailContentRequest:
+      type: string
+      example: '"{\n \"account\": \"<Account Number>\",\n \"name\": \"test strings\",\n \"subject\": \"test subject\",\n \"sender\": \"<person urn>\",\n \"customFooter\": \"terms and conditions\",\n \"htmlBody\":\"sample body\",\n \"subContent\": {\n   \"regular\": {\n     \"callToActionText\": \"sample string\",\n     \"callToActionLandingPageUrl\":\"http://www.linkedin.com\",\n     \"rightRailAdPicture\": \"<image urn>\"\n   }\n }\n}"'
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

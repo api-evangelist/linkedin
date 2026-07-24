@@ -1,0 +1,204 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Organization Access Control API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Organization Access Control
+  description: Organization ACLs and authorization data
+paths:
+  /rest/dmaOrganizationAcls:
+    get:
+      operationId: getOrganizationAcls
+      tags:
+      - Organization Access Control
+      summary: LinkedIn Get Organization ACLs
+      description: Retrieves organization access control list entries showing role assignments for organization administrators and content managers.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - $ref: '#/components/parameters/RoleParameter'
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
+      responses:
+        '200':
+          description: Successfully retrieved organization ACLs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationAclResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/OrganizationAclResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    OrganizationAcl:
+      type: object
+      properties:
+        organization:
+          type: string
+          example: urn:li:organization:10002687
+        roleAssignee:
+          type: string
+          example: urn:li:person:ABC123
+        role:
+          type: string
+          enum:
+          - ADMINISTRATOR
+          - CONTENT_ADMIN
+          - ANALYST
+          - RECRUITING_POSTER
+          example: ADMINISTRATOR
+        state:
+          type: string
+          enum:
+          - APPROVED
+          - PENDING
+          example: APPROVED
+        created:
+          $ref: '#/components/schemas/Timestamp'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 25
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: object
+    Timestamp:
+      type: object
+      properties:
+        time:
+          type: integer
+          format: int64
+          example: 1702693664000
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    OrganizationAclResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationAcl'
+        paging:
+          $ref: '#/components/schemas/Paging'
+  examples:
+    OrganizationAclResponseExample:
+      summary: Organization ACL response
+      value:
+        elements:
+        - organization: urn:li:organization:10002687
+          roleAssignee: urn:li:person:ABC123
+          role: ADMINISTRATOR
+          state: APPROVED
+        paging:
+          start: 0
+          count: 25
+          total: 1
+  parameters:
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    RoleParameter:
+      name: role
+      in: query
+      required: false
+      description: Role filter for ACL queries
+      schema:
+        type: string
+        enum:
+        - ADMINISTRATOR
+        - CONTENT_ADMIN
+        - ANALYST
+      example: ADMINISTRATOR
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

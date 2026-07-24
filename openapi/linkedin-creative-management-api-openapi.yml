@@ -1,0 +1,150 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Creative Management API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Creative Management
+  description: APIs to create and manage ad creatives
+paths:
+  /creatives:
+    post:
+      tags:
+      - Creative Management
+      summary: LinkedIn Create Creative
+      description: Create a new ad creative.
+      operationId: createCreative
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeCreateRequest'
+            examples:
+              CreateCreative:
+                value:
+                  campaign: urn:li:sponsoredCampaign:444555666
+                  reference: urn:li:ugcPost:123456789
+                  status: ACTIVE
+                  type: SPONSORED_VIDEO
+                  variables:
+                    data:
+                      com.linkedin.ads.SponsoredVideoCreativeVariables: {}
+      responses:
+        '201':
+          description: Creative created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Creative'
+              examples:
+                SuccessResponse:
+                  value:
+                    id: urn:li:sponsoredCreative:777888999
+                    campaign: urn:li:sponsoredCampaign:444555666
+                    reference: urn:li:ugcPost:123456789
+                    status: ACTIVE
+                    type: SPONSORED_VIDEO
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CreativeCreateRequest:
+      type: object
+      properties:
+        campaign:
+          type: string
+          example: urn:li:sponsoredCampaign:444555666
+        reference:
+          type: string
+          example: urn:li:ugcPost:123456789
+        status:
+          type: string
+          example: ACTIVE
+        type:
+          type: string
+          example: SPONSORED_VIDEO
+        variables:
+          type: object
+          properties:
+            data:
+              type: object
+      required:
+      - campaign
+      - reference
+      - status
+      - type
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
+    Creative:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Creative URN
+          example: urn:li:sponsoredCreative:777888999
+        campaign:
+          type: string
+          description: Parent campaign URN
+          example: urn:li:sponsoredCampaign:444555666
+        reference:
+          type: string
+          description: Reference URN (e.g., UGC post)
+          example: urn:li:ugcPost:123456789
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - PAUSED
+          - DRAFT
+          - ARCHIVED
+          - CANCELLED
+          - PENDING_DELETION
+          - REMOVED
+          description: Creative status
+          example: ACTIVE
+        type:
+          type: string
+          enum:
+          - SPONSORED_STATUS_UPDATE
+          - SPONSORED_VIDEO
+          - CAROUSEL
+          - TEXT_AD
+          - MESSAGE_AD
+          description: Creative type
+          example: SPONSORED_VIDEO
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

@@ -1,0 +1,63 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Organization Access Controls API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Organization Access Controls
+paths:
+  /organizationAcls:
+    get:
+      tags:
+      - Use Cases > Organization Access Controls
+      summary: LinkedIn Find Organization Access Control
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: Linkedin-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: organization
+      - name: organization
+        in: query
+        schema:
+          type: string
+        example: urn%3Ali%3Aorganization%3A{{organization_id}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getFindOrganizationAccessControl
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

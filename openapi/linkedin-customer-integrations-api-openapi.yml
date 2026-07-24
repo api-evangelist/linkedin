@@ -1,0 +1,225 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Customer Integrations API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Customer Integrations
+  description: APIs for managing customer ATS integrations for premium job posting
+paths:
+  /v2/atsIntegrations:
+    post:
+      operationId: updateCustomerIntegrations
+      tags:
+      - Customer Integrations
+      summary: LinkedIn Update Customer ATS Integrations
+      description: Updates customer ATS integrations for premium job posting capabilities. Partners use this endpoint to configure the integration name and other settings for their customers.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/IntegrationContextQuery'
+      - $ref: '#/components/parameters/IntegrationTypeQuery'
+      - $ref: '#/components/parameters/TenantTypeQuery'
+      - $ref: '#/components/parameters/DataProviderQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsIntegrationUpdateRequest'
+            examples:
+              UpdateIntegration:
+                $ref: '#/components/examples/AtsIntegrationUpdateRequestExample'
+      responses:
+        '200':
+          description: Successfully updated the integration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsIntegrationResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/AtsIntegrationResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: getCustomerIntegrations
+      tags:
+      - Customer Integrations
+      summary: LinkedIn Get Customer ATS Integration Details
+      description: Retrieves the details of a customer's ATS integration for premium job posting. Use this endpoint to verify integration configuration and status.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/IntegrationContextQuery'
+      - $ref: '#/components/parameters/IntegrationTypeQuery'
+      - $ref: '#/components/parameters/TenantTypeQuery'
+      - $ref: '#/components/parameters/DataProviderQuery'
+      responses:
+        '200':
+          description: Successfully retrieved integration details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsIntegrationResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/AtsIntegrationResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Integration not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    AtsIntegrationPatch:
+      type: object
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              type: object
+              properties:
+                integrationName:
+                  type: string
+                  example: Customer Name - LinkedIn LTS Premium Job Posting Integration
+    AtsIntegrationDetail:
+      type: object
+      properties:
+        integrationContext:
+          type: string
+          example: urn:li:contract:12345
+        integrationType:
+          type: string
+          example: PREMIUM_JOB_POSTING
+        integrationName:
+          type: string
+          example: Customer Name - LinkedIn LTS Premium Job Posting Integration
+        status:
+          type: string
+          example: ENABLED
+    AtsIntegrationResponse:
+      type: object
+      description: Response for ATS integration details
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AtsIntegrationDetail'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    AtsIntegrationUpdateRequest:
+      type: object
+      description: Request body for updating ATS integrations
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AtsIntegrationPatch'
+  examples:
+    AtsIntegrationResponseExample:
+      summary: Example ATS integration response
+      value:
+        results:
+          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
+            integrationContext: urn:li:contract:12345
+            integrationType: PREMIUM_JOB_POSTING
+            integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
+            status: ENABLED
+    AtsIntegrationUpdateRequestExample:
+      summary: Example ATS integration update request
+      value:
+        entities:
+          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
+            patch:
+              $set:
+                integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
+  parameters:
+    IntegrationTypeQuery:
+      name: ids[0].integrationType
+      in: query
+      required: true
+      description: Type of integration
+      schema:
+        type: string
+      example: PREMIUM_JOB_POSTING
+    TenantTypeQuery:
+      name: ids[0].tenantType
+      in: query
+      required: true
+      description: Tenant type for the integration
+      schema:
+        type: string
+      example: JOBS
+    IntegrationContextQuery:
+      name: ids[0].integrationContext
+      in: query
+      required: true
+      description: Integration context URN
+      schema:
+        type: string
+      example: urn:li:contract:12345
+    DataProviderQuery:
+      name: ids[0].dataProvider
+      in: query
+      required: true
+      description: Data provider identifier
+      schema:
+        type: string
+      example: ATS
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

@@ -1,0 +1,188 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Access Control Events API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Events
+  description: Events and live video data
+paths:
+  /rest/dmaEvents:
+    get:
+      operationId: getEvents
+      tags:
+      - Events
+      summary: LinkedIn Get Events
+      description: Retrieves event data for data portability compliance. Returns event details including name, description, schedule, and organizer.
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/LinkedInVersionHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - name: organizer
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:organization:10002687
+      - $ref: '#/components/parameters/StartParameter'
+      - $ref: '#/components/parameters/CountParameter'
+      responses:
+        '200':
+          description: Successfully retrieved events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 25
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: object
+    Timestamp:
+      type: object
+      properties:
+        time:
+          type: integer
+          format: int64
+          example: 1702693664000
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:li:event:123456
+        name:
+          type: string
+          example: Annual Tech Conference
+        description:
+          type: string
+          example: Join us for our annual technology showcase
+        organizer:
+          type: string
+          example: urn:li:organization:10002687
+        eventType:
+          type: string
+          enum:
+          - VIRTUAL
+          - IN_PERSON
+          - HYBRID
+          example: VIRTUAL
+        startAt:
+          type: integer
+          format: int64
+          example: 1702693664000
+        endAt:
+          type: integer
+          format: int64
+          example: 1702780064000
+        created:
+          $ref: '#/components/schemas/Timestamp'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    EventResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        paging:
+          $ref: '#/components/schemas/Paging'
+  parameters:
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

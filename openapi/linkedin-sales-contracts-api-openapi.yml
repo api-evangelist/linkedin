@@ -1,0 +1,143 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Sales Contracts API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Sales Contracts
+  description: Manage and retrieve Sales Navigator contracts
+paths:
+  /salesContracts:
+    get:
+      tags:
+      - Sales Contracts
+      summary: LinkedIn Find All Contracts Where User Has Active Seat
+      description: Retrieve all Sales Navigator contracts where the authenticated user has an active seat.
+      operationId: getContractsByMember
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - contractsByMember
+        description: Query parameter to fetch contracts for the member
+        example: contractsByMember
+      responses:
+        '200':
+          description: A list of sales contracts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractsResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ContractsResponseExample'
+        '401':
+          description: Unauthorized, invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Paging:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 10
+        start:
+          type: integer
+          example: 0
+        links:
+          type: array
+          items:
+            type: string
+    Contract:
+      type: object
+      properties:
+        contract:
+          type: string
+          description: The URN of this Sales Navigator contract
+          example: urn:li:salesContract:12345
+        name:
+          type: string
+          description: The name of this contract, appropriate for display to an end-user
+          example: Enterprise Sales Contract
+        description:
+          type: string
+          nullable: true
+          description: Additional information about the contract
+          example: Annual enterprise subscription for sales team
+        hasReportingAccess:
+          type: boolean
+          description: Indicates whether the user can export data for this contract
+          example: true
+      required:
+      - contract
+      - name
+      - hasReportingAccess
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    ContractsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contract'
+        paging:
+          $ref: '#/components/schemas/Paging'
+  examples:
+    ContractsResponseExample:
+      summary: List of sales contracts
+      value:
+        elements:
+        - contract: urn:li:salesContract:12345
+          name: Enterprise Sales Contract
+          description: Annual enterprise subscription for sales team
+          hasReportingAccess: true
+        - contract: urn:li:salesContract:67890
+          name: Professional Sales Contract
+          description: Monthly professional subscription
+          hasReportingAccess: false
+        paging:
+          count: 10
+          start: 0
+          links: []
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

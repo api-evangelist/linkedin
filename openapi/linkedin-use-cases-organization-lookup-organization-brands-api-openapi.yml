@@ -1,0 +1,821 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Organization Lookup > Organization Brands API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Organization Lookup > Organization Brands
+paths:
+  /organizations:
+    get:
+      tags:
+      - Use Cases > Organization Lookup > Organization Brands
+      summary: LinkedIn Find Administered Organization Brands by Parent Org
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: parentOrganization
+      - name: parent
+        in: query
+        schema:
+          type: string
+        example: urn:li:organization:{{organization_id}}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:25:11 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 1.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '554'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZZHGIBuhMvA/BMwKtQ==
+            Set-Cookie:
+              schema:
+                type: string
+                example: lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693911:t=1671775286:v=2:sig=AQHFo_iP3NTosWNgRAmvCALCbNy0sSET"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: '"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693911:t=1671775286:v=2:sig=AQHFo_iP3NTosWNgRAmvCALCbNy0sSET"'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindAdministeredOrganizationBrandsResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/FindAdministeredOrganizationBrandsResponse200Example'
+      operationId: getFindAdministeredOrganizationBrands
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /organizationBrands:
+    get:
+      tags:
+      - Use Cases > Organization Lookup > Organization Brands
+      summary: LinkedIn Batch GET on Administered Organization Brands
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: List({{organizationBrand_id}},{{organizationBrand_id1}})
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:23:55 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '917'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZY06+GcGRTyaDTTN+g==
+            Set-Cookie:
+              schema:
+                type: string
+                example: lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693835:t=1671775286:v=2:sig=AQFCBSUN6_0zsTtMP91RSb64EL4GnqtY"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: '"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693835:t=1671775286:v=2:sig=AQFCBSUN6_0zsTtMP91RSb64EL4GnqtY"'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchGetOnAdministeredResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/BatchGetOnAdministeredResponse200Example'
+      operationId: getBatchGetOnAdministered
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /organizationBrands/{organizationBrand_id}:
+    get:
+      tags:
+      - Use Cases > Organization Lookup > Organization Brands
+      summary: LinkedIn Retrieve an Administered Organization Brand
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: organizationBrand_id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:23:45 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 1.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '743'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZYypmttHzdbszOY7xA==
+            Set-Cookie:
+              schema:
+                type: string
+                example: lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693825:t=1671775286:v=2:sig=AQGoeeGwjTLn5Unyu-Q6VKPlP6HXDx0P"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: '"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693825:t=1671775286:v=2:sig=AQGoeeGwjTLn5Unyu-Q6VKPlP6HXDx0P"'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveAnAdministeredOrganizationResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/RetrieveAnAdministeredOrganizationResponse200Example'
+      operationId: getRetrieveAnAdministeredOrganization
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /organizationBrandsLookup:
+    get:
+      tags:
+      - Use Cases > Organization Lookup > Organization Brands
+      summary: LinkedIn Batch GET on Non-Administered Organization Brands
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: List({{organizationBrand_id}},{{organizationBrand_id1}})
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Thu, 22 Dec 2022 07:24:08 GMT
+            Server:
+              schema:
+                type: string
+                example: Play
+            X-RestLi-Protocol-Version:
+              schema:
+                type: string
+                example: 2.0.0
+            Content-Length:
+              schema:
+                type: integer
+                example: '596'
+            X-Li-Fabric:
+              schema:
+                type: string
+                example: prod-lor1
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Li-Source-Fabric:
+              schema:
+                type: string
+                example: prod-lva1
+            X-Li-Pop:
+              schema:
+                type: string
+                example: prod-lva1-x
+            X-LI-Proto:
+              schema:
+                type: string
+                example: http/1.1
+            X-LI-UUID:
+              schema:
+                type: string
+                example: AAXwZY4BjcseAexl6rVsFQ==
+            Set-Cookie:
+              schema:
+                type: string
+                example: lidc="b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693848:t=1671775286:v=2:sig=AQFAdBFZKRnFsc0gzQXACtwVuGqOLl06"
+            X-LI-Route-Key:
+              schema:
+                type: string
+                example: '"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693848:t=1671775286:v=2:sig=AQFAdBFZKRnFsc0gzQXACtwVuGqOLl06"'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchGetOnNonadministeredResponse200'
+              examples:
+                default:
+                  $ref: '#/components/examples/BatchGetOnNonadministeredResponse200Example'
+      operationId: getBatchGetOnNonadministered
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  schemas:
+    RetrieveAnAdministeredOrganizationResponse200:
+      type: object
+      properties:
+        vanityName:
+          type: string
+          example: Example Name
+        localizedName:
+          type: string
+          example: Example Name
+        website:
+          type: object
+          properties:
+            localized:
+              type: object
+              properties:
+                en_US:
+                  type: string
+            preferredLocale:
+              type: object
+              properties:
+                country:
+                  type: string
+                language:
+                  type: string
+        groups:
+          type: array
+          items: {}
+        versionTag:
+          type: string
+          example: example_value
+        defaultLocale:
+          type: object
+          properties:
+            country:
+              type: string
+            language:
+              type: string
+        alternativeNames:
+          type: array
+          items: {}
+        specialties:
+          type: array
+          items: {}
+        parentRelationship:
+          type: object
+          properties:
+            relationshipStatus:
+              type: string
+            parent:
+              type: string
+        localizedSpecialties:
+          type: array
+          items: {}
+        industries:
+          type: array
+          items:
+            type: string
+        name:
+          type: object
+          properties:
+            localized:
+              type: object
+              properties:
+                en_US:
+                  type: string
+            preferredLocale:
+              type: object
+              properties:
+                country:
+                  type: string
+                language:
+                  type: string
+        primaryOrganizationType:
+          type: string
+          example: example_value
+        id:
+          type: integer
+          example: 42
+        autoCreated:
+          type: boolean
+          example: true
+        localizedWebsite:
+          type: string
+          example: example_value
+    FindAdministeredOrganizationBrandsResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+            total:
+              type: integer
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: object
+                properties:
+                  localized:
+                    type: object
+                    properties:
+                      en_US:
+                        type: string
+                  preferredLocale:
+                    type: object
+                    properties:
+                      country:
+                        type: string
+                      language:
+                        type: string
+              primaryOrganizationType:
+                type: string
+              vanityName:
+                type: string
+              locations:
+                type: array
+                items: {}
+              localizedName:
+                type: string
+              id:
+                type: integer
+    BatchGetOnNonadministeredResponse200:
+      type: object
+      properties:
+        results:
+          type: object
+          properties:
+            '35625943':
+              type: object
+              properties:
+                name:
+                  type: object
+                  properties:
+                    localized:
+                      type: object
+                      properties:
+                        en_US:
+                          type: string
+                    preferredLocale:
+                      type: object
+                      properties:
+                        country:
+                          type: string
+                        language:
+                          type: string
+                primaryOrganizationType:
+                  type: string
+                vanityName:
+                  type: string
+                localizedName:
+                  type: string
+                id:
+                  type: integer
+            '89758488':
+              type: object
+              properties:
+                name:
+                  type: object
+                  properties:
+                    localized:
+                      type: object
+                      properties:
+                        en_US:
+                          type: string
+                    preferredLocale:
+                      type: object
+                      properties:
+                        country:
+                          type: string
+                        language:
+                          type: string
+                primaryOrganizationType:
+                  type: string
+                vanityName:
+                  type: string
+                localizedName:
+                  type: string
+                id:
+                  type: integer
+                localizedWebsite:
+                  type: string
+        statuses:
+          type: object
+          properties:
+            '35625943':
+              type: integer
+            '89758488':
+              type: integer
+        errors:
+          type: object
+          properties: {}
+    BatchGetOnAdministeredResponse200:
+      type: object
+      properties:
+        results:
+          type: object
+          properties:
+            '89758488':
+              type: object
+              properties:
+                vanityName:
+                  type: string
+                localizedName:
+                  type: string
+                website:
+                  type: object
+                  properties:
+                    localized:
+                      type: object
+                      properties:
+                        en_US:
+                          type: string
+                    preferredLocale:
+                      type: object
+                      properties:
+                        country:
+                          type: string
+                        language:
+                          type: string
+                groups:
+                  type: array
+                  items: {}
+                versionTag:
+                  type: string
+                defaultLocale:
+                  type: object
+                  properties:
+                    country:
+                      type: string
+                    language:
+                      type: string
+                alternativeNames:
+                  type: array
+                  items: {}
+                specialties:
+                  type: array
+                  items: {}
+                parentRelationship:
+                  type: object
+                  properties:
+                    relationshipStatus:
+                      type: string
+                    parent:
+                      type: string
+                localizedSpecialties:
+                  type: array
+                  items: {}
+                industries:
+                  type: array
+                  items:
+                    type: string
+                name:
+                  type: object
+                  properties:
+                    localized:
+                      type: object
+                      properties:
+                        en_US:
+                          type: string
+                    preferredLocale:
+                      type: object
+                      properties:
+                        country:
+                          type: string
+                        language:
+                          type: string
+                primaryOrganizationType:
+                  type: string
+                id:
+                  type: integer
+                autoCreated:
+                  type: boolean
+                localizedWebsite:
+                  type: string
+        statuses:
+          type: object
+          properties:
+            '35625943':
+              type: integer
+            '89758488':
+              type: integer
+        errors:
+          type: object
+          properties:
+            '35625943':
+              type: object
+              properties:
+                message:
+                  type: string
+                status:
+                  type: integer
+  examples:
+    FindAdministeredOrganizationBrandsResponse200Example:
+      summary: Example 200 response for FindAdministeredOrganizationBrands
+      value:
+        paging:
+          start: 0
+          count: 10
+          links: []
+          total: 2
+        elements:
+        - name:
+            localized:
+              en_US: Internal_EI_Demo
+            preferredLocale:
+              country: US
+              language: en
+          primaryOrganizationType: BRAND
+          vanityName: internal-ei-demo
+          locations: []
+          localizedName: Internal_EI_Demo
+          id: 89758488
+        - name:
+            localized:
+              en_US: Internal_EI_TestCompany
+            preferredLocale:
+              country: US
+              language: en
+          primaryOrganizationType: BRAND
+          vanityName: internal-ei-testcompany
+          locations: []
+          localizedName: Internal_EI_TestCompany
+          id: 89757515
+    RetrieveAnAdministeredOrganizationResponse200Example:
+      summary: Example 200 response for RetrieveAnAdministeredOrganization
+      value:
+        vanityName: internal-ei-demo
+        localizedName: Internal_EI_Demo
+        website:
+          localized:
+            en_US: https://internal-ei-test-company.com
+          preferredLocale:
+            country: US
+            language: en
+        groups: []
+        versionTag: '3061199585'
+        defaultLocale:
+          country: US
+          language: en
+        alternativeNames: []
+        specialties: []
+        parentRelationship:
+          relationshipStatus: ACTIVE
+          parent: urn:li:organization:79988552
+        localizedSpecialties: []
+        industries:
+        - urn:li:industry:84
+        name:
+          localized:
+            en_US: Internal_EI_Demo
+          preferredLocale:
+            country: US
+            language: en
+        primaryOrganizationType: BRAND
+        id: 89758488
+        $URN: urn:li:organizationBrand:89758488
+        autoCreated: false
+        localizedWebsite: https://internal-ei-test-company.com
+    BatchGetOnAdministeredResponse200Example:
+      summary: Example 200 response for BatchGetOnAdministered
+      value:
+        results:
+          '89758488':
+            vanityName: internal-ei-demo
+            localizedName: Internal_EI_Demo
+            website:
+              localized:
+                en_US: https://internal-ei-test-company.com
+              preferredLocale:
+                country: US
+                language: en
+            groups: []
+            versionTag: '3061199585'
+            defaultLocale:
+              country: US
+              language: en
+            alternativeNames: []
+            specialties: []
+            parentRelationship:
+              relationshipStatus: ACTIVE
+              parent: urn:li:organization:79988552
+            localizedSpecialties: []
+            industries:
+            - urn:li:industry:84
+            name:
+              localized:
+                en_US: Internal_EI_Demo
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: BRAND
+            id: 89758488
+            autoCreated: false
+            localizedWebsite: https://internal-ei-test-company.com
+        statuses:
+          '35625943': 403
+          '89758488': 200
+        errors:
+          '35625943':
+            message: Viewer don't have permission to the ADMIN_ONLY VisibilityReduction for urn:li:organization:35625943
+            status: 403
+    BatchGetOnNonadministeredResponse200Example:
+      summary: Example 200 response for BatchGetOnNonadministered
+      value:
+        results:
+          '35625943':
+            name:
+              localized:
+                en_US: Company LGF Showcase
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: BRAND
+            vanityName: company-lgf-showcase
+            localizedName: Company LGF Showcase
+            id: 35625943
+          '89758488':
+            name:
+              localized:
+                en_US: Internal_EI_Demo
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: BRAND
+            vanityName: internal-ei-demo
+            localizedName: Internal_EI_Demo
+            id: 89758488
+            localizedWebsite: https://internal-ei-test-company.com
+        statuses:
+          '35625943': 200
+          '89758488': 200
+        errors: {}
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

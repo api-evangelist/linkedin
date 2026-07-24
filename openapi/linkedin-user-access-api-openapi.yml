@@ -1,0 +1,491 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control User Access API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: User Access
+  description: APIs to manage ad account user access and roles
+paths:
+  /adAccountUsers/(account:urn:li:sponsoredAccount:{SponsoredAccountId},user:urn:li:person:{PersonId}):
+    put:
+      tags:
+      - User Access
+      summary: LinkedIn Create Ad Account User
+      description: Grant a member access to an ad account with a specified role.
+      operationId: createAdAccountUser
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: ABC123def
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdAccountUserCreateRequest'
+            examples:
+              CreateUser:
+                $ref: '#/components/examples/AdAccountUserCreateExample'
+      responses:
+        '201':
+          description: Ad account user created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccountUser'
+              examples:
+                SuccessResponse:
+                  value:
+                    account: urn:li:sponsoredAccount:123456
+                    role: VIEWER
+                    user: urn:li:person:ABC123def
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+      - User Access
+      summary: LinkedIn Fetch Ad Account User
+      description: Retrieve an ad account user by account and user identifiers.
+      operationId: getAdAccountUser
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: ABC123def
+      responses:
+        '200':
+          description: Ad account user retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccountUser'
+              examples:
+                SuccessResponse:
+                  value:
+                    account: urn:li:sponsoredAccount:123456
+                    role: VIEWER
+                    user: urn:li:person:ABC123def
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+      - User Access
+      summary: LinkedIn Update Ad Account User
+      description: Update an ad account user's role.
+      operationId: updateAdAccountUser
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: ABC123def
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdAccountUserUpdateRequest'
+      responses:
+        '200':
+          description: Ad account user updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccountUser'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+      - User Access
+      summary: LinkedIn Delete Ad Account User
+      description: Remove a member from ad account access.
+      operationId: deleteAdAccountUser
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: SponsoredAccountId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '123456'
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: ABC123def
+      responses:
+        '204':
+          description: Ad account user deleted successfully
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /adAccountUsers:
+    get:
+      tags:
+      - User Access
+      summary: LinkedIn Fetch Authenticated User Ad Accounts
+      description: Retrieve all ad accounts the authenticated user has access to.
+      operationId: getAuthenticatedUserAdAccounts
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - authenticatedUser
+        example: authenticatedUser
+      responses:
+        '200':
+          description: Successfully retrieved user's ad accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  elements:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdAccountUser'
+                  paging:
+                    $ref: '#/components/schemas/Paging'
+              examples:
+                SuccessResponse:
+                  value:
+                    elements:
+                    - account: urn:li:sponsoredAccount:123456
+                      role: ACCOUNT_MANAGER
+                      user: urn:li:person:ABC123def
+                    - account: urn:li:sponsoredAccount:789012
+                      role: VIEWER
+                      user: urn:li:person:ABC123def
+                    paging:
+                      start: 0
+                      count: 10
+                      total: 2
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /organizationAcls:
+    get:
+      tags:
+      - User Access
+      summary: LinkedIn Fetch Authenticated User Organization Roles
+      description: Retrieve organization roles for the authenticated user.
+      operationId: getOrganizationAcls
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - roleAssignee
+        example: roleAssignee
+      responses:
+        '200':
+          description: Successfully retrieved organization roles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  elements:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrganizationAcl'
+                  paging:
+                    $ref: '#/components/schemas/Paging'
+              examples:
+                SuccessResponse:
+                  value:
+                    elements:
+                    - organization: urn:li:organization:12345678
+                      role: ADMINISTRATOR
+                      state: APPROVED
+                    paging:
+                      start: 0
+                      count: 10
+                      total: 1
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    OrganizationAcl:
+      type: object
+      properties:
+        organization:
+          type: string
+          description: Organization URN
+          example: urn:li:organization:12345678
+        role:
+          type: string
+          enum:
+          - ADMINISTRATOR
+          - DIRECT_SPONSORED_CONTENT_POSTER
+          - RECRUITING_POSTER
+          - LEAD_GEN_FORMS_MANAGER
+          description: Role in the organization
+          example: ADMINISTRATOR
+        state:
+          type: string
+          enum:
+          - APPROVED
+          - REVOKED
+          - REQUESTED
+          description: State of the role assignment
+          example: APPROVED
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
+    AdAccountUserCreateRequest:
+      type: object
+      properties:
+        account:
+          type: string
+          description: URN of the sponsored account
+          example: urn:li:sponsoredAccount:123456
+        user:
+          type: string
+          description: URN of the person
+          example: urn:li:person:ABC123def
+        role:
+          type: string
+          enum:
+          - ACCOUNT_BILLING_ADMIN
+          - ACCOUNT_MANAGER
+          - CAMPAIGN_MANAGER
+          - CREATIVE_MANAGER
+          - VIEWER
+          description: Role to assign
+          example: VIEWER
+      required:
+      - account
+      - user
+      - role
+    AdAccountUser:
+      type: object
+      properties:
+        account:
+          type: string
+          description: URN of the sponsored account
+          example: urn:li:sponsoredAccount:123456
+        user:
+          type: string
+          description: URN of the person
+          example: urn:li:person:ABC123def
+        role:
+          type: string
+          enum:
+          - ACCOUNT_BILLING_ADMIN
+          - ACCOUNT_MANAGER
+          - CAMPAIGN_MANAGER
+          - CREATIVE_MANAGER
+          - VIEWER
+          description: Role of the user in the account
+          example: VIEWER
+      required:
+      - account
+      - user
+      - role
+    AdAccountUserUpdateRequest:
+      type: object
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              $ref: '#/components/schemas/AdAccountUser'
+  examples:
+    AdAccountUserCreateExample:
+      summary: Create ad account user
+      value:
+        account: urn:li:sponsoredAccount:123456
+        role: VIEWER
+        user: urn:li:person:ABC123def
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

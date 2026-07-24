@@ -1,0 +1,272 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Application Synchronization API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Application Synchronization
+  description: Sync job applications and related data
+paths:
+  /v2/atsApplications:
+    put:
+      operationId: syncApplications
+      tags:
+      - Application Synchronization
+      summary: LinkedIn Sync Job Applications
+      description: 'Creates or updates job application records in LinkedIn.
+
+        For more information, refer to the [Sync Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/RestliMethodHeader'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - name: ids[0].atsJobApplicationId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: APP-001
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: ATS
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:organization:12345
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationRequest'
+            examples:
+              SyncApplication:
+                $ref: '#/components/examples/ApplicationRequestExample'
+      responses:
+        '200':
+          description: Successfully synced applications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/SuccessResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v2/hireMediaUrl:
+    post:
+      operationId: createResumeUploadUrl
+      tags:
+      - Application Synchronization
+      summary: LinkedIn Create Resume Upload URL
+      description: 'Creates a signed URL for uploading resume files to LinkedIn.
+
+        For more information, refer to the [Resume Upload documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications#resume-upload).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/RestliProtocolVersionHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeUploadRequest'
+      responses:
+        '200':
+          description: Successfully created upload URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResumeUploadResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ApplicationData:
+      type: object
+      properties:
+        atsCandidateId:
+          type: string
+          example: CAND-001
+        atsJobPostingId:
+          type: string
+          example: JOB-2024-001
+        atsJobPostingName:
+          type: string
+          example: Senior Software Engineer
+        candidateEmail:
+          type: string
+          format: email
+          example: johndoe@example.com
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        source:
+          type: string
+          example: Referral
+        dispositionReason:
+          type: string
+          example: ''
+        atsCreatedAt:
+          type: integer
+          format: int64
+          example: 1702693664000
+        atsLastModifiedAt:
+          type: integer
+          format: int64
+          example: 1702693664000
+    ResumeUploadResponse:
+      type: object
+      description: Response containing signed upload URL
+      properties:
+        uploadUrl:
+          type: string
+          format: uri
+          example: https://www.linkedin.com/dms-uploads/...
+        resumeUrn:
+          type: string
+          example: urn:li:ambryBlob:/AAYUAgCvAAkAAQ...
+    ApplicationRequest:
+      type: object
+      description: Request for syncing job applications
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ApplicationData'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+    ResumeUploadRequest:
+      type: object
+      description: Request for creating resume upload URL
+      properties:
+        contentType:
+          type: string
+          example: application/pdf
+        fileName:
+          type: string
+          example: resume.pdf
+        blobTtl:
+          type: object
+          properties:
+            duration:
+              type: integer
+              example: 72
+            unit:
+              type: string
+              enum:
+              - HOUR
+              - DAY
+              example: HOUR
+        hiringContext:
+          type: string
+          example: urn:li:contract:12345
+        usageParameters:
+          type: object
+          properties:
+            recruiterSystemConnectResumeParameters:
+              type: object
+  examples:
+    SuccessResponseExample:
+      summary: Successful operation response
+      value:
+        status: SUCCESS
+    ApplicationRequestExample:
+      summary: Example application sync request
+      value:
+        entities:
+          atsJobApplicationId=APP-001&dataProvider=ATS&integrationContext=urn:li:organization:12345:
+            atsCandidateId: CAND-001
+            atsJobPostingId: JOB-2024-001
+            atsJobPostingName: Senior Software Engineer
+            firstName: John
+            lastName: Doe
+            source: Referral
+            atsCreatedAt: 1702693664000
+  parameters:
+    RestliProtocolVersionHeader:
+      name: X-RestLi-Protocol-Version
+      in: header
+      required: false
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
+    RestliMethodHeader:
+      name: x-restli-method
+      in: header
+      required: true
+      description: Rest.li method type
+      schema:
+        type: string
+        enum:
+        - batch_update
+        - batch_partial_update
+        - batch_create
+      example: batch_update
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

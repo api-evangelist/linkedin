@@ -1,0 +1,258 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Compliance Authorization API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Compliance Authorization
+  description: APIs to opt-in and opt-out members for compliance monitoring on LinkedIn
+paths:
+  /v2/memberComplianceAuthorizations:
+    post:
+      tags:
+      - Compliance Authorization
+      summary: LinkedIn Opt in Member for Compliance Monitoring
+      description: Opt in a member to be regulated on LinkedIn for compliance monitoring. Once authorized, the member's activities can be retrieved using the Compliance Events API.
+      operationId: optInMemberForCompliance
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComplianceAuthorizationRequest'
+            examples:
+              OptInRequest:
+                $ref: '#/components/examples/ComplianceAuthorizationOptInExample'
+      responses:
+        '200':
+          description: Member successfully opted in for compliance monitoring
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceAuthorization'
+              examples:
+                SuccessResponse:
+                  value:
+                    developerApplication: urn:li:developerApplication:12345678
+                    member: urn:li:person:ABC123def
+                    status: AUTHORIZED
+                    createdAt: 1640000000000
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+      - Compliance Authorization
+      summary: LinkedIn Check Member Regulation Status
+      description: Check if a member is currently opted in for compliance monitoring.
+      operationId: checkMemberRegulationStatus
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - member
+        description: Query type for member lookup
+        example: member
+      responses:
+        '200':
+          description: Successfully retrieved member compliance authorization status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceAuthorizationResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ComplianceAuthorizationResponseExample'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  ? /v2/memberComplianceAuthorizations/developerApplication=urn:li:developerApplication:{DeveloperApplicationId}&member=urn:li:person:{PersonId}
+  : delete:
+      tags:
+      - Compliance Authorization
+      summary: LinkedIn Opt Out Member from Compliance Monitoring
+      description: Opt out a member from being regulated on LinkedIn. A member will not opt out due to access token expiration. Opt out occurs when the application invokes this DELETE API or the member removes authorization through LinkedIn's Privacy Settings.
+      operationId: optOutMemberFromCompliance
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: DeveloperApplicationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Developer application ID
+        example: '12345678'
+      - name: PersonId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Person ID of the member
+        example: ABC123def
+      responses:
+        '204':
+          description: Member successfully opted out from compliance monitoring
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Authorization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  examples:
+    ComplianceAuthorizationResponseExample:
+      summary: Successful authorization response
+      value:
+        elements:
+        - developerApplication: urn:li:developerApplication:12345678
+          member: urn:li:person:ABC123def
+          status: AUTHORIZED
+          createdAt: 1640000000000
+        paging:
+          start: 0
+          count: 10
+          total: 1
+          links: []
+    ComplianceAuthorizationOptInExample:
+      summary: Opt-in member for compliance monitoring
+      value:
+        member: urn:li:person:ABC123def
+  schemas:
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of elements returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of elements available
+          example: 100
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
+    ComplianceAuthorization:
+      type: object
+      properties:
+        developerApplication:
+          type: string
+          description: URN of the developer application
+          example: urn:li:developerApplication:12345678
+        member:
+          type: string
+          description: URN of the regulated member
+          example: urn:li:person:ABC123def
+        status:
+          type: string
+          enum:
+          - AUTHORIZED
+          - UNAUTHORIZED
+          description: Authorization status of the member
+          example: AUTHORIZED
+        createdAt:
+          type: integer
+          format: int64
+          description: Timestamp when authorization was created
+          example: 1640000000000
+      required:
+      - developerApplication
+      - member
+      - status
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /v2/complianceEvents?start=10&count=10
+        type:
+          type: string
+          example: application/json
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    ComplianceAuthorizationResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceAuthorization'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ComplianceAuthorizationRequest:
+      type: object
+      properties:
+        member:
+          type: string
+          description: URN of the member to regulate
+          example: urn:li:person:ABC123def
+      required:
+      - member
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

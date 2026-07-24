@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Company Streaming API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Company Streaming
+  description: APIs to stream company data for account targeting
+paths:
+  /dmpSegments/{CompanySegmentId}/companies:
+    post:
+      tags:
+      - Company Streaming
+      summary: LinkedIn Stream Company Data to Segment
+      description: Add or remove multiple companies from a DMP segment. The more information provided on a company, the better chance of a higher match rate.
+      operationId: streamCompaniesToSegment
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: X-RestLi-Method
+        in: header
+        required: true
+        schema:
+          type: string
+        example: BATCH_CREATE
+      - name: CompanySegmentId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID of the company DMP segment
+        example: '987654321'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyStreamRequest'
+            examples:
+              AddCompanies:
+                $ref: '#/components/examples/CompanyStreamRequestExample'
+      responses:
+        '200':
+          description: Companies streamed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamResponse'
+              examples:
+                SuccessResponse:
+                  value:
+                    elements:
+                    - status: 201
+                    - status: 201
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CompanyStreamRequest:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyStreamElement'
+      required:
+      - elements
+    StreamResultElement:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code for this element
+          example: 201
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    StreamResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamResultElement'
+    CompanyStreamElement:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          description: Action to perform
+          example: ADD
+        companyName:
+          type: string
+          description: Company name to add or remove
+          example: LinkedIn
+        companyDomain:
+          type: string
+          description: Company domain (optional)
+          example: linkedin.com
+        companyPageUrl:
+          type: string
+          description: Company LinkedIn page URL (optional)
+          example: https://www.linkedin.com/company/linkedin
+      required:
+      - action
+      - companyName
+  examples:
+    CompanyStreamRequestExample:
+      summary: Add multiple companies to segment
+      value:
+        elements:
+        - action: ADD
+          companyName: LinkedIn
+        - action: ADD
+          companyName: Microsoft
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

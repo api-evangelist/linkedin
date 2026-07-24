@@ -1,0 +1,356 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control DMP Segments API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: DMP Segments
+  description: APIs to create and manage DMP segments for audience targeting
+paths:
+  /dmpSegments:
+    get:
+      tags:
+      - DMP Segments
+      summary: LinkedIn Monitor DMP Segment Status
+      description: Retrieve DMP segments for a specific ad account. Monitor status, match rate, and audience size.
+      operationId: getDmpSegments
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - account
+        description: Query type
+        example: account
+      - name: account
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Sponsored account URN (URL encoded)
+        example: urn%3Ali%3AsponsoredAccount%3A123456
+      - name: sourcePlatform
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - LIST_UPLOAD
+          - STREAMING
+        description: Filter by source platform
+        example: LIST_UPLOAD
+      responses:
+        '200':
+          description: Successfully retrieved DMP segments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DmpSegmentsResponse'
+              examples:
+                SuccessResponse:
+                  value:
+                    paging:
+                      start: 0
+                      count: 10
+                      total: 1
+                      links: []
+                    elements:
+                    - id: 987654321
+                      name: DMP segment for CSV uploads
+                      account: urn:li:sponsoredAccount:123456
+                      accessPolicy: PRIVATE
+                      type: COMPANY_LIST_UPLOAD
+                      sourcePlatform: LIST_UPLOAD
+                      status: READY
+                      matchedCount: 5000
+                      inputCount: 6000
+                      audienceSize: 4500
+                      destinations:
+                      - destination: LINKEDIN
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+      - DMP Segments
+      summary: LinkedIn Create DMP Segment
+      description: 'Create a new DMP segment for list upload or streaming. Note: There must be at least a 5 second delay between creating the segment and attaching data.'
+      operationId: createDmpSegment
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        example: '202401'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DmpSegmentCreateRequest'
+            examples:
+              CreateSegment:
+                $ref: '#/components/examples/DmpSegmentCreateRequestExample'
+      responses:
+        '201':
+          description: DMP segment created successfully
+          headers:
+            X-RestLi-Id:
+              description: ID of the created segment
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DmpSegment'
+              examples:
+                SuccessResponse:
+                  value:
+                    id: 987654321
+                    name: DMP segment for CSV uploads
+                    account: urn:li:sponsoredAccount:123456
+                    accessPolicy: PRIVATE
+                    type: COMPANY_LIST_UPLOAD
+                    sourcePlatform: LIST_UPLOAD
+                    status: PROCESSING
+                    destinations:
+                    - destination: LINKEDIN
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of results returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of results
+          example: 2
+        links:
+          type: array
+          items:
+            type: string
+    DmpSegment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the DMP segment
+          example: 987654321
+        name:
+          type: string
+          description: Display name of the segment
+          example: DMP segment for CSV uploads
+        account:
+          type: string
+          description: URN of the sponsore account
+          example: urn:li:sponsoredAccount:123456
+        accessPolicy:
+          type: string
+          enum:
+          - PRIVATE
+          - PUBLIC
+          description: Access policy for the segment
+          example: PRIVATE
+        type:
+          type: string
+          enum:
+          - COMPANY_LIST_UPLOAD
+          - USER_LIST_UPLOAD
+          - COMPANY_STREAMING
+          - USER_STREAMING
+          description: Type of DMP segment
+          example: COMPANY_LIST_UPLOAD
+        sourcePlatform:
+          type: string
+          enum:
+          - LIST_UPLOAD
+          - STREAMING
+          description: Source platform for the segment data
+          example: LIST_UPLOAD
+        status:
+          type: string
+          enum:
+          - PROCESSING
+          - READY
+          - EXPIRED
+          - FAILED
+          description: Current status of the segment
+          example: READY
+        matchedCount:
+          type: integer
+          description: Number of matched records
+          example: 5000
+        inputCount:
+          type: integer
+          description: Total number of input records
+          example: 6000
+        audienceSize:
+          type: integer
+          description: Size of the audience
+          example: 4500
+        destinations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentDestination'
+      required:
+      - name
+      - account
+      - type
+      - sourcePlatform
+    DmpSegmentsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/DmpSegment'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    SegmentDestination:
+      type: object
+      properties:
+        destination:
+          type: string
+          enum:
+          - LINKEDIN
+          description: Destination platform
+          example: LINKEDIN
+    DmpSegmentCreateRequest:
+      type: object
+      properties:
+        accessPolicy:
+          type: string
+          enum:
+          - PRIVATE
+          - PUBLIC
+          description: Access policy for the segment
+          example: PRIVATE
+        account:
+          type: string
+          description: URN of the sponsored account
+          example: urn:li:sponsoredAccount:123456
+        destinations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentDestination'
+        name:
+          type: string
+          description: Display name for the segment
+          example: DMP segment for CSV uploads
+        sourcePlatform:
+          type: string
+          enum:
+          - LIST_UPLOAD
+          - STREAMING
+          description: Source platform
+          example: LIST_UPLOAD
+        type:
+          type: string
+          enum:
+          - COMPANY_LIST_UPLOAD
+          - USER_LIST_UPLOAD
+          - COMPANY_STREAMING
+          - USER_STREAMING
+          description: Type of segment
+          example: COMPANY_LIST_UPLOAD
+      required:
+      - accessPolicy
+      - account
+      - destinations
+      - name
+      - sourcePlatform
+      - type
+  examples:
+    DmpSegmentCreateRequestExample:
+      summary: Create list upload DMP segment
+      value:
+        accessPolicy: PRIVATE
+        account: urn:li:sponsoredAccount:123456
+        destinations:
+        - destination: LINKEDIN
+        name: DMP segment for CSV uploads
+        sourcePlatform: LIST_UPLOAD
+        type: COMPANY_LIST_UPLOAD
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

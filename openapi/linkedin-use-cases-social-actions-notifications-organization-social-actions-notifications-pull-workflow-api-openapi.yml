@@ -1,0 +1,120 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow
+  description: Notifications for the authenticated member’s organizations can be queried using a criteria finder. Notifications are retained and available to pull for 60 days.
+paths:
+  /shares:
+    post:
+      tags:
+      - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow
+      summary: LinkedIn 2. Create a Share with a Company Mention
+      description: 'Mention a company name by using the annotations. [Learn more](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/share-api?tabs=http#share-text-and-mentions) by viewing our public documentation.
+
+
+        This example uses the LinkedIn organization.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAShareWithRequest'
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postCreateAShareWith
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /eventSubscriptions:
+    get:
+      tags:
+      - Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Pull Workflow
+      summary: LinkedIn 3. Retrieve Notifications for the Authenticated Member's Organization
+      description: '[Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#pull-organizational-notifications) by viewing our public documentation.'
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: Linkedin-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: subscriberAndEventType
+      - name: eventType
+        in: query
+        schema:
+          type: string
+        example: ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getRetrieveNotificationsForThe
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  schemas:
+    CreateAShareWithRequest:
+      type: object
+      example:
+        owner: urn:li:organization:{{organization_id}}
+        text:
+          annotations:
+          - entity: urn:li:organization:1337
+            length: 8
+            start: 6
+          text: Hello LinkedIn world!
+        subject: Test Share Subject
+        distribution:
+          linkedInDistributionTarget: {}
+        content:
+          contentEntities:
+          - entityLocation: https://www.example.com
+            thumbnails:
+            - resolvedUrl: https://www.example.com/image.jpg
+          title: Test Share with Content title
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

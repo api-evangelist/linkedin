@@ -1,0 +1,237 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Audience Insights API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Audience Insights
+  description: APIs to fetch audience insights based on targeting criteria
+paths:
+  /targetingAudienceInsights:
+    post:
+      tags:
+      - Audience Insights
+      summary: LinkedIn Fetch Audience Insights by Targeting Criteria
+      description: Retrieve aggregated demographic insights, firmographic details, locations, and interests/behaviors for a target audience based on specified targeting criteria.
+      operationId: getAudienceInsights
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        description: LinkedIn API version
+        example: '202401'
+      - name: X-Restli-Protocol-Version
+        in: header
+        required: true
+        schema:
+          type: string
+        description: RestLi protocol version
+        example: 2.0.0
+      - name: action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - audienceInsights
+        description: Action to perform
+        example: audienceInsights
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AudienceInsightsRequest'
+            examples:
+              FinanceDirectorsInUS:
+                $ref: '#/components/examples/AudienceInsightsRequestExample'
+      responses:
+        '200':
+          description: Successfully retrieved audience insights
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceInsightsResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/AudienceInsightsResponseExample'
+        '400':
+          description: Bad request - invalid targeting criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden - insufficient permissions for Audience Insights API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    InsightSegmentation:
+      type: object
+      properties:
+        entityCount:
+          type: integer
+          description: Number of members matching this segment
+          example: 4900000
+        entityPercentage:
+          type: integer
+          description: Percentage of audience matching this segment
+          example: 89
+        value:
+          type: string
+          description: URN of the segment value
+          example: urn:li:interest:71363
+    RequestMetaData:
+      type: object
+      properties:
+        sponsoredAccount:
+          type: string
+          description: URN of the sponsored account
+          example: urn:li:sponsoredAccount:123456789
+    AudienceInsightsRequest:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            requestMetaData:
+              $ref: '#/components/schemas/RequestMetaData'
+            targetingCriteria:
+              $ref: '#/components/schemas/TargetingCriteria'
+            groupBy:
+              type: string
+              description: Facet URN to group insights by
+              example: urn:li:adTargetingFacet:interests
+          required:
+          - targetingCriteria
+          - groupBy
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    AudienceInsight:
+      type: object
+      properties:
+        segmentations:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsightSegmentation'
+        groupedBy:
+          type: string
+          description: Facet URN the insights are grouped by
+          example: urn:li:adTargetingFacet:interests
+    TargetingCriteria:
+      type: object
+      properties:
+        include:
+          type: object
+          properties:
+            and:
+              type: array
+              items:
+                type: object
+                properties:
+                  or:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+    AudienceInsightsResponse:
+      type: object
+      properties:
+        value:
+          type: object
+          properties:
+            audienceInsight:
+              $ref: '#/components/schemas/AudienceInsight'
+            totalAudienceCount:
+              type: integer
+              description: Total count of the target audience
+              example: 5500000
+  examples:
+    AudienceInsightsRequestExample:
+      summary: Request for interests of Finance directors in US
+      value:
+        request:
+          requestMetaData:
+            sponsoredAccount: urn:li:sponsoredAccount:123456789
+          targetingCriteria:
+            include:
+              and:
+              - or:
+                  urn:li:adTargetingFacet:locations:
+                  - urn:li:geo:103644278
+              - or:
+                  urn:li:adTargetingFacet:interfaceLocales:
+                  - urn:li:locale:en_US
+              - or:
+                  urn:li:adTargetingFacet:jobFunctions:
+                  - urn:li:function:10
+          groupBy: urn:li:adTargetingFacet:interests
+    AudienceInsightsResponseExample:
+      summary: Audience insights response with top interests
+      value:
+        value:
+          audienceInsight:
+            segmentations:
+            - entityCount: 4900000
+              entityPercentage: 89
+              value: urn:li:interest:71363
+            - entityCount: 4500000
+              entityPercentage: 82
+              value: urn:li:interest:420
+            - entityCount: 4500000
+              entityPercentage: 82
+              value: urn:li:interest:2689786
+            - entityCount: 4400000
+              entityPercentage: 80
+              value: urn:li:interest:3440
+            - entityCount: 4300000
+              entityPercentage: 78
+              value: urn:li:interest:1537154
+            groupedBy: urn:li:adTargetingFacet:interests
+          totalAudienceCount: 5500000
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

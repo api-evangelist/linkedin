@@ -1,0 +1,354 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Apply Connect Jobs API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Apply Connect Jobs
+  description: APIs for creating and managing Apply Connect enabled job postings
+paths:
+  /v2/simpleJobPostings:
+    post:
+      operationId: createOrUpdateJobPosting
+      tags:
+      - Apply Connect Jobs
+      summary: LinkedIn Create or Update Apply Connect Job Posting
+      description: 'Creates a new Apply Connect enabled job posting or updates/closes an existing one. Use the `jobPostingOperationType` field to specify the operation:
+
+        - `CREATE`: Create a new job posting - `UPDATE`: Update an existing job posting - `CLOSE`: Close an existing job posting
+
+        For more information, refer to the [Apply Connect Jobs Lifecycle documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/sync-jobs-onsite-apply#apply-connect-jobs-lifecycle).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/RestliMethodHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimpleJobPostingRequest'
+            examples:
+              CreateJobPosting:
+                $ref: '#/components/examples/SimpleJobPostingRequestExample'
+              CloseJobPosting:
+                $ref: '#/components/examples/CloseJobPostingRequestExample'
+      responses:
+        '200':
+          description: Job posting request accepted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobPostingResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/JobPostingResponseExample'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                BadRequestError:
+                  $ref: '#/components/examples/ErrorResponseExample'
+        '401':
+          description: Unauthorized - invalid or missing authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    OnsiteApplyConfiguration:
+      type: object
+      description: Configuration for onsite application collection
+      properties:
+        jobApplicationWebhookUrl:
+          type: string
+          format: uri
+          description: Webhook URL for receiving job applications
+          example: https://ats.company.com/webhooks/linkedin-applications
+        questions:
+          $ref: '#/components/schemas/ApplicationQuestions'
+    QuestionChoice:
+      type: object
+      properties:
+        symbolicName:
+          type: string
+          example: 'yes'
+        displayValue:
+          type: string
+          example: 'Yes'
+    CoverLetterQuestions:
+      type: object
+      properties:
+        coverLetterQuestionRequirement:
+          type: string
+          enum:
+          - REQUIRED
+          - OPTIONAL
+          - NOT_AVAILABLE
+          example: OPTIONAL
+    JobPostingResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ACCEPTED
+        taskUrn:
+          type: string
+          description: URN of the task to track posting status
+          example: urn:li:simpleJobPostingTask:12345678
+    MultipleChoiceQuestionDetails:
+      type: object
+      properties:
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionChoice'
+        selectMultiple:
+          type: boolean
+          example: false
+        preferredFormComponent:
+          type: string
+          enum:
+          - RADIO_BUTTONS
+          - DROPDOWN
+          - CHECKBOXES
+          example: RADIO_BUTTONS
+    AdditionalQuestions:
+      type: object
+      properties:
+        customQuestionSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomQuestionSet'
+    QuestionDetails:
+      type: object
+      properties:
+        multipleChoiceQuestionDetails:
+          $ref: '#/components/schemas/MultipleChoiceQuestionDetails'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    ApplicationQuestions:
+      type: object
+      description: Questions configuration for job applications
+      properties:
+        resumeQuestions:
+          $ref: '#/components/schemas/ResumeQuestions'
+        coverLetterQuestions:
+          $ref: '#/components/schemas/CoverLetterQuestions'
+        voluntarySelfIdentificationQuestions:
+          type: object
+          description: Voluntary self-identification questions
+        educationQuestions:
+          $ref: '#/components/schemas/EducationQuestions'
+        workQuestions:
+          $ref: '#/components/schemas/WorkQuestions'
+        additionalQuestions:
+          $ref: '#/components/schemas/AdditionalQuestions'
+    ResumeQuestions:
+      type: object
+      properties:
+        resumeQuestionRequirement:
+          type: string
+          enum:
+          - REQUIRED
+          - OPTIONAL
+          - NOT_AVAILABLE
+          example: REQUIRED
+    CustomQuestion:
+      type: object
+      properties:
+        required:
+          type: boolean
+          example: true
+        partnerQuestionIdentifier:
+          type: string
+          example: question-001
+        questionText:
+          type: string
+          example: Are you authorized to work in the United States?
+        questionDetails:
+          $ref: '#/components/schemas/QuestionDetails'
+    JobPostingResponse:
+      type: object
+      description: Response from job posting creation
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobPostingResult'
+    WorkQuestions:
+      type: object
+      properties:
+        workExperienceQuestionSet:
+          type: object
+    EducationQuestions:
+      type: object
+      properties:
+        educationExperienceQuestionSet:
+          type: object
+    JobPostingElement:
+      type: object
+      description: Individual job posting element
+      required:
+      - externalJobPostingId
+      - title
+      - description
+      - integrationContext
+      - listingType
+      - location
+      properties:
+        externalJobPostingId:
+          type: string
+          description: External identifier for the job posting
+          example: JOB-2024-001
+        title:
+          type: string
+          description: Job title
+          example: Software Developer in Test
+        description:
+          type: string
+          description: Full job description
+          example: We are looking for a talented Software Developer in Test to join our engineering team...
+        integrationContext:
+          type: string
+          description: Organization URN for the job posting
+          example: urn:li:organization:12345678
+        jobPostingOperationType:
+          type: string
+          description: Operation type for the job posting
+          enum:
+          - CREATE
+          - UPDATE
+          - CLOSE
+          example: CREATE
+        listingType:
+          type: string
+          description: Type of job listing
+          enum:
+          - BASIC
+          - PREMIUM
+          example: BASIC
+        listedAt:
+          type: integer
+          format: int64
+          description: Timestamp when the job was listed
+          example: 1702693664000
+        location:
+          type: string
+          description: Job location
+          example: San Francisco, CA
+        companyApplyUrl:
+          type: string
+          format: uri
+          description: URL for company's application page
+          example: https://company.com/careers/apply
+        onsiteApplyConfiguration:
+          $ref: '#/components/schemas/OnsiteApplyConfiguration'
+    SimpleJobPostingRequest:
+      type: object
+      description: Request body for creating or updating job postings
+      required:
+      - elements
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobPostingElement'
+    CustomQuestionSet:
+      type: object
+      properties:
+        questionSetId:
+          type: string
+          example: custom-questions-001
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomQuestion'
+  examples:
+    CloseJobPostingRequestExample:
+      summary: Example request to close a job posting
+      value:
+        elements:
+        - externalJobPostingId: JOB-2024-001
+          title: Software Developer in Test
+          description: Position has been filled.
+          integrationContext: urn:li:organization:12345678
+          jobPostingOperationType: CLOSE
+          listingType: BASIC
+          listedAt: 1702693664000
+          location: San Francisco, CA
+    JobPostingResponseExample:
+      summary: Example job posting response
+      value:
+        elements:
+        - status: ACCEPTED
+          taskUrn: urn:li:simpleJobPostingTask:12345678
+    ErrorResponseExample:
+      summary: Example error response
+      value:
+        status: 400
+        message: Invalid request parameters
+        serviceErrorCode: 100
+    SimpleJobPostingRequestExample:
+      summary: Example Apply Connect job posting request
+      value:
+        elements:
+        - externalJobPostingId: JOB-2024-001
+          title: Software Developer in Test
+          description: We are looking for a talented Software Developer in Test to join our engineering team. You will be responsible for designing and implementing automated tests.
+          integrationContext: urn:li:organization:12345678
+          jobPostingOperationType: CREATE
+          listingType: BASIC
+          listedAt: 1702693664000
+          location: San Francisco, CA
+          companyApplyUrl: https://company.com/careers/apply
+          onsiteApplyConfiguration:
+            jobApplicationWebhookUrl: https://ats.company.com/webhooks/linkedin
+            questions:
+              resumeQuestions:
+                resumeQuestionRequirement: REQUIRED
+              coverLetterQuestions:
+                coverLetterQuestionRequirement: OPTIONAL
+  parameters:
+    RestliMethodHeader:
+      name: x-restli-method
+      in: header
+      required: true
+      description: Rest.li method for batch operations
+      schema:
+        type: string
+      example: batch_create
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

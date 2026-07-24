@@ -1,0 +1,192 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Creatives API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Creatives
+  description: 'The Creatives API contains all the data and information for visually rendering an ad. There are several types of Ad Creatives that you can associate with campaigns including:'
+paths:
+  /creatives:
+    get:
+      tags:
+      - Use Cases > Creatives
+      summary: LinkedIn Search for Creative
+      description: You can search for creative content in order to get a collection of creatives matching your search parameters. The Creative API currently supports search by `creative id`, `campaign`, `account`, `content reference`, `intendedStatus`, `leadgenCreativeCallToActionDestinations` and test fields. The API supports finding creatives from multiple accounts. The values within each field are displayed with 'or' (ORed) and values across fields are displayed with 'and' (ANDed).
+      parameters:
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: accounts
+        in: query
+        schema:
+          type: string
+        example: List(id1,id2,id3)
+      - name: campaigns
+        in: query
+        schema:
+          type: string
+        example: List(id1,id2,id3)
+      - name: contentReferences
+        in: query
+        schema:
+          type: string
+        example: List(id1,id2,id3)
+      - name: creatives
+        in: query
+        schema:
+          type: string
+        example: List(id1,id2,id3)
+      - name: intendedStatuses
+        in: query
+        schema:
+          type: string
+        example: List(ARCHIVED,CANCELED,ARCHIVED)
+      - name: isTestAccount
+        in: query
+        schema:
+          type: boolean
+        example: 'true'
+      - name: isTotalIncluded
+        in: query
+        schema:
+          type: boolean
+        example: false
+      - name: leadgenCreativeCallToActionDestinations
+        in: query
+        schema:
+          type: string
+        example: List()
+      - name: q
+        in: query
+        schema:
+          type: string
+        example: criteria
+      - name: sortOrder
+        in: query
+        schema:
+          type: string
+        example: ASCENDING
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getSearchForCreative
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /creatives/{urn_creatives}:
+    get:
+      tags:
+      - Use Cases > Creatives
+      summary: LinkedIn Get a Sponsored Creative
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      - name: urn_creatives
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetASponsoredCreative
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /creatives/{creative ID}:
+    post:
+      tags:
+      - Use Cases > Creatives
+      summary: LinkedIn Update a Creative
+      description: "You can change the details of following Creatives fields:\n\n\\*   `intendedStatus`:\n\\*   `leadgenCallToAction`: field `adFormUrn` - The ad form that is a target destination for the `callToAction` button. It can only be modified when the creative is in DRAFT status. It is read only once it is set for a creative and once it transitions to any non-draft intended status.\n\\*   `leadgenCallToAction`: field label `-Label` for the `callToAction` button\n    \n\n  \nThis API updates a sponsored creative."
+      requestBody:
+        content: {}
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postUpdateACreative
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    delete:
+      tags:
+      - Use Cases > Creatives
+      summary: LinkedIn Delete a Creative
+      description: "A Creative can be deleted. Use DELETE method to delete a creative that meets one of the following conditions. To start the process of deleting other creative, update the status to `PENDING_DELETION`.\n\n\\*   It is in a DRAFT state.\n\\*   It is linked to a Campaign in a DRAFT state.\n\\*   It is a video ad creative and `processingState` is `PROCESSING_FAILED`.\n    \n\nThe header X-RestLi-Method must be included in the request and set to `DELETE`."
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-Restli-Protocol-Version
+        in: header
+        schema:
+          type: string
+        example: 2.0.0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: deleteDeleteACreative
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

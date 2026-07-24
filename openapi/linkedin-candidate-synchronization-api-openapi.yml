@@ -1,0 +1,281 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Candidate Synchronization API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Candidate Synchronization
+  description: Sync candidate data from ATS to LinkedIn
+paths:
+  /v2/atsCandidates:
+    put:
+      operationId: syncCandidates
+      tags:
+      - Candidate Synchronization
+      summary: LinkedIn Sync Candidates to LinkedIn
+      description: 'Creates or updates candidate records in LinkedIn from the ATS system.
+
+        For more information, refer to the [Sync Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/RestliMethodHeader'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - name: ids[0].atsCandidateId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: CAND-001
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: ATS
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:organization:12345
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateRequest'
+            examples:
+              SyncCandidate:
+                $ref: '#/components/examples/CandidateRequestExample'
+      responses:
+        '200':
+          description: Successfully synced candidates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/SuccessResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: getCandidateMatches
+      tags:
+      - Candidate Synchronization
+      summary: LinkedIn Retrieve Candidate Matches
+      description: 'Retrieves candidate details including algorithmic and user-supplied matches with LinkedIn members.
+
+        For more information, refer to the [Retrieve Candidate Matches documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#retrieve-candidate-matches).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - name: ids[0].atsCandidateId
+        in: query
+        required: true
+        schema:
+          type: string
+        example: CAND-001
+      - name: ids[0].dataProvider
+        in: query
+        required: true
+        schema:
+          type: string
+        example: ATS
+      - name: ids[0].integrationContext
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:organization:12345
+      responses:
+        '200':
+          description: Successfully retrieved candidate matches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidateData'
+        '404':
+          description: Candidate not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CandidateData:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        middleInitial:
+          type: string
+          example: M
+        prefix:
+          type: string
+          example: Mr
+        suffix:
+          type: string
+          example: Jr
+        emailAddresses:
+          type: array
+          items:
+            type: string
+            format: email
+          example:
+          - john.doe@example.com
+        phoneNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        currentCompanyName:
+          type: string
+          example: Tech Corp
+        currentJobTitle:
+          type: string
+          example: Senior Software Engineer
+        externalProfileUrl:
+          type: string
+          format: uri
+          example: https://example.com/profile/johndoe
+        atsCreatedAt:
+          type: integer
+          format: int64
+          example: 1702693664000
+        atsLastModifiedAt:
+          type: integer
+          format: int64
+          example: 1702693664000
+    CandidateRequest:
+      type: object
+      description: Request for syncing candidate data
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CandidateData'
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          example: 123 Main Street
+        city:
+          type: string
+          example: San Francisco
+        geographicArea:
+          type: string
+          example: CA
+        geographicAreaType:
+          type: string
+          enum:
+          - STATE
+          - PROVINCE
+          example: STATE
+        postalCode:
+          type: string
+          example: '94102'
+        country:
+          type: string
+          example: US
+    PhoneNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          example: 555-555-5555
+        extension:
+          type: string
+          example: '1234'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+  examples:
+    CandidateRequestExample:
+      summary: Example candidate sync request
+      value:
+        entities:
+          atsCandidateId=CAND-001&dataProvider=ATS&integrationContext=urn:li:organization:12345:
+            firstName: John
+            lastName: Doe
+            emailAddresses:
+            - john.doe@example.com
+            currentCompanyName: Tech Corp
+            currentJobTitle: Senior Software Engineer
+            atsCreatedAt: 1702693664000
+            atsLastModifiedAt: 1702693664000
+    SuccessResponseExample:
+      summary: Successful operation response
+      value:
+        status: SUCCESS
+  parameters:
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
+    RestliMethodHeader:
+      name: x-restli-method
+      in: header
+      required: true
+      description: Rest.li method type
+      schema:
+        type: string
+        enum:
+        - batch_update
+        - batch_partial_update
+        - batch_create
+      example: batch_update
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

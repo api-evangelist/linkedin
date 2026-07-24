@@ -1,0 +1,223 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Sales Analytics Export API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Sales Analytics Export
+  description: Create and manage sales analytics export jobs
+paths:
+  /salesAnalyticsExportJobs/{JobId}:
+    get:
+      tags:
+      - Sales Analytics Export
+      summary: LinkedIn Fetch Sales Analytics Export Job by Id
+      description: Retrieve the status and details of a sales analytics export job by its ID.
+      operationId: getSalesAnalyticsExportJob
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: JobId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The ID of the export job
+        example: 987654321
+      - name: contract
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Sales Navigator contract URN
+        example: urn:li:salesContract:12345
+      responses:
+        '200':
+          description: Details of the export job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesAnalyticsExportJob'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/SalesAnalyticsExportJobExample'
+        '401':
+          description: Unauthorized, invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /salesAnalyticsExportJobs:
+    post:
+      tags:
+      - Sales Analytics Export
+      summary: LinkedIn Create New Sales Analytics Export Job
+      description: Create a new sales analytics export job to export seat data, activity outcome data, or activity data.
+      operationId: createSalesAnalyticsExportJob
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: ''
+      parameters:
+      - name: action
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - exportSeatData
+          - exportActivityOutcomeData
+          - exportActivityData
+        description: The type of export job to create
+        example: exportSeatData
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesAnalyticsExportJobRequest'
+            examples:
+              ExportRequest:
+                value:
+                  contract: urn:li:salesContract:12345
+                  startAt: 1638316800000
+                  endAt: 1640908800000
+      responses:
+        '200':
+          description: Export job successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesAnalyticsExportJobResponse'
+              examples:
+                SuccessResponse:
+                  value:
+                    value:
+                      id: 987654321
+                      status: ENQUEUED
+                      downloadUrl: null
+                      expireAt: null
+                      rowCount: null
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  examples:
+    SalesAnalyticsExportJobExample:
+      summary: Completed export job
+      value:
+        id: 987654321
+        status: COMPLETED
+        downloadUrl: https://media.licdn.com/exports/analytics_123.csv
+        expireAt: 1640200000
+        rowCount: 5000
+  schemas:
+    SalesAnalyticsExportJobResponse:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/SalesAnalyticsExportJob'
+    SalesAnalyticsExportJob:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: A unique identifier for the job
+          example: 987654321
+        status:
+          type: string
+          enum:
+          - ENQUEUED
+          - PROCESSING
+          - COMPLETED
+          - FAILED_DUE_TO_EXCEEDED_FILE_SIZE_ERROR
+          - FAILED_DUE_TO_TIMED_OUT
+          - FAILED_DUE_TO_DATA_DELAY
+          - FAILED_DUE_TO_INTERNAL_ERROR
+          description: Current status of the export job
+          example: COMPLETED
+        downloadUrl:
+          type: string
+          nullable: true
+          description: URL for downloading the exported data when job is completed
+          example: https://media.licdn.com/exports/analytics_123.csv
+        expireAt:
+          type: integer
+          nullable: true
+          description: Expiration timestamp of the download URL
+          example: 1640200000
+        rowCount:
+          type: integer
+          nullable: true
+          description: Number of rows in the exported data
+          example: 5000
+      required:
+      - id
+      - status
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    SalesAnalyticsExportJobRequest:
+      type: object
+      properties:
+        contract:
+          type: string
+          description: Sales Navigator contract URN
+          example: urn:li:salesContract:12345
+        startAt:
+          type: integer
+          description: Start date of the exported data (milliseconds since epoch)
+          example: 1638316800000
+        endAt:
+          type: integer
+          description: End date of the exported data (milliseconds since epoch)
+          example: 1640908800000
+      required:
+      - contract
+      - startAt
+      - endAt
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

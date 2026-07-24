@@ -1,0 +1,240 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Data Retrieval API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Data Retrieval
+  description: Retrieve exported candidates and recruiter interactions
+paths:
+  /v2/exportedCandidates:
+    get:
+      operationId: getExportedCandidates
+      tags:
+      - Data Retrieval
+      summary: LinkedIn Get Exported Candidate Profile
+      description: 'Retrieves limited profile information of candidates exported via One-Click Export.
+
+        For more information, refer to the [Retrieve Exported Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/retrieve-exported-candidates#retrieving-exported-candidate-information).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - $ref: '#/components/parameters/QueryTypeParameter'
+      - $ref: '#/components/parameters/RequestIdParameter'
+      responses:
+        '200':
+          description: Successfully retrieved exported candidate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportedCandidateResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/ExportedCandidateResponseExample'
+        '404':
+          description: Export request not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v2/seats:
+    get:
+      operationId: getRecruiterSeatholders
+      tags:
+      - Data Retrieval
+      summary: LinkedIn Retrieve Recruiter Seatholders
+      description: 'Retrieves details of contract seat holders including name, email, and unique ID.
+
+        For more information, refer to the [Recruiter Seatholders documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/recruiter-seatholders).'
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
+        delay: 100
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+        example: seatsByAttributes
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+        example: true
+      - name: contracts
+        in: query
+        required: true
+        schema:
+          type: string
+        example: urn:li:contract:12345
+      - name: start
+        in: query
+        required: false
+        schema:
+          type: integer
+        example: 0
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+        example: 100
+      responses:
+        '200':
+          description: Successfully retrieved seatholders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeatholdersResponse'
+              examples:
+                SuccessResponse:
+                  $ref: '#/components/examples/SeatholdersResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Seatholder:
+      type: object
+      properties:
+        seatUrn:
+          type: string
+          example: urn:li:seat:12345
+        firstName:
+          type: string
+          example: Jane
+        lastName:
+          type: string
+          example: Recruiter
+        emailAddress:
+          type: string
+          format: email
+          example: jane.recruiter@company.com
+        active:
+          type: boolean
+          example: true
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 100
+        total:
+          type: integer
+          example: 250
+    SeatholdersResponse:
+      type: object
+      description: Response containing recruiter seatholders
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Seatholder'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    ExportedCandidate:
+      type: object
+      properties:
+        personUrn:
+          type: string
+          example: urn:li:person:ABC123
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        headline:
+          type: string
+          example: Senior Software Engineer at Tech Corp
+        profilePictureUrl:
+          type: string
+          format: uri
+          example: https://media.licdn.com/...
+    ExportedCandidateResponse:
+      type: object
+      description: Response containing exported candidate data
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportedCandidate'
+  examples:
+    SeatholdersResponseExample:
+      summary: Example seatholders response
+      value:
+        elements:
+        - seatUrn: urn:li:seat:12345
+          firstName: Jane
+          lastName: Recruiter
+          emailAddress: jane.recruiter@company.com
+          active: true
+        paging:
+          start: 0
+          count: 100
+          total: 1
+    ExportedCandidateResponseExample:
+      summary: Example exported candidate response
+      value:
+        elements:
+        - personUrn: urn:li:person:ABC123
+          firstName: John
+          lastName: Doe
+          headline: Senior Software Engineer at Tech Corp
+  parameters:
+    RequestIdParameter:
+      name: requestId
+      in: query
+      required: true
+      description: Request ID from push notification
+      schema:
+        type: string
+      example: req-12345-abcde
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type
+      schema:
+        type: string
+      example: request
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data

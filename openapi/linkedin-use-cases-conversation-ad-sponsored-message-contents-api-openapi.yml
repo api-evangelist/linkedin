@@ -1,0 +1,295 @@
+openapi: 3.1.0
+info:
+  title: LinkedIn Compliance Events Access Control Use Cases > Conversation Ad > Sponsored Message Contents API
+  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  version: 1.0.0
+  contact:
+    name: LinkedIn API Support
+    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+servers:
+- url: https://api.linkedin.com
+  description: LinkedIn Production API Server
+security:
+- OAuth2Auth:
+  - r_compliance
+tags:
+- name: Use Cases > Conversation Ad > Sponsored Message Contents
+  description: Within our API, Conversation Ads are represented by the Sponsored Conversation entity. Sponsored Conversations are composed of Sponsored Message Content.
+paths:
+  /conversationAds/{conversationAdsId}/sponsoredMessageContents:
+    post:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: LinkedIn Batch Create Sponsored Message Content
+      description: Creates Sponsored Message Content in Batches.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/BatchCreateSponsoredMessageRequest'
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: X-RestLi-Method
+        in: header
+        schema:
+          type: string
+        example: BATCH_CREATE
+      - name: conversationAdsId
+        in: path
+        schema:
+          type: string
+        required: true
+        example: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postBatchCreateSponsoredMessage
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /conversationAds/{conversationUrn}/sponsoredMessageContents/{messageUrn}:
+    get:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: LinkedIn Get Sponsored Message Content
+      description: Retrieves just a single message content from all the conversations in a conversation Ad.
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: conversationUrn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      - name: messageUrn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getGetSponsoredMessageContent
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    post:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: LinkedIn Update Sponsored Message Content
+      description: Updates the message contents from all the conversations in a conversation Ad.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/UpdateSponsoredMessageContentRequest'
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: conversationUrn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      - name: messageUrn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postUpdateSponsoredMessageContent
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+  /conversationAds/{conversationUrn}/sponsoredMessageContents:
+    get:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: LinkedIn Batch Get Sponsored Message Content
+      description: Retrieves Sponsored Message Content in Batches.
+      parameters:
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: X-RestLi-Method
+        in: header
+        schema:
+          type: string
+        example: BATCH_GET
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: List({message-urn1},{message-urn2})
+      - name: conversationUrn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: getBatchGetSponsoredMessage
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    post:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: LinkedIn Batch Update Sponsored Message Content
+      description: Updates Sponsored Message Content in Batches.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/BatchUpdateSponsoredMessageRequest'
+      parameters:
+      - name: '''Authorization'
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-RestLi-Method
+        in: header
+        schema:
+          type: string
+        example: BATCH_UPDATE
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: List({message-urn1},{message-urn2})
+      - name: conversationUrn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: postBatchUpdateSponsoredMessage
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+    delete:
+      tags:
+      - Use Cases > Conversation Ad > Sponsored Message Contents
+      summary: LinkedIn Batch Delete Sponsored Message Content
+      description: Deletes Sponsored Message Content in Batches.
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+        example: '{{insert_token}}'
+      - name: LinkedIn-Version
+        in: header
+        schema:
+          type: string
+        example: '{{insert_version}}'
+      - name: X-RestLi-Method
+        in: header
+        schema:
+          type: string
+        example: BATCH_DELETE
+      - name: ids
+        in: query
+        schema:
+          type: string
+        example: List({message-urn1},{message-urn2})'
+      - name: conversationUrn
+        in: path
+        schema:
+          type: string
+        required: true
+        example: urn:li:organization:123456
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+      operationId: deleteBatchDeleteSponsoredMessage
+      x-microcks-operation:
+        dispatcher: FALLBACK
+        dispatcherRules: '{}'
+        delay: 0
+components:
+  schemas:
+    BatchUpdateSponsoredMessageRequest:
+      type: string
+      example: '"{\n       \"entities\": {\n        \"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\": {\n              \"patch\": {\n                  \"$set\": {\n                      \"bodySource\": {\n                         “text”: “New updated text”\n                      }\n                   }\n                }\n    },\n         \"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\": {\n              \"patch\": {\n                  \"$set\": {\n                      \"bodySource\": {\n                         “text”: “New updated text2”\n                      }\n                   }\n                }\n    }\n    }\n}\n\n"'
+    BatchCreateSponsoredMessageRequest:
+      type: string
+      example: '"{\n    \"elements\": [ {\n              \"bodySource\": {\n         \"leadGenerationForm\": \"urn:li:adForm:434835\"\n       },\n               \"nextAction\":{\n                  \"options\":[\n                    {\n                        \"replyType\": \"LEAD_GENERATION_THANK_YOU\",\n                        \"optionText\": \"Visit website\"\n                    },\n                    {\n                        \"replyType\": \"SIMPLE_REPLY\",\n                                                \"nextContent\": \"urn:li:sponsoredMessageContent:(urn:li:sponsoredConversation:186604,14253)\",\n                        \"optionText\": \"Simple reply\"\n                    },\n                    {\n                        \"replyType\": \"EXTERNAL_WEBSITE\",\n                        \"optionText\": \"Visit website\",\n                        \"landingPage\": \"http://www.linkedin.com\"\n                    }\n                  ]\n               }\n        },{\n            \"bodySource\": {\n        \"text\": \"Sample text\"\n      },\n             \"nextAction\":{\n                  \"options\":[\n                    {\n                        \"replyType\": \"EXTERNAL_WEBSITE\",\n                        \"optionText\": \"Other website\",\n                        \"landingPage\": \"http://www.microsoft.com\"\n                    }\n                  ]\n               }\n\n        }]\n}\n\n"'
+    UpdateSponsoredMessageContentRequest:
+      type: string
+      example: '"{\n  \"patch\": {\n    \"$set\": {\n      \"bodySource\": {\n         “text”: “New updated text”\n      }\n    }\n  }\n}\n"'
+  securitySchemes:
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            r_compliance: Read compliance data
