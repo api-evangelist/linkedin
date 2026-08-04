@@ -1,0 +1,588 @@
+{
+  "info": {
+    "_postman_id": "8cc5501b-f16f-4824-8540-dd38e9945be7",
+    "name": "LinkedIn Compliance Events Access Control Organizations API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:28:43.000Z",
+    "updatedAt": "2026-08-03T11:28:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8cc5501b-f16f-4824-8540-dd38e9945be7"
+  },
+  "item": [
+    {
+      "name": "rest",
+      "item": [
+        {
+          "name": "dmaOrganizations",
+          "item": [
+            {
+              "name": "{organizationId}",
+              "item": [
+                {
+                  "name": "LinkedIn Get Organization",
+                  "id": "6966c19c-15bf-424b-a822-7ff0ac2261a9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaOrganizations/:organizationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaOrganizations",
+                        ":organizationId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "40d29cca-8a5f-4a8c-8877-a6354bcfbbba",
+                          "key": "organizationId",
+                          "value": "<string>",
+                          "description": "(Required) Organization identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a single organization profile by ID for data portability compliance. Returns comprehensive organization details including profile, settings, and metadata."
+                  },
+                  "response": [
+                    {
+                      "id": "fc8836e9-7db8-462f-87d8-dc5f26b6049a",
+                      "name": "Successfully retrieved organization",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) LinkedIn API version in YYYYMM format",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Rest.li protocol version",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rest/dmaOrganizations/:organizationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rest",
+                            "dmaOrganizations",
+                            ":organizationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "organizationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<long>\",\n  \"name\": {\n    \"localized\": {\n      \"quis_80\": \"<string>\",\n      \"culpa_37f\": \"<string>\",\n      \"nulla_b5f\": \"<string>\"\n    },\n    \"preferredLocale\": {\n      \"country\": \"<string>\",\n      \"language\": \"<string>\"\n    }\n  },\n  \"description\": {\n    \"localized\": {\n      \"deserunt_2d_\": \"<string>\",\n      \"idc\": \"<string>\",\n      \"cillum_7ce\": \"<string>\"\n    },\n    \"preferredLocale\": {\n      \"country\": \"<string>\",\n      \"language\": \"<string>\"\n    }\n  },\n  \"tagline\": {\n    \"localized\": {\n      \"eiusmod_0\": \"<string>\",\n      \"aliqua1_b\": \"<string>\"\n    },\n    \"preferredLocale\": {\n      \"country\": \"<string>\",\n      \"language\": \"<string>\"\n    }\n  },\n  \"localizedName\": \"<string>\",\n  \"localizedDescription\": \"<string>\",\n  \"localizedTagline\": \"<string>\",\n  \"vanityName\": \"<string>\",\n  \"organizationType\": \"PUBLIC_COMPANY\",\n  \"staffCountRange\": \"SIZE_11_TO_50\",\n  \"industriesV2\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"logoV2\": {\n    \"cropped\": {\n      \"downloadUrl\": \"<uri>\",\n      \"downloadUrlExpiresAt\": \"<long>\",\n      \"status\": \"FAILED\"\n    },\n    \"original\": {\n      \"downloadUrl\": \"<uri>\",\n      \"downloadUrlExpiresAt\": \"<long>\",\n      \"status\": \"AVAILABLE\"\n    },\n    \"cropInfo\": {\n      \"x\": \"<integer>\",\n      \"y\": \"<integer>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\"\n    }\n  },\n  \"coverPhotoV2\": {\n    \"cropped\": {\n      \"downloadUrl\": \"<uri>\",\n      \"downloadUrlExpiresAt\": \"<long>\",\n      \"status\": \"AVAILABLE\"\n    },\n    \"original\": {\n      \"downloadUrl\": \"<uri>\",\n      \"downloadUrlExpiresAt\": \"<long>\",\n      \"status\": \"AVAILABLE\"\n    },\n    \"cropInfo\": {\n      \"x\": \"<integer>\",\n      \"y\": \"<integer>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\"\n    }\n  },\n  \"locations\": [\n    {\n      \"locationType\": \"OTHER\",\n      \"address\": {\n        \"line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"geographicArea\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"country\": \"<string>\"\n      },\n      \"geoLocation\": \"<string>\",\n      \"staffCountRange\": \"<string>\",\n      \"description\": {\n        \"localized\": {\n          \"proident_98c\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"locationType\": \"OTHER\",\n      \"address\": {\n        \"line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"geographicArea\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"country\": \"<string>\"\n      },\n      \"geoLocation\": \"<string>\",\n      \"staffCountRange\": \"<string>\",\n      \"description\": {\n        \"localized\": {\n          \"inc\": \"<string>\",\n          \"veniam_2\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"foundedOn\": {\n    \"year\": \"<integer>\",\n    \"month\": \"<integer>\",\n    \"day\": \"<integer>\"\n  },\n  \"entityStatus\": \"ACTIVE\",\n  \"created\": {\n    \"time\": \"<long>\"\n  },\n  \"lastModified\": {\n    \"time\": \"<long>\"\n  }\n}",
+                      "createdAt": "2026-08-03T11:28:43.000Z",
+                      "updatedAt": "2026-08-03T11:28:43.000Z",
+                      "uid": "35240-fc8836e9-7db8-462f-87d8-dc5f26b6049a"
+                    },
+                    {
+                      "id": "1939ba94-db20-417b-9537-5d4443cff782",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) LinkedIn API version in YYYYMM format",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Rest.li protocol version",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rest/dmaOrganizations/:organizationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rest",
+                            "dmaOrganizations",
+                            ":organizationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "organizationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-08-03T11:28:43.000Z",
+                      "updatedAt": "2026-08-03T11:28:43.000Z",
+                      "uid": "35240-1939ba94-db20-417b-9537-5d4443cff782"
+                    },
+                    {
+                      "id": "c93ade86-bad1-4f2a-9f54-0df4110ceb4b",
+                      "name": "Forbidden - insufficient permissions",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) LinkedIn API version in YYYYMM format",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Rest.li protocol version",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rest/dmaOrganizations/:organizationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rest",
+                            "dmaOrganizations",
+                            ":organizationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "organizationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-08-03T11:28:43.000Z",
+                      "updatedAt": "2026-08-03T11:28:43.000Z",
+                      "uid": "35240-c93ade86-bad1-4f2a-9f54-0df4110ceb4b"
+                    },
+                    {
+                      "id": "67fadefd-9f81-4c97-b724-133fdc7e593d",
+                      "name": "Organization not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) LinkedIn API version in YYYYMM format",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Rest.li protocol version",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rest/dmaOrganizations/:organizationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rest",
+                            "dmaOrganizations",
+                            ":organizationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "organizationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-08-03T11:28:43.000Z",
+                      "updatedAt": "2026-08-03T11:28:43.000Z",
+                      "uid": "35240-67fadefd-9f81-4c97-b724-133fdc7e593d"
+                    }
+                  ],
+                  "createdAt": "2026-08-03T11:28:43.000Z",
+                  "updatedAt": "2026-08-03T11:28:43.000Z",
+                  "uid": "35240-6966c19c-15bf-424b-a822-7ff0ac2261a9"
+                }
+              ],
+              "id": "a689b8db-fb98-4484-96d7-488ffbcf3fac",
+              "createdAt": "2026-08-03T11:28:43.000Z",
+              "updatedAt": "2026-08-03T11:28:43.000Z",
+              "uid": "35240-a689b8db-fb98-4484-96d7-488ffbcf3fac"
+            },
+            {
+              "name": "LinkedIn Batch Get Organizations",
+              "id": "1190ffaf-f561-4cce-82ce-5eba4f6c0efc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) LinkedIn API version in YYYYMM format",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) Rest.li protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rest/dmaOrganizations?ids=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rest",
+                    "dmaOrganizations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) List of entity IDs to retrieve",
+                      "key": "ids",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves multiple organization profiles in a single request for data portability compliance. Returns organization details including name, description, locations, and settings."
+              },
+              "response": [
+                {
+                  "id": "be368bab-b994-45ed-8db7-ba532822dfbf",
+                  "name": "Successfully retrieved organizations",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaOrganizations?ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaOrganizations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) List of entity IDs to retrieve",
+                          "key": "ids",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"results\": {\n    \"deserunted\": {\n      \"id\": \"<long>\",\n      \"name\": {\n        \"localized\": {\n          \"Excepteur_0\": \"<string>\",\n          \"enim2\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"description\": {\n        \"localized\": {\n          \"pariatur_810\": \"<string>\",\n          \"laboris_4b\": \"<string>\",\n          \"consequat6\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"tagline\": {\n        \"localized\": {\n          \"occaecat_9bc\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"localizedName\": \"<string>\",\n      \"localizedDescription\": \"<string>\",\n      \"localizedTagline\": \"<string>\",\n      \"vanityName\": \"<string>\",\n      \"organizationType\": \"NON_PROFIT\",\n      \"staffCountRange\": \"SIZE_51_TO_200\",\n      \"industriesV2\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"logoV2\": {\n        \"cropped\": {\n          \"downloadUrl\": \"<uri>\",\n          \"downloadUrlExpiresAt\": \"<long>\",\n          \"status\": \"PROCESSING\"\n        },\n        \"original\": {\n          \"downloadUrl\": \"<uri>\",\n          \"downloadUrlExpiresAt\": \"<long>\",\n          \"status\": \"AVAILABLE\"\n        },\n        \"cropInfo\": {\n          \"x\": \"<integer>\",\n          \"y\": \"<integer>\",\n          \"width\": \"<integer>\",\n          \"height\": \"<integer>\"\n        }\n      },\n      \"coverPhotoV2\": {\n        \"cropped\": {\n          \"downloadUrl\": \"<uri>\",\n          \"downloadUrlExpiresAt\": \"<long>\",\n          \"status\": \"FAILED\"\n        },\n        \"original\": {\n          \"downloadUrl\": \"<uri>\",\n          \"downloadUrlExpiresAt\": \"<long>\",\n          \"status\": \"PROCESSING\"\n        },\n        \"cropInfo\": {\n          \"x\": \"<integer>\",\n          \"y\": \"<integer>\",\n          \"width\": \"<integer>\",\n          \"height\": \"<integer>\"\n        }\n      },\n      \"locations\": [\n        {\n          \"locationType\": \"HEADQUARTERS\",\n          \"address\": {\n            \"line1\": \"<string>\",\n            \"city\": \"<string>\",\n            \"geographicArea\": \"<string>\",\n            \"postalCode\": \"<string>\",\n            \"country\": \"<string>\"\n          },\n          \"geoLocation\": \"<string>\",\n          \"staffCountRange\": \"<string>\",\n          \"description\": {\n            \"localized\": {\n              \"quis_5b0\": \"<string>\",\n              \"ullamco0\": \"<string>\",\n              \"magnad6_\": \"<string>\"\n            },\n            \"preferredLocale\": {\n              \"country\": \"<string>\",\n              \"language\": \"<string>\"\n            }\n          }\n        },\n        {\n          \"locationType\": \"OTHER\",\n          \"address\": {\n            \"line1\": \"<string>\",\n            \"city\": \"<string>\",\n            \"geographicArea\": \"<string>\",\n            \"postalCode\": \"<string>\",\n            \"country\": \"<string>\"\n          },\n          \"geoLocation\": \"<string>\",\n          \"staffCountRange\": \"<string>\",\n          \"description\": {\n            \"localized\": {\n              \"dolorea\": \"<string>\",\n              \"culpa23\": \"<string>\",\n              \"est1a\": \"<string>\"\n            },\n            \"preferredLocale\": {\n              \"country\": \"<string>\",\n              \"language\": \"<string>\"\n            }\n          }\n        }\n      ],\n      \"foundedOn\": {\n        \"year\": \"<integer>\",\n        \"month\": \"<integer>\",\n        \"day\": \"<integer>\"\n      },\n      \"entityStatus\": \"INACTIVE\",\n      \"created\": {\n        \"time\": \"<long>\"\n      },\n      \"lastModified\": {\n        \"time\": \"<long>\"\n      }\n    },\n    \"id5\": {\n      \"id\": \"<long>\",\n      \"name\": {\n        \"localized\": {\n          \"elitd0\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"description\": {\n        \"localized\": {\n          \"sunt37\": \"<string>\",\n          \"irure_ab5\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"tagline\": {\n        \"localized\": {\n          \"incididunt_558\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"localizedName\": \"<string>\",\n      \"localizedDescription\": \"<string>\",\n      \"localizedTagline\": \"<string>\",\n      \"vanityName\": \"<string>\",\n      \"organizationType\": \"GOVERNMENT_AGENCY\",\n      \"staffCountRange\": \"SIZE_11_TO_50\",\n      \"industriesV2\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"logoV2\": {\n        \"cropped\": {\n          \"downloadUrl\": \"<uri>\",\n          \"downloadUrlExpiresAt\": \"<long>\",\n          \"status\": \"FAILED\"\n        },\n        \"original\": {\n          \"downloadUrl\": \"<uri>\",\n          \"downloadUrlExpiresAt\": \"<long>\",\n          \"status\": \"PROCESSING\"\n        },\n        \"cropInfo\": {\n          \"x\": \"<integer>\",\n          \"y\": \"<integer>\",\n          \"width\": \"<integer>\",\n          \"height\": \"<integer>\"\n        }\n      },\n      \"coverPhotoV2\": {\n        \"cropped\": {\n          \"downloadUrl\": \"<uri>\",\n          \"downloadUrlExpiresAt\": \"<long>\",\n          \"status\": \"PROCESSING\"\n        },\n        \"original\": {\n          \"downloadUrl\": \"<uri>\",\n          \"downloadUrlExpiresAt\": \"<long>\",\n          \"status\": \"AVAILABLE\"\n        },\n        \"cropInfo\": {\n          \"x\": \"<integer>\",\n          \"y\": \"<integer>\",\n          \"width\": \"<integer>\",\n          \"height\": \"<integer>\"\n        }\n      },\n      \"locations\": [\n        {\n          \"locationType\": \"OTHER\",\n          \"address\": {\n            \"line1\": \"<string>\",\n            \"city\": \"<string>\",\n            \"geographicArea\": \"<string>\",\n            \"postalCode\": \"<string>\",\n            \"country\": \"<string>\"\n          },\n          \"geoLocation\": \"<string>\",\n          \"staffCountRange\": \"<string>\",\n          \"description\": {\n            \"localized\": {\n              \"non_f5\": \"<string>\"\n            },\n            \"preferredLocale\": {\n              \"country\": \"<string>\",\n              \"language\": \"<string>\"\n            }\n          }\n        },\n        {\n          \"locationType\": \"OTHER\",\n          \"address\": {\n            \"line1\": \"<string>\",\n            \"city\": \"<string>\",\n            \"geographicArea\": \"<string>\",\n            \"postalCode\": \"<string>\",\n            \"country\": \"<string>\"\n          },\n          \"geoLocation\": \"<string>\",\n          \"staffCountRange\": \"<string>\",\n          \"description\": {\n            \"localized\": {\n              \"voluptateb\": \"<string>\",\n              \"pariatur_8\": \"<string>\"\n            },\n            \"preferredLocale\": {\n              \"country\": \"<string>\",\n              \"language\": \"<string>\"\n            }\n          }\n        }\n      ],\n      \"foundedOn\": {\n        \"year\": \"<integer>\",\n        \"month\": \"<integer>\",\n        \"day\": \"<integer>\"\n      },\n      \"entityStatus\": \"INACTIVE\",\n      \"created\": {\n        \"time\": \"<long>\"\n      },\n      \"lastModified\": {\n        \"time\": \"<long>\"\n      }\n    }\n  },\n  \"statuses\": {\n    \"amet_0\": \"<integer>\"\n  },\n  \"errors\": {\n    \"laborum_b\": {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"status\": \"<integer>\"\n    }\n  }\n}",
+                  "createdAt": "2026-08-03T11:28:43.000Z",
+                  "updatedAt": "2026-08-03T11:28:43.000Z",
+                  "uid": "35240-be368bab-b994-45ed-8db7-ba532822dfbf"
+                },
+                {
+                  "id": "ffcd69cd-31bd-4ecf-bd7f-b730d8482a3f",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaOrganizations?ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaOrganizations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) List of entity IDs to retrieve",
+                          "key": "ids",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-08-03T11:28:43.000Z",
+                  "updatedAt": "2026-08-03T11:28:43.000Z",
+                  "uid": "35240-ffcd69cd-31bd-4ecf-bd7f-b730d8482a3f"
+                },
+                {
+                  "id": "ee19e4e5-ae28-4e20-a638-b2de6e5a70b6",
+                  "name": "Unauthorized - invalid or missing authentication",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaOrganizations?ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaOrganizations"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) List of entity IDs to retrieve",
+                          "key": "ids",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-08-03T11:28:43.000Z",
+                  "updatedAt": "2026-08-03T11:28:43.000Z",
+                  "uid": "35240-ee19e4e5-ae28-4e20-a638-b2de6e5a70b6"
+                }
+              ],
+              "createdAt": "2026-08-03T11:28:43.000Z",
+              "updatedAt": "2026-08-03T11:28:43.000Z",
+              "uid": "35240-1190ffaf-f561-4cce-82ce-5eba4f6c0efc"
+            }
+          ],
+          "id": "916310fc-ee81-4a85-b555-20a99cf75951",
+          "createdAt": "2026-08-03T11:28:43.000Z",
+          "updatedAt": "2026-08-03T11:28:43.000Z",
+          "uid": "35240-916310fc-ee81-4a85-b555-20a99cf75951"
+        }
+      ],
+      "id": "a05634a8-e816-4178-96ad-48dd83964c44",
+      "createdAt": "2026-08-03T11:28:43.000Z",
+      "updatedAt": "2026-08-03T11:28:43.000Z",
+      "uid": "35240-a05634a8-e816-4178-96ad-48dd83964c44"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

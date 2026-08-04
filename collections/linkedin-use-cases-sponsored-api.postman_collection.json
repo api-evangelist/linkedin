@@ -1,0 +1,1387 @@
+{
+  "info": {
+    "_postman_id": "6788d7c7-248e-4da6-a540-74e7ede2f003",
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Sponsored API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:33:06.000Z",
+    "updatedAt": "2026-08-03T11:33:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6788d7c7-248e-4da6-a540-74e7ede2f003"
+  },
+  "item": [
+    {
+      "name": "organizationAcls",
+      "item": [
+        {
+          "name": "LinkedIn 4. Validate the User's Organization Role",
+          "id": "b5613580-5d69-409d-b402-245817c2ef8a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizationAcls?q=<string>&state=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizationAcls"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "key": "state",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "View the [Organization Access Control](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-access-control-by-role?tabs=http#organization-roles) documentation.\n\nTake note of the organization (company page) from the previous request (`referenceInfo.organization.id`). A member must have access to not only the Sponsored Account (step 2) but also have one of the roles mentioned in our [permissions](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#permissions) table for the associated company page to successfully sync leads.\n\nIf the user's role is not one of the approved roles for pulling leads, or the ad account does not have a company page associated to it (empty `referenceInfo` object in previous request) you should display a helpful message to the user guiding them on next steps.\n\nBelow are two resources to better understand Page Admin vs Paid Media Admin:\n\n- [Permissions for Lead Gen Forms](https://www.linkedin.com/help/lms/answer/a421620/permissions-for-lead-gen-forms?lang=en)\n    \n- [LinkedIn Page Admiin Roles - Overview](https://www.linkedin.com/help/lms/answer/4783)"
+          },
+          "response": [
+            {
+              "id": "21257fb7-b0b7-43ba-af7c-f53b4382ed2f",
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizationAcls?q=<string>&state=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizationAcls"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Content-Type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Server",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Li-Fabric",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Transfer-Encoding",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Connection",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Li-Source-Fabric",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Li-Pop",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-LI-Proto",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-LI-UUID",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Set-Cookie",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-LI-Route-Key",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\"\n  },\n  \"elements\": [\n    {\n      \"roleAssignee\": \"<string>\",\n      \"state\": \"<string>\",\n      \"lastModified\": {\n        \"actor\": \"<string>\",\n        \"impersonator\": \"<string>\",\n        \"time\": \"<integer>\"\n      },\n      \"role\": \"<string>\",\n      \"created\": {\n        \"actor\": \"<string>\",\n        \"impersonator\": \"<string>\",\n        \"time\": \"<integer>\"\n      },\n      \"organization\": \"<string>\"\n    },\n    {\n      \"roleAssignee\": \"<string>\",\n      \"state\": \"<string>\",\n      \"lastModified\": {\n        \"actor\": \"<string>\",\n        \"impersonator\": \"<string>\",\n        \"time\": \"<integer>\"\n      },\n      \"role\": \"<string>\",\n      \"created\": {\n        \"actor\": \"<string>\",\n        \"impersonator\": \"<string>\",\n        \"time\": \"<integer>\"\n      },\n      \"organization\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-08-03T11:33:07.000Z",
+              "updatedAt": "2026-08-03T11:33:07.000Z",
+              "uid": "35240-21257fb7-b0b7-43ba-af7c-f53b4382ed2f"
+            }
+          ],
+          "createdAt": "2026-08-03T11:33:07.000Z",
+          "updatedAt": "2026-08-03T11:33:07.000Z",
+          "uid": "35240-b5613580-5d69-409d-b402-245817c2ef8a"
+        }
+      ],
+      "id": "749e14fc-c267-429a-a7fc-781e3052f716",
+      "createdAt": "2026-08-03T11:33:07.000Z",
+      "updatedAt": "2026-08-03T11:33:07.000Z",
+      "uid": "35240-749e14fc-c267-429a-a7fc-781e3052f716"
+    },
+    {
+      "name": "leadForms",
+      "item": [
+        {
+          "name": "LinkedIn 5. Get Forms for the Chosen Sponsored Account",
+          "id": "7c3c4933-4524-4622-b577-80e776642339",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/leadForms?q=<string>&owner=<string>&count=<integer>&start=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "leadForms"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "key": "owner",
+                  "value": "<string>"
+                },
+                {
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "start",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "At this point, the user has picked the sponsored account they are trying to collect leads for and you have validated they have proper access to the ad account and associated company page. This step will retrieve the form(s) associated with the selected sponsored account.\n\n---\n\n**6\\. Map Lead Gen Form fields to destination fields**\n\nUsing the API response data from the previous step, your application should ask the user to map questions, consents, and hidden fields to the appropriate fields in the destination system (e.g. a CRM). All questions, consents, and hidden fields from the form should be mappable. `predefinedField` fields may be mapped automatically for the user, but all others will require the user to map them manually. Optionally, allow the user to map the ad account id, ad account name, campaign id, campaign name, creative id, creative name, form id, and form name (this additional metadata can be pulled back via the `leadFormResponses` endpoint in the next step). This additional metadata helps your customers with lead attribution.\n\n**Quick tip:** When it comes to mapping the `predefinedField` fields that are auto populated from the member\u2019s profile, it's important to understand that the localized language of the form could be a language other than English. Due to this, you should use the `predefinedField` field so the user doesn't have to map the same field in different form languages separately. For custom questions you will need to use the `question` field as there is no predefinedField for custom questions.\n\n| **Field** | **Language Information** |\n| --- | --- |\n| name | This value will be translated to the localized language of the user who created the form (which could be different than the localized language of the form) |\n| predefinedField | ENUM for the pre-populated field |\n| question | This value will be translated to the localized form language |"
+          },
+          "response": [
+            {
+              "id": "42abdd85-fa04-4e52-b4ee-922b2171bc7e",
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/leadForms?q=<string>&owner=<string>&count=<integer>&start=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "leadForms"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Content-Type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Transfer-Encoding",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Connection",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Li-Fabric",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Li-Pop",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-LI-Proto",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-LI-UUID",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Set-Cookie",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-LI-Route-Key",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"elements\": [\n    {\n      \"reviewInfo\": {\n        \"lastUpdated\": \"<integer>\",\n        \"reviewStatus\": \"<string>\"\n      },\n      \"owner\": {\n        \"sponsoredAccount\": \"<string>\"\n      },\n      \"versionId\": \"<integer>\",\n      \"created\": \"<integer>\",\n      \"creationLocale\": {\n        \"country\": \"<string>\",\n        \"language\": \"<string>\"\n      },\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"lastModified\": \"<integer>\",\n      \"state\": \"<string>\",\n      \"content\": {\n        \"questions\": [\n          {\n            \"questionId\": \"<integer>\",\n            \"question\": {\n              \"localized\": {\n                \"sv_SE\": \"<string>\"\n              }\n            },\n            \"responseEditable\": \"<boolean>\",\n            \"name\": \"<string>\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": \"<integer>\"\n              }\n            },\n            \"predefinedField\": \"<string>\",\n            \"responseRequired\": \"<boolean>\"\n          },\n          {\n            \"questionId\": \"<integer>\",\n            \"question\": {\n              \"localized\": {\n                \"sv_SE\": \"<string>\"\n              }\n            },\n            \"responseEditable\": \"<boolean>\",\n            \"name\": \"<string>\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": \"<integer>\"\n              }\n            },\n            \"predefinedField\": \"<string>\",\n            \"responseRequired\": \"<boolean>\"\n          }\n        ],\n        \"description\": {\n          \"localized\": {\n            \"sv_SE\": \"<string>\"\n          }\n        },\n        \"postSubmissionInfo\": {\n          \"message\": {\n            \"localized\": {\n              \"sv_SE\": \"<string>\"\n            }\n          },\n          \"callToAction\": {\n            \"callToActionTarget\": {\n              \"landingPageUrl\": \"<string>\"\n            },\n            \"callToActionLabel\": \"<string>\"\n          }\n        },\n        \"legalInfo\": {\n          \"legalInfoId\": \"<integer>\",\n          \"privacyPolicyUrl\": \"<string>\",\n          \"legalDisclaimer\": {\n            \"localized\": {\n              \"sv_SE\": \"<string>\"\n            }\n          }\n        },\n        \"headline\": {\n          \"localized\": {\n            \"sv_SE\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"reviewInfo\": {\n        \"lastUpdated\": \"<integer>\",\n        \"reviewStatus\": \"<string>\"\n      },\n      \"owner\": {\n        \"sponsoredAccount\": \"<string>\"\n      },\n      \"versionId\": \"<integer>\",\n      \"created\": \"<integer>\",\n      \"creationLocale\": {\n        \"country\": \"<string>\",\n        \"language\": \"<string>\"\n      },\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"lastModified\": \"<integer>\",\n      \"state\": \"<string>\",\n      \"content\": {\n        \"questions\": [\n          {\n            \"questionId\": \"<integer>\",\n            \"question\": {\n              \"localized\": {\n                \"sv_SE\": \"<string>\"\n              }\n            },\n            \"responseEditable\": \"<boolean>\",\n            \"name\": \"<string>\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": \"<integer>\"\n              }\n            },\n            \"predefinedField\": \"<string>\",\n            \"responseRequired\": \"<boolean>\"\n          },\n          {\n            \"questionId\": \"<integer>\",\n            \"question\": {\n              \"localized\": {\n                \"sv_SE\": \"<string>\"\n              }\n            },\n            \"responseEditable\": \"<boolean>\",\n            \"name\": \"<string>\",\n            \"questionDetails\": {\n              \"textQuestionDetails\": {\n                \"maxResponseLength\": \"<integer>\"\n              }\n            },\n            \"predefinedField\": \"<string>\",\n            \"responseRequired\": \"<boolean>\"\n          }\n        ],\n        \"description\": {\n          \"localized\": {\n            \"sv_SE\": \"<string>\"\n          }\n        },\n        \"postSubmissionInfo\": {\n          \"message\": {\n            \"localized\": {\n              \"sv_SE\": \"<string>\"\n            }\n          },\n          \"callToAction\": {\n            \"callToActionTarget\": {\n              \"landingPageUrl\": \"<string>\"\n            },\n            \"callToActionLabel\": \"<string>\"\n          }\n        },\n        \"legalInfo\": {\n          \"legalInfoId\": \"<integer>\",\n          \"privacyPolicyUrl\": \"<string>\",\n          \"legalDisclaimer\": {\n            \"localized\": {\n              \"sv_SE\": \"<string>\"\n            }\n          }\n        },\n        \"headline\": {\n          \"localized\": {\n            \"sv_SE\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-08-03T11:33:07.000Z",
+              "updatedAt": "2026-08-03T11:33:07.000Z",
+              "uid": "35240-42abdd85-fa04-4e52-b4ee-922b2171bc7e"
+            }
+          ],
+          "createdAt": "2026-08-03T11:33:07.000Z",
+          "updatedAt": "2026-08-03T11:33:07.000Z",
+          "uid": "35240-7c3c4933-4524-4622-b577-80e776642339"
+        }
+      ],
+      "id": "e22601af-6291-4860-824f-ed4160c1ecb5",
+      "createdAt": "2026-08-03T11:33:07.000Z",
+      "updatedAt": "2026-08-03T11:33:07.000Z",
+      "uid": "35240-e22601af-6291-4860-824f-ed4160c1ecb5"
+    },
+    {
+      "name": "leadFormResponses",
+      "item": [
+        {
+          "name": "{lead_id}",
+          "item": [
+            {
+              "name": "LinkedIn 9. Fetch Full Lead Data After a Lead Notification is Received",
+              "id": "b6bf1400-8ebc-4a3f-a92f-1185def041f5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/leadFormResponses/:lead_id?=<string>&fields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "leadFormResponses",
+                    ":lead_id"
+                  ],
+                  "query": [
+                    {
+                      "key": null,
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "1ba31290-7cb1-42a1-8f07-3c7402ee1739",
+                      "key": "lead_id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "[Responses can be fetched](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses) for a single form response, multiple form responses, or at the form or Ad Account level.\n\nWhen a lead notification event is received, the form response id exists in the lead notification [content](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event).\n\nThis example pulls back data for a single form response (lead) by ID and uses field projection to pull back specific fields in the request response."
+              },
+              "response": [
+                {
+                  "id": "ff290cfb-4b17-4060-8e6c-4e013476872d",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/leadFormResponses/:lead_id?=<string>&fields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "leadFormResponses",
+                        ":lead_id"
+                      ],
+                      "query": [
+                        {
+                          "key": null,
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "fields",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "lead_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "Content-Type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "X-RestLi-Protocol-Version",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "Date",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "Transfer-Encoding",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "Connection",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Li-Fabric",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Li-Pop",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "X-LI-Proto",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "X-LI-UUID",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "Set-Cookie",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "X-LI-Route-Key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"owner\": {\n    \"sponsoredAccount\": \"<string>\"\n  },\n  \"submitter\": \"<string>\",\n  \"leadType\": \"<string>\",\n  \"leadMetadata\": {\n    \"sponsoredLeadMetadata\": {\n      \"campaign\": \"<string>\"\n    }\n  },\n  \"versionedLeadGenFormUrn\": \"<string>\",\n  \"id\": \"<string>\",\n  \"submittedAt\": \"<integer>\",\n  \"testLead\": \"<boolean>\",\n  \"associatedEntity\": {\n    \"associatedCreative\": \"<string>\"\n  },\n  \"formResponse\": {\n    \"consentResponses\": [\n      {\n        \"accepted\": \"<boolean>\",\n        \"consentId\": \"<integer>\"\n      },\n      {\n        \"accepted\": \"<boolean>\",\n        \"consentId\": \"<integer>\"\n      }\n    ],\n    \"answers\": [\n      {\n        \"answerDetails\": {\n          \"textQuestionAnswer\": {\n            \"answer\": \"<string>\"\n          }\n        },\n        \"questionId\": \"<integer>\"\n      },\n      {\n        \"answerDetails\": {\n          \"textQuestionAnswer\": {\n            \"answer\": \"<string>\"\n          }\n        },\n        \"questionId\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-08-03T11:33:07.000Z",
+                  "updatedAt": "2026-08-03T11:33:07.000Z",
+                  "uid": "35240-ff290cfb-4b17-4060-8e6c-4e013476872d"
+                }
+              ],
+              "createdAt": "2026-08-03T11:33:07.000Z",
+              "updatedAt": "2026-08-03T11:33:07.000Z",
+              "uid": "35240-b6bf1400-8ebc-4a3f-a92f-1185def041f5"
+            }
+          ],
+          "id": "69afc7bc-64f8-48f2-a738-b10d646cd0f1",
+          "createdAt": "2026-08-03T11:33:07.000Z",
+          "updatedAt": "2026-08-03T11:33:07.000Z",
+          "uid": "35240-69afc7bc-64f8-48f2-a738-b10d646cd0f1"
+        },
+        {
+          "name": "LinkedIn 8. Schedule Periodic Form Response (lead) Pulls",
+          "id": "09fc9090-9222-4b87-8b5b-b7ea817bd35a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/leadFormResponses?q=<string>&owner=<string>&leadType=<string>&limitedToTestLeads=<boolean>&submittedAtTimeRange=<string>&fields=<string>&count=<integer>&start=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "leadFormResponses"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "key": "owner",
+                  "value": "<string>"
+                },
+                {
+                  "key": "leadType",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limitedToTestLeads",
+                  "value": "<boolean>"
+                },
+                {
+                  "key": "submittedAtTimeRange",
+                  "value": "<string>"
+                },
+                {
+                  "key": "fields",
+                  "value": "<string>"
+                },
+                {
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "start",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "This example pulls back all form responses (leads) for the chosen sponsored account. It also uses [field projection](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/projections?context=linkedin/marketing/context) to pull back specific fields in the response and the `submittedAtTimeRange` field to pull back leads up to 365 days in the past.\n\nCurrently the only sponsored leadType is `SPONSORED`\n\nLinkedIn will store form response (lead) data for up to 365 days. It is a best practice to allow the user to do a one time pull upon integration setup to ensure no leads are missed.\n\nRefer to [Lead Form Responses](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses) documentation for more information."
+          },
+          "response": [
+            {
+              "id": "0f400e0f-9961-40c3-9400-b472ecdf4867",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/leadFormResponses?q=<string>&owner=<string>&leadType=<string>&limitedToTestLeads=<boolean>&submittedAtTimeRange=<string>&fields=<string>&count=<integer>&start=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "leadFormResponses"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leadType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limitedToTestLeads",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "submittedAtTimeRange",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "",
+              "createdAt": "2026-08-03T11:33:07.000Z",
+              "updatedAt": "2026-08-03T11:33:07.000Z",
+              "uid": "35240-0f400e0f-9961-40c3-9400-b472ecdf4867"
+            }
+          ],
+          "createdAt": "2026-08-03T11:33:07.000Z",
+          "updatedAt": "2026-08-03T11:33:07.000Z",
+          "uid": "35240-09fc9090-9222-4b87-8b5b-b7ea817bd35a"
+        }
+      ],
+      "id": "063691c4-7ee7-40f0-a4e5-02d8e4c58d2b",
+      "createdAt": "2026-08-03T11:33:07.000Z",
+      "updatedAt": "2026-08-03T11:33:07.000Z",
+      "uid": "35240-063691c4-7ee7-40f0-a4e5-02d8e4c58d2b"
+    },
+    {
+      "name": "leadNotifications",
+      "item": [
+        {
+          "name": "LinkedIn 8. Subscribe for Lead Notification Webhooks",
+          "id": "ddb1e23b-1805-4b91-8e7b-7c36ac61e3d6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/leadNotifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "leadNotifications"
+              ]
+            },
+            "description": "[Register a lead notification webhook](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#lead-notification-subscriptions) to receive notifications for new leads. Lead notifications can also be subscribed at a more granular level - see the linked documentation.\n\nThis example registers the webhook url, [https://www.example.com](https://www.example.com/), at the Ad Account level (sponsoredAccount). For any new lead submitted for campaigns that live within this Ad Account, a webhook notification will be sent.\n\n**Listen for lead notifications**\n\nAs leads flow into the user's ad account, LinkedIn will send your webhook endpoint a notification for each lead. The notification body will contain content as laid out in our documentation [here.](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event)"
+          },
+          "response": [
+            {
+              "id": "5d691e32-2913-42d2-a419-cb6e000a8b1b",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/leadNotifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "leadNotifications"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "",
+              "createdAt": "2026-08-03T11:33:07.000Z",
+              "updatedAt": "2026-08-03T11:33:07.000Z",
+              "uid": "35240-5d691e32-2913-42d2-a419-cb6e000a8b1b"
+            }
+          ],
+          "createdAt": "2026-08-03T11:33:07.000Z",
+          "updatedAt": "2026-08-03T11:33:07.000Z",
+          "uid": "35240-ddb1e23b-1805-4b91-8e7b-7c36ac61e3d6"
+        }
+      ],
+      "id": "521f9460-acfd-4272-a6c1-a1031092d74d",
+      "createdAt": "2026-08-03T11:33:07.000Z",
+      "updatedAt": "2026-08-03T11:33:07.000Z",
+      "uid": "35240-521f9460-acfd-4272-a6c1-a1031092d74d"
+    },
+    {
+      "name": "leadnotifications",
+      "item": [
+        {
+          "name": "<webhook id>",
+          "item": [
+            {
+              "name": "LinkedIn [PUSH] Delete a Registered Webhook by Id",
+              "id": "9c54c359-bb00-45d7-9c85-1ee2017e7504",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/leadnotifications/<webhook id>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "leadnotifications",
+                    "<webhook id>"
+                  ]
+                },
+                "description": "[Delete a lead notification subsription](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#delete-lead-notification-url)\n\nWhen an integration is deleted, the associated webhooks should also be deleted to ensure that lead notifications are not unnecessarily being sent."
+              },
+              "response": [
+                {
+                  "id": "8b3c7baf-c368-423a-a683-4ca5ad4a4fec",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/leadnotifications/<webhook id>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "leadnotifications",
+                        "<webhook id>"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "",
+                  "createdAt": "2026-08-03T11:33:07.000Z",
+                  "updatedAt": "2026-08-03T11:33:07.000Z",
+                  "uid": "35240-8b3c7baf-c368-423a-a683-4ca5ad4a4fec"
+                }
+              ],
+              "createdAt": "2026-08-03T11:33:07.000Z",
+              "updatedAt": "2026-08-03T11:33:07.000Z",
+              "uid": "35240-9c54c359-bb00-45d7-9c85-1ee2017e7504"
+            }
+          ],
+          "id": "25e45859-cc5a-4ecb-aafd-57959238aae4",
+          "createdAt": "2026-08-03T11:33:07.000Z",
+          "updatedAt": "2026-08-03T11:33:07.000Z",
+          "uid": "35240-25e45859-cc5a-4ecb-aafd-57959238aae4"
+        }
+      ],
+      "id": "0cebf559-9fea-41b2-8ea6-dbc5dcc4da82",
+      "createdAt": "2026-08-03T11:33:07.000Z",
+      "updatedAt": "2026-08-03T11:33:07.000Z",
+      "uid": "35240-0cebf559-9fea-41b2-8ea6-dbc5dcc4da82"
+    },
+    {
+      "name": "adAccounts",
+      "item": [
+        {
+          "name": "LinkedIn 2. Get the User's Sponsored Accounts (ad Accounts)",
+          "id": "b6221274-b211-4c94-88d4-024a305aa9ce",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/adAccounts?q=<string>&search=<string>&fields=<string>&count=<integer>&start=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "adAccounts"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "key": "fields",
+                  "value": "<string>"
+                },
+                {
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "start",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "View [Search for Accounts](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#search-for-accounts) documentation for more information.\n\nThis API call pulls back Ad Accounts that the member has access to where the status = ACTIVE and test = false (NOT a test Ad Account).\n\nLearn more about Test Ad Accounts [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#working-with-test-ad-accounts).\n\nFor testing purposes, if you wish to use this example api to pull back a Test Ad Account, simply remove `test:false` from the search parameter.\n\n---\n\n**3\\. Allow the user to select an Ad Account**"
+          },
+          "response": [
+            {
+              "id": "b4d3d897-412d-43a7-befc-0a96a7b8b59c",
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/adAccounts?q=<string>&search=<string>&fields=<string>&count=<integer>&start=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adAccounts"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Content-Type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Transfer-Encoding",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Connection",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Li-Fabric",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Li-Pop",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-LI-Proto",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-LI-UUID",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "Set-Cookie",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-LI-Route-Key",
+                  "value": "<string>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"elements\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"test\": \"<boolean>\",\n      \"referenceInfo\": {\n        \"organization\": {\n          \"name\": {\n            \"localized\": {\n              \"en_US\": \"<string>\"\n            },\n            \"preferredLocale\": {\n              \"country\": \"<string>\",\n              \"language\": \"<string>\"\n            }\n          },\n          \"vanityName\": \"<string>\",\n          \"localizedName\": \"<string>\",\n          \"id\": \"<integer>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"test\": \"<boolean>\",\n      \"referenceInfo\": {\n        \"organization\": {\n          \"name\": {\n            \"localized\": {\n              \"en_US\": \"<string>\"\n            },\n            \"preferredLocale\": {\n              \"country\": \"<string>\",\n              \"language\": \"<string>\"\n            }\n          },\n          \"vanityName\": \"<string>\",\n          \"localizedName\": \"<string>\",\n          \"id\": \"<integer>\"\n        }\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-08-03T11:33:07.000Z",
+              "updatedAt": "2026-08-03T11:33:07.000Z",
+              "uid": "35240-b4d3d897-412d-43a7-befc-0a96a7b8b59c"
+            }
+          ],
+          "createdAt": "2026-08-03T11:33:07.000Z",
+          "updatedAt": "2026-08-03T11:33:07.000Z",
+          "uid": "35240-b6221274-b211-4c94-88d4-024a305aa9ce"
+        }
+      ],
+      "id": "35f842c2-3851-49ce-bb69-3a40db109023",
+      "createdAt": "2026-08-03T11:33:07.000Z",
+      "updatedAt": "2026-08-03T11:33:07.000Z",
+      "uid": "35240-35f842c2-3851-49ce-bb69-3a40db109023"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

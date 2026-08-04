@@ -1,0 +1,250 @@
+{
+  "info": {
+    "_postman_id": "244492e5-a5a6-4763-ab3d-a10bbe2bee50",
+    "name": "LinkedIn Compliance Events Access Control Ad Accounts API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:20:57.000Z",
+    "updatedAt": "2026-08-03T11:20:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-244492e5-a5a6-4763-ab3d-a10bbe2bee50"
+  },
+  "item": [
+    {
+      "name": "adAccounts",
+      "item": [
+        {
+          "name": "LinkedIn Retrieve User Ad Accounts",
+          "id": "b9b48d37-36b6-4cff-9dfd-47ed4707a3aa",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) RestLi protocol version",
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "description": "(Required) LinkedIn API version",
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/adAccounts?q=search&search=<string>&fields=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "adAccounts"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Query type",
+                  "key": "q",
+                  "value": "search"
+                },
+                {
+                  "description": "Search criteria",
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Fields to include in response",
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve the authenticated user's ad accounts. Filter by type, status, and test flag to get relevant accounts."
+          },
+          "response": [
+            {
+              "id": "808a8557-7a0b-4358-96cc-3fc92388fa69",
+              "name": "Successfully retrieved ad accounts",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) RestLi protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) LinkedIn API version",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/adAccounts?q=search&search=<string>&fields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adAccounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "search"
+                    },
+                    {
+                      "description": "Search criteria",
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Fields to include in response",
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"elements\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"test\": \"<boolean>\",\n      \"reference\": \"<string>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"test\": \"<boolean>\",\n      \"reference\": \"<string>\"\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"links\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-08-03T11:20:57.000Z",
+              "updatedAt": "2026-08-03T11:20:57.000Z",
+              "uid": "35240-808a8557-7a0b-4358-96cc-3fc92388fa69"
+            },
+            {
+              "id": "7b19af26-b1ee-42ba-bf4b-4a6e347dcc98",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) RestLi protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) LinkedIn API version",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/adAccounts?q=search&search=<string>&fields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adAccounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "search"
+                    },
+                    {
+                      "description": "Search criteria",
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Fields to include in response",
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-08-03T11:20:57.000Z",
+              "updatedAt": "2026-08-03T11:20:57.000Z",
+              "uid": "35240-7b19af26-b1ee-42ba-bf4b-4a6e347dcc98"
+            }
+          ],
+          "createdAt": "2026-08-03T11:20:57.000Z",
+          "updatedAt": "2026-08-03T11:20:57.000Z",
+          "uid": "35240-b9b48d37-36b6-4cff-9dfd-47ed4707a3aa"
+        }
+      ],
+      "id": "f8a474bd-20c5-4eac-8722-33cdc3cfadb2",
+      "createdAt": "2026-08-03T11:20:57.000Z",
+      "updatedAt": "2026-08-03T11:20:57.000Z",
+      "uid": "35240-f8a474bd-20c5-4eac-8722-33cdc3cfadb2"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

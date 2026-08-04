@@ -1,0 +1,516 @@
+{
+  "info": {
+    "_postman_id": "227db2c5-96fb-4d97-83b2-5d968acf13a5",
+    "name": "LinkedIn Compliance Events Access Control Sales Analytics Export API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:29:31.000Z",
+    "updatedAt": "2026-08-03T11:29:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-227db2c5-96fb-4d97-83b2-5d968acf13a5"
+  },
+  "item": [
+    {
+      "name": "salesAnalyticsExportJobs",
+      "item": [
+        {
+          "name": "{JobId}",
+          "item": [
+            {
+              "name": "LinkedIn Fetch Sales Analytics Export Job by Id",
+              "id": "3d06c3fa-7471-4178-83db-8005c7f05a91",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/salesAnalyticsExportJobs/:JobId?contract=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAnalyticsExportJobs",
+                    ":JobId"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Sales Navigator contract URN",
+                      "key": "contract",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "3a71be7c-2412-4542-a125-7a045b49c306",
+                      "key": "JobId",
+                      "value": "<integer>",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "description": "Retrieve the status and details of a sales analytics export job by its ID."
+              },
+              "response": [
+                {
+                  "id": "101b93a5-daca-4a12-a8ae-ece3d1ed317d",
+                  "name": "Details of the export job",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesAnalyticsExportJobs/:JobId?contract=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesAnalyticsExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Sales Navigator contract URN",
+                          "key": "contract",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<integer>\",\n  \"status\": \"PROCESSING\",\n  \"downloadUrl\": \"<string>\",\n  \"expireAt\": \"<integer>\",\n  \"rowCount\": \"<integer>\"\n}",
+                  "createdAt": "2026-08-03T11:29:31.000Z",
+                  "updatedAt": "2026-08-03T11:29:31.000Z",
+                  "uid": "35240-101b93a5-daca-4a12-a8ae-ece3d1ed317d"
+                },
+                {
+                  "id": "2193808a-34ab-482e-affa-f8a03185b8fa",
+                  "name": "Unauthorized, invalid token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesAnalyticsExportJobs/:JobId?contract=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesAnalyticsExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Sales Navigator contract URN",
+                          "key": "contract",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-08-03T11:29:31.000Z",
+                  "updatedAt": "2026-08-03T11:29:31.000Z",
+                  "uid": "35240-2193808a-34ab-482e-affa-f8a03185b8fa"
+                },
+                {
+                  "id": "aa4a68ab-8b0b-4ddb-a6af-366d404bd943",
+                  "name": "Job not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/salesAnalyticsExportJobs/:JobId?contract=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "salesAnalyticsExportJobs",
+                        ":JobId"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Sales Navigator contract URN",
+                          "key": "contract",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "JobId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-08-03T11:29:31.000Z",
+                  "updatedAt": "2026-08-03T11:29:31.000Z",
+                  "uid": "35240-aa4a68ab-8b0b-4ddb-a6af-366d404bd943"
+                }
+              ],
+              "createdAt": "2026-08-03T11:29:31.000Z",
+              "updatedAt": "2026-08-03T11:29:31.000Z",
+              "uid": "35240-3d06c3fa-7471-4178-83db-8005c7f05a91"
+            }
+          ],
+          "id": "e208acbe-0599-468f-8636-cff711aa807d",
+          "createdAt": "2026-08-03T11:29:31.000Z",
+          "updatedAt": "2026-08-03T11:29:31.000Z",
+          "uid": "35240-e208acbe-0599-468f-8636-cff711aa807d"
+        },
+        {
+          "name": "LinkedIn Create New Sales Analytics Export Job",
+          "id": "b78ac985-ae20-4503-856e-45a132a47430",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contract\": \"<string>\",\n  \"startAt\": \"<integer>\",\n  \"endAt\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/salesAnalyticsExportJobs?action=exportActivityOutcomeData",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "salesAnalyticsExportJobs"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The type of export job to create",
+                  "key": "action",
+                  "value": "exportActivityOutcomeData"
+                }
+              ]
+            },
+            "description": "Create a new sales analytics export job to export seat data, activity outcome data, or activity data."
+          },
+          "response": [
+            {
+              "id": "3faa963e-672e-49af-96e7-9c9e0187fe61",
+              "name": "Export job successfully created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract\": \"<string>\",\n  \"startAt\": \"<integer>\",\n  \"endAt\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/salesAnalyticsExportJobs?action=exportActivityOutcomeData",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAnalyticsExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The type of export job to create",
+                      "key": "action",
+                      "value": "exportActivityOutcomeData"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": {\n    \"id\": \"<integer>\",\n    \"status\": \"PROCESSING\",\n    \"downloadUrl\": \"<string>\",\n    \"expireAt\": \"<integer>\",\n    \"rowCount\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-08-03T11:29:31.000Z",
+              "updatedAt": "2026-08-03T11:29:31.000Z",
+              "uid": "35240-3faa963e-672e-49af-96e7-9c9e0187fe61"
+            },
+            {
+              "id": "381cf64e-ac09-494d-8d9d-e44b4ce60910",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract\": \"<string>\",\n  \"startAt\": \"<integer>\",\n  \"endAt\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/salesAnalyticsExportJobs?action=exportActivityOutcomeData",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAnalyticsExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The type of export job to create",
+                      "key": "action",
+                      "value": "exportActivityOutcomeData"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-08-03T11:29:31.000Z",
+              "updatedAt": "2026-08-03T11:29:31.000Z",
+              "uid": "35240-381cf64e-ac09-494d-8d9d-e44b4ce60910"
+            },
+            {
+              "id": "592eac08-f60a-4476-a24b-6820bdffae1f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contract\": \"<string>\",\n  \"startAt\": \"<integer>\",\n  \"endAt\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/salesAnalyticsExportJobs?action=exportActivityOutcomeData",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "salesAnalyticsExportJobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The type of export job to create",
+                      "key": "action",
+                      "value": "exportActivityOutcomeData"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "createdAt": "2026-08-03T11:29:31.000Z",
+              "updatedAt": "2026-08-03T11:29:31.000Z",
+              "uid": "35240-592eac08-f60a-4476-a24b-6820bdffae1f"
+            }
+          ],
+          "createdAt": "2026-08-03T11:29:31.000Z",
+          "updatedAt": "2026-08-03T11:29:31.000Z",
+          "uid": "35240-b78ac985-ae20-4503-856e-45a132a47430"
+        }
+      ],
+      "id": "36ef3c2f-4518-4e6f-8670-e8ad66d696bc",
+      "createdAt": "2026-08-03T11:29:31.000Z",
+      "updatedAt": "2026-08-03T11:29:31.000Z",
+      "uid": "35240-36ef3c2f-4518-4e6f-8670-e8ad66d696bc"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

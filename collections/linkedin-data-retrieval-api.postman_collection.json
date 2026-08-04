@@ -1,0 +1,416 @@
+{
+  "info": {
+    "_postman_id": "e34be92b-08ce-47ee-bf4b-6adf57134025",
+    "name": "LinkedIn Compliance Events Access Control Data Retrieval API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:26:15.000Z",
+    "updatedAt": "2026-08-03T11:26:16.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e34be92b-08ce-47ee-bf4b-6adf57134025"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "exportedCandidates",
+          "item": [
+            {
+              "name": "LinkedIn Get Exported Candidate Profile",
+              "id": "a88cd823-81a3-4a58-9931-aa8db78a537c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/exportedCandidates?q=<string>&requestId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "exportedCandidates"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Request ID from push notification",
+                      "key": "requestId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves limited profile information of candidates exported via One-Click Export.\nFor more information, refer to the [Retrieve Exported Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/retrieve-exported-candidates#retrieving-exported-candidate-information)."
+              },
+              "response": [
+                {
+                  "id": "4532cb96-6447-42b8-8579-5c0eb31edae7",
+                  "name": "Successfully retrieved exported candidate",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/exportedCandidates?q=<string>&requestId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "exportedCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Request ID from push notification",
+                          "key": "requestId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"personUrn\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"headline\": \"<string>\",\n      \"profilePictureUrl\": \"<uri>\"\n    },\n    {\n      \"personUrn\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"headline\": \"<string>\",\n      \"profilePictureUrl\": \"<uri>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-08-03T11:26:16.000Z",
+                  "updatedAt": "2026-08-03T11:26:16.000Z",
+                  "uid": "35240-4532cb96-6447-42b8-8579-5c0eb31edae7"
+                },
+                {
+                  "id": "8da30fda-fd7c-4768-b1aa-8d750b3410ce",
+                  "name": "Export request not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/exportedCandidates?q=<string>&requestId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "exportedCandidates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Request ID from push notification",
+                          "key": "requestId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-08-03T11:26:16.000Z",
+                  "updatedAt": "2026-08-03T11:26:16.000Z",
+                  "uid": "35240-8da30fda-fd7c-4768-b1aa-8d750b3410ce"
+                }
+              ],
+              "createdAt": "2026-08-03T11:26:16.000Z",
+              "updatedAt": "2026-08-03T11:26:16.000Z",
+              "uid": "35240-a88cd823-81a3-4a58-9931-aa8db78a537c"
+            }
+          ],
+          "id": "ec96e1e0-81b6-4eda-a5a5-d11aff5de992",
+          "createdAt": "2026-08-03T11:26:16.000Z",
+          "updatedAt": "2026-08-03T11:26:16.000Z",
+          "uid": "35240-ec96e1e0-81b6-4eda-a5a5-d11aff5de992"
+        },
+        {
+          "name": "seats",
+          "item": [
+            {
+              "name": "LinkedIn Retrieve Recruiter Seatholders",
+              "id": "c788ed96-8526-4d0b-aa66-c96ffc88a674",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/seats?q=<string>&active=<boolean>&contracts=<string>&start=<integer>&count=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "seats"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "contracts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Retrieves details of contract seat holders including name, email, and unique ID.\nFor more information, refer to the [Recruiter Seatholders documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/recruiter-seatholders)."
+              },
+              "response": [
+                {
+                  "id": "1796101a-d166-4cf0-9a45-db836eb3bb99",
+                  "name": "Successfully retrieved seatholders",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/seats?q=<string>&active=<boolean>&contracts=<string>&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "seats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "active",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "contracts",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"seatUrn\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"emailAddress\": \"<email>\",\n      \"active\": \"<boolean>\"\n    },\n    {\n      \"seatUrn\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"emailAddress\": \"<email>\",\n      \"active\": \"<boolean>\"\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-08-03T11:26:16.000Z",
+                  "updatedAt": "2026-08-03T11:26:16.000Z",
+                  "uid": "35240-1796101a-d166-4cf0-9a45-db836eb3bb99"
+                },
+                {
+                  "id": "3f6ac8fe-88af-4549-9576-d99f7f19f21a",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/seats?q=<string>&active=<boolean>&contracts=<string>&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "seats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "active",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "contracts",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-08-03T11:26:16.000Z",
+                  "updatedAt": "2026-08-03T11:26:16.000Z",
+                  "uid": "35240-3f6ac8fe-88af-4549-9576-d99f7f19f21a"
+                }
+              ],
+              "createdAt": "2026-08-03T11:26:16.000Z",
+              "updatedAt": "2026-08-03T11:26:16.000Z",
+              "uid": "35240-c788ed96-8526-4d0b-aa66-c96ffc88a674"
+            }
+          ],
+          "id": "642f455b-3f7a-4554-813a-1270423eaec4",
+          "createdAt": "2026-08-03T11:26:16.000Z",
+          "updatedAt": "2026-08-03T11:26:16.000Z",
+          "uid": "35240-642f455b-3f7a-4554-813a-1270423eaec4"
+        }
+      ],
+      "id": "0f589214-1653-48d8-894e-472f5267af39",
+      "createdAt": "2026-08-03T11:26:16.000Z",
+      "updatedAt": "2026-08-03T11:26:16.000Z",
+      "uid": "35240-0f589214-1653-48d8-894e-472f5267af39"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

@@ -1,0 +1,352 @@
+{
+  "info": {
+    "_postman_id": "72917577-956f-4699-821d-859da2540c89",
+    "name": "LinkedIn Compliance Events Access Control Organization Access Control API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:28:30.000Z",
+    "updatedAt": "2026-08-03T11:28:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-72917577-956f-4699-821d-859da2540c89"
+  },
+  "item": [
+    {
+      "name": "rest",
+      "item": [
+        {
+          "name": "dmaOrganizationAcls",
+          "item": [
+            {
+              "name": "LinkedIn Get Organization ACLs",
+              "id": "ef95527f-c7f6-4383-bf93-886d4161c43b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) LinkedIn API version in YYYYMM format",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) Rest.li protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rest/dmaOrganizationAcls?q=<string>&role=ANALYST&start=<integer>&count=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rest",
+                    "dmaOrganizationAcls"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type for finder operations",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Role filter for ACL queries",
+                      "key": "role",
+                      "value": "ANALYST"
+                    },
+                    {
+                      "description": "Pagination start index",
+                      "key": "start",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Number of results to return",
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Retrieves organization access control list entries showing role assignments for organization administrators and content managers."
+              },
+              "response": [
+                {
+                  "id": "a41199d0-3ac3-4efc-beeb-b54b3d29ee69",
+                  "name": "Successfully retrieved organization ACLs",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaOrganizationAcls?q=<string>&role=ANALYST&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaOrganizationAcls"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type for finder operations",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Role filter for ACL queries",
+                          "key": "role",
+                          "value": "ANALYST"
+                        },
+                        {
+                          "description": "Pagination start index",
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"organization\": \"<string>\",\n      \"roleAssignee\": \"<string>\",\n      \"role\": \"RECRUITING_POSTER\",\n      \"state\": \"APPROVED\",\n      \"created\": {\n        \"time\": \"<long>\"\n      }\n    },\n    {\n      \"organization\": \"<string>\",\n      \"roleAssignee\": \"<string>\",\n      \"role\": \"ANALYST\",\n      \"state\": \"PENDING\",\n      \"created\": {\n        \"time\": \"<long>\"\n      }\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-08-03T11:28:31.000Z",
+                  "updatedAt": "2026-08-03T11:28:31.000Z",
+                  "uid": "35240-a41199d0-3ac3-4efc-beeb-b54b3d29ee69"
+                },
+                {
+                  "id": "2a84e273-8b29-4d66-9644-69d056df635e",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaOrganizationAcls?q=<string>&role=ANALYST&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaOrganizationAcls"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type for finder operations",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Role filter for ACL queries",
+                          "key": "role",
+                          "value": "ANALYST"
+                        },
+                        {
+                          "description": "Pagination start index",
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-08-03T11:28:31.000Z",
+                  "updatedAt": "2026-08-03T11:28:31.000Z",
+                  "uid": "35240-2a84e273-8b29-4d66-9644-69d056df635e"
+                },
+                {
+                  "id": "9dfde83f-14c8-4606-befa-64576c6f2549",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaOrganizationAcls?q=<string>&role=ANALYST&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaOrganizationAcls"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type for finder operations",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Role filter for ACL queries",
+                          "key": "role",
+                          "value": "ANALYST"
+                        },
+                        {
+                          "description": "Pagination start index",
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-08-03T11:28:31.000Z",
+                  "updatedAt": "2026-08-03T11:28:31.000Z",
+                  "uid": "35240-9dfde83f-14c8-4606-befa-64576c6f2549"
+                }
+              ],
+              "createdAt": "2026-08-03T11:28:31.000Z",
+              "updatedAt": "2026-08-03T11:28:31.000Z",
+              "uid": "35240-ef95527f-c7f6-4383-bf93-886d4161c43b"
+            }
+          ],
+          "id": "8eb9fa66-8ed7-4099-810d-0e0ab62f3c4a",
+          "createdAt": "2026-08-03T11:28:31.000Z",
+          "updatedAt": "2026-08-03T11:28:31.000Z",
+          "uid": "35240-8eb9fa66-8ed7-4099-810d-0e0ab62f3c4a"
+        }
+      ],
+      "id": "fa5c3633-6063-4b01-b6e6-67776af35297",
+      "createdAt": "2026-08-03T11:28:31.000Z",
+      "updatedAt": "2026-08-03T11:28:31.000Z",
+      "uid": "35240-fa5c3633-6063-4b01-b6e6-67776af35297"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

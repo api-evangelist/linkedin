@@ -1,0 +1,370 @@
+{
+  "info": {
+    "_postman_id": "4a42fe5c-b383-4759-bed0-90be9ade8aa4",
+    "name": "LinkedIn Compliance Events Access Control Advertiser Transparency API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:21:22.000Z",
+    "updatedAt": "2026-08-03T11:21:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4a42fe5c-b383-4759-bed0-90be9ade8aa4"
+  },
+  "item": [
+    {
+      "name": "rest",
+      "item": [
+        {
+          "name": "advertiserTransparencyData",
+          "item": [
+            {
+              "name": "urn:li:sponsoredAccount:{sponsoredaccount_id}",
+              "item": [
+                {
+                  "name": "LinkedIn Get Advertiser Transparency Data",
+                  "id": "b08602f6-6ef2-4e26-ab7b-5cf985491c5a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/advertiserTransparencyData/urn:li:sponsoredAccount:{{sponsoredaccount_id}}?month=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "advertiserTransparencyData",
+                        "urn:li:sponsoredAccount:{{sponsoredaccount_id}}"
+                      ],
+                      "query": [
+                        {
+                          "description": "Month for transparency data in YYYYMM format",
+                          "key": "month",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves transparency data for a specific sponsored account. This endpoint provides information about advertising spend, impressions, and advertiser details for regulatory compliance and transparency reporting purposes."
+                  },
+                  "response": [
+                    {
+                      "id": "e62dd589-ff47-49a0-a17c-ce09220cb5a4",
+                      "name": "Successfully retrieved advertiser transparency data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) LinkedIn API version",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Rest.li protocol version",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rest/advertiserTransparencyData/urn:li:sponsoredAccount:{{sponsoredaccount_id}}?month=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rest",
+                            "advertiserTransparencyData",
+                            "urn:li:sponsoredAccount:{{sponsoredaccount_id}}"
+                          ],
+                          "query": [
+                            {
+                              "description": "Month for transparency data in YYYYMM format",
+                              "key": "month",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"sponsoredAccountUrn\": \"<string>\",\n  \"month\": \"<integer>\",\n  \"totalSpend\": \"<double>\",\n  \"impressions\": \"<integer>\",\n  \"currency\": \"<string>\",\n  \"advertiserName\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                      "createdAt": "2026-08-03T11:21:22.000Z",
+                      "updatedAt": "2026-08-03T11:21:22.000Z",
+                      "uid": "35240-e62dd589-ff47-49a0-a17c-ce09220cb5a4"
+                    },
+                    {
+                      "id": "3adee14a-4e46-4ff1-bfee-090b7d928706",
+                      "name": "Bad request - invalid parameters",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) LinkedIn API version",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Rest.li protocol version",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rest/advertiserTransparencyData/urn:li:sponsoredAccount:{{sponsoredaccount_id}}?month=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rest",
+                            "advertiserTransparencyData",
+                            "urn:li:sponsoredAccount:{{sponsoredaccount_id}}"
+                          ],
+                          "query": [
+                            {
+                              "description": "Month for transparency data in YYYYMM format",
+                              "key": "month",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-08-03T11:21:22.000Z",
+                      "updatedAt": "2026-08-03T11:21:22.000Z",
+                      "uid": "35240-3adee14a-4e46-4ff1-bfee-090b7d928706"
+                    },
+                    {
+                      "id": "2c09de66-1887-4c9b-8c52-7646fc01c550",
+                      "name": "Unauthorized - invalid or missing authentication",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) LinkedIn API version",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Rest.li protocol version",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rest/advertiserTransparencyData/urn:li:sponsoredAccount:{{sponsoredaccount_id}}?month=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rest",
+                            "advertiserTransparencyData",
+                            "urn:li:sponsoredAccount:{{sponsoredaccount_id}}"
+                          ],
+                          "query": [
+                            {
+                              "description": "Month for transparency data in YYYYMM format",
+                              "key": "month",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-08-03T11:21:22.000Z",
+                      "updatedAt": "2026-08-03T11:21:22.000Z",
+                      "uid": "35240-2c09de66-1887-4c9b-8c52-7646fc01c550"
+                    },
+                    {
+                      "id": "26fe146e-5b30-4b3d-a022-9d4aeca3231c",
+                      "name": "Sponsored account not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) LinkedIn API version",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Rest.li protocol version",
+                            "key": "X-Restli-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rest/advertiserTransparencyData/urn:li:sponsoredAccount:{{sponsoredaccount_id}}?month=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rest",
+                            "advertiserTransparencyData",
+                            "urn:li:sponsoredAccount:{{sponsoredaccount_id}}"
+                          ],
+                          "query": [
+                            {
+                              "description": "Month for transparency data in YYYYMM format",
+                              "key": "month",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-08-03T11:21:22.000Z",
+                      "updatedAt": "2026-08-03T11:21:22.000Z",
+                      "uid": "35240-26fe146e-5b30-4b3d-a022-9d4aeca3231c"
+                    }
+                  ],
+                  "createdAt": "2026-08-03T11:21:22.000Z",
+                  "updatedAt": "2026-08-03T11:21:22.000Z",
+                  "uid": "35240-b08602f6-6ef2-4e26-ab7b-5cf985491c5a"
+                }
+              ],
+              "id": "5f83067e-718d-4ef0-8588-18f51e50ed01",
+              "createdAt": "2026-08-03T11:21:22.000Z",
+              "updatedAt": "2026-08-03T11:21:22.000Z",
+              "uid": "35240-5f83067e-718d-4ef0-8588-18f51e50ed01"
+            }
+          ],
+          "id": "d45e3010-9614-485a-9da8-d9cb57ca17a9",
+          "createdAt": "2026-08-03T11:21:22.000Z",
+          "updatedAt": "2026-08-03T11:21:22.000Z",
+          "uid": "35240-d45e3010-9614-485a-9da8-d9cb57ca17a9"
+        }
+      ],
+      "id": "9a0ccad2-54aa-491e-ac3c-49465d094b7c",
+      "createdAt": "2026-08-03T11:21:22.000Z",
+      "updatedAt": "2026-08-03T11:21:22.000Z",
+      "uid": "35240-9a0ccad2-54aa-491e-ac3c-49465d094b7c"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    },
+    {
+      "key": "sponsoredaccount_id",
+      "value": "<string>"
+    }
+  ]
+}

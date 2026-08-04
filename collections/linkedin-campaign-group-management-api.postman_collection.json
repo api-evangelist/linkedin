@@ -1,0 +1,1061 @@
+{
+  "info": {
+    "_postman_id": "4bc027ee-e32b-44da-853a-1349853e83f6",
+    "name": "LinkedIn Compliance Events Access Control Campaign Group Management API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:23:33.000Z",
+    "updatedAt": "2026-08-03T11:23:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4bc027ee-e32b-44da-853a-1349853e83f6"
+  },
+  "item": [
+    {
+      "name": "adAccounts",
+      "item": [
+        {
+          "name": "{AdAccountsId}",
+          "item": [
+            {
+              "name": "adCampaignGroups",
+              "item": [
+                {
+                  "name": "{CampaignGroupId}",
+                  "item": [
+                    {
+                      "name": "LinkedIn Fetch Campaign Group by Id",
+                      "id": "5af5343e-c10c-4de8-a352-d9aa930f0df8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "adAccounts",
+                            ":AdAccountsId",
+                            "adCampaignGroups",
+                            ":CampaignGroupId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "254688b7-3320-46d3-832d-1eb5d7ccc864",
+                              "key": "AdAccountsId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "3781cbc9-7118-441e-badd-fe96b62c2e18",
+                              "key": "CampaignGroupId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Retrieve a campaign group by its ID."
+                      },
+                      "response": [
+                        {
+                          "id": "bb234572-a05b-4a9b-977c-120f48e02993",
+                          "name": "Successfully retrieved campaign group",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) ",
+                                "key": "LinkedIn-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ",
+                                "key": "X-RestLi-Protocol-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "adAccounts",
+                                ":AdAccountsId",
+                                "adCampaignGroups",
+                                ":CampaignGroupId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "AdAccountsId"
+                                },
+                                {
+                                  "key": "CampaignGroupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"account\": \"<string>\",\n  \"status\": \"PAUSED\",\n  \"totalBudget\": {\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"runSchedule\": {\n    \"start\": \"<long>\",\n    \"end\": \"<long>\"\n  }\n}",
+                          "createdAt": "2026-08-03T11:23:33.000Z",
+                          "updatedAt": "2026-08-03T11:23:33.000Z",
+                          "uid": "35240-bb234572-a05b-4a9b-977c-120f48e02993"
+                        },
+                        {
+                          "id": "d9e4d2e0-d799-40f1-b401-ca246895d342",
+                          "name": "Campaign group not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) ",
+                                "key": "LinkedIn-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ",
+                                "key": "X-RestLi-Protocol-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "adAccounts",
+                                ":AdAccountsId",
+                                "adCampaignGroups",
+                                ":CampaignGroupId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "AdAccountsId"
+                                },
+                                {
+                                  "key": "CampaignGroupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                          "createdAt": "2026-08-03T11:23:33.000Z",
+                          "updatedAt": "2026-08-03T11:23:33.000Z",
+                          "uid": "35240-d9e4d2e0-d799-40f1-b401-ca246895d342"
+                        }
+                      ],
+                      "createdAt": "2026-08-03T11:23:33.000Z",
+                      "updatedAt": "2026-08-03T11:23:33.000Z",
+                      "uid": "35240-5af5343e-c10c-4de8-a352-d9aa930f0df8"
+                    },
+                    {
+                      "name": "LinkedIn Update Campaign Group",
+                      "id": "ed930105-f1b3-4084-a497-247291982bb5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "adAccounts",
+                            ":AdAccountsId",
+                            "adCampaignGroups",
+                            ":CampaignGroupId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "25e1f4cb-a79c-4ac2-849b-dee50b322a4e",
+                              "key": "AdAccountsId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "a03e2ad5-71ae-4fd8-8e1a-489f126eb6fd",
+                              "key": "CampaignGroupId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Update a campaign group using partial update."
+                      },
+                      "response": [
+                        {
+                          "id": "4e9362ac-5c9e-4717-8aa2-e84ebb9ca8fc",
+                          "name": "Campaign group updated successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) ",
+                                "key": "LinkedIn-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ",
+                                "key": "X-RestLi-Protocol-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "adAccounts",
+                                ":AdAccountsId",
+                                "adCampaignGroups",
+                                ":CampaignGroupId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "AdAccountsId"
+                                },
+                                {
+                                  "key": "CampaignGroupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"account\": \"<string>\",\n  \"status\": \"PAUSED\",\n  \"totalBudget\": {\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"runSchedule\": {\n    \"start\": \"<long>\",\n    \"end\": \"<long>\"\n  }\n}",
+                          "createdAt": "2026-08-03T11:23:33.000Z",
+                          "updatedAt": "2026-08-03T11:23:33.000Z",
+                          "uid": "35240-4e9362ac-5c9e-4717-8aa2-e84ebb9ca8fc"
+                        },
+                        {
+                          "id": "7f20a387-6603-4c91-ad56-af9f83a1f922",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) ",
+                                "key": "LinkedIn-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ",
+                                "key": "X-RestLi-Protocol-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "adAccounts",
+                                ":AdAccountsId",
+                                "adCampaignGroups",
+                                ":CampaignGroupId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "AdAccountsId"
+                                },
+                                {
+                                  "key": "CampaignGroupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                          "createdAt": "2026-08-03T11:23:33.000Z",
+                          "updatedAt": "2026-08-03T11:23:33.000Z",
+                          "uid": "35240-7f20a387-6603-4c91-ad56-af9f83a1f922"
+                        }
+                      ],
+                      "createdAt": "2026-08-03T11:23:33.000Z",
+                      "updatedAt": "2026-08-03T11:23:33.000Z",
+                      "uid": "35240-ed930105-f1b3-4084-a497-247291982bb5"
+                    },
+                    {
+                      "name": "LinkedIn Delete Campaign Group",
+                      "id": "ba3bb342-5eef-48b0-af52-2e4a25df9f40",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "adAccounts",
+                            ":AdAccountsId",
+                            "adCampaignGroups",
+                            ":CampaignGroupId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d852c955-bdd1-4d89-8c24-a71b886f6f86",
+                              "key": "AdAccountsId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "8eeb7634-05fd-4b27-b013-6da42f4d99bb",
+                              "key": "CampaignGroupId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Delete a campaign group. Only DRAFT campaign groups can be deleted."
+                      },
+                      "response": [
+                        {
+                          "id": "873ef792-165d-41af-b3cd-53e4357d63fc",
+                          "name": "Campaign group deleted successfully",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) ",
+                                "key": "LinkedIn-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ",
+                                "key": "X-RestLi-Protocol-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "adAccounts",
+                                ":AdAccountsId",
+                                "adCampaignGroups",
+                                ":CampaignGroupId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "AdAccountsId"
+                                },
+                                {
+                                  "key": "CampaignGroupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-08-03T11:23:33.000Z",
+                          "updatedAt": "2026-08-03T11:23:33.000Z",
+                          "uid": "35240-873ef792-165d-41af-b3cd-53e4357d63fc"
+                        },
+                        {
+                          "id": "5428ddcd-82da-42cc-b2e8-709a2628b05a",
+                          "name": "Bad request - campaign group not in DRAFT status",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) ",
+                                "key": "LinkedIn-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ",
+                                "key": "X-RestLi-Protocol-Version",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "adAccounts",
+                                ":AdAccountsId",
+                                "adCampaignGroups",
+                                ":CampaignGroupId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "AdAccountsId"
+                                },
+                                {
+                                  "key": "CampaignGroupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                          "createdAt": "2026-08-03T11:23:33.000Z",
+                          "updatedAt": "2026-08-03T11:23:33.000Z",
+                          "uid": "35240-5428ddcd-82da-42cc-b2e8-709a2628b05a"
+                        }
+                      ],
+                      "createdAt": "2026-08-03T11:23:33.000Z",
+                      "updatedAt": "2026-08-03T11:23:33.000Z",
+                      "uid": "35240-ba3bb342-5eef-48b0-af52-2e4a25df9f40"
+                    }
+                  ],
+                  "id": "28f93eac-0951-4546-89f6-6780ecee30aa",
+                  "createdAt": "2026-08-03T11:23:33.000Z",
+                  "updatedAt": "2026-08-03T11:23:33.000Z",
+                  "uid": "35240-28f93eac-0951-4546-89f6-6780ecee30aa"
+                },
+                {
+                  "name": "LinkedIn Search Campaign Groups",
+                  "id": "bccdf623-0ecb-4835-bd6b-6c2242553970",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) ",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ",
+                        "key": "X-RestLi-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups?q=search&search=<string>&sort=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "adAccounts",
+                        ":AdAccountsId",
+                        "adCampaignGroups"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "q",
+                          "value": "search"
+                        },
+                        {
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "sort",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "7e09338f-8373-42cc-9083-4525b076f4af",
+                          "key": "AdAccountsId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Search for campaign groups by ID, account, name, and status."
+                  },
+                  "response": [
+                    {
+                      "id": "c5e0fd1e-efbc-4065-b818-2ab98e2f3125",
+                      "name": "Successfully retrieved campaign groups",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups?q=search&search=<string>&sort=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "adAccounts",
+                            ":AdAccountsId",
+                            "adCampaignGroups"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "q",
+                              "value": "search"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "sort",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "AdAccountsId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"elements\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"account\": \"<string>\",\n      \"status\": \"REMOVED\",\n      \"totalBudget\": {\n        \"amount\": \"<string>\",\n        \"currencyCode\": \"<string>\"\n      },\n      \"runSchedule\": {\n        \"start\": \"<long>\",\n        \"end\": \"<long>\"\n      }\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"account\": \"<string>\",\n      \"status\": \"PAUSED\",\n      \"totalBudget\": {\n        \"amount\": \"<string>\",\n        \"currencyCode\": \"<string>\"\n      },\n      \"runSchedule\": {\n        \"start\": \"<long>\",\n        \"end\": \"<long>\"\n      }\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"links\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-08-03T11:23:33.000Z",
+                      "updatedAt": "2026-08-03T11:23:33.000Z",
+                      "uid": "35240-c5e0fd1e-efbc-4065-b818-2ab98e2f3125"
+                    },
+                    {
+                      "id": "07c7746e-58ee-4681-a8d1-fe3a1fb408a1",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups?q=search&search=<string>&sort=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "adAccounts",
+                            ":AdAccountsId",
+                            "adCampaignGroups"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "q",
+                              "value": "search"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "sort",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "AdAccountsId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-08-03T11:23:33.000Z",
+                      "updatedAt": "2026-08-03T11:23:33.000Z",
+                      "uid": "35240-07c7746e-58ee-4681-a8d1-fe3a1fb408a1"
+                    }
+                  ],
+                  "createdAt": "2026-08-03T11:23:33.000Z",
+                  "updatedAt": "2026-08-03T11:23:33.000Z",
+                  "uid": "35240-bccdf623-0ecb-4835-bd6b-6c2242553970"
+                },
+                {
+                  "name": "LinkedIn Delete Multiple Campaign Groups",
+                  "id": "6ecc439f-e5cc-4186-b7f1-77cd60b0c978",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "(Required) ",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ",
+                        "key": "X-RestLi-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups?ids=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "adAccounts",
+                        ":AdAccountsId",
+                        "adCampaignGroups"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "ids",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "6d5b0253-bc68-49d7-89ad-3537a95bcfca",
+                          "key": "AdAccountsId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Delete multiple campaign groups. Only DRAFT campaign groups can be deleted."
+                  },
+                  "response": [
+                    {
+                      "id": "aff75c1f-477b-4558-b530-2c5d9fc6989c",
+                      "name": "Campaign groups deleted successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups?ids=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "adAccounts",
+                            ":AdAccountsId",
+                            "adCampaignGroups"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "ids",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "AdAccountsId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-08-03T11:23:33.000Z",
+                      "updatedAt": "2026-08-03T11:23:33.000Z",
+                      "uid": "35240-aff75c1f-477b-4558-b530-2c5d9fc6989c"
+                    },
+                    {
+                      "id": "9a792a8e-add5-4fca-ad1f-c37804b4a5e6",
+                      "name": "Bad request - campaign groups not in DRAFT status",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "(Required) ",
+                            "key": "LinkedIn-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ",
+                            "key": "X-RestLi-Protocol-Version",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/adAccounts/:AdAccountsId/adCampaignGroups?ids=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "adAccounts",
+                            ":AdAccountsId",
+                            "adCampaignGroups"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "ids",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "AdAccountsId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                      "createdAt": "2026-08-03T11:23:33.000Z",
+                      "updatedAt": "2026-08-03T11:23:33.000Z",
+                      "uid": "35240-9a792a8e-add5-4fca-ad1f-c37804b4a5e6"
+                    }
+                  ],
+                  "createdAt": "2026-08-03T11:23:33.000Z",
+                  "updatedAt": "2026-08-03T11:23:33.000Z",
+                  "uid": "35240-6ecc439f-e5cc-4186-b7f1-77cd60b0c978"
+                }
+              ],
+              "id": "3e39cd2c-8544-4c88-8490-f1094e73b2ea",
+              "createdAt": "2026-08-03T11:23:33.000Z",
+              "updatedAt": "2026-08-03T11:23:33.000Z",
+              "uid": "35240-3e39cd2c-8544-4c88-8490-f1094e73b2ea"
+            }
+          ],
+          "id": "25c237dd-4a02-42c0-8926-2a9043d86950",
+          "createdAt": "2026-08-03T11:23:33.000Z",
+          "updatedAt": "2026-08-03T11:23:33.000Z",
+          "uid": "35240-25c237dd-4a02-42c0-8926-2a9043d86950"
+        }
+      ],
+      "id": "b1838ae1-7fd4-47ef-bbc1-422f94db20f7",
+      "createdAt": "2026-08-03T11:23:33.000Z",
+      "updatedAt": "2026-08-03T11:23:33.000Z",
+      "uid": "35240-b1838ae1-7fd4-47ef-bbc1-422f94db20f7"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

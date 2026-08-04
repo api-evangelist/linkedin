@@ -1,0 +1,352 @@
+{
+  "info": {
+    "_postman_id": "3c05fd67-635d-43c0-968e-6eb167d67e1f",
+    "name": "LinkedIn Compliance Access Control Events API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:26:40.000Z",
+    "updatedAt": "2026-08-03T11:26:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3c05fd67-635d-43c0-968e-6eb167d67e1f"
+  },
+  "item": [
+    {
+      "name": "rest",
+      "item": [
+        {
+          "name": "dmaEvents",
+          "item": [
+            {
+              "name": "LinkedIn Get Events",
+              "id": "1f7d18ea-9541-47af-961d-c95ac96ed244",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) LinkedIn API version in YYYYMM format",
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "(Required) Rest.li protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rest/dmaEvents?q=<string>&organizer=<string>&start=<integer>&count=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rest",
+                    "dmaEvents"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Query type for finder operations",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "organizer",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Pagination start index",
+                      "key": "start",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Number of results to return",
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Retrieves event data for data portability compliance. Returns event details including name, description, schedule, and organizer."
+              },
+              "response": [
+                {
+                  "id": "11200224-94bc-4aaa-888b-a0acb2a99225",
+                  "name": "Successfully retrieved events",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaEvents?q=<string>&organizer=<string>&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type for finder operations",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "organizer",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Pagination start index",
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"elements\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"organizer\": \"<string>\",\n      \"eventType\": \"HYBRID\",\n      \"startAt\": \"<long>\",\n      \"endAt\": \"<long>\",\n      \"created\": {\n        \"time\": \"<long>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"organizer\": \"<string>\",\n      \"eventType\": \"VIRTUAL\",\n      \"startAt\": \"<long>\",\n      \"endAt\": \"<long>\",\n      \"created\": {\n        \"time\": \"<long>\"\n      }\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-08-03T11:26:40.000Z",
+                  "updatedAt": "2026-08-03T11:26:40.000Z",
+                  "uid": "35240-11200224-94bc-4aaa-888b-a0acb2a99225"
+                },
+                {
+                  "id": "ad1555e5-4a26-454d-91ae-1e32a73f0e22",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaEvents?q=<string>&organizer=<string>&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type for finder operations",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "organizer",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Pagination start index",
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-08-03T11:26:40.000Z",
+                  "updatedAt": "2026-08-03T11:26:40.000Z",
+                  "uid": "35240-ad1555e5-4a26-454d-91ae-1e32a73f0e22"
+                },
+                {
+                  "id": "60cdeca9-2068-4911-a86f-814e8ea75f0c",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) LinkedIn API version in YYYYMM format",
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Rest.li protocol version",
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rest/dmaEvents?q=<string>&organizer=<string>&start=<integer>&count=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rest",
+                        "dmaEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Query type for finder operations",
+                          "key": "q",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "organizer",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Pagination start index",
+                          "key": "start",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of results to return",
+                          "key": "count",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-08-03T11:26:40.000Z",
+                  "updatedAt": "2026-08-03T11:26:40.000Z",
+                  "uid": "35240-60cdeca9-2068-4911-a86f-814e8ea75f0c"
+                }
+              ],
+              "createdAt": "2026-08-03T11:26:40.000Z",
+              "updatedAt": "2026-08-03T11:26:40.000Z",
+              "uid": "35240-1f7d18ea-9541-47af-961d-c95ac96ed244"
+            }
+          ],
+          "id": "350a7209-c624-4eb7-8089-e5da72ee8353",
+          "createdAt": "2026-08-03T11:26:40.000Z",
+          "updatedAt": "2026-08-03T11:26:40.000Z",
+          "uid": "35240-350a7209-c624-4eb7-8089-e5da72ee8353"
+        }
+      ],
+      "id": "58be41c0-b78a-449d-a2c0-70b9138c5e93",
+      "createdAt": "2026-08-03T11:26:40.000Z",
+      "updatedAt": "2026-08-03T11:26:40.000Z",
+      "uid": "35240-58be41c0-b78a-449d-a2c0-70b9138c5e93"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

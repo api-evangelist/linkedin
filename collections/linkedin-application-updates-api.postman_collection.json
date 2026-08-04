@@ -1,0 +1,379 @@
+{
+  "info": {
+    "_postman_id": "e9d743ff-1753-44b3-90cd-9e5ec2d3b53f",
+    "name": "LinkedIn Compliance Events Access Control Application Updates API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:21:59.000Z",
+    "updatedAt": "2026-08-03T11:21:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e9d743ff-1753-44b3-90cd-9e5ec2d3b53f"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "provisionedApplications",
+          "item": [
+            {
+              "name": "{customer_application_urn}",
+              "item": [
+                {
+                  "name": "LinkedIn Update OAuth 2.0 Callback URLs for Child Application",
+                  "id": "e3cd0f25-0c3c-42fe-b346-c4068bed419b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"<uri>\",\n        \"<uri>\"\n      ]\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/provisionedApplications/:customer_application_urn",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "provisionedApplications",
+                        ":customer_application_urn"
+                      ],
+                      "variable": [
+                        {
+                          "id": "aea82fcb-1d45-42be-a75e-23121bdbd123",
+                          "key": "customer_application_urn",
+                          "value": "<string>",
+                          "description": "(Required) URN of the customer application to update"
+                        }
+                      ]
+                    },
+                    "description": "Updates the OAuth 2.0 authorized callback URLs for a child application. Partners use this endpoint to modify the callback URLs configuration for customer applications.\nFor more information, refer to the [Update Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#update-application)."
+                  },
+                  "response": [
+                    {
+                      "id": "f2217371-34a2-4699-a3fd-7c83f530b20e",
+                      "name": "Successfully updated the application callback URLs",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"<uri>\",\n        \"<uri>\"\n      ]\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/provisionedApplications/:customer_application_urn",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "provisionedApplications",
+                            ":customer_application_urn"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_application_urn"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"applicationUrn\": \"<string>\",\n  \"clientId\": \"<string>\",\n  \"clientSecret\": \"<string>\",\n  \"name\": \"<string>\",\n  \"uniqueForeignId\": \"<string>\",\n  \"oauth2AuthorizedCallbackUrls\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"validJsSdkDomains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdAt\": \"<long>\"\n}",
+                      "createdAt": "2026-08-03T11:21:59.000Z",
+                      "updatedAt": "2026-08-03T11:21:59.000Z",
+                      "uid": "35240-f2217371-34a2-4699-a3fd-7c83f530b20e"
+                    },
+                    {
+                      "id": "0db90aa8-d3b6-4413-91d6-99558823d9c8",
+                      "name": "Bad request - invalid parameters",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"<uri>\",\n        \"<uri>\"\n      ]\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/provisionedApplications/:customer_application_urn",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "provisionedApplications",
+                            ":customer_application_urn"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_application_urn"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-08-03T11:21:59.000Z",
+                      "updatedAt": "2026-08-03T11:21:59.000Z",
+                      "uid": "35240-0db90aa8-d3b6-4413-91d6-99558823d9c8"
+                    },
+                    {
+                      "id": "1398d0e6-92c8-463f-aac6-e2bc6fda8f26",
+                      "name": "Unauthorized - invalid or missing authentication",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"<uri>\",\n        \"<uri>\"\n      ]\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/provisionedApplications/:customer_application_urn",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "provisionedApplications",
+                            ":customer_application_urn"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_application_urn"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-08-03T11:21:59.000Z",
+                      "updatedAt": "2026-08-03T11:21:59.000Z",
+                      "uid": "35240-1398d0e6-92c8-463f-aac6-e2bc6fda8f26"
+                    },
+                    {
+                      "id": "f7f7436b-d2a5-4318-9b8e-e5a0b79570d5",
+                      "name": "Application not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"patch\": {\n    \"$set\": {\n      \"oauth2AuthorizedCallbackUrls\": [\n        \"<uri>\",\n        \"<uri>\"\n      ]\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/provisionedApplications/:customer_application_urn",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "provisionedApplications",
+                            ":customer_application_urn"
+                          ],
+                          "variable": [
+                            {
+                              "key": "customer_application_urn"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-08-03T11:21:59.000Z",
+                      "updatedAt": "2026-08-03T11:21:59.000Z",
+                      "uid": "35240-f7f7436b-d2a5-4318-9b8e-e5a0b79570d5"
+                    }
+                  ],
+                  "createdAt": "2026-08-03T11:21:59.000Z",
+                  "updatedAt": "2026-08-03T11:21:59.000Z",
+                  "uid": "35240-e3cd0f25-0c3c-42fe-b346-c4068bed419b"
+                }
+              ],
+              "id": "75bf4d89-16c4-4e68-94be-f0a95302fbcf",
+              "createdAt": "2026-08-03T11:21:59.000Z",
+              "updatedAt": "2026-08-03T11:21:59.000Z",
+              "uid": "35240-75bf4d89-16c4-4e68-94be-f0a95302fbcf"
+            }
+          ],
+          "id": "ef99c5a2-2441-4e6b-bd81-ebea93c5bb82",
+          "createdAt": "2026-08-03T11:21:59.000Z",
+          "updatedAt": "2026-08-03T11:21:59.000Z",
+          "uid": "35240-ef99c5a2-2441-4e6b-bd81-ebea93c5bb82"
+        }
+      ],
+      "id": "d00a19c2-e279-4f78-bd1c-096863fbe24d",
+      "createdAt": "2026-08-03T11:21:59.000Z",
+      "updatedAt": "2026-08-03T11:21:59.000Z",
+      "uid": "35240-d00a19c2-e279-4f78-bd1c-096863fbe24d"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}

@@ -1,0 +1,552 @@
+{
+  "info": {
+    "_postman_id": "1a0f8aae-1cda-4602-9413-0b48a1de6107",
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Creatives API",
+    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-03T11:30:40.000Z",
+    "updatedAt": "2026-08-03T11:30:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1a0f8aae-1cda-4602-9413-0b48a1de6107"
+  },
+  "item": [
+    {
+      "name": "creatives",
+      "item": [
+        {
+          "name": "{urn_creatives}",
+          "item": [
+            {
+              "name": "LinkedIn Get a Sponsored Creative",
+              "id": "9e35684f-782a-4e95-9fb8-85488d68d1c1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/creatives/:urn_creatives",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "creatives",
+                    ":urn_creatives"
+                  ],
+                  "variable": [
+                    {
+                      "id": "adc19e14-c4d9-41f9-84ea-4d6ab20deafa",
+                      "key": "urn_creatives",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "30fdd046-d5e4-412b-993c-3ae61aef6d54",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/creatives/:urn_creatives",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "creatives",
+                        ":urn_creatives"
+                      ],
+                      "variable": [
+                        {
+                          "key": "urn_creatives"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "",
+                  "createdAt": "2026-08-03T11:30:40.000Z",
+                  "updatedAt": "2026-08-03T11:30:40.000Z",
+                  "uid": "35240-30fdd046-d5e4-412b-993c-3ae61aef6d54"
+                }
+              ],
+              "createdAt": "2026-08-03T11:30:40.000Z",
+              "updatedAt": "2026-08-03T11:30:40.000Z",
+              "uid": "35240-9e35684f-782a-4e95-9fb8-85488d68d1c1"
+            }
+          ],
+          "id": "e947fcca-b7e0-4cc1-b0b2-c809626571fd",
+          "createdAt": "2026-08-03T11:30:40.000Z",
+          "updatedAt": "2026-08-03T11:30:40.000Z",
+          "uid": "35240-e947fcca-b7e0-4cc1-b0b2-c809626571fd"
+        },
+        {
+          "name": "{creative ID}",
+          "item": [
+            {
+              "name": "LinkedIn Update a Creative",
+              "id": "4b77a3eb-51ae-486f-8ca7-ed62c6af64b8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/creatives/:creative ID",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "creatives",
+                    ":creative ID"
+                  ],
+                  "variable": [
+                    {
+                      "id": "11e8c5dd-41bd-4506-9b8d-e56ddadb7436",
+                      "key": "creative ID"
+                    }
+                  ]
+                },
+                "description": "You can change the details of following Creatives fields:\n\n\\*   `intendedStatus`:\n\\*   `leadgenCallToAction`: field\u00a0`adFormUrn`\u00a0- The ad form that is a target destination for the\u00a0`callToAction`\u00a0button. It can only be modified when the creative is in DRAFT status. It is read only once it is set for a creative and once it transitions to any non-draft intended status.\n\\*   `leadgenCallToAction`: field label\u00a0`-Label`\u00a0for the\u00a0`callToAction`\u00a0button\n    \n\n  \nThis API updates a sponsored creative."
+              },
+              "response": [
+                {
+                  "id": "eed95724-22bd-49c6-a9a9-a77f8ced3a67",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/creatives/:creative ID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "creatives",
+                        ":creative ID"
+                      ],
+                      "variable": [
+                        {
+                          "key": "creative ID"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "",
+                  "createdAt": "2026-08-03T11:30:40.000Z",
+                  "updatedAt": "2026-08-03T11:30:40.000Z",
+                  "uid": "35240-eed95724-22bd-49c6-a9a9-a77f8ced3a67"
+                }
+              ],
+              "createdAt": "2026-08-03T11:30:40.000Z",
+              "updatedAt": "2026-08-03T11:30:40.000Z",
+              "uid": "35240-4b77a3eb-51ae-486f-8ca7-ed62c6af64b8"
+            },
+            {
+              "name": "LinkedIn Delete a Creative",
+              "id": "4419be73-071f-4b06-b34e-fc04aa9d1f34",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/creatives/:creative ID",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "creatives",
+                    ":creative ID"
+                  ],
+                  "variable": [
+                    {
+                      "id": "267baa82-dafa-423b-b222-ede7ba7bba28",
+                      "key": "creative ID"
+                    }
+                  ]
+                },
+                "description": "A Creative can be deleted. Use DELETE method to delete a creative that meets one of the following conditions. To start the process of deleting other creative, update the status to\u00a0`PENDING_DELETION`.\n\n\\*   It is in a DRAFT state.\n\\*   It is linked to a Campaign in a DRAFT state.\n\\*   It is a video ad creative and\u00a0`processingState`\u00a0is\u00a0`PROCESSING_FAILED`.\n    \n\nThe header X-RestLi-Method must be included in the request and set to\u00a0`DELETE`."
+              },
+              "response": [
+                {
+                  "id": "db29170f-8af7-4736-a3a3-0eed930a6b8a",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "LinkedIn-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "X-Restli-Protocol-Version",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/creatives/:creative ID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "creatives",
+                        ":creative ID"
+                      ],
+                      "variable": [
+                        {
+                          "key": "creative ID"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "",
+                  "createdAt": "2026-08-03T11:30:40.000Z",
+                  "updatedAt": "2026-08-03T11:30:40.000Z",
+                  "uid": "35240-db29170f-8af7-4736-a3a3-0eed930a6b8a"
+                }
+              ],
+              "createdAt": "2026-08-03T11:30:40.000Z",
+              "updatedAt": "2026-08-03T11:30:40.000Z",
+              "uid": "35240-4419be73-071f-4b06-b34e-fc04aa9d1f34"
+            }
+          ],
+          "id": "f35fb428-e51d-4eba-8711-4f879b50b2dd",
+          "createdAt": "2026-08-03T11:30:40.000Z",
+          "updatedAt": "2026-08-03T11:30:40.000Z",
+          "uid": "35240-f35fb428-e51d-4eba-8711-4f879b50b2dd"
+        },
+        {
+          "name": "LinkedIn Search for Creative",
+          "id": "6de4cfd6-96e8-4a4a-a838-94039cabf2ab",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/creatives?accounts=<string>&campaigns=<string>&contentReferences=<string>&creatives=<string>&intendedStatuses=<string>&isTestAccount=<boolean>&isTotalIncluded=<boolean>&leadgenCreativeCallToActionDestinations=<string>&q=<string>&sortOrder=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "creatives"
+              ],
+              "query": [
+                {
+                  "key": "accounts",
+                  "value": "<string>"
+                },
+                {
+                  "key": "campaigns",
+                  "value": "<string>"
+                },
+                {
+                  "key": "contentReferences",
+                  "value": "<string>"
+                },
+                {
+                  "key": "creatives",
+                  "value": "<string>"
+                },
+                {
+                  "key": "intendedStatuses",
+                  "value": "<string>"
+                },
+                {
+                  "key": "isTestAccount",
+                  "value": "<boolean>"
+                },
+                {
+                  "key": "isTotalIncluded",
+                  "value": "<boolean>"
+                },
+                {
+                  "key": "leadgenCreativeCallToActionDestinations",
+                  "value": "<string>"
+                },
+                {
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "You can search for creative content in order to get a collection of creatives matching your search parameters. The Creative API currently supports search by\u00a0`creative id`,\u00a0`campaign`,\u00a0`account`,\u00a0`content reference`,\u00a0`intendedStatus`,\u00a0`leadgenCreativeCallToActionDestinations`\u00a0and test fields. The API supports finding creatives from multiple accounts. The values within each field are displayed with 'or' (ORed) and values across fields are displayed with 'and' (ANDed)."
+          },
+          "response": [
+            {
+              "id": "0328f555-3256-4a42-86aa-5c47575e01b9",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "LinkedIn-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/creatives?accounts=<string>&campaigns=<string>&contentReferences=<string>&creatives=<string>&intendedStatuses=<string>&isTestAccount=<boolean>&isTotalIncluded=<boolean>&leadgenCreativeCallToActionDestinations=<string>&q=<string>&sortOrder=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "creatives"
+                  ],
+                  "query": [
+                    {
+                      "key": "accounts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "campaigns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contentReferences",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creatives",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "intendedStatuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isTestAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "isTotalIncluded",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "leadgenCreativeCallToActionDestinations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "",
+              "createdAt": "2026-08-03T11:30:40.000Z",
+              "updatedAt": "2026-08-03T11:30:40.000Z",
+              "uid": "35240-0328f555-3256-4a42-86aa-5c47575e01b9"
+            }
+          ],
+          "createdAt": "2026-08-03T11:30:40.000Z",
+          "updatedAt": "2026-08-03T11:30:40.000Z",
+          "uid": "35240-6de4cfd6-96e8-4a4a-a838-94039cabf2ab"
+        }
+      ],
+      "id": "4783b1ba-30f6-439a-91a4-5502c1069ae7",
+      "createdAt": "2026-08-03T11:30:40.000Z",
+      "updatedAt": "2026-08-03T11:30:40.000Z",
+      "uid": "35240-4783b1ba-30f6-439a-91a4-5502c1069ae7"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "r_compliance",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.linkedin.com/oauth/v2/accessToken",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.linkedin.com/oauth/v2/authorization",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.linkedin.com"
+    }
+  ]
+}
