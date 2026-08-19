@@ -1,33 +1,48 @@
 {
-  "info": {
-    "_postman_id": "bd9386f4-d8af-4da5-821b-cfb2295991da",
-    "name": "LinkedIn Compliance Events Access Control Audience Insights API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:22:43.000Z",
-    "updatedAt": "2026-08-03T11:22:44.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-bd9386f4-d8af-4da5-821b-cfb2295991da"
-  },
   "item": [
     {
-      "name": "targetingAudienceInsights",
+      "id": "a25c9052-26d2-4dfa-8963-2c334746b376",
+      "name": "Audience Insights",
+      "description": {
+        "content": "APIs to fetch audience insights based on targeting criteria",
+        "type": "text/plain"
+      },
       "item": [
         {
+          "id": "b0211c82-41c4-40d3-b0b7-aa09b4c6e2ea",
           "name": "LinkedIn Fetch Audience Insights by Targeting Criteria",
-          "id": "8e8d843e-5e7e-41f5-a1bd-1fca7f8e4f64",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "POST",
+            "name": "LinkedIn Fetch Audience Insights by Targeting Criteria",
+            "description": {
+              "content": "Retrieve aggregated demographic insights, firmographic details, locations, and interests/behaviors for a target audience based on specified targeting criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "targetingAudienceInsights"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>",
+                  "description": "(Required) Action to perform"
+                }
+              ],
+              "variable": []
+            },
             "header": [
               {
+                "disabled": false,
                 "description": "(Required) LinkedIn API version",
                 "key": "LinkedIn-Version",
                 "value": "<string>"
               },
               {
+                "disabled": false,
                 "description": "(Required) RestLi protocol version",
                 "key": "X-Restli-Protocol-Version",
                 "value": "<string>"
@@ -41,337 +56,307 @@
                 "value": "application/json"
               }
             ],
+            "method": "POST",
+            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"request\": {\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"pariatur153\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"nulla1\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"labore_d1e\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enim_98f\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"<string>\",\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"<string>\"\n    }\n  }\n}",
+              "raw": "{\n  \"request\": {\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"key_0\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"key_1\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"key_0\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"key_1\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"<string>\",\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"<string>\"\n    }\n  }\n}",
               "options": {
                 "raw": {
-                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/targetingAudienceInsights?action=audienceInsights",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "targetingAudienceInsights"
-              ],
-              "query": [
-                {
-                  "description": "(Required) Action to perform",
-                  "key": "action",
-                  "value": "audienceInsights"
-                }
-              ]
-            },
-            "description": "Retrieve aggregated demographic insights, firmographic details, locations, and interests/behaviors for a target audience based on specified targeting criteria."
+            }
           },
           "response": [
             {
-              "id": "03fc66a9-d0c3-4a07-b6ec-485a8e5fcd98",
+              "id": "9c24e8f4-631f-4767-8927-f9cd50fd43fc",
               "name": "Successfully retrieved audience insights",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "targetingAudienceInsights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "audienceInsights"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
                     "description": "(Required) LinkedIn API version",
                     "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "value": "202401"
                   },
                   {
+                    "disabled": false,
                     "description": "(Required) RestLi protocol version",
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "value": "2.0.0"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"request\": {\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"pariatur153\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"nulla1\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"labore_d1e\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enim_98f\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"<string>\",\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"<string>\"\n    }\n  }\n}",
+                  "raw": "{\n  \"request\": {\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"urn:li:sponsoredAccount:123456789\"\n    },\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:locations\": [\n                \"urn:li:geo:103644278\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:interfaceLocales\": [\n                \"urn:li:locale:en_US\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:jobFunctions\": [\n                \"urn:li:function:10\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"urn:li:adTargetingFacet:interests\"\n  }\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/targetingAudienceInsights?action=audienceInsights",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "targetingAudienceInsights"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) Action to perform",
-                      "key": "action",
-                      "value": "audienceInsights"
-                    }
-                  ]
                 }
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"value\": {\n    \"audienceInsight\": {\n      \"segmentations\": [\n        {\n          \"entityCount\": 4900000,\n          \"entityPercentage\": 89,\n          \"value\": \"urn:li:interest:71363\"\n        },\n        {\n          \"entityCount\": 4500000,\n          \"entityPercentage\": 82,\n          \"value\": \"urn:li:interest:420\"\n        },\n        {\n          \"entityCount\": 4500000,\n          \"entityPercentage\": 82,\n          \"value\": \"urn:li:interest:2689786\"\n        },\n        {\n          \"entityCount\": 4400000,\n          \"entityPercentage\": 80,\n          \"value\": \"urn:li:interest:3440\"\n        },\n        {\n          \"entityCount\": 4300000,\n          \"entityPercentage\": 78,\n          \"value\": \"urn:li:interest:1537154\"\n        }\n      ],\n      \"groupedBy\": \"urn:li:adTargetingFacet:interests\"\n    },\n    \"totalAudienceCount\": 5500000\n  }\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"value\": {\n    \"audienceInsight\": {\n      \"segmentations\": [\n        {\n          \"entityCount\": \"<integer>\",\n          \"entityPercentage\": \"<integer>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"entityCount\": \"<integer>\",\n          \"entityPercentage\": \"<integer>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"groupedBy\": \"<string>\"\n    },\n    \"totalAudienceCount\": \"<integer>\"\n  }\n}",
-              "createdAt": "2026-08-03T11:22:44.000Z",
-              "updatedAt": "2026-08-03T11:22:44.000Z",
-              "uid": "35240-03fc66a9-d0c3-4a07-b6ec-485a8e5fcd98"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "786cbf70-3676-4ba9-ba8c-483d6dfa3279",
+              "id": "825fc41f-a672-42c2-8355-9e99ef89c3b4",
               "name": "Bad request - invalid targeting criteria",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "targetingAudienceInsights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "audienceInsights"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
                     "description": "(Required) LinkedIn API version",
                     "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "value": "202401"
                   },
                   {
+                    "disabled": false,
                     "description": "(Required) RestLi protocol version",
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "value": "2.0.0"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"request\": {\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"pariatur153\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"nulla1\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"labore_d1e\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enim_98f\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"<string>\",\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"<string>\"\n    }\n  }\n}",
+                  "raw": "{\n  \"request\": {\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"urn:li:sponsoredAccount:123456789\"\n    },\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:locations\": [\n                \"urn:li:geo:103644278\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:interfaceLocales\": [\n                \"urn:li:locale:en_US\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:jobFunctions\": [\n                \"urn:li:function:10\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"urn:li:adTargetingFacet:interests\"\n  }\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/targetingAudienceInsights?action=audienceInsights",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "targetingAudienceInsights"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) Action to perform",
-                      "key": "action",
-                      "value": "audienceInsights"
-                    }
-                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:22:44.000Z",
-              "updatedAt": "2026-08-03T11:22:44.000Z",
-              "uid": "35240-786cbf70-3676-4ba9-ba8c-483d6dfa3279"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "f76ed3d0-129d-40d3-aac0-cea88d222600",
+              "id": "6f114f22-8f6c-4c9d-addb-380cf4981aea",
               "name": "Unauthorized",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "targetingAudienceInsights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "audienceInsights"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
                     "description": "(Required) LinkedIn API version",
                     "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "value": "202401"
                   },
                   {
+                    "disabled": false,
                     "description": "(Required) RestLi protocol version",
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "value": "2.0.0"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"request\": {\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"pariatur153\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"nulla1\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"labore_d1e\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enim_98f\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"<string>\",\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"<string>\"\n    }\n  }\n}",
+                  "raw": "{\n  \"request\": {\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"urn:li:sponsoredAccount:123456789\"\n    },\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:locations\": [\n                \"urn:li:geo:103644278\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:interfaceLocales\": [\n                \"urn:li:locale:en_US\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:jobFunctions\": [\n                \"urn:li:function:10\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"urn:li:adTargetingFacet:interests\"\n  }\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/targetingAudienceInsights?action=audienceInsights",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "targetingAudienceInsights"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) Action to perform",
-                      "key": "action",
-                      "value": "audienceInsights"
-                    }
-                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:22:44.000Z",
-              "updatedAt": "2026-08-03T11:22:44.000Z",
-              "uid": "35240-f76ed3d0-129d-40d3-aac0-cea88d222600"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "01cd5be4-662f-41f0-8979-991f779f923c",
+              "id": "58b8fec0-3dea-4b83-b9b0-d01d0d55aece",
               "name": "Forbidden - insufficient permissions for Audience Insights API",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "targetingAudienceInsights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "audienceInsights"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
                     "description": "(Required) LinkedIn API version",
                     "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "value": "202401"
                   },
                   {
+                    "disabled": false,
                     "description": "(Required) RestLi protocol version",
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "value": "2.0.0"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"request\": {\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"pariatur153\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"nulla1\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"labore_d1e\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"enim_98f\": [\n                \"<string>\",\n                \"<string>\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"<string>\",\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"<string>\"\n    }\n  }\n}",
+                  "raw": "{\n  \"request\": {\n    \"requestMetaData\": {\n      \"sponsoredAccount\": \"urn:li:sponsoredAccount:123456789\"\n    },\n    \"targetingCriteria\": {\n      \"include\": {\n        \"and\": [\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:locations\": [\n                \"urn:li:geo:103644278\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:interfaceLocales\": [\n                \"urn:li:locale:en_US\"\n              ]\n            }\n          },\n          {\n            \"or\": {\n              \"urn:li:adTargetingFacet:jobFunctions\": [\n                \"urn:li:function:10\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    \"groupBy\": \"urn:li:adTargetingFacet:interests\"\n  }\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/targetingAudienceInsights?action=audienceInsights",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "targetingAudienceInsights"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) Action to perform",
-                      "key": "action",
-                      "value": "audienceInsights"
-                    }
-                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:22:44.000Z",
-              "updatedAt": "2026-08-03T11:22:44.000Z",
-              "uid": "35240-01cd5be4-662f-41f0-8979-991f779f923c"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:22:44.000Z",
-          "updatedAt": "2026-08-03T11:22:44.000Z",
-          "uid": "35240-8e8d843e-5e7e-41f5-a1bd-1fca7f8e4f64"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "7a841ac6-73ab-4d11-9d76-4b44de948535",
-      "createdAt": "2026-08-03T11:22:44.000Z",
-      "updatedAt": "2026-08-03T11:22:44.000Z",
-      "uid": "35240-7a841ac6-73ab-4d11-9d76-4b44de948535"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -379,30 +364,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "ed26bf45-05d3-44f0-a3ce-46836abacc9e",
+    "name": "LinkedIn Compliance Events Access Control Audience Insights API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

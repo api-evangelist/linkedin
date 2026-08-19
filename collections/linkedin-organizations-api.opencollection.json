@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Organizations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Batch Get Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaOrganizations",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List(10002687,10002688)",
+                "type": "query",
+                "description": "List of entity IDs to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves multiple organization profiles in a single request for data portability compliance. Returns organization details including name, description, locations, and settings."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaOrganizations/:organizationId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "10002687",
+                "type": "path",
+                "description": "Organization identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves a single organization profile by ID for data portability compliance. Returns comprehensive organization details including profile, settings, and metadata."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

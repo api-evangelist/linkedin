@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Application Retrieval API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Application Retrieval",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Child Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/provisionedApplications",
+            "params": [
+              {
+                "name": "q",
+                "value": "credentialsByUniqueForeignId",
+                "type": "query",
+                "description": "Query type for retrieving applications"
+              },
+              {
+                "name": "uniqueForeignId",
+                "value": "acme-corp-12345",
+                "type": "query",
+                "description": "Partner's unique identifier for the customer"
+              }
+            ]
+          },
+          "docs": "Retrieves the credentials and details of a child application for a mutual customer using the partner's unique foreign identifier.\nFor more information, refer to the [Get Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#get-application)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

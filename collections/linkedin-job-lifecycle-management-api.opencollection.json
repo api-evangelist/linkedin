@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Job Lifecycle Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job Lifecycle Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Check Job Posting Task Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/simpleJobPostingTasks",
+            "params": [
+              {
+                "name": "ids",
+                "value": "urn:li:simpleJobPostingTask:12345678",
+                "type": "query",
+                "description": "Task URN(s) to check status"
+              }
+            ]
+          },
+          "docs": "Retrieves the status of a job posting task to track whether the job has been successfully created, updated, or closed.\nAfter successful completion, the response includes the `jobPostingUrn` which can be used to view the job at: `https://www.linkedin.com/jobs/view/{jobPostingId}`\nFor more information, refer to the [Check Job Task Status documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

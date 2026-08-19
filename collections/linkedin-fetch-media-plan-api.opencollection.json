@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Fetch Media Plan API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fetch Media Plan",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Forecast Avg Lifetime Frequency",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/mediaPlanning",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {{Access_Token}}"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "Linkedin-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "action",
+                "value": "forecastImpressions",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "LinkedIn Forecast Avg Lifetime Frequency"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,342 +1,386 @@
 {
-  "info": {
-    "_postman_id": "3398c24b-c422-46a8-9603-a33a5395ba60",
-    "name": "LinkedIn Compliance Events Access Control Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:32:54.000Z",
-    "updatedAt": "2026-08-03T11:32:55.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-3398c24b-c422-46a8-9603-a33a5395ba60"
-  },
   "item": [
     {
-      "name": "eventSubscriptions",
+      "id": "cc8b5ed0-f88a-4e58-b111-a1081f07adf6",
+      "name": "Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow",
+      "description": {
+        "content": "Registered webhook URLs will receive notifications from LinkedIn for subscribed events.",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "(developerApplication:urn:li:developerApplication:{application_id},user:urn:li:person:{person_id},entity:urn:li:organization:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
-          "item": [
-            {
-              "name": "LinkedIn 3. Create a Subscription Request",
-              "id": "dc678783-6bff-4097-9f5c-40e256277447",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
+          "id": "ba2bab34-6b3d-482d-b266-bf9458aa0a97",
+          "name": "LinkedIn 3. Create a Subscription Request",
+          "request": {
+            "name": "LinkedIn 3. Create a Subscription Request",
+            "description": {
+              "content": "[Create a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#creating-and-updating-subscriptions) record to include the webhook URL where your app will receive notifications. The subscription request will only succeed if the subscribing member is an administrator of the organization being subscribed to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eventSubscriptions",
+                "(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
               },
-              "request": {
-                "method": "PUT",
+              {
+                "disabled": false,
+                "key": "Linkedin-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "216f71c9-146d-4bf6-b718-272e0fb089b0",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eventSubscriptions",
+                    "(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
+                    "value": "2.0.0",
+                    "description": ""
                   },
                   {
+                    "disabled": false,
                     "key": "Linkedin-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "value": "{{insert_version}}",
+                    "description": ""
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{}",
+                  "raw": "{\n  \"webhook\": \"https://www.example.com/callback\"\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/eventSubscriptions/(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "eventSubscriptions",
-                    "(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
-                  ]
-                },
-                "description": "[Create a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#creating-and-updating-subscriptions)\u00a0record to include the webhook URL where your app will receive notifications. The subscription request will only succeed if the subscribing member is an administrator of the organization being subscribed to."
+                }
               },
-              "response": [
+              "status": "OK",
+              "code": 200,
+              "header": [
                 {
-                  "id": "adfeb41b-bb5a-40cc-b656-154264132169",
-                  "name": "Successful response",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "X-Restli-Protocol-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Linkedin-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/eventSubscriptions/(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "eventSubscriptions",
-                        "(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "",
-                  "createdAt": "2026-08-03T11:32:55.000Z",
-                  "updatedAt": "2026-08-03T11:32:55.000Z",
-                  "uid": "35240-adfeb41b-bb5a-40cc-b656-154264132169"
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "createdAt": "2026-08-03T11:32:55.000Z",
-              "updatedAt": "2026-08-03T11:32:55.000Z",
-              "uid": "35240-dc678783-6bff-4097-9f5c-40e256277447"
-            },
-            {
-              "name": "LinkedIn 5. Retrieve Subscription by Key",
-              "id": "e32393cc-4750-4bd9-8502-2672c7a0704e",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{baseUrl}}/eventSubscriptions/(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "eventSubscriptions",
-                    "(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
-                  ]
-                },
-                "description": "Retrieve all the subscriptions details such as webhook url and expiration for the logged in user.\u00a0[Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#retrieve-subscriptions-for-an-authenticated-member)\u00a0by viewing our online documentation."
-              },
-              "response": [
-                {
-                  "id": "1c579b91-7d54-4b70-91e5-02ecd96d7132",
-                  "name": "Successful response",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "X-Restli-Protocol-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/eventSubscriptions/(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "eventSubscriptions",
-                        "(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "",
-                  "createdAt": "2026-08-03T11:32:55.000Z",
-                  "updatedAt": "2026-08-03T11:32:55.000Z",
-                  "uid": "35240-1c579b91-7d54-4b70-91e5-02ecd96d7132"
-                }
-              ],
-              "createdAt": "2026-08-03T11:32:55.000Z",
-              "updatedAt": "2026-08-03T11:32:55.000Z",
-              "uid": "35240-e32393cc-4750-4bd9-8502-2672c7a0704e"
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "id": "2d5109fa-fa36-459c-b281-5ac2c7459800",
-          "createdAt": "2026-08-03T11:32:55.000Z",
-          "updatedAt": "2026-08-03T11:32:55.000Z",
-          "uid": "35240-2d5109fa-fa36-459c-b281-5ac2c7459800"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
-          "name": "(developerApplication:{application_id},user:{person_id},entity:{organization_id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
-          "item": [
-            {
-              "name": "LinkedIn 6. Remove a Subscription",
-              "id": "54315137-c8f1-4324-a03d-b08fd50c0bc6",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
+          "id": "cfb9770f-9926-40c4-adcc-4aa28098142a",
+          "name": "LinkedIn 5. Retrieve Subscription by Key",
+          "request": {
+            "name": "LinkedIn 5. Retrieve Subscription by Key",
+            "description": {
+              "content": "Retrieve all the subscriptions details such as webhook url and expiration for the logged in user. [Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#retrieve-subscriptions-for-an-authenticated-member) by viewing our online documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eventSubscriptions",
+                "(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
               },
-              "request": {
-                "method": "DELETE",
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2b64fd8-1b64-4021-93c2-372d8c01f94a",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eventSubscriptions",
+                    "(developerApplication:urn:li:developerApplication:{{application_id}},user:urn:li:person:{{person_id}},entity:urn:li:organization:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
+                    "disabled": false,
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bfed74bc-db9b-4a91-8fc7-75ac817f4678",
+          "name": "LinkedIn 6. Remove a Subscription",
+          "request": {
+            "name": "LinkedIn 6. Remove a Subscription",
+            "description": {
+              "content": "[Remove a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#remove-a-subscription) for a your developer application and Organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eventSubscriptions",
+                "(developerApplication:{{application_id}},user:{{person_id}},entity:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "35f468fd-cfd9-42c6-952c-c89750d9e425",
+              "name": "Successful response",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/eventSubscriptions/(developerApplication:{{application_id}},user:{{person_id}},entity:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "eventSubscriptions",
                     "(developerApplication:{{application_id}},user:{{person_id}},entity:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
-                  ]
-                },
-                "description": "[Remove a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#remove-a-subscription)\u00a0for a your developer application and Organization."
-              },
-              "response": [
-                {
-                  "id": "8e1a65f9-c77c-4253-b27b-a600cea2415b",
-                  "name": "Successful response",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "X-Restli-Protocol-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/eventSubscriptions/(developerApplication:{{application_id}},user:{{person_id}},entity:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "eventSubscriptions",
-                        "(developerApplication:{{application_id}},user:{{person_id}},entity:{{organization_id}},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)"
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
                   ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "",
-                  "createdAt": "2026-08-03T11:32:55.000Z",
-                  "updatedAt": "2026-08-03T11:32:55.000Z",
-                  "uid": "35240-8e1a65f9-c77c-4253-b27b-a600cea2415b"
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "createdAt": "2026-08-03T11:32:55.000Z",
-              "updatedAt": "2026-08-03T11:32:55.000Z",
-              "uid": "35240-54315137-c8f1-4324-a03d-b08fd50c0bc6"
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "id": "c5248a5b-4f87-4b87-887d-9a58cb2705a1",
-          "createdAt": "2026-08-03T11:32:55.000Z",
-          "updatedAt": "2026-08-03T11:32:55.000Z",
-          "uid": "35240-c5248a5b-4f87-4b87-887d-9a58cb2705a1"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "ba031e77-7a2e-4a72-8f4c-f8f64a167e15",
-      "createdAt": "2026-08-03T11:32:55.000Z",
-      "updatedAt": "2026-08-03T11:32:55.000Z",
-      "uid": "35240-ba031e77-7a2e-4a72-8f4c-f8f64a167e15"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "application_id"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "person_id"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "organization_id"
     }
   ],
   "auth": {
@@ -344,42 +388,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
-    },
-    {
-      "key": "application_id",
-      "value": "<string>"
-    },
-    {
-      "key": "person_id",
-      "value": "<string>"
-    },
-    {
-      "key": "organization_id",
-      "value": "<string>"
+  "info": {
+    "_postman_id": "44b17fc8-e48d-4f7a-a319-9b1b9751ad23",
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

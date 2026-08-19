@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Ad Accounts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ad Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve User Ad Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccounts",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "search",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "search",
+                "value": "(type:(values:List(BUSINESS)),status:(values:List(ACTIVE)),test:false)",
+                "type": "query",
+                "description": "Search criteria"
+              },
+              {
+                "name": "fields",
+                "value": "id,name,test,reference",
+                "type": "query",
+                "description": "Fields to include in response"
+              }
+            ]
+          },
+          "docs": "Retrieve the authenticated user's ad accounts. Filter by type, status, and test flag to get relevant accounts."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

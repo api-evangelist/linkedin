@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Sales Analytics Export API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sales Analytics Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Fetch Sales Analytics Export Job by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/salesAnalyticsExportJobs/:JobId",
+            "params": [
+              {
+                "name": "JobId",
+                "value": "987654321",
+                "type": "path",
+                "description": "The ID of the export job"
+              },
+              {
+                "name": "contract",
+                "value": "urn:li:salesContract:12345",
+                "type": "query",
+                "description": "Sales Navigator contract URN"
+              }
+            ]
+          },
+          "docs": "Retrieve the status and details of a sales analytics export job by its ID."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create New Sales Analytics Export Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/salesAnalyticsExportJobs",
+            "params": [
+              {
+                "name": "action",
+                "value": "exportSeatData",
+                "type": "query",
+                "description": "The type of export job to create"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new sales analytics export job to export seat data, activity outcome data, or activity data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

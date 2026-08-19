@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Document Ad API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Document Ad",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Upload the Document File (select a Document File in the Body for Postman to Use)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/"
+          },
+          "docs": "LinkedIn Upload the Document File (select a Document File in the Body for Postman to Use)"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Multiple Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/images",
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({{document_urn1}},{{document_urn2}})",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Get Multiple Documents"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Multiple Document Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/posts",
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({encoded postId},{encoded postId})",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Fetch Multiple Document Content"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create Document Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/posts"
+          },
+          "docs": "LinkedIn Create Document Content"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Initialize Document Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/documents",
+            "params": [
+              {
+                "name": "action",
+                "value": "initializeUpload",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Initialize Document Upload"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get a Single Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com//documents/:document_asset_id",
+            "params": [
+              {
+                "name": "document_asset_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "LinkedIn Get a Single Document"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

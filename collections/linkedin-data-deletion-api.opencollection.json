@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Data Deletion API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Deletion",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Delete Synced Candidates",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/v2/atsCandidates",
+            "params": [
+              {
+                "name": "ids[0].atsCandidateId",
+                "value": "CAND-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes previously synced candidate records.\nFor more information, refer to the [Delete Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-candidates)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Synced Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/v2/atsApplications",
+            "params": [
+              {
+                "name": "ids[0].atsJobApplicationId",
+                "value": "APP-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes previously synced job application records.\nFor more information, refer to the [Delete Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-applications)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Application Synchronization API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Application Synchronization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Sync Job Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/v2/atsApplications",
+            "headers": [
+              {
+                "name": "x-restli-method",
+                "value": "batch_update"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids[0].atsJobApplicationId",
+                "value": "APP-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates job application records in LinkedIn.\nFor more information, refer to the [Sync Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create Resume Upload URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/hireMediaUrl",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a signed URL for uploading resume files to LinkedIn.\nFor more information, refer to the [Resume Upload documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications#resume-upload)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Profile Associations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profile Associations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Fetch Profile Association by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/salesNavigatorProfileAssociations/:InstanceId,:Partner,:RecordId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "sf-instance-001",
+                "type": "path",
+                "description": "ID of the CRM instance that synced with Sales Navigator"
+              },
+              {
+                "name": "Partner",
+                "value": "salesforce",
+                "type": "path",
+                "description": "ID of the CRM partner that synced with Sales Navigator"
+              },
+              {
+                "name": "RecordId",
+                "value": "contact-12345",
+                "type": "path",
+                "description": "ID of the CRM record"
+              }
+            ]
+          },
+          "docs": "Fetch the corresponding match when provided with a SalesNavigatorProfileAssociationKey."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch Fetch Profile Associations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/salesNavigatorProfileAssociations",
+            "params": [
+              {
+                "name": "ids",
+                "value": "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))",
+                "type": "query",
+                "description": "List of association keys in the format List((instanceId,partner,recordId))"
+              }
+            ]
+          },
+          "docs": "Batch fetch matches when provided with multiple SalesNavigatorProfileAssociationKeys."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

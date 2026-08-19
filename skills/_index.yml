@@ -1,0 +1,42 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/*.yml (operationIds verified against the refined specs in this repo), arazzo/*.yml,
+  conventions/linkedin-conventions.yml, errors/linkedin-problem-types.yml,
+  rate-limits/linkedin-rate-limits.yml, asyncapi/linkedin-webhooks.yml, sandbox/linkedin-sandbox.yml
+note: >-
+  LinkedIn publishes no AGENTS.md and no provider-authored agent skills; these are GENERATED packaged
+  operating instructions for the marquee LinkedIn flows, mirroring the arazzo/ native workflow set.
+  Every operationId named in a skill exists verbatim in a spec under openapi/ in this repo — none are
+  invented. The cross-cutting rules (mandatory Linkedin-Version header, Rest.li 2.0.0 URN encoding,
+  no idempotency key, non-RFC-9457 error envelope, daily UTC rate-limit ceilings) come from the
+  captured conventions, errors and rate-limit artifacts.
+skills:
+- file: linkedin-authenticate.md
+  name: Authenticate against the LinkedIn API
+  api: openapi/linkedin-authentication-api-openapi.yml
+  operations: [getAccessToken, getSalesAccessToken]
+- file: linkedin-publish-organization-post.md
+  name: Publish and verify an organization post
+  api: openapi/linkedin-use-cases-organization-lookup-organizations-api-openapi.yml
+  operations: [getLookupByOrganizationPrimary, postCreateAShareWith, getGetPostsByUrn, postUpdateAPost, deleteDeleteAPost]
+- file: linkedin-upload-media-and-post.md
+  name: Upload media and publish a rich post
+  api: openapi/linkedin-use-cases-image-ad-api-openapi.yml
+  operations: [postInitializeImageUpload, getGetASingleImage, postInitializeDocumentUpload, putUploadTheDocumentFile, postCreateDocumentContent, postInitializeVideoUpload, getGetASingleVideo]
+- file: linkedin-organization-analytics.md
+  name: Pull organization page and share analytics
+  api: openapi/linkedin-use-cases-statistics-apis-organization-page-statistics-api-openapi.yml
+  operations: [getLookupByOrganizationPrimary, getRetrieveOrganizationFollowerCount, getLifetimePageStatistics, getTimeboundFollowerStatistics, getTimeBoundShareStatistics, getPageContentAnalytics, getPosts, getReactions, getComments]
+- file: linkedin-subscribe-social-action-webhooks.md
+  name: Subscribe to organization social action webhooks
+  api: openapi/linkedin-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow-api-openapi.yml
+  operations: [getFindOrganizationAccessControl, putCreateASubscriptionRequest, getRetrieveSubscriptionByKey, deleteRemoveASubscription, getRetrieveNotificationsForThe]
+- file: linkedin-manage-ad-campaigns.md
+  name: Create and manage ad accounts, campaigns and creatives
+  api: openapi/linkedin-account-management-api-openapi.yml
+  operations: [createAdAccount, searchAdAccounts, getAdAccountById, updateAdAccount, createAdAccountUser, getAuthenticatedUserAdAccounts, searchCampaignGroups, getCampaignGroupById, updateCampaignGroup, deleteCampaignGroup, searchCampaigns, getCampaignById, archiveCampaign, createCreative, getAudienceCount, getAdTargetingFacets, searchAdTargetingEntities]
+- file: linkedin-lead-sync.md
+  name: Sync leads from LinkedIn lead gen forms
+  api: openapi/linkedin-use-cases-sponsored-api-openapi.yml
+  operations: [getValidateTheUsersOrganization, getGetTheUsersSponsored, getGetFormsForThe, postSubscribeForLeadNotification, getFetchFullLeadData, getSchedulePeriodicFormResponse, deletePushDeleteARegistered, getLeadGenResponses]

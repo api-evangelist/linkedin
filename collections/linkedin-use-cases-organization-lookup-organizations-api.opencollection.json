@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Organization Lookup > Organizations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Organization Lookup > Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Lookup by Organization Primary Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizations/:organization_id",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "projection",
+                "value": "(primaryOrganizationType)",
+                "type": "query"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "LinkedIn Lookup by Organization Primary Type"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Find Non-Administered Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationsLookup",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({{organization_id}},{{organization_id1}})",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Find Non-Administered Organization"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Organization Follower Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/networkSizes/urn:li:organization::organization_id",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "edgeType",
+                "value": "CompanyFollowedByMember",
+                "type": "query"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "LinkedIn Retrieve Organization Follower Count"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

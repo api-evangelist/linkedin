@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Control",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Entity ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/atsEntityAcls",
+            "params": [
+              {
+                "name": "q",
+                "value": "criteria",
+                "type": "query"
+              },
+              {
+                "name": "atsEntityId",
+                "value": "JOB-2024-001",
+                "type": "query"
+              },
+              {
+                "name": "atsEntityType",
+                "value": "JOB_POSTING",
+                "type": "query"
+              },
+              {
+                "name": "dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "100",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves details of previously synced entity ACLs.\nFor more information, refer to the [Retrieve Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#retrieve-entity-acls)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Upsert Entity ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/v2/atsEntityAcls",
+            "headers": [
+              {
+                "name": "x-restli-method",
+                "value": "batch_update"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids[0].atsEntityAclId",
+                "value": "ACL-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].atsEntityType",
+                "value": "JOB_POSTING",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].atsEntityId",
+                "value": "JOB-2024-001",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates entity ACLs that control visibility of synced entities within LinkedIn products.\nFor more information, refer to the [Sync ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#sync-entity-acls)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Entity ACL",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/v2/atsEntityAcls",
+            "params": [
+              {
+                "name": "ids[0].atsEntityAclId",
+                "value": "ACL-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].atsEntityId",
+                "value": "JOB-2024-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].atsEntityType",
+                "value": "JOB_POSTING",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes previously synced entity ACLs.\nFor more information, refer to the [Delete Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#delete-entity-acls)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

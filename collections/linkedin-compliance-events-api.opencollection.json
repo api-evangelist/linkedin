@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Access Control Compliance Events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Compliance Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Compliance Events for Regulated Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/complianceEvents",
+            "params": [
+              {
+                "name": "q",
+                "value": "memberAndApplication",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "projection",
+                "value": "(elements*(id,capturedAt,processedAt,configVersion,owner~(firstName,lastName,headline),actor~(firstName,lastName,headline),resourceName,resourceId,resourceUri,method,activity,processedActivity,siblingActivities,parentActivity,parentSiblingActivities),paging)",
+                "type": "query",
+                "description": "Fields to include in the response"
+              },
+              {
+                "name": "startTime",
+                "value": "1640000000000",
+                "type": "query",
+                "description": "Start time in milliseconds since epoch"
+              },
+              {
+                "name": "count",
+                "value": "10",
+                "type": "query",
+                "description": "Number of events to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieve compliance events for a regulated member. Returns monitored activities as individual event records for archiving and remediation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

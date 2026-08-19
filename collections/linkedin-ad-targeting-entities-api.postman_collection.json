@@ -1,33 +1,41 @@
 {
-  "info": {
-    "_postman_id": "50ed6100-262b-4997-9080-b244a574ade4",
-    "name": "LinkedIn Compliance Events Access Control Ad Targeting Entities API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:21:09.000Z",
-    "updatedAt": "2026-08-03T11:21:09.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-50ed6100-262b-4997-9080-b244a574ade4"
-  },
   "item": [
     {
-      "name": "adTargetingFacets",
+      "id": "a0ed7192-a06d-473c-9a94-b84bcc3aab21",
+      "name": "Ad Targeting Entities",
+      "description": {
+        "content": "APIs to discover and retrieve ad targeting facets and entities",
+        "type": "text/plain"
+      },
       "item": [
         {
+          "id": "8718aecb-7b47-4c4a-8034-882ad62b32c7",
           "name": "LinkedIn Get List of Available Ad Targeting Facets",
-          "id": "b0191b69-439b-455b-a797-739dde2502e7",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "GET",
+            "name": "LinkedIn Get List of Available Ad Targeting Facets",
+            "description": {
+              "content": "Retrieve the list of available ad targeting facets. Facets are high-level categories of targeting types available for ad campaigns.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "adTargetingFacets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
             "header": [
               {
+                "disabled": false,
                 "description": "(Required) LinkedIn API version",
                 "key": "LinkedIn-Version",
                 "value": "<string>"
               },
               {
+                "disabled": false,
                 "description": "(Required) RestLi protocol version",
                 "key": "X-Restli-Protocol-Version",
                 "value": "<string>"
@@ -37,466 +45,460 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/adTargetingFacets",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "adTargetingFacets"
-              ]
-            },
-            "description": "Retrieve the list of available ad targeting facets. Facets are high-level categories of targeting types available for ad campaigns."
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "d5612498-a0c7-45c4-bef1-da424fe24e01",
+              "id": "6e316628-2431-4660-aaa0-71ef5dc127fd",
               "name": "Successfully retrieved ad targeting facets",
               "originalRequest": {
-                "method": "GET",
+                "url": {
+                  "path": [
+                    "adTargetingFacets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "description": "(Required) LinkedIn API version",
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
+                    "disabled": false,
+                    "description": "(Required) LinkedIn API version",
+                    "key": "LinkedIn-Version",
+                    "value": "202401"
+                  },
+                  {
+                    "disabled": false,
                     "description": "(Required) RestLi protocol version",
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
+                    "value": "2.0.0"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
-                "url": {
-                  "raw": "{{baseUrl}}/adTargetingFacets",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "adTargetingFacets"
-                  ]
-                }
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 10,\n    \"links\": []\n  },\n  \"elements\": [\n    {\n      \"entityTypes\": [\n        \"FUNCTION\"\n      ],\n      \"facetName\": \"jobFunctions\",\n      \"urn\": \"urn:li:adTargetingFacet:jobFunctions\",\n      \"availableEntityFinders\": [\n        \"AD_TARGETING_FACET\"\n      ]\n    },\n    {\n      \"entityTypes\": [\n        \"AGE\"\n      ],\n      \"facetName\": \"ageRanges\",\n      \"urn\": \"urn:li:adTargetingFacet:ageRanges\",\n      \"availableEntityFinders\": [\n        \"AD_TARGETING_FACET\"\n      ]\n    },\n    {\n      \"entityTypes\": [\n        \"GROUP\"\n      ],\n      \"facetName\": \"groups\",\n      \"urn\": \"urn:li:adTargetingFacet:groups\",\n      \"availableEntityFinders\": [\n        \"TYPEAHEAD\",\n        \"SIMILAR_ENTITIES\"\n      ]\n    },\n    {\n      \"entityTypes\": [\n        \"COMPANY\"\n      ],\n      \"facetName\": \"employers\",\n      \"urn\": \"urn:li:adTargetingFacet:employers\",\n      \"availableEntityFinders\": [\n        \"TYPEAHEAD\",\n        \"SIMILAR_ENTITIES\"\n      ]\n    },\n    {\n      \"entityTypes\": [\n        \"INDUSTRY\"\n      ],\n      \"facetName\": \"industries\",\n      \"urn\": \"urn:li:adTargetingFacet:industries\",\n      \"availableEntityFinders\": [\n        \"AD_TARGETING_FACET\",\n        \"TYPEAHEAD\",\n        \"SIMILAR_ENTITIES\"\n      ]\n    },\n    {\n      \"entityTypes\": [\n        \"SENIORITY\"\n      ],\n      \"facetName\": \"seniorities\",\n      \"urn\": \"urn:li:adTargetingFacet:seniorities\",\n      \"availableEntityFinders\": [\n        \"AD_TARGETING_FACET\"\n      ]\n    },\n    {\n      \"entityTypes\": [\n        \"COUNTRY_GROUP\",\n        \"COUNTRY\",\n        \"STATE\",\n        \"REGION\"\n      ],\n      \"facetName\": \"locations\",\n      \"urn\": \"urn:li:adTargetingFacet:locations\",\n      \"availableEntityFinders\": [\n        \"AD_TARGETING_FACET\",\n        \"TYPEAHEAD\"\n      ]\n    },\n    {\n      \"entityTypes\": [\n        \"INTEREST\"\n      ],\n      \"facetName\": \"interests\",\n      \"urn\": \"urn:li:adTargetingFacet:interests\",\n      \"availableEntityFinders\": [\n        \"TYPEAHEAD\",\n        \"AD_TARGETING_FACET\"\n      ]\n    }\n  ]\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"elements\": [\n    {\n      \"facetName\": \"<string>\",\n      \"urn\": \"<string>\",\n      \"entityTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"availableEntityFinders\": [\n        \"SIMILAR_ENTITIES\",\n        \"AD_TARGETING_FACET\"\n      ]\n    },\n    {\n      \"facetName\": \"<string>\",\n      \"urn\": \"<string>\",\n      \"entityTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"availableEntityFinders\": [\n        \"SIMILAR_ENTITIES\",\n        \"TYPEAHEAD\"\n      ]\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
-              "createdAt": "2026-08-03T11:21:10.000Z",
-              "updatedAt": "2026-08-03T11:21:10.000Z",
-              "uid": "35240-d5612498-a0c7-45c4-bef1-da424fe24e01"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "c28483e5-bc73-4ef6-9acf-3dbd76d06699",
+              "id": "0847fa82-2dbd-4ad9-a9e2-bf2a17bbf50a",
               "name": "Unauthorized",
               "originalRequest": {
-                "method": "GET",
+                "url": {
+                  "path": [
+                    "adTargetingFacets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "description": "(Required) LinkedIn API version",
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
+                    "disabled": false,
+                    "description": "(Required) LinkedIn API version",
+                    "key": "LinkedIn-Version",
+                    "value": "202401"
+                  },
+                  {
+                    "disabled": false,
                     "description": "(Required) RestLi protocol version",
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
+                    "value": "2.0.0"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
-                "url": {
-                  "raw": "{{baseUrl}}/adTargetingFacets",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "adTargetingFacets"
-                  ]
-                }
+                "method": "GET",
+                "body": {}
               },
               "status": "Unauthorized",
               "code": 401,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:21:10.000Z",
-              "updatedAt": "2026-08-03T11:21:10.000Z",
-              "uid": "35240-c28483e5-bc73-4ef6-9acf-3dbd76d06699"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:21:10.000Z",
-          "updatedAt": "2026-08-03T11:21:10.000Z",
-          "uid": "35240-b0191b69-439b-455b-a797-739dde2502e7"
-        }
-      ],
-      "id": "f83fcdaf-9696-4fc3-9e7f-bd279caafa47",
-      "createdAt": "2026-08-03T11:21:10.000Z",
-      "updatedAt": "2026-08-03T11:21:10.000Z",
-      "uid": "35240-f83fcdaf-9696-4fc3-9e7f-bd279caafa47"
-    },
-    {
-      "name": "adTargetingEntities",
-      "item": [
-        {
-          "name": "LinkedIn Get Ad Targeting Entities Using Typeahead Search",
-          "id": "edb7de7a-85ca-4645-be4f-88bd8bcc4f70",
+          "event": [],
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          },
+          }
+        },
+        {
+          "id": "06ab0b4a-33bf-4207-bfa4-eb514b8f00ab",
+          "name": "LinkedIn Get Ad Targeting Entities Using Typeahead Search",
           "request": {
-            "method": "GET",
-            "header": [
-              {
-                "description": "(Required) LinkedIn API version",
-                "key": "LinkedIn-Version",
-                "value": "<string>"
-              },
-              {
-                "description": "(Required) RestLi protocol version",
-                "key": "X-Restli-Protocol-Version",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "name": "LinkedIn Get Ad Targeting Entities Using Typeahead Search",
+            "description": {
+              "content": "Search for ad targeting entities within a facet using typeahead search. Returns entities matching the search query.",
+              "type": "text/plain"
+            },
             "url": {
-              "raw": "{{baseUrl}}/adTargetingEntities?q=typeahead&query=<string>&facet=<string>&queryVersion=QUERY_USES_URNS&start=0&count=10",
-              "host": [
-                "{{baseUrl}}"
-              ],
               "path": [
                 "adTargetingEntities"
               ],
+              "host": [
+                "{{baseUrl}}"
+              ],
               "query": [
                 {
-                  "description": "(Required) Query type",
+                  "disabled": false,
                   "key": "q",
-                  "value": "typeahead"
+                  "value": "<string>",
+                  "description": "(Required) Query type"
                 },
                 {
-                  "description": "(Required) Search query string (URL encoded)",
+                  "disabled": false,
                   "key": "query",
-                  "value": "<string>"
+                  "value": "<string>",
+                  "description": "(Required) Search query string (URL encoded)"
                 },
                 {
-                  "description": "(Required) Facet URN to search within (URL encoded)",
+                  "disabled": false,
                   "key": "facet",
-                  "value": "<string>"
+                  "value": "<string>",
+                  "description": "(Required) Facet URN to search within (URL encoded)"
                 },
                 {
-                  "description": "Query version format",
+                  "disabled": false,
                   "key": "queryVersion",
-                  "value": "QUERY_USES_URNS"
+                  "value": "<string>",
+                  "description": "Query version format"
                 },
                 {
-                  "description": "Starting index for pagination",
+                  "disabled": false,
                   "key": "start",
-                  "value": "0"
+                  "value": "0",
+                  "description": "Starting index for pagination"
                 },
                 {
-                  "description": "Number of results to return",
+                  "disabled": false,
                   "key": "count",
-                  "value": "10"
+                  "value": "10",
+                  "description": "Number of results to return"
                 }
-              ]
+              ],
+              "variable": []
             },
-            "description": "Search for ad targeting entities within a facet using typeahead search. Returns entities matching the search query."
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) LinkedIn API version",
+                "key": "LinkedIn-Version",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) RestLi protocol version",
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "9227d076-bfef-459e-aaf3-2bcdecebcbdf",
+              "id": "6cbdab98-c89a-4ba9-9a2c-aa82dbd2641a",
               "name": "Successfully retrieved ad targeting entities",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "description": "(Required) LinkedIn API version",
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "description": "(Required) RestLi protocol version",
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/adTargetingEntities?q=typeahead&query=<string>&facet=<string>&queryVersion=QUERY_USES_URNS&start=0&count=10",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "adTargetingEntities"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) Query type",
                       "key": "q",
                       "value": "typeahead"
                     },
                     {
-                      "description": "(Required) Search query string (URL encoded)",
                       "key": "query",
-                      "value": "<string>"
+                      "value": "united%20states"
                     },
                     {
-                      "description": "(Required) Facet URN to search within (URL encoded)",
                       "key": "facet",
-                      "value": "<string>"
+                      "value": "urn%3Ali%3AadTargetingFacet%3Alocations"
                     },
                     {
-                      "description": "Query version format",
                       "key": "queryVersion",
                       "value": "QUERY_USES_URNS"
                     },
                     {
-                      "description": "Starting index for pagination",
                       "key": "start",
                       "value": "0"
                     },
                     {
-                      "description": "Number of results to return",
                       "key": "count",
                       "value": "10"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) LinkedIn API version",
+                    "key": "LinkedIn-Version",
+                    "value": "202401"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) RestLi protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 10,\n    \"links\": [\n      {\n        \"type\": \"application/json\",\n        \"rel\": \"next\",\n        \"href\": \"/rest/adTargetingEntities?q=typeahead&query=united%20states&start=10&count=10&facet=urn%3Ali%3AadTargetingFacet%3Alocations&queryVersion=QUERY_USES_URNS\"\n      }\n    ]\n  },\n  \"elements\": [\n    {\n      \"name\": \"United States\",\n      \"urn\": \"urn:li:geo:103644278\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    },\n    {\n      \"name\": \"California, United States\",\n      \"urn\": \"urn:li:geo:102095887\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    },\n    {\n      \"name\": \"Texas, United States\",\n      \"urn\": \"urn:li:geo:102748797\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    },\n    {\n      \"name\": \"New York, United States\",\n      \"urn\": \"urn:li:geo:105080838\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    },\n    {\n      \"name\": \"Florida, United States\",\n      \"urn\": \"urn:li:geo:101318387\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    },\n    {\n      \"name\": \"Los Angeles County, California, United States\",\n      \"urn\": \"urn:li:geo:103104382\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    },\n    {\n      \"name\": \"New York, New York, United States\",\n      \"urn\": \"urn:li:geo:102571732\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    },\n    {\n      \"name\": \"Illinois, United States\",\n      \"urn\": \"urn:li:geo:101949407\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    },\n    {\n      \"name\": \"Pennsylvania, United States\",\n      \"urn\": \"urn:li:geo:102986501\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    },\n    {\n      \"name\": \"Georgia, United States\",\n      \"urn\": \"urn:li:geo:103950076\",\n      \"facetUrn\": \"urn:li:adTargetingFacet:locations\"\n    }\n  ]\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"elements\": [\n    {\n      \"name\": \"<string>\",\n      \"urn\": \"<string>\",\n      \"facetUrn\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"urn\": \"<string>\",\n      \"facetUrn\": \"<string>\"\n    }\n  ],\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"links\": [\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
-              "createdAt": "2026-08-03T11:21:10.000Z",
-              "updatedAt": "2026-08-03T11:21:10.000Z",
-              "uid": "35240-9227d076-bfef-459e-aaf3-2bcdecebcbdf"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "183ff124-8a43-4434-b059-6e58b32295c4",
+              "id": "14533753-d6d4-45f5-a820-02b7073b8968",
               "name": "Bad request",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "description": "(Required) LinkedIn API version",
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "description": "(Required) RestLi protocol version",
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/adTargetingEntities?q=typeahead&query=<string>&facet=<string>&queryVersion=QUERY_USES_URNS&start=0&count=10",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "adTargetingEntities"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) Query type",
                       "key": "q",
                       "value": "typeahead"
                     },
                     {
-                      "description": "(Required) Search query string (URL encoded)",
                       "key": "query",
-                      "value": "<string>"
+                      "value": "united%20states"
                     },
                     {
-                      "description": "(Required) Facet URN to search within (URL encoded)",
                       "key": "facet",
-                      "value": "<string>"
+                      "value": "urn%3Ali%3AadTargetingFacet%3Alocations"
                     },
                     {
-                      "description": "Query version format",
                       "key": "queryVersion",
                       "value": "QUERY_USES_URNS"
                     },
                     {
-                      "description": "Starting index for pagination",
                       "key": "start",
                       "value": "0"
                     },
                     {
-                      "description": "Number of results to return",
                       "key": "count",
                       "value": "10"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) LinkedIn API version",
+                    "key": "LinkedIn-Version",
+                    "value": "202401"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) RestLi protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "Bad Request",
               "code": 400,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:21:10.000Z",
-              "updatedAt": "2026-08-03T11:21:10.000Z",
-              "uid": "35240-183ff124-8a43-4434-b059-6e58b32295c4"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "a34ffa80-f7df-4ca0-b3a8-c39e66fbcabd",
+              "id": "ef8937f3-eee5-4b09-989a-4d6ca75ec026",
               "name": "Unauthorized",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "description": "(Required) LinkedIn API version",
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "description": "(Required) RestLi protocol version",
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/adTargetingEntities?q=typeahead&query=<string>&facet=<string>&queryVersion=QUERY_USES_URNS&start=0&count=10",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "adTargetingEntities"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) Query type",
                       "key": "q",
                       "value": "typeahead"
                     },
                     {
-                      "description": "(Required) Search query string (URL encoded)",
                       "key": "query",
-                      "value": "<string>"
+                      "value": "united%20states"
                     },
                     {
-                      "description": "(Required) Facet URN to search within (URL encoded)",
                       "key": "facet",
-                      "value": "<string>"
+                      "value": "urn%3Ali%3AadTargetingFacet%3Alocations"
                     },
                     {
-                      "description": "Query version format",
                       "key": "queryVersion",
                       "value": "QUERY_USES_URNS"
                     },
                     {
-                      "description": "Starting index for pagination",
                       "key": "start",
                       "value": "0"
                     },
                     {
-                      "description": "Number of results to return",
                       "key": "count",
                       "value": "10"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) LinkedIn API version",
+                    "key": "LinkedIn-Version",
+                    "value": "202401"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) RestLi protocol version",
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "Unauthorized",
               "code": 401,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:21:10.000Z",
-              "updatedAt": "2026-08-03T11:21:10.000Z",
-              "uid": "35240-a34ffa80-f7df-4ca0-b3a8-c39e66fbcabd"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:21:10.000Z",
-          "updatedAt": "2026-08-03T11:21:10.000Z",
-          "uid": "35240-edb7de7a-85ca-4645-be4f-88bd8bcc4f70"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "8257fa05-3575-40ea-b106-b807831ffc3c",
-      "createdAt": "2026-08-03T11:21:10.000Z",
-      "updatedAt": "2026-08-03T11:21:10.000Z",
-      "uid": "35240-8257fa05-3575-40ea-b106-b807831ffc3c"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -504,30 +506,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "094e3b72-daa7-44a3-b2e3-594bcd35717d",
+    "name": "LinkedIn Compliance Events Access Control Ad Targeting Entities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

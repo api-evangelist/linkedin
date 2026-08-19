@@ -1,357 +1,39 @@
 {
-  "info": {
-    "_postman_id": "66974c5a-fad2-4e90-823e-2c679c5f1dc6",
-    "name": "LinkedIn Compliance Events Access Control CRM Data Validation API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:25:31.000Z",
-    "updatedAt": "2026-08-03T11:25:31.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-66974c5a-fad2-4e90-823e-2c679c5f1dc6"
-  },
   "item": [
     {
-      "name": "crmDataValidationExportJobs",
+      "id": "db387db0-443d-47a9-9df0-9c64936285c9",
+      "name": "CRM Data Validation",
+      "description": {
+        "content": "Create and manage CRM data validation export jobs",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "{JobId}",
-          "item": [
-            {
-              "name": "LinkedIn Get CRM Data Validation Export Job Status",
-              "id": "681d0cb7-86dd-4b2c-b548-d31894e8fcd3",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "crmDataValidationExportJobs",
-                    ":JobId"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
-                      "key": "crmInstanceId",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "id": "48b75a62-d79d-44e0-824c-c088cd4c1d63",
-                      "key": "JobId",
-                      "value": "<long>",
-                      "description": "(Required) The ID of the export job"
-                    }
-                  ]
-                },
-                "description": "Retrieve the status and details of a CRM data validation export job."
-              },
-              "response": [
+          "id": "724c4d59-0af8-43c8-bdd3-9a28bb679097",
+          "name": "LinkedIn Create CRM Data Validation Export Job",
+          "request": {
+            "name": "LinkedIn Create CRM Data Validation Export Job",
+            "description": {
+              "content": "Create a new CRM data validation export job to validate CRM data against LinkedIn.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "crmDataValidationExportJobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
                 {
-                  "id": "7cab15c0-0093-418d-a484-d600c1cec921",
-                  "name": "Export job status returned successfully",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "crmDataValidationExportJobs",
-                        ":JobId"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
-                          "key": "crmInstanceId",
-                          "value": "<string>"
-                        }
-                      ],
-                      "variable": [
-                        {
-                          "key": "JobId"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"jobId\": \"<long>\",\n  \"exportStartAt\": \"<long>\",\n  \"exportEndAt\": \"<long>\",\n  \"status\": \"PROCESSING\",\n  \"downloadUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nextExportStartAt\": \"<long>\",\n  \"expireAt\": \"<long>\"\n}",
-                  "createdAt": "2026-08-03T11:25:31.000Z",
-                  "updatedAt": "2026-08-03T11:25:31.000Z",
-                  "uid": "35240-7cab15c0-0093-418d-a484-d600c1cec921"
-                },
-                {
-                  "id": "d96e12e7-7a03-45bb-8f56-f38958448634",
-                  "name": "Bad request, missing or invalid parameter",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "crmDataValidationExportJobs",
-                        ":JobId"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
-                          "key": "crmInstanceId",
-                          "value": "<string>"
-                        }
-                      ],
-                      "variable": [
-                        {
-                          "key": "JobId"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:25:31.000Z",
-                  "updatedAt": "2026-08-03T11:25:31.000Z",
-                  "uid": "35240-d96e12e7-7a03-45bb-8f56-f38958448634"
-                },
-                {
-                  "id": "88bac25a-4236-4232-b264-2d6a7ead3459",
-                  "name": "Unauthorized",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "crmDataValidationExportJobs",
-                        ":JobId"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
-                          "key": "crmInstanceId",
-                          "value": "<string>"
-                        }
-                      ],
-                      "variable": [
-                        {
-                          "key": "JobId"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Unauthorized",
-                  "code": 401,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:25:31.000Z",
-                  "updatedAt": "2026-08-03T11:25:31.000Z",
-                  "uid": "35240-88bac25a-4236-4232-b264-2d6a7ead3459"
-                },
-                {
-                  "id": "66c5ad87-294b-4f45-beb5-2baded3f24c3",
-                  "name": "Forbidden, insufficient access",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "crmDataValidationExportJobs",
-                        ":JobId"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
-                          "key": "crmInstanceId",
-                          "value": "<string>"
-                        }
-                      ],
-                      "variable": [
-                        {
-                          "key": "JobId"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Forbidden",
-                  "code": 403,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:25:31.000Z",
-                  "updatedAt": "2026-08-03T11:25:31.000Z",
-                  "uid": "35240-66c5ad87-294b-4f45-beb5-2baded3f24c3"
-                },
-                {
-                  "id": "23c69683-b394-4b37-85e7-4ead50fed809",
-                  "name": "Job ID not found",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/crmDataValidationExportJobs/:JobId?crmInstanceId=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "crmDataValidationExportJobs",
-                        ":JobId"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded.",
-                          "key": "crmInstanceId",
-                          "value": "<string>"
-                        }
-                      ],
-                      "variable": [
-                        {
-                          "key": "JobId"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:25:31.000Z",
-                  "updatedAt": "2026-08-03T11:25:31.000Z",
-                  "uid": "35240-23c69683-b394-4b37-85e7-4ead50fed809"
+                  "disabled": false,
+                  "key": "crmInstanceId",
+                  "value": "<string>",
+                  "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded."
                 }
               ],
-              "createdAt": "2026-08-03T11:25:31.000Z",
-              "updatedAt": "2026-08-03T11:25:31.000Z",
-              "uid": "35240-681d0cb7-86dd-4b2c-b548-d31894e8fcd3"
-            }
-          ],
-          "id": "e24cf126-982b-4f3d-9c39-fc74da62bd10",
-          "createdAt": "2026-08-03T11:25:31.000Z",
-          "updatedAt": "2026-08-03T11:25:31.000Z",
-          "uid": "35240-e24cf126-982b-4f3d-9c39-fc74da62bd10"
-        },
-        {
-          "name": "LinkedIn Create CRM Data Validation Export Job",
-          "id": "5ed2b714-592f-43c9-99f3-a62fe2a9b748",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "POST",
+              "variable": []
+            },
             "header": [
               {
                 "key": "Content-Type",
@@ -362,315 +44,607 @@
                 "value": "application/json"
               }
             ],
+            "method": "POST",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
               "options": {
                 "raw": {
-                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "crmDataValidationExportJobs"
-              ],
-              "query": [
-                {
-                  "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
-                  "key": "crmInstanceId",
-                  "value": "<string>"
-                }
-              ]
-            },
-            "description": "Create a new CRM data validation export job to validate CRM data against LinkedIn."
+            }
           },
           "response": [
             {
-              "id": "8dd020ac-ae29-4fe1-983b-422c502c14e6",
+              "id": "8db6bc90-df1b-404b-9017-d8208a3ed31b",
               "name": "Export job created successfully",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+                  "raw": "{\n  \"exportStartAt\": 1640000000000\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "crmDataValidationExportJobs"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
-                      "key": "crmInstanceId",
-                      "value": "<string>"
-                    }
-                  ]
                 }
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "disabled": false,
+                  "description": "Resource location of created job",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Job ID",
+                  "key": "X-RestLi-Id",
+                  "value": "9105"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "Resource location of created job",
-                    "type": "text/plain"
-                  },
-                  "key": "Location",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "Job ID",
-                    "type": "text/plain"
-                  },
-                  "key": "X-RestLi-Id",
-                  "value": "<long>"
                 }
               ],
+              "body": "{\n  \"jobId\": 123456789,\n  \"exportStartAt\": 1640000000000,\n  \"status\": \"PROCESSING\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"jobId\": \"<long>\",\n  \"exportStartAt\": \"<long>\",\n  \"exportEndAt\": \"<long>\",\n  \"status\": \"PROCESSING\",\n  \"downloadUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nextExportStartAt\": \"<long>\",\n  \"expireAt\": \"<long>\"\n}",
-              "createdAt": "2026-08-03T11:25:31.000Z",
-              "updatedAt": "2026-08-03T11:25:31.000Z",
-              "uid": "35240-8dd020ac-ae29-4fe1-983b-422c502c14e6"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "b21fff2c-a85f-4175-a9d3-29c2f6476808",
+              "id": "13a6f306-74f1-4f68-ad60-cc1c8810e116",
               "name": "Bad request, missing or invalid parameter",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+                  "raw": "{\n  \"exportStartAt\": 1640000000000\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "crmDataValidationExportJobs"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
-                      "key": "crmInstanceId",
-                      "value": "<string>"
-                    }
-                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:25:31.000Z",
-              "updatedAt": "2026-08-03T11:25:31.000Z",
-              "uid": "35240-b21fff2c-a85f-4175-a9d3-29c2f6476808"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "5e5248ce-bab6-4589-983d-7c817d443da3",
+              "id": "addb039c-f56b-4f03-9e66-f338c0224c33",
               "name": "Unauthorized",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+                  "raw": "{\n  \"exportStartAt\": 1640000000000\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "crmDataValidationExportJobs"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
-                      "key": "crmInstanceId",
-                      "value": "<string>"
-                    }
-                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:25:31.000Z",
-              "updatedAt": "2026-08-03T11:25:31.000Z",
-              "uid": "35240-5e5248ce-bab6-4589-983d-7c817d443da3"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "8b030a84-5bf7-41ea-8c5a-045a4c2bf328",
+              "id": "2378418b-79b0-4996-9ba2-7f4a097e50e6",
               "name": "Forbidden, insufficient access",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"exportStartAt\": \"<long>\"\n}",
+                  "raw": "{\n  \"exportStartAt\": 1640000000000\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/crmDataValidationExportJobs?crmInstanceId=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "crmDataValidationExportJobs"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded.",
-                      "key": "crmInstanceId",
-                      "value": "<string>"
-                    }
-                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:25:31.000Z",
-              "updatedAt": "2026-08-03T11:25:31.000Z",
-              "uid": "35240-8b030a84-5bf7-41ea-8c5a-045a4c2bf328"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:25:31.000Z",
-          "updatedAt": "2026-08-03T11:25:31.000Z",
-          "uid": "35240-5ed2b714-592f-43c9-99f3-a62fe2a9b748"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0da5dc37-8e8f-433e-bbb1-2f6a2ba4fa0d",
+          "name": "LinkedIn Get CRM Data Validation Export Job Status",
+          "request": {
+            "name": "LinkedIn Get CRM Data Validation Export Job Status",
+            "description": {
+              "content": "Retrieve the status and details of a CRM data validation export job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "crmDataValidationExportJobs",
+                ":JobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "crmInstanceId",
+                  "value": "<string>",
+                  "description": "(Required) An URN containing the instance ID of the CRM. The URN must be URL encoded."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "JobId",
+                  "description": "(Required) The ID of the export job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1de12632-f76d-4f7d-a7a4-4451c0cd804d",
+              "name": "Export job status returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": 123456789,\n  \"exportStartAt\": 1640000000000,\n  \"exportEndAt\": 1640001000000,\n  \"status\": \"COMPLETED\",\n  \"downloadUrls\": [\n    \"https://media.licdn.com/crm-validation/export_1.csv\"\n  ],\n  \"nextExportStartAt\": 1640001000000,\n  \"expireAt\": 1640100000000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80aa77cc-d5bf-4faa-84a3-72e423d4227d",
+              "name": "Bad request, missing or invalid parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cbf340b-4227-46d1-8c65-c576c25a20cb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99a6b461-0f9a-449f-adf7-8192cff8ccef",
+              "name": "Forbidden, insufficient access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1aa78714-870c-49e3-b125-d801e22dc933",
+              "name": "Job ID not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "crmDataValidationExportJobs",
+                    ":JobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "crmInstanceId",
+                      "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "JobId",
+                      "description": "(Required) The ID of the export job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "0e76e709-e330-4087-a375-16b4b7c258e6",
-      "createdAt": "2026-08-03T11:25:31.000Z",
-      "updatedAt": "2026-08-03T11:25:31.000Z",
-      "uid": "35240-0e76e709-e330-4087-a375-16b4b7c258e6"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -678,30 +652,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "01383eff-0c18-402b-a052-1de03112eaf6",
+    "name": "LinkedIn Compliance Events Access Control CRM Data Validation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

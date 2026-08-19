@@ -1,379 +1,361 @@
 {
-  "info": {
-    "_postman_id": "5f6db06a-6a83-4d97-8b0c-d6b18c20d93a",
-    "name": "LinkedIn Compliance Events Access Control Data Deletion API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:25:55.000Z",
-    "updatedAt": "2026-08-03T11:25:55.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-5f6db06a-6a83-4d97-8b0c-d6b18c20d93a"
-  },
   "item": [
     {
-      "name": "v2",
+      "id": "85fc27d5-04b1-4827-a926-8bfa18b4a939",
+      "name": "Data Deletion",
+      "description": {
+        "content": "Delete synced data from LinkedIn",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "atsCandidates",
-          "item": [
+          "id": "58c882a4-f243-42a7-8c4c-d0b47678a381",
+          "name": "LinkedIn Delete Synced Candidates",
+          "request": {
+            "name": "LinkedIn Delete Synced Candidates",
+            "description": {
+              "content": "Deletes previously synced candidate records.\nFor more information, refer to the [Delete Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-candidates).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsCandidates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsCandidateId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
             {
-              "name": "LinkedIn Delete Synced Candidates",
-              "id": "90ef9379-810d-4b36-9c97-92007b61d9a8",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
+              "id": "1c04067b-342d-4d2d-89cf-08f260ae545c",
+              "name": "Successfully deleted candidates",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsCandidates"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].atsCandidateId",
-                      "value": "<string>"
+                      "value": "CAND-001"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].dataProvider",
-                      "value": "<string>"
+                      "value": "ATS"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].integrationContext",
-                      "value": "<string>"
-                    }
-                  ]
-                },
-                "description": "Deletes previously synced candidate records.\nFor more information, refer to the [Delete Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-candidates)."
-              },
-              "response": [
-                {
-                  "id": "4c302f79-e3fe-4dee-89cd-814b45624d71",
-                  "name": "Successfully deleted candidates",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsCandidates"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsCandidateId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
+                      "value": "urn:li:organization:12345"
                     }
                   ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:25:55.000Z",
-                  "updatedAt": "2026-08-03T11:25:55.000Z",
-                  "uid": "35240-4c302f79-e3fe-4dee-89cd-814b45624d71"
+                  "variable": []
                 },
-                {
-                  "id": "ffeca6b3-178e-4a75-92de-fe0d45c03fa7",
-                  "name": "Candidate not found",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsCandidates"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsCandidateId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:25:55.000Z",
-                  "updatedAt": "2026-08-03T11:25:55.000Z",
-                  "uid": "35240-ffeca6b3-178e-4a75-92de-fe0d45c03fa7"
-                }
-              ],
-              "createdAt": "2026-08-03T11:25:55.000Z",
-              "updatedAt": "2026-08-03T11:25:55.000Z",
-              "uid": "35240-90ef9379-810d-4b36-9c97-92007b61d9a8"
-            }
-          ],
-          "id": "4bcdcd9f-db9c-439a-9ee9-b11045e7dbf9",
-          "createdAt": "2026-08-03T11:25:55.000Z",
-          "updatedAt": "2026-08-03T11:25:55.000Z",
-          "uid": "35240-4bcdcd9f-db9c-439a-9ee9-b11045e7dbf9"
-        },
-        {
-          "name": "atsApplications",
-          "item": [
-            {
-              "name": "LinkedIn Delete Synced Applications",
-              "id": "2af1afb2-710e-43dc-b662-0120ccdc4873",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "DELETE",
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fbe1c28-24e8-4d9e-82e2-604e28985c92",
+              "name": "Candidate not found",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsApplications?ids[0].atsJobApplicationId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
+                  "path": [
+                    "v2",
+                    "atsCandidates"
+                  ],
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "query": [
+                    {
+                      "key": "ids[0].atsCandidateId",
+                      "value": "CAND-001"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    },
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:organization:12345"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59283b2c-c0f9-4292-a26a-820d7ddbd6ed",
+          "name": "LinkedIn Delete Synced Applications",
+          "request": {
+            "name": "LinkedIn Delete Synced Applications",
+            "description": {
+              "content": "Deletes previously synced job application records.\nFor more information, refer to the [Delete Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-applications).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsApplications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsJobApplicationId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef99a2cd-db5f-4ae0-b542-0a874557a169",
+              "name": "Successfully deleted applications",
+              "originalRequest": {
+                "url": {
                   "path": [
                     "v2",
                     "atsApplications"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].atsJobApplicationId",
-                      "value": "<string>"
+                      "value": "APP-001"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].dataProvider",
-                      "value": "<string>"
+                      "value": "ATS"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].integrationContext",
-                      "value": "<string>"
+                      "value": "urn:li:organization:12345"
                     }
-                  ]
+                  ],
+                  "variable": []
                 },
-                "description": "Deletes previously synced job application records.\nFor more information, refer to the [Delete Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-data-deletion#delete-applications)."
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
               },
-              "response": [
+              "status": "OK",
+              "code": 200,
+              "header": [
                 {
-                  "id": "cc959e40-4bf6-42e3-81c8-32352d645870",
-                  "name": "Successfully deleted applications",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsApplications?ids[0].atsJobApplicationId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsApplications"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsJobApplicationId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:25:55.000Z",
-                  "updatedAt": "2026-08-03T11:25:55.000Z",
-                  "uid": "35240-cc959e40-4bf6-42e3-81c8-32352d645870"
-                },
-                {
-                  "id": "efdaebc6-ce42-4b84-8cec-44220cb63147",
-                  "name": "Application not found",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsApplications?ids[0].atsJobApplicationId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsApplications"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsJobApplicationId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:25:55.000Z",
-                  "updatedAt": "2026-08-03T11:25:55.000Z",
-                  "uid": "35240-efdaebc6-ce42-4b84-8cec-44220cb63147"
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "createdAt": "2026-08-03T11:25:55.000Z",
-              "updatedAt": "2026-08-03T11:25:55.000Z",
-              "uid": "35240-2af1afb2-710e-43dc-b662-0120ccdc4873"
+              "body": "{\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0304099-d7f5-474f-96ea-c18dc8d4bb64",
+              "name": "Application not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsApplications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].atsJobApplicationId",
+                      "value": "APP-001"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    },
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:organization:12345"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "id": "7fbff8cf-5158-4750-b295-677586bab149",
-          "createdAt": "2026-08-03T11:25:55.000Z",
-          "updatedAt": "2026-08-03T11:25:55.000Z",
-          "uid": "35240-7fbff8cf-5158-4750-b295-677586bab149"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "cd0d423f-b1a7-4cdb-81de-494d97a95022",
-      "createdAt": "2026-08-03T11:25:55.000Z",
-      "updatedAt": "2026-08-03T11:25:55.000Z",
-      "uid": "35240-cd0d423f-b1a7-4cdb-81de-494d97a95022"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -381,30 +363,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "7af3c339-8b06-4822-afd9-112a51a584ce",
+    "name": "LinkedIn Compliance Events Access Control Data Deletion API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

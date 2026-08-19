@@ -1,271 +1,262 @@
 {
-  "info": {
-    "_postman_id": "b0368cde-e392-41c3-a48e-32934c987f8d",
-    "name": "LinkedIn Compliance Events Access Control Job Lifecycle Management API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:27:33.000Z",
-    "updatedAt": "2026-08-03T11:27:33.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-b0368cde-e392-41c3-a48e-32934c987f8d"
-  },
   "item": [
     {
-      "name": "v2",
+      "id": "846fcfab-e508-42dd-b98f-55b12d93e624",
+      "name": "Job Lifecycle Management",
+      "description": {
+        "content": "APIs for managing the lifecycle of job postings",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "simpleJobPostingTasks",
-          "item": [
+          "id": "cfcd1f07-d717-4877-a877-277b4557909c",
+          "name": "LinkedIn Check Job Posting Task Status",
+          "request": {
+            "name": "LinkedIn Check Job Posting Task Status",
+            "description": {
+              "content": "Retrieves the status of a job posting task to track whether the job has been successfully created, updated, or closed.\nAfter successful completion, the response includes the `jobPostingUrn` which can be used to view the job at: `https://www.linkedin.com/jobs/view/{jobPostingId}`\nFor more information, refer to the [Check Job Task Status documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "simpleJobPostingTasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) Task URN(s) to check status"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
             {
-              "name": "LinkedIn Check Job Posting Task Status",
-              "id": "1a97eacd-fe34-4ed3-b513-dbf12aa8b1dc",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
+              "id": "e7f8db68-4c39-4810-a9d1-3c6f6eaa5e1b",
+              "name": "Successfully retrieved task status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostingTasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "urn:li:simpleJobPostingTask:12345678"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"urn:li:simpleJobPostingTask:12345678\": {\n      \"status\": \"SUCCEEDED\",\n      \"jobPostingUrn\": \"urn:li:jobPosting:2722131308\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f8dbb65-1b27-41c0-b056-68609cc34771",
+              "name": "Bad request - invalid task URN",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "simpleJobPostingTasks"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) Task URN(s) to check status",
                       "key": "ids",
-                      "value": "<string>"
+                      "value": "urn:li:simpleJobPostingTask:12345678"
                     }
-                  ]
+                  ],
+                  "variable": []
                 },
-                "description": "Retrieves the status of a job posting task to track whether the job has been successfully created, updated, or closed.\nAfter successful completion, the response includes the `jobPostingUrn` which can be used to view the job at: `https://www.linkedin.com/jobs/view/{jobPostingId}`\nFor more information, refer to the [Check Job Task Status documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus)."
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
-              "response": [
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
                 {
-                  "id": "5f616010-63ef-474d-9643-6cb174d853fe",
-                  "name": "Successfully retrieved task status",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "simpleJobPostingTasks"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Task URN(s) to check status",
-                          "key": "ids",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"results\": {\n    \"autec\": {\n      \"status\": \"FAILED\",\n      \"jobPostingUrn\": \"<string>\",\n      \"errorMessage\": \"<string>\"\n    },\n    \"sitd6\": {\n      \"status\": \"SUCCEEDED\",\n      \"jobPostingUrn\": \"<string>\",\n      \"errorMessage\": \"<string>\"\n    },\n    \"enimd\": {\n      \"status\": \"SUCCEEDED\",\n      \"jobPostingUrn\": \"<string>\",\n      \"errorMessage\": \"<string>\"\n    }\n  }\n}",
-                  "createdAt": "2026-08-03T11:27:33.000Z",
-                  "updatedAt": "2026-08-03T11:27:33.000Z",
-                  "uid": "35240-5f616010-63ef-474d-9643-6cb174d853fe"
-                },
-                {
-                  "id": "068c01b8-9a1d-442e-8efd-e2a9aed5a569",
-                  "name": "Bad request - invalid task URN",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "simpleJobPostingTasks"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Task URN(s) to check status",
-                          "key": "ids",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:27:33.000Z",
-                  "updatedAt": "2026-08-03T11:27:33.000Z",
-                  "uid": "35240-068c01b8-9a1d-442e-8efd-e2a9aed5a569"
-                },
-                {
-                  "id": "42563d40-6905-4e2c-9edb-1091377d4d41",
-                  "name": "Unauthorized - invalid or missing authentication",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "simpleJobPostingTasks"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Task URN(s) to check status",
-                          "key": "ids",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Unauthorized",
-                  "code": 401,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:27:33.000Z",
-                  "updatedAt": "2026-08-03T11:27:33.000Z",
-                  "uid": "35240-42563d40-6905-4e2c-9edb-1091377d4d41"
-                },
-                {
-                  "id": "7c942033-74a9-49c9-8e51-fa93f1619c82",
-                  "name": "Task not found",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/simpleJobPostingTasks?ids=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "simpleJobPostingTasks"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Task URN(s) to check status",
-                          "key": "ids",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:27:33.000Z",
-                  "updatedAt": "2026-08-03T11:27:33.000Z",
-                  "uid": "35240-7c942033-74a9-49c9-8e51-fa93f1619c82"
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "createdAt": "2026-08-03T11:27:33.000Z",
-              "updatedAt": "2026-08-03T11:27:33.000Z",
-              "uid": "35240-1a97eacd-fe34-4ed3-b513-dbf12aa8b1dc"
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbd2f276-6d01-4041-b914-55f702e7772e",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostingTasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "urn:li:simpleJobPostingTask:12345678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8ec0c93-b2bf-49af-aad7-dcb6d09ecdec",
+              "name": "Task not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "simpleJobPostingTasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "urn:li:simpleJobPostingTask:12345678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "id": "5e7591f8-15e6-434b-baad-94e796669999",
-          "createdAt": "2026-08-03T11:27:33.000Z",
-          "updatedAt": "2026-08-03T11:27:33.000Z",
-          "uid": "35240-5e7591f8-15e6-434b-baad-94e796669999"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "3d098aee-c2f9-4da6-85db-ddfd99a38cd0",
-      "createdAt": "2026-08-03T11:27:33.000Z",
-      "updatedAt": "2026-08-03T11:27:33.000Z",
-      "uid": "35240-3d098aee-c2f9-4da6-85db-ddfd99a38cd0"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -273,30 +264,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "ee084c96-24d1-4714-ae8f-6b1514d7be61",
+    "name": "LinkedIn Compliance Events Access Control Job Lifecycle Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

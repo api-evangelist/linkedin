@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Data Retrieval API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Retrieval",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Exported Candidate Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/exportedCandidates",
+            "params": [
+              {
+                "name": "q",
+                "value": "request",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "requestId",
+                "value": "req-12345-abcde",
+                "type": "query",
+                "description": "Request ID from push notification"
+              }
+            ]
+          },
+          "docs": "Retrieves limited profile information of candidates exported via One-Click Export.\nFor more information, refer to the [Retrieve Exported Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/retrieve-exported-candidates#retrieving-exported-candidate-information)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Recruiter Seatholders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/seats",
+            "params": [
+              {
+                "name": "q",
+                "value": "seatsByAttributes",
+                "type": "query"
+              },
+              {
+                "name": "active",
+                "value": "true",
+                "type": "query"
+              },
+              {
+                "name": "contracts",
+                "value": "urn:li:contract:12345",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "100",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves details of contract seat holders including name, email, and unique ID.\nFor more information, refer to the [Recruiter Seatholders documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/recruiter-seatholders)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

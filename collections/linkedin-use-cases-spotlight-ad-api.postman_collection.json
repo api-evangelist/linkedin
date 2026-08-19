@@ -1,343 +1,38 @@
 {
-  "info": {
-    "_postman_id": "0efcb220-ad90-4118-a52a-8b766dc93f47",
-    "name": "LinkedIn Compliance Events Access Control Use Cases > Spotlight Ad API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:33:18.000Z",
-    "updatedAt": "2026-08-03T11:33:19.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-0efcb220-ad90-4118-a52a-8b766dc93f47"
-  },
   "item": [
     {
-      "name": "creatives",
+      "id": "bd9d31db-8182-4eea-b5f8-133fae779401",
+      "name": "Use Cases > Spotlight Ad",
+      "description": {
+        "content": "Spotlight Ads allow you to showcase your product, service, event, content, and more. Upon clicking your Ad, you navigate to the website or landing page of your choice. Learn more about [Spotlight Ads](https://www.linkedin.com/help/lms/answer/a420806).\n\n##",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "{sponsoredCreative-urn}",
-          "item": [
-            {
-              "name": "LinkedIn Get a Dynamic Spotlight Ad",
-              "id": "1bea4f3f-b153-4953-9151-cd382d38d37d",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{baseUrl}}/creatives/:sponsoredCreative-urn",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "creatives",
-                    ":sponsoredCreative-urn"
-                  ],
-                  "variable": [
-                    {
-                      "id": "74cac928-8ea5-47f0-94d0-ed8e69f5b4f3",
-                      "key": "sponsoredCreative-urn",
-                      "value": "<string>",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "description": "Retrives a Dynamic Spotlight Ad.\n\n#### Sample Response\n\nJSONCopy\n\n```\n{\n    \"servingHoldReasons\": [\n        \"UNDER_REVIEW\",\n        \"CAMPAIGN_STOPPED\"\n    ],\n    \"lastModifiedAt\": 1648512200000,\n    \"lastModifiedBy\": \"urn:li:member:123\",\n    \"content\": {\n        \"spotlight\": {\n            \"organizationName\": \"LinkedIn Demo\",\n            \"showMemberProfilePhoto\": true,\n            \"landingPage\": \"http://linkedin.com\",\n            \"description\": \"Check out this demo\",\n            \"logo\": \"urn:li:image:abc\",\n            \"headline\": \"Spotlight Ad Demo\",\n            \"callToAction\": \"Join Us Now\"\n        }\n    },\n    \"createdAt\": 1648512200000,\n    \"createdBy\": \"urn:li:member:123\",\n    \"isTest\": false,\n    \"review\": {\n        \"status\": \"PENDING\"\n    },\n    \"isServing\": false,\n    \"campaign\": \"urn:li:sponsoredCampaign:123\",\n    \"id\": \"urn:li:sponsoredCreative:123456789\",\n    \"intendedStatus\": \"ACTIVE\",\n    \"account\": \"urn:li:sponsoredAccount:123\"\n}\n```\n\n##"
-              },
-              "response": [
-                {
-                  "id": "68ef5d17-64fd-4895-a7b4-ec50e737e9a7",
-                  "name": "Successful response",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/creatives/:sponsoredCreative-urn",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "creatives",
-                        ":sponsoredCreative-urn"
-                      ],
-                      "variable": [
-                        {
-                          "key": "sponsoredCreative-urn"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "",
-                  "createdAt": "2026-08-03T11:33:19.000Z",
-                  "updatedAt": "2026-08-03T11:33:19.000Z",
-                  "uid": "35240-68ef5d17-64fd-4895-a7b4-ec50e737e9a7"
-                }
-              ],
-              "createdAt": "2026-08-03T11:33:19.000Z",
-              "updatedAt": "2026-08-03T11:33:19.000Z",
-              "uid": "35240-1bea4f3f-b153-4953-9151-cd382d38d37d"
-            },
-            {
-              "name": "LinkedIn Update a Dynamic Spotlight Ad",
-              "id": "cce1e243-456a-4205-aed3-02f5f1fb85c5",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "*/*"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "<string>"
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/creatives/:sponsoredCreative-urn",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "creatives",
-                    ":sponsoredCreative-urn"
-                  ],
-                  "variable": [
-                    {
-                      "id": "e6484225-7d78-4e7d-ab17-6c398836168f",
-                      "key": "sponsoredCreative-urn",
-                      "value": "<string>",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "description": "## Update a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_curl)\n    \n\nHTTPCopy\n\n```\nPOST https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nJSONCopy\n\n```\n{\n    \"patch\": {\n        \"$set\": {\n            \"content\": {\n                \"spotlight\": {\n                    \"callToAction\": \"New Action\",\n                    \"description\": \"New Description\",\n                    \"headline\": \"New Headline\",\n                    \"landingPage\": \"http://example.com\",                       \n                    \"organizationName\": \"New Organization Name\",\n                    \"logo\": \"urn:li:image:def\",\n                    \"showMemberProfilePhoto\": false\n                }\n            }\n        }\n    }\n}\n\n```\n\nA successful response returns a\u00a0`204 No Content`."
-              },
-              "response": [
-                {
-                  "id": "a0415c74-e6f1-4521-a317-80253da95b69",
-                  "name": "Successful response",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "*/*"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "<string>"
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/creatives/:sponsoredCreative-urn",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "creatives",
-                        ":sponsoredCreative-urn"
-                      ],
-                      "variable": [
-                        {
-                          "key": "sponsoredCreative-urn"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "",
-                  "createdAt": "2026-08-03T11:33:19.000Z",
-                  "updatedAt": "2026-08-03T11:33:19.000Z",
-                  "uid": "35240-a0415c74-e6f1-4521-a317-80253da95b69"
-                }
-              ],
-              "createdAt": "2026-08-03T11:33:19.000Z",
-              "updatedAt": "2026-08-03T11:33:19.000Z",
-              "uid": "35240-cce1e243-456a-4205-aed3-02f5f1fb85c5"
-            },
-            {
-              "name": "LinkedIn Delete a Dynamic Spotlight Ad",
-              "id": "893a5285-df91-436b-a1b4-7a269fbb1239",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{baseUrl}}/creatives/:sponsoredCreative-urn",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "creatives",
-                    ":sponsoredCreative-urn"
-                  ],
-                  "variable": [
-                    {
-                      "id": "795f2525-0113-4441-b965-ad6cd25f8bef",
-                      "key": "sponsoredCreative-urn",
-                      "value": "<string>",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "description": "## Delete a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_curl)\n    \n\nHTTPCopy\n\n```\nDELETE https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nA successful response returns a\u00a0`204 No Content`."
-              },
-              "response": [
-                {
-                  "id": "8c8fce76-fec2-4a71-922d-eb952f0dbfdf",
-                  "name": "Successful response",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/creatives/:sponsoredCreative-urn",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "creatives",
-                        ":sponsoredCreative-urn"
-                      ],
-                      "variable": [
-                        {
-                          "key": "sponsoredCreative-urn"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "",
-                  "createdAt": "2026-08-03T11:33:19.000Z",
-                  "updatedAt": "2026-08-03T11:33:19.000Z",
-                  "uid": "35240-8c8fce76-fec2-4a71-922d-eb952f0dbfdf"
-                }
-              ],
-              "createdAt": "2026-08-03T11:33:19.000Z",
-              "updatedAt": "2026-08-03T11:33:19.000Z",
-              "uid": "35240-893a5285-df91-436b-a1b4-7a269fbb1239"
-            }
-          ],
-          "id": "d6811898-ccf6-4b35-9799-99bc8d437359",
-          "createdAt": "2026-08-03T11:33:19.000Z",
-          "updatedAt": "2026-08-03T11:33:19.000Z",
-          "uid": "35240-d6811898-ccf6-4b35-9799-99bc8d437359"
-        },
-        {
+          "id": "2301bd96-1b18-4d91-9331-ac8e7a5c61f9",
           "name": "LinkedIn Create a Dynamic Spotlight Ad",
-          "id": "d818ddfa-7ba4-4063-a99d-32e84baa2d08",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "POST",
+            "name": "LinkedIn Create a Dynamic Spotlight Ad",
+            "description": {
+              "content": "Creates a Dynamic Spotlight Ad Creative.\n\nA successful response returns a `201 Created HTTP` status code and the ID in the `x-linkedin-id` response header. For example, `urn:li:sponsoredCreative:123456789`\n\n##",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
             "header": [
               {
+                "disabled": false,
                 "key": "LinkedIn-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
                 "key": "Content-Type",
@@ -348,86 +43,417 @@
                 "value": "application/json"
               }
             ],
+            "method": "POST",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "<string>"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/creatives",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "creatives"
-              ]
-            },
-            "description": "Creates a Dynamic Spotlight Ad Creative.\n\nA successful response returns a\u00a0`201 Created HTTP`\u00a0status code and the ID in the\u00a0`x-linkedin-id`\u00a0response header. For example,\u00a0`urn:li:sponsoredCreative:123456789`\n\n##"
+            }
           },
           "response": [
             {
-              "id": "63048236-b5d9-4cd1-84a3-9921ee61eef1",
+              "id": "f5a34ce5-1ca8-4c9e-9002-1f9ff5a795e5",
               "name": "Successful response",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
-                    "key": "Content-Type",
-                    "value": "*/*"
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "<string>"
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/creatives",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "creatives"
-                  ]
+                  "raw": "\"{\\n    \\\"content\\\": {\\n        \\\"spotlight\\\": {\\n            \\\"callToAction\\\": \\\"Join Us Now\\\",\\n            \\\"description\\\": \\\"Check out this demo\\\",\\n            \\\"headline\\\": \\\"Spotlight Ad Demo\\\",\\n            \\\"landingPage\\\": \\\"http://www.linkedin.com\\\",\\n            \\\"logo\\\": \\\"urn:li:image:abc\\\",\\n            \\\"organizationName\\\": \\\"LinkedIn Demo\\\",\\n            \\\"showMemberProfilePhoto\\\": true\\n        }\\n     },\\n     \\\"campaign\\\": \\\"urn:li:sponsoredCampaign:123\\\",\\n     \\\"intendedStatus\\\": \\\"ACTIVE\\\"\\n}\\n\""
                 }
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "\"\"",
               "cookie": [],
-              "responseTime": null,
-              "body": "",
-              "createdAt": "2026-08-03T11:33:19.000Z",
-              "updatedAt": "2026-08-03T11:33:19.000Z",
-              "uid": "35240-63048236-b5d9-4cd1-84a3-9921ee61eef1"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:33:19.000Z",
-          "updatedAt": "2026-08-03T11:33:19.000Z",
-          "uid": "35240-d818ddfa-7ba4-4063-a99d-32e84baa2d08"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db004176-af26-4508-8807-e95f009a97b1",
+          "name": "LinkedIn Get a Dynamic Spotlight Ad",
+          "request": {
+            "name": "LinkedIn Get a Dynamic Spotlight Ad",
+            "description": {
+              "content": "Retrives a Dynamic Spotlight Ad.\n\n#### Sample Response\n\nJSONCopy\n\n```\n{\n    \"servingHoldReasons\": [\n        \"UNDER_REVIEW\",\n        \"CAMPAIGN_STOPPED\"\n    ],\n    \"lastModifiedAt\": 1648512200000,\n    \"lastModifiedBy\": \"urn:li:member:123\",\n    \"content\": {\n        \"spotlight\": {\n            \"organizationName\": \"LinkedIn Demo\",\n            \"showMemberProfilePhoto\": true,\n            \"landingPage\": \"http://linkedin.com\",\n            \"description\": \"Check out this demo\",\n            \"logo\": \"urn:li:image:abc\",\n            \"headline\": \"Spotlight Ad Demo\",\n            \"callToAction\": \"Join Us Now\"\n        }\n    },\n    \"createdAt\": 1648512200000,\n    \"createdBy\": \"urn:li:member:123\",\n    \"isTest\": false,\n    \"review\": {\n        \"status\": \"PENDING\"\n    },\n    \"isServing\": false,\n    \"campaign\": \"urn:li:sponsoredCampaign:123\",\n    \"id\": \"urn:li:sponsoredCreative:123456789\",\n    \"intendedStatus\": \"ACTIVE\",\n    \"account\": \"urn:li:sponsoredAccount:123\"\n}\n```\n\n##",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives",
+                ":sponsoredCreative-urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sponsoredCreative-urn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "90d98ea0-61a6-418b-bb96-5326bb525bfc",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives",
+                    ":sponsoredCreative-urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sponsoredCreative-urn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4894e067-c037-482f-aad8-30e8bff848c1",
+          "name": "LinkedIn Update a Dynamic Spotlight Ad",
+          "request": {
+            "name": "LinkedIn Update a Dynamic Spotlight Ad",
+            "description": {
+              "content": "## Update a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_curl)\n    \n\nHTTPCopy\n\n```\nPOST https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nJSONCopy\n\n```\n{\n    \"patch\": {\n        \"$set\": {\n            \"content\": {\n                \"spotlight\": {\n                    \"callToAction\": \"New Action\",\n                    \"description\": \"New Description\",\n                    \"headline\": \"New Headline\",\n                    \"landingPage\": \"http://example.com\",                       \n                    \"organizationName\": \"New Organization Name\",\n                    \"logo\": \"urn:li:image:def\",\n                    \"showMemberProfilePhoto\": false\n                }\n            }\n        }\n    }\n}\n\n```\n\nA successful response returns a `204 No Content`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives",
+                ":sponsoredCreative-urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sponsoredCreative-urn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "b14ac727-4af5-420c-9092-0eb7ed4dbf6e",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives",
+                    ":sponsoredCreative-urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sponsoredCreative-urn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n    \\\"patch\\\": {\\n        \\\"$set\\\": {\\n            \\\"content\\\": {\\n                \\\"spotlight\\\": {\\n        \\\"callToAction\\\": \\\"New Action\\\",\\n        \\\"description\\\": \\\"New Description\\\",\\n        \\\"headline\\\": \\\"New Headline\\\",\\n        \\\"landingPage\\\": \\\"http://example.com\\\",                       \\n                    \\\"organizationName\\\": \\\"New Organization Name\\\",\\n                    \\\"logo\\\": \\\"urn:li:image:def\\\",\\n\\t        \\\"showMemberProfilePhoto\\\": false\\n                }\\n            }\\n        }\\n    }\\n}\\n\""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80177865-55f4-43da-b92c-2d13b1bb17d9",
+          "name": "LinkedIn Delete a Dynamic Spotlight Ad",
+          "request": {
+            "name": "LinkedIn Delete a Dynamic Spotlight Ad",
+            "description": {
+              "content": "## Delete a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_curl)\n    \n\nHTTPCopy\n\n```\nDELETE https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nA successful response returns a `204 No Content`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives",
+                ":sponsoredCreative-urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sponsoredCreative-urn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d01dada-6934-4673-bf08-48dea5ded457",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creatives",
+                    ":sponsoredCreative-urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sponsoredCreative-urn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "b7f6206f-496e-42cf-b719-ded933a32663",
-      "createdAt": "2026-08-03T11:33:19.000Z",
-      "updatedAt": "2026-08-03T11:33:19.000Z",
-      "uid": "35240-b7f6206f-496e-42cf-b719-ded933a32663"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -435,30 +461,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "a6a6e007-5e40-406e-86bf-6b9163c5f422",
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Spotlight Ad API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

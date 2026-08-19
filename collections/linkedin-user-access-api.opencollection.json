@@ -1,0 +1,226 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control User Access API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Fetch Ad Account User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccountUsers/(account:urn:li:sponsoredAccount::SponsoredAccountId,user:urn:li:person::PersonId)",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "PersonId",
+                "value": "ABC123def",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve an ad account user by account and user identifiers."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Ad Account User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/adAccountUsers/(account:urn:li:sponsoredAccount::SponsoredAccountId,user:urn:li:person::PersonId)",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "PersonId",
+                "value": "ABC123def",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an ad account user's role."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create Ad Account User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/adAccountUsers/(account:urn:li:sponsoredAccount::SponsoredAccountId,user:urn:li:person::PersonId)",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "PersonId",
+                "value": "ABC123def",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Grant a member access to an ad account with a specified role."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Ad Account User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/adAccountUsers/(account:urn:li:sponsoredAccount::SponsoredAccountId,user:urn:li:person::PersonId)",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "SponsoredAccountId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "PersonId",
+                "value": "ABC123def",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a member from ad account access."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Authenticated User Ad Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccountUsers",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "authenticatedUser",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve all ad accounts the authenticated user has access to."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Authenticated User Organization Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationAcls",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve organization roles for the authenticated user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,36 +1,147 @@
 {
-  "info": {
-    "_postman_id": "f94fa448-60e2-40d9-ac36-72bc8a2d6143",
-    "name": "LinkedIn Compliance Events Access Control API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:20:31.000Z",
-    "updatedAt": "2026-08-03T11:20:31.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-f94fa448-60e2-40d9-ac36-72bc8a2d6143"
-  },
   "item": [
     {
-      "name": "v2",
+      "id": "1b00e60b-c2e0-4d67-9b82-fbb34fdc016e",
+      "name": "Access Control",
+      "description": {
+        "content": "Manage entity ACLs and assignees",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "atsEntityAcls",
-          "item": [
-            {
-              "name": "LinkedIn Upsert Entity ACL",
-              "id": "8d9c1c61-9517-42d3-be27-ff413e11aee5",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
+          "id": "bc65563c-f10f-46fd-92e1-0cbcfb895982",
+          "name": "LinkedIn Upsert Entity ACL",
+          "request": {
+            "name": "LinkedIn Upsert Entity ACL",
+            "description": {
+              "content": "Creates or updates entity ACLs that control visibility of synced entities within LinkedIn products.\nFor more information, refer to the [Sync ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#sync-entity-acls).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsEntityAcls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsEntityAclId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsEntityType",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsEntityId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Rest.li method type",
+                "key": "x-restli-method",
+                "value": "<string>"
               },
-              "request": {
-                "method": "PUT",
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entities\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c9c6fca7-ac0b-4361-adc1-cbfb1ae4f65a",
+              "name": "Successfully upserted entity ACL",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsEntityAcls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].atsEntityAclId",
+                      "value": "ACL-001"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    },
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:organization:12345"
+                    },
+                    {
+                      "key": "ids[0].atsEntityType",
+                      "value": "JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].atsEntityId",
+                      "value": "JOB-2024-001"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "description": "(Required) Rest.li method type",
-                    "key": "x-restli-method",
-                    "value": "batch_partial_update"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
+                    "disabled": false,
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of request body",
                     "key": "Content-Type",
                     "value": "application/json"
                   },
@@ -39,672 +150,550 @@
                     "value": "application/json"
                   }
                 ],
+                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"entities\": {}\n}",
+                  "raw": "{\n  \"entities\": \"<object>\"\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9a56808-cf00-42ea-8520-9888efd203ce",
+              "name": "Bad request",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityType=CANDIDATE&ids[0].atsEntityId=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsEntityAcls"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].atsEntityAclId",
-                      "value": "<string>"
+                      "value": "ACL-001"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].dataProvider",
-                      "value": "<string>"
+                      "value": "ATS"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].integrationContext",
-                      "value": "<string>"
+                      "value": "urn:li:organization:12345"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].atsEntityType",
-                      "value": "CANDIDATE"
+                      "value": "JOB_POSTING"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].atsEntityId",
-                      "value": "<string>"
-                    }
-                  ]
-                },
-                "description": "Creates or updates entity ACLs that control visibility of synced entities within LinkedIn products.\nFor more information, refer to the [Sync ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#sync-entity-acls)."
-              },
-              "response": [
-                {
-                  "id": "35323c5e-8bc7-484b-99cc-d8687bb8de41",
-                  "name": "Successfully upserted entity ACL",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "description": "(Required) Rest.li method type",
-                        "key": "x-restli-method",
-                        "value": "batch_partial_update"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"entities\": {}\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityType=CANDIDATE&ids[0].atsEntityId=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsEntityAcls"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityAclId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityType",
-                          "value": "CANDIDATE"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityId",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
+                      "value": "JOB-2024-001"
                     }
                   ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:20:32.000Z",
-                  "updatedAt": "2026-08-03T11:20:32.000Z",
-                  "uid": "35240-35323c5e-8bc7-484b-99cc-d8687bb8de41"
+                  "variable": []
                 },
-                {
-                  "id": "3630fe41-2b91-4c11-955e-ca7219b1ea81",
-                  "name": "Bad request",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "description": "(Required) Rest.li method type",
-                        "key": "x-restli-method",
-                        "value": "batch_partial_update"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"entities\": {}\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityType=CANDIDATE&ids[0].atsEntityId=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsEntityAcls"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityAclId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityType",
-                          "value": "CANDIDATE"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityId",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:20:32.000Z",
-                  "updatedAt": "2026-08-03T11:20:32.000Z",
-                  "uid": "35240-3630fe41-2b91-4c11-955e-ca7219b1ea81"
-                }
-              ],
-              "createdAt": "2026-08-03T11:20:32.000Z",
-              "updatedAt": "2026-08-03T11:20:32.000Z",
-              "uid": "35240-8d9c1c61-9517-42d3-be27-ff413e11aee5"
-            },
-            {
-              "name": "LinkedIn Retrieve Entity ACL",
-              "id": "a5fa2d51-b6a7-41f4-b437-176e4121f076",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "073e7c74-5f6c-4d3b-8d71-a777e3b9d3b3",
+          "name": "LinkedIn Retrieve Entity ACL",
+          "request": {
+            "name": "LinkedIn Retrieve Entity ACL",
+            "description": {
+              "content": "Retrieves details of previously synced entity ACLs.\nFor more information, refer to the [Retrieve Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#retrieve-entity-acls).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsEntityAcls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "atsEntityId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "atsEntityType",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "476de0e9-19f6-4ecd-88aa-637b16a484f5",
+              "name": "Successfully retrieved entity ACL",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsEntityAcls?q=<string>&atsEntityId=<string>&atsEntityType=<string>&dataProvider=<string>&integrationContext=<string>&start=<integer>&count=<integer>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsEntityAcls"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "q",
-                      "value": "<string>"
+                      "value": "criteria"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "atsEntityId",
-                      "value": "<string>"
+                      "value": "JOB-2024-001"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "atsEntityType",
-                      "value": "<string>"
+                      "value": "JOB_POSTING"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "dataProvider",
-                      "value": "<string>"
+                      "value": "ATS"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "integrationContext",
-                      "value": "<string>"
+                      "value": "urn:li:organization:12345"
                     },
                     {
                       "key": "start",
-                      "value": "<integer>"
+                      "value": "0"
                     },
                     {
                       "key": "count",
-                      "value": "<integer>"
-                    }
-                  ]
-                },
-                "description": "Retrieves details of previously synced entity ACLs.\nFor more information, refer to the [Retrieve Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#retrieve-entity-acls)."
-              },
-              "response": [
-                {
-                  "id": "0d240bee-73dc-46bb-a5e4-56ee88916729",
-                  "name": "Successfully retrieved entity ACL",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsEntityAcls?q=<string>&atsEntityId=<string>&atsEntityType=<string>&dataProvider=<string>&integrationContext=<string>&start=<integer>&count=<integer>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsEntityAcls"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "q",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "atsEntityId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "atsEntityType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "key": "start",
-                          "value": "<integer>"
-                        },
-                        {
-                          "key": "count",
-                          "value": "<integer>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
+                      "value": "100"
                     }
                   ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:20:32.000Z",
-                  "updatedAt": "2026-08-03T11:20:32.000Z",
-                  "uid": "35240-0d240bee-73dc-46bb-a5e4-56ee88916729"
+                  "variable": []
                 },
-                {
-                  "id": "16128ae3-2b86-48df-8fd0-449b2b408f27",
-                  "name": "ACL not found",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsEntityAcls?q=<string>&atsEntityId=<string>&atsEntityType=<string>&dataProvider=<string>&integrationContext=<string>&start=<integer>&count=<integer>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsEntityAcls"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "q",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "atsEntityId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "atsEntityType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "key": "start",
-                          "value": "<integer>"
-                        },
-                        {
-                          "key": "count",
-                          "value": "<integer>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:20:32.000Z",
-                  "updatedAt": "2026-08-03T11:20:32.000Z",
-                  "uid": "35240-16128ae3-2b86-48df-8fd0-449b2b408f27"
-                }
-              ],
-              "createdAt": "2026-08-03T11:20:32.000Z",
-              "updatedAt": "2026-08-03T11:20:32.000Z",
-              "uid": "35240-a5fa2d51-b6a7-41f4-b437-176e4121f076"
-            },
-            {
-              "name": "LinkedIn Delete Entity ACL",
-              "id": "1153526e-beea-4c9a-8fad-c643c53837a5",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "DELETE",
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6c6e5a6-a221-4a36-a64b-86cba3d0e51e",
+              "name": "ACL not found",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityId=<string>&ids[0].atsEntityType=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsEntityAcls"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
-                      "key": "ids[0].atsEntityAclId",
-                      "value": "<string>"
+                      "key": "q",
+                      "value": "criteria"
                     },
                     {
-                      "description": "(Required) ",
-                      "key": "ids[0].dataProvider",
-                      "value": "<string>"
+                      "key": "atsEntityId",
+                      "value": "JOB-2024-001"
                     },
                     {
-                      "description": "(Required) ",
-                      "key": "ids[0].integrationContext",
-                      "value": "<string>"
+                      "key": "atsEntityType",
+                      "value": "JOB_POSTING"
                     },
                     {
-                      "description": "(Required) ",
-                      "key": "ids[0].atsEntityId",
-                      "value": "<string>"
+                      "key": "dataProvider",
+                      "value": "ATS"
                     },
                     {
-                      "description": "(Required) ",
-                      "key": "ids[0].atsEntityType",
-                      "value": "<string>"
+                      "key": "integrationContext",
+                      "value": "urn:li:organization:12345"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "100"
                     }
-                  ]
+                  ],
+                  "variable": []
                 },
-                "description": "Deletes previously synced entity ACLs.\nFor more information, refer to the [Delete Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#delete-entity-acls)."
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
-              "response": [
+              "status": "Not Found",
+              "code": 404,
+              "header": [
                 {
-                  "id": "e0ae84f4-1343-4268-b2b0-542ad47fb978",
-                  "name": "Successfully deleted entity ACL",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityId=<string>&ids[0].atsEntityType=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsEntityAcls"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityAclId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityType",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:20:32.000Z",
-                  "updatedAt": "2026-08-03T11:20:32.000Z",
-                  "uid": "35240-e0ae84f4-1343-4268-b2b0-542ad47fb978"
-                },
-                {
-                  "id": "be3e70ee-a3c5-4c2b-83fc-a40e395f3c5a",
-                  "name": "ACL not found",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsEntityAcls?ids[0].atsEntityAclId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>&ids[0].atsEntityId=<string>&ids[0].atsEntityType=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsEntityAcls"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityAclId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsEntityType",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:20:32.000Z",
-                  "updatedAt": "2026-08-03T11:20:32.000Z",
-                  "uid": "35240-be3e70ee-a3c5-4c2b-83fc-a40e395f3c5a"
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "createdAt": "2026-08-03T11:20:32.000Z",
-              "updatedAt": "2026-08-03T11:20:32.000Z",
-              "uid": "35240-1153526e-beea-4c9a-8fad-c643c53837a5"
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "id": "874696da-cef8-49ce-8381-e80d6625ca8d",
-          "createdAt": "2026-08-03T11:20:32.000Z",
-          "updatedAt": "2026-08-03T11:20:32.000Z",
-          "uid": "35240-874696da-cef8-49ce-8381-e80d6625ca8d"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca82f668-ba1e-4eac-992d-420aed53cb52",
+          "name": "LinkedIn Delete Entity ACL",
+          "request": {
+            "name": "LinkedIn Delete Entity ACL",
+            "description": {
+              "content": "Deletes previously synced entity ACLs.\nFor more information, refer to the [Delete Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#delete-entity-acls).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsEntityAcls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsEntityAclId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsEntityId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsEntityType",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66f29103-d3bc-4bb7-8a11-181d8aa559f8",
+              "name": "Successfully deleted entity ACL",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsEntityAcls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].atsEntityAclId",
+                      "value": "ACL-001"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    },
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:organization:12345"
+                    },
+                    {
+                      "key": "ids[0].atsEntityId",
+                      "value": "JOB-2024-001"
+                    },
+                    {
+                      "key": "ids[0].atsEntityType",
+                      "value": "JOB_POSTING"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c2ffcb7-dd2b-4e32-b530-82ed0b03528d",
+              "name": "ACL not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsEntityAcls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].atsEntityAclId",
+                      "value": "ACL-001"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    },
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:organization:12345"
+                    },
+                    {
+                      "key": "ids[0].atsEntityId",
+                      "value": "JOB-2024-001"
+                    },
+                    {
+                      "key": "ids[0].atsEntityType",
+                      "value": "JOB_POSTING"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "63e96219-0f11-47ff-9e70-1ede24360715",
-      "createdAt": "2026-08-03T11:20:32.000Z",
-      "updatedAt": "2026-08-03T11:20:32.000Z",
-      "uid": "35240-63e96219-0f11-47ff-9e70-1ede24360715"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -712,30 +701,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "21780801-42c0-44c3-b0a4-07fb3e9b24bf",
+    "name": "LinkedIn Compliance Events Access Control API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

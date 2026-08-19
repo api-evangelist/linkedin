@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Campaign Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaign Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Search Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccounts/:AdAccountsId/adCampaigns",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "q",
+                "value": "search",
+                "type": "query"
+              },
+              {
+                "name": "search.campaignGroup.values[0]",
+                "value": "urn:li:sponsoredCampaignGroup:111222333",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search for campaigns by various criteria."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Campaign by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccounts/:AdAccountsId/adCampaigns/:CampaignId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignId",
+                "value": "444555666",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a campaign by its ID."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Archive Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/adAccounts/:AdAccountsId/adCampaigns/:CampaignId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignId",
+                "value": "444555666",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a campaign status to archived."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

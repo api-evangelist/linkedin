@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Audience Counts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audience Counts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Audience Count by Targeting Criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/audienceCounts",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer YOUR_ACCESS_TOKEN"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "targetingCriteriaV2",
+                "type": "query"
+              },
+              {
+                "name": "targetingCriteria",
+                "value": "(include:(and:List((or:({encoded facet_URN_1}:List({encoded facet_URN_1_value_1}))))))",
+                "type": "query",
+                "description": "URL-encoded targeting criteria"
+              }
+            ]
+          },
+          "docs": "Get the number of member accounts that fit your targeting criteria. Minimum audience size of 300 is required to run a campaign."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

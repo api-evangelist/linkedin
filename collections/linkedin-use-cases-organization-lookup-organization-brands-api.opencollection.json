@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Organization Lookup > Organization Brands API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Organization Lookup > Organization Brands",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Find Administered Organization Brands by Parent Org",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizations",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "parentOrganization",
+                "type": "query"
+              },
+              {
+                "name": "parent",
+                "value": "urn:li:organization:{{organization_id}}",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Find Administered Organization Brands by Parent Org"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch GET on Administered Organization Brands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationBrands",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({{organizationBrand_id}},{{organizationBrand_id1}})",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Batch GET on Administered Organization Brands"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Retrieve an Administered Organization Brand",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationBrands/:organizationBrand_id",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "organizationBrand_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "LinkedIn Retrieve an Administered Organization Brand"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch GET on Non-Administered Organization Brands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationBrandsLookup",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({{organizationBrand_id}},{{organizationBrand_id1}})",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Batch GET on Non-Administered Organization Brands"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

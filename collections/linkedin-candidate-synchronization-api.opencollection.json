@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Candidate Synchronization API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Candidate Synchronization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Candidate Matches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/atsCandidates",
+            "params": [
+              {
+                "name": "ids[0].atsCandidateId",
+                "value": "CAND-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves candidate details including algorithmic and user-supplied matches with LinkedIn members.\nFor more information, refer to the [Retrieve Candidate Matches documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#retrieve-candidate-matches)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Sync Candidates to LinkedIn",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/v2/atsCandidates",
+            "headers": [
+              {
+                "name": "x-restli-method",
+                "value": "batch_update"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids[0].atsCandidateId",
+                "value": "CAND-001",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:organization:12345",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates candidate records in LinkedIn from the ATS system.\nFor more information, refer to the [Sync Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

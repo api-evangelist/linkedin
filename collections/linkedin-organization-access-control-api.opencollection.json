@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Organization Access Control API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization Access Control",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Organization ACLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaOrganizationAcls",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "role",
+                "value": "ADMINISTRATOR",
+                "type": "query",
+                "description": "Role filter for ACL queries"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves organization access control list entries showing role assignments for organization administrators and content managers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

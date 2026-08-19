@@ -1,484 +1,426 @@
 {
-  "info": {
-    "_postman_id": "fe3c39bb-7245-40d3-854b-8deed28b64cf",
-    "name": "LinkedIn Compliance Events Access Control Conversion Events Streaming Workflow API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:25:07.000Z",
-    "updatedAt": "2026-08-03T11:25:07.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-fe3c39bb-7245-40d3-854b-8deed28b64cf"
-  },
   "item": [
     {
-      "name": "adAccountUsers",
+      "id": "bf6565ca-5147-4057-9176-8e28c86d9336",
+      "name": "Conversion Events Streaming Workflow",
+      "description": {
+        "content": "1. Obtain user authorization with consent to create and manage conversions using `rw_conversions`, `r_ads` permissions in the scope.\n2. Retrieve authenticated user's sponsored Ad Accounts where user has a non-viewer user role.\n3. Ask the user to select one of their Ad Account where conversion events would be streamed.\n4. Fetch existing Conversion Rules for CAPI in the selected Ad Account\n5. Allow the user to choose if they want to create a new Conversion Rule or update an existing one\n6. Create a new Conversion Rule (skip this step if the user chose to update an existing Conversion Rule)\n7. Fetch active campaign URNs to associate with conversion rule\n8. Associate campaigns to conversion rule for campaign attribution and optimization\n9. Stream conversion event to the conversion rule\n    \n10. Stream multiple conversion events to the conversion rule",
+        "type": "text/plain"
+      },
       "item": [
         {
+          "id": "157ba8a8-e779-40a2-b8af-4fab182415a0",
           "name": "LinkedIn 2. Retrieve Authenticated User's Sponsored Ad Accounts",
-          "id": "47d3eb50-f89c-49a7-a52e-cdb5cbbde3e6",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "GET",
+            "name": "LinkedIn 2. Retrieve Authenticated User's Sponsored Ad Accounts",
+            "description": {},
+            "url": {
+              "path": [
+                "adAccountUsers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
             "header": [
               {
+                "disabled": false,
                 "key": "LinkedIn-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
+                "disabled": false,
                 "key": "X-Restli-Protocol-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/adAccountUsers?q=<string>&fields=<string>",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "adAccountUsers"
-              ],
-              "query": [
-                {
-                  "key": "q",
-                  "value": "<string>"
-                },
-                {
-                  "key": "fields",
-                  "value": "<string>"
-                }
-              ]
-            }
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "f2ce7913-1923-48b4-a971-f1d366bbcc41",
+              "id": "2eb96d15-0406-44cd-927b-f9c35e00085b",
               "name": "OK",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/adAccountUsers?q=<string>&fields=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "adAccountUsers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
                       "key": "q",
-                      "value": "<string>"
+                      "value": "authenticatedUser"
                     },
                     {
                       "key": "fields",
-                      "value": "<string>"
+                      "value": "role,account,user"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "1.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Wed, 14 Jun 2023 18:36:33 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAX+GzsjqgSHmQZ8fFBRbA==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1682:x=1:i=1686767793:t=1686813748:v=2:sig=AQFd2BBoXo4jGhMI0VSlCcsx5Q-0dR64\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1682:x=1:i=1686767793:t=1686813748:v=2:sig=AQFd2BBoXo4jGhMI0VSlCcsx5Q-0dR64\"",
+                  "description": ""
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-RestLi-Protocol-Version",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Date",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Transfer-Encoding",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Connection",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Source-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Pop",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Proto",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-UUID",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Set-Cookie",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Route-Key",
-                  "value": "<string>"
                 }
               ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 2147483647,\n    \"links\": [],\n    \"total\": 3\n  },\n  \"elements\": [\n    {\n      \"user\": \"urn:li:person:abcd\",\n      \"account\": \"urn:li:sponsoredAccount:5000123\",\n      \"role\": \"VIEWER\"\n    },\n    {\n      \"user\": \"urn:li:person:abcd\",\n      \"account\": \"urn:li:sponsoredAccount:5000234\",\n      \"role\": \"ACCOUNT_BILLING_ADMIN\"\n    },\n    {\n      \"user\": \"urn:li:person:abcd\",\n      \"account\": \"urn:li:sponsoredAccount:5000345\",\n      \"role\": \"ACCOUNT_BILLING_ADMIN\"\n    }\n  ]\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"elements\": [\n    {\n      \"user\": \"<string>\",\n      \"account\": \"<string>\",\n      \"role\": \"<string>\"\n    },\n    {\n      \"user\": \"<string>\",\n      \"account\": \"<string>\",\n      \"role\": \"<string>\"\n    }\n  ]\n}",
-              "createdAt": "2026-08-03T11:25:08.000Z",
-              "updatedAt": "2026-08-03T11:25:08.000Z",
-              "uid": "35240-f2ce7913-1923-48b4-a971-f1d366bbcc41"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:25:07.000Z",
-          "updatedAt": "2026-08-03T11:25:07.000Z",
-          "uid": "35240-47d3eb50-f89c-49a7-a52e-cdb5cbbde3e6"
-        }
-      ],
-      "id": "00ecb18c-c569-4750-abdb-b8909da18d39",
-      "createdAt": "2026-08-03T11:25:07.000Z",
-      "updatedAt": "2026-08-03T11:25:07.000Z",
-      "uid": "35240-00ecb18c-c569-4750-abdb-b8909da18d39"
-    },
-    {
-      "name": "conversions",
-      "item": [
-        {
-          "name": "LinkedIn 4. Fetch Existing Conversion Rules for CAPI in the Selected Ad Account",
-          "id": "eb2a1fae-4ac9-42af-abdf-cf5e38c72a02",
+          "event": [],
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          },
+          }
+        },
+        {
+          "id": "4605b2c8-f1c9-44e5-806b-4919fc3ea4ad",
+          "name": "LinkedIn 4. Fetch Existing Conversion Rules for CAPI in the Selected Ad Account",
           "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "LinkedIn-Version",
-                "value": "<string>"
-              },
-              {
-                "key": "X-Restli-Protocol-Version",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "name": "LinkedIn 4. Fetch Existing Conversion Rules for CAPI in the Selected Ad Account",
+            "description": {
+              "content": "Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.",
+              "type": "text/plain"
+            },
             "url": {
-              "raw": "{{baseUrl}}/conversions?q=<string>&account=<string>&fields=<string>",
-              "host": [
-                "{{baseUrl}}"
-              ],
               "path": [
                 "conversions"
               ],
+              "host": [
+                "{{baseUrl}}"
+              ],
               "query": [
                 {
+                  "disabled": false,
                   "key": "q",
                   "value": "<string>"
                 },
                 {
+                  "disabled": false,
                   "key": "account",
                   "value": "<string>"
                 },
                 {
+                  "disabled": false,
                   "key": "fields",
                   "value": "<string>"
                 }
-              ]
+              ],
+              "variable": []
             },
-            "description": "Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API."
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "5c6dd67e-f1be-428f-a113-f28a9129f99c",
+              "id": "a41c06b2-28ef-43b2-b4cf-a1b03bb8ecfa",
               "name": "OK",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/conversions?q=<string>&account=<string>&fields=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "conversions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
                       "key": "q",
-                      "value": "<string>"
+                      "value": "account"
                     },
                     {
                       "key": "account",
-                      "value": "<string>"
+                      "value": "urn%3Ali%3AsponsoredAccount%3A{{sponsoredaccount_id}}"
                     },
                     {
                       "key": "fields",
-                      "value": "<string>"
+                      "value": "conversionMethod,enabled,type,name,id,campaigns,attributionType"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Thu, 15 Jun 2023 08:51:41 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAX+Jy1X+zsm945WHNt5HQ==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1684:x=1:i=1686819101:t=1686883294:v=2:sig=AQG9PJifKDndXPzy7_WniIlif5-4vsdz\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB52:s=O:r=O:a=O:p=O:g=3380:u=1684:x=1:i=1686819101:t=1686883294:v=2:sig=AQG9PJifKDndXPzy7_WniIlif5-4vsdz\"",
+                  "description": ""
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-RestLi-Protocol-Version",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Date",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Transfer-Encoding",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Connection",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Source-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Pop",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Proto",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-UUID",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Set-Cookie",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Route-Key",
-                  "value": "<string>"
                 }
               ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 10,\n    \"links\": [],\n    \"total\": -1\n  },\n  \"elements\": [\n    {\n      \"name\": \"Conversion API Segment 1\",\n      \"conversionMethod\": \"CONVERSIONS_API\",\n      \"id\": 1403456,\n      \"type\": \"LEAD\",\n      \"campaigns\": [],\n      \"enabled\": true\n    },\n    {\n      \"name\": \"Conversion API Segment 4\",\n      \"conversionMethod\": \"CONVERSIONS_API\",\n      \"id\": 1103890,\n      \"type\": \"LEAD\",\n      \"campaigns\": [\n        \"urn:li:sponsoredCampaign:435\",\n        \"urn:li:sponsoredCampaign:675\",\n        \"urn:li:sponsoredCampaign:342\"\n      ],\n      \"enabled\": true\n    },\n    {\n      \"name\": \"Online Test\",\n      \"conversionMethod\": \"INSIGHT_TAG_URL_MATCH_RULES\",\n      \"id\": 10991460,\n      \"type\": \"BOOK_APPOINTMENT\",\n      \"campaigns\": [\n        \"urn:li:sponsoredCampaign:876786\",\n        \"urn:li:sponsoredCampaign:536478\"\n      ],\n      \"enabled\": true\n    },\n    {\n      \"name\": \"Demo requests\",\n      \"conversionMethod\": \"INSIGHT_TAG_JAVASCRIPT_EVENT\",\n      \"id\": 4886884,\n      \"type\": \"REQUEST_QUOTE\",\n      \"campaigns\": [],\n      \"enabled\": false\n    }\n  ]\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"elements\": [\n    {\n      \"name\": \"<string>\",\n      \"conversionMethod\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"conversionMethod\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    }\n  ]\n}",
-              "createdAt": "2026-08-03T11:25:08.000Z",
-              "updatedAt": "2026-08-03T11:25:08.000Z",
-              "uid": "35240-5c6dd67e-f1be-428f-a113-f28a9129f99c"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:25:07.000Z",
-          "updatedAt": "2026-08-03T11:25:07.000Z",
-          "uid": "35240-eb2a1fae-4ac9-42af-abdf-cf5e38c72a02"
-        },
-        {
-          "name": "LinkedIn 6. Create a New Conversion Rule",
-          "id": "e74c7757-cde6-4808-8559-1a9476e6668c",
+          "event": [],
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          },
+          }
+        },
+        {
+          "id": "e112d509-9e5f-4452-a8e6-17936477bfce",
+          "name": "LinkedIn 6. Create a New Conversion Rule",
           "request": {
-            "method": "POST",
+            "name": "LinkedIn 6. Create a New Conversion Rule",
+            "description": {
+              "content": "Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
             "header": [
               {
+                "disabled": false,
                 "key": "LinkedIn-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
+                "disabled": false,
                 "key": "X-Restli-Protocol-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
                 "key": "Content-Type",
@@ -489,784 +431,629 @@
                 "value": "application/json"
               }
             ],
+            "method": "POST",
+            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{}",
+              "raw": "<object>",
               "options": {
                 "raw": {
-                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/conversions",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "conversions"
-              ]
-            },
-            "description": "Create one or more conversion rules with this endpoint and set\u00a0`conversionMethod`\u00a0to\u00a0`CONVERSIONS_API`\u00a0for streaming conversions through API."
+            }
           },
           "response": [
             {
-              "id": "d9f765d6-f9f9-435f-8457-e326ea1bf79b",
+              "id": "e4249234-515b-47b8-83b7-92f1345c4cd3",
               "name": "Created",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "conversions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
                     "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "value": "{{insert_version}}",
+                    "description": ""
                   },
                   {
+                    "disabled": false,
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "value": "2.0.0",
+                    "description": ""
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{}",
+                  "raw": "{\n  \"name\": \"Conversion API Segment 5\",\n  \"account\": \"urn:li:sponsoredAccount:{{sponsoredaccount_id}}\",\n  \"conversionMethod\": \"CONVERSIONS_API\",\n  \"postClickAttributionWindowSize\": 90,\n  \"viewThroughAttributionWindowSize\": 30,\n  \"attributionType\": \"LAST_TOUCH_BY_CAMPAIGN\",\n  \"type\": \"LEAD\"\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/conversions",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "conversions"
-                  ]
                 }
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "/conversions/14488340",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "x-restli-id",
+                  "value": "8040",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Tue, 24 Oct 2023 02:47:51 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Report-To",
+                  "value": "{\"group\":\"network-errors\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://www.linkedin.com/li/rep\"}],\"include_subdomains\":true}",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "NEL",
+                  "value": "{\"report_to\":\"network-errors\",\"max_age\":1296000,\"success_fraction\":0.00066,\"failure_fraction\":1,\"include_subdomains\":true}",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAYIbV1fUy9lNvosbDYsmQ==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115671:t=1698121131:v=2:sig=AQH9Ek4NjI_HRcW2-y6FXmJ_MnU6czll\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115671:t=1698121131:v=2:sig=AQH9Ek4NjI_HRcW2-y6FXmJ_MnU6czll\"",
+                  "description": ""
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
-                },
+                }
+              ],
+              "body": "{\n  \"postClickAttributionWindowSize\": 90,\n  \"conversionMethod\": \"CONVERSIONS_API\",\n  \"viewThroughAttributionWindowSize\": 30,\n  \"created\": 1698115671440,\n  \"type\": \"LEAD\",\n  \"enabled\": true,\n  \"associatedCampaigns\": [],\n  \"campaigns\": [],\n  \"name\": \"Conversion API Segment 5\",\n  \"id\": 14488340,\n  \"lastModified\": 1698115671440,\n  \"attributionType\": \"LAST_TOUCH_BY_CAMPAIGN\",\n  \"urlRules\": [],\n  \"account\": \"urn:li:sponsoredAccount:5012345\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe8306be-94c2-4e60-8cf0-6fe53e0a54b3",
+          "name": "LinkedIn 7. Fetch Active Campaigns",
+          "request": {
+            "name": "LinkedIn 7. Fetch Active Campaigns",
+            "description": {
+              "content": "Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "adAccounts",
+                ":sponsoredaccount_id",
+                "adCampaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
                 {
                   "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Type",
+                  "key": "q",
                   "value": "<string>"
                 },
                 {
                   "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Location",
+                  "key": "search",
                   "value": "<string>"
                 },
                 {
                   "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "x-restli-id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-RestLi-Protocol-Version",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Date",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Report-To",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "NEL",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Transfer-Encoding",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Connection",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Source-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Pop",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Proto",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-UUID",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Set-Cookie",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Route-Key",
+                  "key": "fields",
                   "value": "<string>"
                 }
               ],
-              "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"postClickAttributionWindowSize\": \"<integer>\",\n  \"conversionMethod\": \"<string>\",\n  \"viewThroughAttributionWindowSize\": \"<integer>\",\n  \"created\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"lastModified\": \"<integer>\",\n  \"attributionType\": \"<string>\",\n  \"account\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:25:08.000Z",
-              "updatedAt": "2026-08-03T11:25:08.000Z",
-              "uid": "35240-d9f765d6-f9f9-435f-8457-e326ea1bf79b"
-            }
-          ],
-          "createdAt": "2026-08-03T11:25:07.000Z",
-          "updatedAt": "2026-08-03T11:25:07.000Z",
-          "uid": "35240-e74c7757-cde6-4808-8559-1a9476e6668c"
-        }
-      ],
-      "id": "22b02d45-d79a-4459-b804-6c5e6d8409cf",
-      "createdAt": "2026-08-03T11:25:07.000Z",
-      "updatedAt": "2026-08-03T11:25:07.000Z",
-      "uid": "35240-22b02d45-d79a-4459-b804-6c5e6d8409cf"
-    },
-    {
-      "name": "adAccounts",
-      "item": [
-        {
-          "name": "{sponsoredaccount_id}",
-          "item": [
-            {
-              "name": "adCampaigns",
-              "item": [
+              "variable": [
                 {
-                  "name": "LinkedIn 7. Fetch Active Campaigns",
-                  "id": "154a7dd0-ce35-429a-af49-dd55170149d2",
-                  "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                  },
-                  "request": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "X-Restli-Protocol-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/adAccounts/:sponsoredaccount_id/adCampaigns?q=<string>&search=<string>&fields=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "adAccounts",
-                        ":sponsoredaccount_id",
-                        "adCampaigns"
-                      ],
-                      "query": [
-                        {
-                          "key": "q",
-                          "value": "<string>"
-                        },
-                        {
-                          "key": "search",
-                          "value": "<string>"
-                        },
-                        {
-                          "key": "fields",
-                          "value": "<string>"
-                        }
-                      ],
-                      "variable": [
-                        {
-                          "id": "d86f9aaf-f105-4136-953e-97cc17106345",
-                          "key": "sponsoredaccount_id",
-                          "value": "<string>",
-                          "description": "(Required) "
-                        }
-                      ]
-                    },
-                    "description": "Fetch existing conversion rules in the selected ad account with this endpoint and parse the response to filter elements with `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API."
-                  },
-                  "response": [
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sponsoredaccount_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "133c93a8-0a27-46fd-8ddf-3a1f7964a342",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "adAccounts",
+                    ":sponsoredaccount_id",
+                    "adCampaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
                     {
-                      "id": "d6fea446-c424-4996-a380-11c1f3a2eb07",
-                      "name": "OK",
-                      "originalRequest": {
-                        "method": "GET",
-                        "header": [
-                          {
-                            "key": "LinkedIn-Version",
-                            "value": "<string>"
-                          },
-                          {
-                            "key": "X-Restli-Protocol-Version",
-                            "value": "<string>"
-                          },
-                          {
-                            "key": "Accept",
-                            "value": "application/json"
-                          },
-                          {
-                            "description": "Added as a part of security scheme: oauth2",
-                            "key": "Authorization",
-                            "value": "<token>"
-                          }
-                        ],
-                        "url": {
-                          "raw": "{{baseUrl}}/adAccounts/:sponsoredaccount_id/adCampaigns?q=<string>&search=<string>&fields=<string>",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "adAccounts",
-                            ":sponsoredaccount_id",
-                            "adCampaigns"
-                          ],
-                          "query": [
-                            {
-                              "key": "q",
-                              "value": "<string>"
-                            },
-                            {
-                              "key": "search",
-                              "value": "<string>"
-                            },
-                            {
-                              "key": "fields",
-                              "value": "<string>"
-                            }
-                          ],
-                          "variable": [
-                            {
-                              "key": "sponsoredaccount_id"
-                            }
-                          ]
-                        }
-                      },
-                      "status": "OK",
-                      "code": 200,
-                      "_postman_previewlanguage": "json",
-                      "header": [
-                        {
-                          "key": "Content-Type",
-                          "value": "application/json"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "Content-Type",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "X-RestLi-Protocol-Version",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "Date",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "Transfer-Encoding",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "Connection",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "X-Li-Fabric",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "Report-To",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "NEL",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "X-Li-Pop",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "X-LI-Proto",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "X-LI-UUID",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "Set-Cookie",
-                          "value": "<string>"
-                        },
-                        {
-                          "disabled": false,
-                          "description": {
-                            "content": "",
-                            "type": "text/plain"
-                          },
-                          "key": "X-LI-Route-Key",
-                          "value": "<string>"
-                        }
-                      ],
-                      "cookie": [],
-                      "responseTime": null,
-                      "body": "{\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"links\": [\n      {\n        \"type\": \"<string>\",\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"rel\": \"<string>\",\n        \"href\": \"<string>\"\n      }\n    ],\n    \"total\": \"<integer>\"\n  },\n  \"elements\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\"\n    }\n  ]\n}",
-                      "createdAt": "2026-08-03T11:25:08.000Z",
-                      "updatedAt": "2026-08-03T11:25:08.000Z",
-                      "uid": "35240-d6fea446-c424-4996-a380-11c1f3a2eb07"
+                      "key": "q",
+                      "value": "search"
+                    },
+                    {
+                      "key": "search",
+                      "value": "(status:(values:List(ACTIVE,DRAFT)))"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "id,name"
                     }
                   ],
-                  "createdAt": "2026-08-03T11:25:07.000Z",
-                  "updatedAt": "2026-08-03T11:25:07.000Z",
-                  "uid": "35240-154a7dd0-ce35-429a-af49-dd55170149d2"
-                }
-              ],
-              "id": "2b59c37e-4b0e-4104-b4e3-6a55379dd394",
-              "createdAt": "2026-08-03T11:25:07.000Z",
-              "updatedAt": "2026-08-03T11:25:07.000Z",
-              "uid": "35240-2b59c37e-4b0e-4104-b4e3-6a55379dd394"
-            }
-          ],
-          "id": "20b071b8-6a57-43cc-b611-ec70568bbd18",
-          "createdAt": "2026-08-03T11:25:07.000Z",
-          "updatedAt": "2026-08-03T11:25:07.000Z",
-          "uid": "35240-20b071b8-6a57-43cc-b611-ec70568bbd18"
-        }
-      ],
-      "id": "089c841b-63b3-422a-8545-4fb8cdbbf1f7",
-      "createdAt": "2026-08-03T11:25:07.000Z",
-      "updatedAt": "2026-08-03T11:25:07.000Z",
-      "uid": "35240-089c841b-63b3-422a-8545-4fb8cdbbf1f7"
-    },
-    {
-      "name": "campaignConversions",
-      "item": [
-        {
-          "name": "(campaign:urn:li:sponsoredCampaign:{campaign_id},conversion:urn:lla:llaPartnerConversion:{conversion_id})",
-          "item": [
-            {
-              "name": "LinkedIn 8. Associate Campaigns to Conversion Rule",
-              "id": "a7236149-4297-4ec3-aba6-da945b77cd9e",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "PUT",
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sponsoredaccount_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
                     "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "value": "{{insert_version}}",
+                    "description": ""
                   },
                   {
+                    "disabled": false,
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
+                    "value": "2.0.0",
+                    "description": ""
                   },
                   {
-                    "key": "Content-Type",
+                    "key": "Accept",
                     "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Tue, 17 Oct 2023 01:50:46 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Report-To",
+                  "value": "{\"group\":\"network-errors\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://www.linkedin.com/li/rep\"}],\"include_subdomains\":true}",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "NEL",
+                  "value": "{\"report_to\":\"network-errors\",\"max_age\":1296000,\"success_fraction\":0.00066,\"failure_fraction\":1,\"include_subdomains\":true}",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAYH38BSGn+zS5gvrvSuEg==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697507446:t=1697509914:v=2:sig=AQG1F5DDw_-Cvyww_R4RWc8KPvLXx2sz\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697507446:t=1697509914:v=2:sig=AQG1F5DDw_-Cvyww_R4RWc8KPvLXx2sz\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 10,\n    \"links\": [\n      {\n        \"type\": \"application/json\",\n        \"rel\": \"next\",\n        \"href\": \"/rest/adAccounts/5012345/adCampaigns?q=search&search=(status:(values:List(ACTIVE,DRAFT)))&start=10&count=10&fields=name,id\"\n      }\n    ],\n    \"total\": 4\n  },\n  \"elements\": [\n    {\n      \"name\": \"Website visits - May 4, 2021\",\n      \"id\": 12345\n    },\n    {\n      \"name\": \"Brand awareness - Jul 14, 2022\",\n      \"id\": 14567\n    },\n    {\n      \"name\": \"Lead generation - Dec 5, 2022\",\n      \"id\": 789090\n    },\n    {\n      \"name\": \"Website conversions - Dec 6, 2022\",\n      \"id\": 899887\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab9a9d3d-ad98-4eca-84f8-b7fcbbeaeeac",
+          "name": "LinkedIn 8. Associate Campaigns to Conversion Rule",
+          "request": {
+            "name": "LinkedIn 8. Associate Campaigns to Conversion Rule",
+            "description": {
+              "content": "Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaignConversions",
+                "(campaign:urn:li:sponsoredCampaign:{{campaign_id}},conversion:urn:lla:llaPartnerConversion:{{conversion_id}})"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e110544f-c261-492f-9ac3-94a9d84af615",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaignConversions",
+                    "(campaign:urn:li:sponsoredCampaign:{{campaign_id}},conversion:urn:lla:llaPartnerConversion:{{conversion_id}})"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
                   },
                   {
                     "key": "Accept",
                     "value": "text/plain"
                   }
                 ],
+                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{}",
+                  "raw": "{\n  \"campaign\": \"urn:li:sponsoredCampaign:{{campaign_id}}\",\n  \"conversion\": \"urn:lla:llaPartnerConversion:{{conversion_id}}\"\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/campaignConversions/(campaign:urn:li:sponsoredCampaign:{{campaign_id}},conversion:urn:lla:llaPartnerConversion:{{conversion_id}})",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "campaignConversions",
-                    "(campaign:urn:li:sponsoredCampaign:{{campaign_id}},conversion:urn:lla:llaPartnerConversion:{{conversion_id}})"
-                  ]
-                },
-                "description": "Create one or more conversion rules with this endpoint and set\u00a0`conversionMethod`\u00a0to\u00a0`CONVERSIONS_API`\u00a0for streaming conversions through API."
+                }
               },
-              "response": [
+              "status": "No Content",
+              "code": 204,
+              "header": [
                 {
-                  "id": "1068456b-0bd8-4279-83e0-6b6b00ac5523",
-                  "name": "No Content",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "X-Restli-Protocol-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "text/plain"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/campaignConversions/(campaign:urn:li:sponsoredCampaign:{{campaign_id}},conversion:urn:lla:llaPartnerConversion:{{conversion_id}})",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "campaignConversions",
-                        "(campaign:urn:li:sponsoredCampaign:{{campaign_id}},conversion:urn:lla:llaPartnerConversion:{{conversion_id}})"
-                      ]
-                    }
-                  },
-                  "status": "No Content",
-                  "code": 204,
-                  "_postman_previewlanguage": "text",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "text/plain"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-RestLi-Protocol-Version",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Date",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Connection",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-Li-Fabric",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Report-To",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "NEL",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-Li-Pop",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-LI-Proto",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-LI-UUID",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Set-Cookie",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-LI-Route-Key",
-                      "value": "<string>"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "<string>",
-                  "createdAt": "2026-08-03T11:25:08.000Z",
-                  "updatedAt": "2026-08-03T11:25:08.000Z",
-                  "uid": "35240-1068456b-0bd8-4279-83e0-6b6b00ac5523"
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Tue, 17 Oct 2023 02:01:02 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Report-To",
+                  "value": "{\"group\":\"network-errors\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://www.linkedin.com/li/rep\"}],\"include_subdomains\":true}",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "NEL",
+                  "value": "{\"report_to\":\"network-errors\",\"max_age\":1296000,\"success_fraction\":0.00066,\"failure_fraction\":1,\"include_subdomains\":true}",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAYH3+UKX//t+2JU8QjBgg==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697508062:t=1697509914:v=2:sig=AQEuCMMAxhHSzyZlkupPJUKXiy1LEjWz\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=VB52:s=V:r=V:a=V:p=V:g=3877:u=1748:x=1:i=1697508062:t=1697509914:v=2:sig=AQEuCMMAxhHSzyZlkupPJUKXiy1LEjWz\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
                 }
               ],
-              "createdAt": "2026-08-03T11:25:07.000Z",
-              "updatedAt": "2026-08-03T11:25:07.000Z",
-              "uid": "35240-a7236149-4297-4ec3-aba6-da945b77cd9e"
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
             }
           ],
-          "id": "b8def364-6e3a-4dc8-ba5e-8819cd11027d",
-          "createdAt": "2026-08-03T11:25:07.000Z",
-          "updatedAt": "2026-08-03T11:25:07.000Z",
-          "uid": "35240-b8def364-6e3a-4dc8-ba5e-8819cd11027d"
-        }
-      ],
-      "id": "bc2f3520-3130-4e6b-9fad-e77bc83f9d6a",
-      "createdAt": "2026-08-03T11:25:07.000Z",
-      "updatedAt": "2026-08-03T11:25:07.000Z",
-      "uid": "35240-bc2f3520-3130-4e6b-9fad-e77bc83f9d6a"
-    },
-    {
-      "name": "conversionEvents",
-      "item": [
-        {
-          "name": "LinkedIn 10. Stream Multiple Conversion Events to the Conversion Rule",
-          "id": "6e31fc39-efe3-4e0f-9249-5f2c38901df0",
+          "event": [],
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          },
+          }
+        },
+        {
+          "id": "8297f521-d355-475a-b9d4-e2106830b108",
+          "name": "LinkedIn 10. Stream Multiple Conversion Events to the Conversion Rule",
           "request": {
-            "method": "POST",
+            "name": "LinkedIn 10. Stream Multiple Conversion Events to the Conversion Rule",
+            "description": {
+              "content": "Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversionEvents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
             "header": [
               {
+                "disabled": false,
                 "key": "LinkedIn-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
+                "disabled": false,
                 "key": "X-Restli-Protocol-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
+                "disabled": false,
                 "key": "X-RestLi-Method",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
                 "key": "Content-Type",
@@ -1277,232 +1064,202 @@
                 "value": "application/json"
               }
             ],
+            "method": "POST",
+            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{}",
+              "raw": "<object>",
               "options": {
                 "raw": {
-                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/conversionEvents",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "conversionEvents"
-              ]
-            },
-            "description": "Create one or more conversion rules with this endpoint and set\u00a0`conversionMethod`\u00a0to\u00a0`CONVERSIONS_API`\u00a0for streaming conversions through API."
+            }
           },
           "response": [
             {
-              "id": "d507eca2-1ae6-47d8-a2fe-bafac9a558b0",
+              "id": "8694b1c1-220a-463b-9ddd-2ffea55adb0d",
               "name": "OK",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "conversionEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
                     "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "value": "{{insert_version}}",
+                    "description": ""
                   },
                   {
+                    "disabled": false,
                     "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
+                    "value": "2.0.0",
+                    "description": ""
                   },
                   {
+                    "disabled": false,
                     "key": "X-RestLi-Method",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "value": "BATCH_CREATE",
+                    "description": ""
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{}",
+                  "raw": "{\n  \"elements\": [\n    {\n      \"conversion\": \"urn:lla:llaPartnerConversion:{{conversion_id}}\",\n      \"conversionHappenedAt\": 1695739275000,\n      \"conversionValue\": {\n        \"currencyCode\": \"USD\",\n        \"amount\": \"1500.0\"\n      },\n      \"user\": {\n        \"userIds\": [\n          {\n            \"idType\": \"SHA256_EMAIL\",\n            \"idValue\": \"bad8677b6c86f5d308ee82786c183482a5995f066694246c58c4df37b0cc41f1\"\n          },\n          {\n            \"idType\": \"LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID\",\n            \"idValue\": \"df5gf5-gh6t7-ph4j7h-fgf6n1\"\n          }\n        ],\n        \"userInfo\": {\n          \"firstName\": \"mike\",\n          \"lastName\": \"smith\",\n          \"title\": \"software engineer\",\n          \"companyName\": \"microsoft\",\n          \"countryCode\": \"US\"\n        }\n      },\n      \"eventId\": \"abc12345\"\n    },\n    {\n      \"conversion\": \"urn:lla:llaPartnerConversion:{{conversion_id}}\",\n      \"conversionHappenedAt\": 1695950057000,\n      \"conversionValue\": {\n        \"currencyCode\": \"USD\",\n        \"amount\": \"2000.0\"\n      },\n      \"user\": {\n        \"userIds\": [\n          {\n            \"idType\": \"SHA256_EMAIL\",\n            \"idValue\": \"dsfgrtg56u767ujy982fgnbmcsdocl46c58c56b650cik230bb9\"\n          },\n          {\n            \"idType\": \"LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID\",\n            \"idValue\": \"ufh8h5-gh6t7-ph4j7h-mkl86n1\"\n          }\n        ],\n        \"userInfo\": {\n          \"firstName\": \"jason\",\n          \"lastName\": \"bourne\",\n          \"title\": \"tech lead\",\n          \"companyName\": \"linkedin\",\n          \"countryCode\": \"US\"\n        }\n      },\n      \"eventId\": \"xyz345\"\n    }\n  ]\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/conversionEvents",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "conversionEvents"
-                  ]
                 }
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "disabled": false,
+                  "key": "x-restli-protocol-version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Tue, 24 Oct 2023 02:51:55 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Report-To",
+                  "value": "{\"group\":\"network-errors\",\"max_age\":2592000,\"endpoints\":[{\"url\":\"https://www.linkedin.com/li/rep\"}],\"include_subdomains\":true}",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "NEL",
+                  "value": "{\"report_to\":\"network-errors\",\"max_age\":1296000,\"success_fraction\":0.00066,\"failure_fraction\":1,\"include_subdomains\":true}",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Transfer-Encoding",
+                  "value": "chunked",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAYIbWvmBmkoHhcx9SVCSA==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115914:t=1698121131:v=2:sig=AQHzEIPucPFVAH_DkGU-T6ZaVmFk6Mxe\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB52:s=O:r=O:a=O:p=O:g=3500:u=1754:x=1:i=1698115914:t=1698121131:v=2:sig=AQHzEIPucPFVAH_DkGU-T6ZaVmFk6Mxe\"",
+                  "description": ""
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "x-restli-protocol-version",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Date",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Report-To",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "NEL",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Transfer-Encoding",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Connection",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Source-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Pop",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Proto",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-UUID",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Set-Cookie",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Route-Key",
-                  "value": "<string>"
                 }
               ],
+              "body": "{\n  \"elements\": [\n    {\n      \"status\": 201\n    },\n    {\n      \"status\": 201\n    }\n  ]\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"elements\": [\n    {\n      \"status\": \"<integer>\"\n    },\n    {\n      \"status\": \"<integer>\"\n    }\n  ]\n}",
-              "createdAt": "2026-08-03T11:25:08.000Z",
-              "updatedAt": "2026-08-03T11:25:08.000Z",
-              "uid": "35240-d507eca2-1ae6-47d8-a2fe-bafac9a558b0"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:25:07.000Z",
-          "updatedAt": "2026-08-03T11:25:07.000Z",
-          "uid": "35240-6e31fc39-efe3-4e0f-9249-5f2c38901df0"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "4d7fb735-3b96-420d-b9a9-809cd84f3beb",
-      "createdAt": "2026-08-03T11:25:07.000Z",
-      "updatedAt": "2026-08-03T11:25:07.000Z",
-      "uid": "35240-4d7fb735-3b96-420d-b9a9-809cd84f3beb"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "campaign_id"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "conversion_id"
     }
   ],
   "auth": {
@@ -1510,38 +1267,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
-    },
-    {
-      "key": "campaign_id",
-      "value": "<string>"
-    },
-    {
-      "key": "conversion_id",
-      "value": "<string>"
+  "info": {
+    "_postman_id": "fbbb542a-a82b-4646-8903-792b17fd42e8",
+    "name": "LinkedIn Compliance Events Access Control Conversion Events Streaming Workflow API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Social Actions Notifications > Organization Social Actions Notifications - Push Workflow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn 5. Retrieve Subscription by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/eventSubscriptions/(developerApplication:urn:li:developerApplication::application_id,user:urn:li:person::person_id,entity:urn:li:organization::organization_id,eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "application_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "person_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve all the subscriptions details such as webhook url and expiration for the logged in user. [Learn more](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#retrieve-subscriptions-for-an-authenticated-member) by viewing our online documentation."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 3. Create a Subscription Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.linkedin.com/eventSubscriptions/(developerApplication:urn:li:developerApplication::application_id,user:urn:li:person::person_id,entity:urn:li:organization::organization_id,eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "Linkedin-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "application_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "person_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "[Create a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#creating-and-updating-subscriptions) record to include the webhook URL where your app will receive notifications. The subscription request will only succeed if the subscribing member is an administrator of the organization being subscribed to."
+        },
+        {
+          "info": {
+            "name": "LinkedIn 6. Remove a Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/eventSubscriptions/(developerApplication::application_id,user::person_id,entity::organization_id,eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "application_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "person_id",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "organization_id",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "[Remove a subscription](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-social-action-notifications?tabs=http#remove-a-subscription) for a your developer application and Organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Access Control Events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaEvents",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "organizer",
+                "value": "urn:li:organization:10002687",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves event data for data portability compliance. Returns event details including name, description, schedule, and organizer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

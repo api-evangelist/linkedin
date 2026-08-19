@@ -1,913 +1,743 @@
 {
-  "info": {
-    "_postman_id": "cbe3a2b0-ba59-4bcb-804b-f64502148364",
-    "name": "LinkedIn Compliance Events Access Control Use Cases > Organization Lookup > Organization Brands API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:31:57.000Z",
-    "updatedAt": "2026-08-03T11:31:58.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-cbe3a2b0-ba59-4bcb-804b-f64502148364"
-  },
   "item": [
     {
-      "name": "organizations",
+      "id": "926105d6-e493-4a3b-940c-9b0a48c43d2a",
+      "name": "Use Cases > Organization Lookup > Organization Brands",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
       "item": [
         {
+          "id": "f18f7a06-9fd6-42be-9e58-c96c02432e0c",
           "name": "LinkedIn Find Administered Organization Brands by Parent Org",
-          "id": "8724f598-c30e-49d1-b5ad-9fc761ad4272",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "LinkedIn-Version",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "name": "LinkedIn Find Administered Organization Brands by Parent Org",
+            "description": {},
             "url": {
-              "raw": "{{baseUrl}}/organizations?q=<string>&parent=<string>",
-              "host": [
-                "{{baseUrl}}"
-              ],
               "path": [
                 "organizations"
               ],
+              "host": [
+                "{{baseUrl}}"
+              ],
               "query": [
                 {
+                  "disabled": false,
                   "key": "q",
                   "value": "<string>"
                 },
                 {
+                  "disabled": false,
                   "key": "parent",
                   "value": "<string>"
                 }
-              ]
-            }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "15908dc0-d534-4822-9f18-6ace2a5aa01b",
+              "id": "2c592411-a0b3-4859-bf1f-b114ffd28374",
               "name": "OK",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/organizations?q=<string>&parent=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
                       "key": "q",
-                      "value": "<string>"
+                      "value": "parentOrganization"
                     },
                     {
                       "key": "parent",
-                      "value": "<string>"
+                      "value": "urn:li:organization:{{organization_id}}"
                     }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "variable": []
                 },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Date",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Server",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-RestLi-Protocol-Version",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Length",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Connection",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Source-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Pop",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Proto",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-UUID",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Set-Cookie",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Route-Key",
-                  "value": "<string>"
-                }
-              ],
-              "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"paging\": {\n    \"start\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"elements\": [\n    {\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"primaryOrganizationType\": \"<string>\",\n      \"vanityName\": \"<string>\",\n      \"localizedName\": \"<string>\",\n      \"id\": \"<integer>\"\n    },\n    {\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"primaryOrganizationType\": \"<string>\",\n      \"vanityName\": \"<string>\",\n      \"localizedName\": \"<string>\",\n      \"id\": \"<integer>\"\n    }\n  ]\n}",
-              "createdAt": "2026-08-03T11:31:58.000Z",
-              "updatedAt": "2026-08-03T11:31:58.000Z",
-              "uid": "35240-15908dc0-d534-4822-9f18-6ace2a5aa01b"
-            }
-          ],
-          "createdAt": "2026-08-03T11:31:58.000Z",
-          "updatedAt": "2026-08-03T11:31:58.000Z",
-          "uid": "35240-8724f598-c30e-49d1-b5ad-9fc761ad4272"
-        }
-      ],
-      "id": "98220c6d-574a-4872-a68d-d87c91725ae4",
-      "createdAt": "2026-08-03T11:31:58.000Z",
-      "updatedAt": "2026-08-03T11:31:58.000Z",
-      "uid": "35240-98220c6d-574a-4872-a68d-d87c91725ae4"
-    },
-    {
-      "name": "organizationBrands",
-      "item": [
-        {
-          "name": "{organizationBrand_id}",
-          "item": [
-            {
-              "name": "LinkedIn Retrieve an Administered Organization Brand",
-              "id": "49a5e8f9-0158-44f2-8239-1752ac2c9dae",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
                     "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "value": "{{insert_version}}",
+                    "description": ""
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Thu, 22 Dec 2022 07:25:11 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "Play",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "1.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Length",
+                  "value": "7208",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAXwZZHGIBuhMvA/BMwKtQ==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693911:t=1671775286:v=2:sig=AQHFo_iP3NTosWNgRAmvCALCbNy0sSET\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693911:t=1671775286:v=2:sig=AQHFo_iP3NTosWNgRAmvCALCbNy0sSET\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paging\": {\n    \"start\": 0,\n    \"count\": 10,\n    \"links\": [],\n    \"total\": 2\n  },\n  \"elements\": [\n    {\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"Internal_EI_Demo\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"US\",\n          \"language\": \"en\"\n        }\n      },\n      \"primaryOrganizationType\": \"BRAND\",\n      \"vanityName\": \"internal-ei-demo\",\n      \"locations\": [],\n      \"localizedName\": \"Internal_EI_Demo\",\n      \"id\": 89758488\n    },\n    {\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"Internal_EI_TestCompany\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"US\",\n          \"language\": \"en\"\n        }\n      },\n      \"primaryOrganizationType\": \"BRAND\",\n      \"vanityName\": \"internal-ei-testcompany\",\n      \"locations\": [],\n      \"localizedName\": \"Internal_EI_TestCompany\",\n      \"id\": 89757515\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8cd49a41-c6b8-47a8-865f-e1314e15558b",
+          "name": "LinkedIn Batch GET on Administered Organization Brands",
+          "request": {
+            "name": "LinkedIn Batch GET on Administered Organization Brands",
+            "description": {},
+            "url": {
+              "path": [
+                "organizationBrands"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dfe4a05a-4556-4f2c-b919-046163aa2f99",
+              "name": "OK",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/organizationBrands/:organizationBrand_id",
+                  "path": [
+                    "organizationBrands"
+                  ],
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List({{organizationBrand_id}},{{organizationBrand_id1}})"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Thu, 22 Dec 2022 07:23:55 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "Play",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Length",
+                  "value": "4231",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAXwZY06+GcGRTyaDTTN+g==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693835:t=1671775286:v=2:sig=AQFCBSUN6_0zsTtMP91RSb64EL4GnqtY\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693835:t=1671775286:v=2:sig=AQFCBSUN6_0zsTtMP91RSb64EL4GnqtY\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"89758488\": {\n      \"vanityName\": \"internal-ei-demo\",\n      \"localizedName\": \"Internal_EI_Demo\",\n      \"website\": {\n        \"localized\": {\n          \"en_US\": \"https://internal-ei-test-company.com\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"US\",\n          \"language\": \"en\"\n        }\n      },\n      \"groups\": [],\n      \"versionTag\": \"3061199585\",\n      \"defaultLocale\": {\n        \"country\": \"US\",\n        \"language\": \"en\"\n      },\n      \"alternativeNames\": [],\n      \"specialties\": [],\n      \"parentRelationship\": {\n        \"relationshipStatus\": \"ACTIVE\",\n        \"parent\": \"urn:li:organization:79988552\"\n      },\n      \"localizedSpecialties\": [],\n      \"industries\": [\n        \"urn:li:industry:84\"\n      ],\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"Internal_EI_Demo\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"US\",\n          \"language\": \"en\"\n        }\n      },\n      \"primaryOrganizationType\": \"BRAND\",\n      \"id\": 89758488,\n      \"autoCreated\": false,\n      \"localizedWebsite\": \"https://internal-ei-test-company.com\"\n    }\n  },\n  \"statuses\": {\n    \"35625943\": 403,\n    \"89758488\": 200\n  },\n  \"errors\": {\n    \"35625943\": {\n      \"message\": \"Viewer don't have permission to the ADMIN_ONLY VisibilityReduction for urn:li:organization:35625943\",\n      \"status\": 403\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92ec0637-6127-4d86-8900-95934c3cfc4c",
+          "name": "LinkedIn Retrieve an Administered Organization Brand",
+          "request": {
+            "name": "LinkedIn Retrieve an Administered Organization Brand",
+            "description": {},
+            "url": {
+              "path": [
+                "organizationBrands",
+                ":organizationBrand_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationBrand_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fe003351-c425-4f92-9954-5ea8dc9e4aca",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
                   "path": [
                     "organizationBrands",
                     ":organizationBrand_id"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
                   "variable": [
                     {
-                      "id": "621ba187-c412-4687-b1c6-d4c639385102",
-                      "key": "organizationBrand_id",
+                      "disabled": false,
+                      "type": "any",
                       "value": "<string>",
+                      "key": "organizationBrand_id",
                       "description": "(Required) "
                     }
                   ]
-                }
-              },
-              "response": [
-                {
-                  "id": "8c2f69a8-1b40-444d-8576-ffbd7aabcff3",
-                  "name": "OK",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/organizationBrands/:organizationBrand_id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "organizationBrands",
-                        ":organizationBrand_id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "organizationBrand_id"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Content-Type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Date",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Server",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-RestLi-Protocol-Version",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Content-Length",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-Li-Fabric",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Connection",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-Li-Source-Fabric",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-Li-Pop",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-LI-Proto",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-LI-UUID",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "Set-Cookie",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "key": "X-LI-Route-Key",
-                      "value": "<string>"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"vanityName\": \"<string>\",\n  \"localizedName\": \"<string>\",\n  \"website\": {\n    \"localized\": {\n      \"en_US\": \"<string>\"\n    },\n    \"preferredLocale\": {\n      \"country\": \"<string>\",\n      \"language\": \"<string>\"\n    }\n  },\n  \"versionTag\": \"<string>\",\n  \"defaultLocale\": {\n    \"country\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"parentRelationship\": {\n    \"relationshipStatus\": \"<string>\",\n    \"parent\": \"<string>\"\n  },\n  \"industries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": {\n    \"localized\": {\n      \"en_US\": \"<string>\"\n    },\n    \"preferredLocale\": {\n      \"country\": \"<string>\",\n      \"language\": \"<string>\"\n    }\n  },\n  \"primaryOrganizationType\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"autoCreated\": \"<boolean>\",\n  \"localizedWebsite\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:31:58.000Z",
-                  "updatedAt": "2026-08-03T11:31:58.000Z",
-                  "uid": "35240-8c2f69a8-1b40-444d-8576-ffbd7aabcff3"
-                }
-              ],
-              "createdAt": "2026-08-03T11:31:58.000Z",
-              "updatedAt": "2026-08-03T11:31:58.000Z",
-              "uid": "35240-49a5e8f9-0158-44f2-8239-1752ac2c9dae"
-            }
-          ],
-          "id": "4f9cee8f-7164-4a8e-882d-33825e2454e5",
-          "createdAt": "2026-08-03T11:31:58.000Z",
-          "updatedAt": "2026-08-03T11:31:58.000Z",
-          "uid": "35240-4f9cee8f-7164-4a8e-882d-33825e2454e5"
-        },
-        {
-          "name": "LinkedIn Batch GET on Administered Organization Brands",
-          "id": "c65f92d9-861d-4b87-9576-af37fea6cc14",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "LinkedIn-Version",
-                "value": "<string>"
-              },
-              {
-                "key": "X-Restli-Protocol-Version",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/organizationBrands?ids=<string>",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "organizationBrands"
-              ],
-              "query": [
-                {
-                  "key": "ids",
-                  "value": "<string>"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "e3afbef4-fe36-47d9-9bca-5c224009945b",
-              "name": "OK",
-              "originalRequest": {
-                "method": "GET",
+                },
                 "header": [
                   {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
-                "url": {
-                  "raw": "{{baseUrl}}/organizationBrands?ids=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "organizationBrands"
-                  ],
-                  "query": [
-                    {
-                      "key": "ids",
-                      "value": "<string>"
-                    }
-                  ]
-                }
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Thu, 22 Dec 2022 07:23:45 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "Play",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "1.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Length",
+                  "value": "8973",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAXwZYypmttHzdbszOY7xA==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693825:t=1671775286:v=2:sig=AQGoeeGwjTLn5Unyu-Q6VKPlP6HXDx0P\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693825:t=1671775286:v=2:sig=AQGoeeGwjTLn5Unyu-Q6VKPlP6HXDx0P\"",
+                  "description": ""
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Date",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Server",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-RestLi-Protocol-Version",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Length",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Connection",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Source-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Pop",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Proto",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-UUID",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Set-Cookie",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Route-Key",
-                  "value": "<string>"
                 }
               ],
+              "body": "{\n  \"vanityName\": \"internal-ei-demo\",\n  \"localizedName\": \"Internal_EI_Demo\",\n  \"website\": {\n    \"localized\": {\n      \"en_US\": \"https://internal-ei-test-company.com\"\n    },\n    \"preferredLocale\": {\n      \"country\": \"US\",\n      \"language\": \"en\"\n    }\n  },\n  \"groups\": [],\n  \"versionTag\": \"3061199585\",\n  \"defaultLocale\": {\n    \"country\": \"US\",\n    \"language\": \"en\"\n  },\n  \"alternativeNames\": [],\n  \"specialties\": [],\n  \"parentRelationship\": {\n    \"relationshipStatus\": \"ACTIVE\",\n    \"parent\": \"urn:li:organization:79988552\"\n  },\n  \"localizedSpecialties\": [],\n  \"industries\": [\n    \"urn:li:industry:84\"\n  ],\n  \"name\": {\n    \"localized\": {\n      \"en_US\": \"Internal_EI_Demo\"\n    },\n    \"preferredLocale\": {\n      \"country\": \"US\",\n      \"language\": \"en\"\n    }\n  },\n  \"primaryOrganizationType\": \"BRAND\",\n  \"id\": 89758488,\n  \"$URN\": \"urn:li:organizationBrand:89758488\",\n  \"autoCreated\": false,\n  \"localizedWebsite\": \"https://internal-ei-test-company.com\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"results\": {\n    \"89758488\": {\n      \"vanityName\": \"<string>\",\n      \"localizedName\": \"<string>\",\n      \"website\": {\n        \"localized\": {\n          \"en_US\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"versionTag\": \"<string>\",\n      \"defaultLocale\": {\n        \"country\": \"<string>\",\n        \"language\": \"<string>\"\n      },\n      \"parentRelationship\": {\n        \"relationshipStatus\": \"<string>\",\n        \"parent\": \"<string>\"\n      },\n      \"industries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"primaryOrganizationType\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"autoCreated\": \"<boolean>\",\n      \"localizedWebsite\": \"<string>\"\n    }\n  },\n  \"statuses\": {\n    \"35625943\": \"<integer>\",\n    \"89758488\": \"<integer>\"\n  },\n  \"errors\": {\n    \"35625943\": {\n      \"message\": \"<string>\",\n      \"status\": \"<integer>\"\n    }\n  }\n}",
-              "createdAt": "2026-08-03T11:31:58.000Z",
-              "updatedAt": "2026-08-03T11:31:58.000Z",
-              "uid": "35240-e3afbef4-fe36-47d9-9bca-5c224009945b"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:31:58.000Z",
-          "updatedAt": "2026-08-03T11:31:58.000Z",
-          "uid": "35240-c65f92d9-861d-4b87-9576-af37fea6cc14"
-        }
-      ],
-      "id": "314d42ef-f737-4a64-88bf-80b51b47add6",
-      "createdAt": "2026-08-03T11:31:58.000Z",
-      "updatedAt": "2026-08-03T11:31:58.000Z",
-      "uid": "35240-314d42ef-f737-4a64-88bf-80b51b47add6"
-    },
-    {
-      "name": "organizationBrandsLookup",
-      "item": [
-        {
-          "name": "LinkedIn Batch GET on Non-Administered Organization Brands",
-          "id": "82fe579b-ce7f-4a27-b781-bb50a14da5c7",
+          "event": [],
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          },
+          }
+        },
+        {
+          "id": "53607f5d-5627-4e15-bd71-92fbc27a7517",
+          "name": "LinkedIn Batch GET on Non-Administered Organization Brands",
           "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "LinkedIn-Version",
-                "value": "<string>"
-              },
-              {
-                "key": "X-Restli-Protocol-Version",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "name": "LinkedIn Batch GET on Non-Administered Organization Brands",
+            "description": {},
             "url": {
-              "raw": "{{baseUrl}}/organizationBrandsLookup?ids=<string>",
-              "host": [
-                "{{baseUrl}}"
-              ],
               "path": [
                 "organizationBrandsLookup"
               ],
+              "host": [
+                "{{baseUrl}}"
+              ],
               "query": [
                 {
+                  "disabled": false,
                   "key": "ids",
                   "value": "<string>"
                 }
-              ]
-            }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "f79ff4b4-8952-4f22-a4aa-37d5472e7540",
+              "id": "75b83ecb-0510-4bd1-bf90-a9075c72fa70",
               "name": "OK",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/organizationBrandsLookup?ids=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "organizationBrandsLookup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
                       "key": "ids",
-                      "value": "<string>"
+                      "value": "List({{organizationBrand_id}},{{organizationBrand_id1}})"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "disabled": false,
+                  "key": "Date",
+                  "value": "Thu, 22 Dec 2022 07:24:08 GMT",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Server",
+                  "value": "Play",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RestLi-Protocol-Version",
+                  "value": "2.0.0",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Content-Length",
+                  "value": "2558",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Fabric",
+                  "value": "prod-lor1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Connection",
+                  "value": "keep-alive",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Source-Fabric",
+                  "value": "prod-lva1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-Li-Pop",
+                  "value": "prod-lva1-x",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Proto",
+                  "value": "http/1.1",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-UUID",
+                  "value": "AAXwZY4BjcseAexl6rVsFQ==",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "lidc=\"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693848:t=1671775286:v=2:sig=AQFAdBFZKRnFsc0gzQXACtwVuGqOLl06\"",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-LI-Route-Key",
+                  "value": "\"b=OB39:s=O:r=O:a=O:p=O:g=3210:u=43:x=1:i=1671693848:t=1671775286:v=2:sig=AQFAdBFZKRnFsc0gzQXACtwVuGqOLl06\"",
+                  "description": ""
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Date",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Server",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-RestLi-Protocol-Version",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Content-Length",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Connection",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Source-Fabric",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-Li-Pop",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Proto",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-UUID",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "Set-Cookie",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "key": "X-LI-Route-Key",
-                  "value": "<string>"
                 }
               ],
+              "body": "{\n  \"results\": {\n    \"35625943\": {\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"Company LGF Showcase\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"US\",\n          \"language\": \"en\"\n        }\n      },\n      \"primaryOrganizationType\": \"BRAND\",\n      \"vanityName\": \"company-lgf-showcase\",\n      \"localizedName\": \"Company LGF Showcase\",\n      \"id\": 35625943\n    },\n    \"89758488\": {\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"Internal_EI_Demo\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"US\",\n          \"language\": \"en\"\n        }\n      },\n      \"primaryOrganizationType\": \"BRAND\",\n      \"vanityName\": \"internal-ei-demo\",\n      \"localizedName\": \"Internal_EI_Demo\",\n      \"id\": 89758488,\n      \"localizedWebsite\": \"https://internal-ei-test-company.com\"\n    }\n  },\n  \"statuses\": {\n    \"35625943\": 200,\n    \"89758488\": 200\n  },\n  \"errors\": {}\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"results\": {\n    \"35625943\": {\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"primaryOrganizationType\": \"<string>\",\n      \"vanityName\": \"<string>\",\n      \"localizedName\": \"<string>\",\n      \"id\": \"<integer>\"\n    },\n    \"89758488\": {\n      \"name\": {\n        \"localized\": {\n          \"en_US\": \"<string>\"\n        },\n        \"preferredLocale\": {\n          \"country\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      },\n      \"primaryOrganizationType\": \"<string>\",\n      \"vanityName\": \"<string>\",\n      \"localizedName\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"localizedWebsite\": \"<string>\"\n    }\n  },\n  \"statuses\": {\n    \"35625943\": \"<integer>\",\n    \"89758488\": \"<integer>\"\n  },\n  \"errors\": {}\n}",
-              "createdAt": "2026-08-03T11:31:58.000Z",
-              "updatedAt": "2026-08-03T11:31:58.000Z",
-              "uid": "35240-f79ff4b4-8952-4f22-a4aa-37d5472e7540"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:31:58.000Z",
-          "updatedAt": "2026-08-03T11:31:58.000Z",
-          "uid": "35240-82fe579b-ce7f-4a27-b781-bb50a14da5c7"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "07de0cab-497d-48ff-963e-c99893ef0ccd",
-      "createdAt": "2026-08-03T11:31:58.000Z",
-      "updatedAt": "2026-08-03T11:31:58.000Z",
-      "uid": "35240-07de0cab-497d-48ff-963e-c99893ef0ccd"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -915,30 +745,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "86d6ee78-3d12-4db3-b7c7-687efe4c3958",
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Organization Lookup > Organization Brands API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

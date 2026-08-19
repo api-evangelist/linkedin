@@ -1,34 +1,50 @@
 {
-  "info": {
-    "_postman_id": "215393c7-3a66-462d-913f-66fe92a8d4d4",
-    "name": "LinkedIn Compliance Events Access Control Use Cases > Image Ad API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:31:04.000Z",
-    "updatedAt": "2026-08-03T11:31:04.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-215393c7-3a66-462d-913f-66fe92a8d4d4"
-  },
   "item": [
     {
-      "name": "images",
+      "id": "a83632b1-8ec9-43eb-bc5f-7f1ba445c0f5",
+      "name": "Use Cases > Image Ad",
+      "description": {
+        "content": "Image ads help you engage business decision-makers on LinkedIn's mobile and desktop news feed. You can create image ads in two ways:\n\n\\*   Post images to your Company Page and sponsor the post to reach more than just followers. Your organization can share a first-hand look into your company culture, products, news, and events with a company page image to drive further engagement and conversation.\n\\*   Create image ads that bypass Company Page followers and go directly to your news feed.",
+        "type": "text/plain"
+      },
       "item": [
         {
+          "id": "cbb806a7-f068-4172-a64e-bbf69b970580",
           "name": "LinkedIn Initialize Image Upload",
-          "id": "fd87a0f4-57d9-4b29-a5f2-26d0216fba22",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "POST",
+            "name": "LinkedIn Initialize Image Upload",
+            "description": {
+              "content": "Use the `initializeUpload` action to register the upload. When you initialize, you declare the upcoming upload. Use the upload URL to upload the image.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "images"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
             "header": [
               {
+                "disabled": false,
                 "key": "LinkedIn-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
+                "disabled": false,
                 "key": "X-Restli-Protocol-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
                 "key": "Content-Type",
@@ -39,462 +55,452 @@
                 "value": "application/json"
               }
             ],
+            "method": "POST",
+            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "<string>"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/images?action=<string>",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "images"
-              ],
-              "query": [
-                {
-                  "key": "action",
-                  "value": "<string>"
-                }
-              ]
-            },
-            "description": "Use the\u00a0`initializeUpload`\u00a0action to register the upload. When you initialize, you declare the upcoming upload. Use the upload URL to upload the image."
+            }
           },
           "response": [
             {
-              "id": "6911a2ec-2921-4e2e-9943-75fb3b25c73d",
+              "id": "e287dd1f-8808-4fbf-80c9-a2259c2a2ccf",
               "name": "Successful response",
               "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "*/*"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "<string>"
-                },
                 "url": {
-                  "raw": "{{baseUrl}}/images?action=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "images"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
                       "key": "action",
-                      "value": "<string>"
+                      "value": "initializeUpload"
                     }
-                  ]
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "\"{\\n  \\\"initializeUploadRequest\\\": {\\n        \\\"owner\\\": \\\"urn:li:organization:5583111\\\"\\n  }\\n}\\n\""
                 }
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "\"\"",
               "cookie": [],
-              "responseTime": null,
-              "body": "",
-              "createdAt": "2026-08-03T11:31:04.000Z",
-              "updatedAt": "2026-08-03T11:31:04.000Z",
-              "uid": "35240-6911a2ec-2921-4e2e-9943-75fb3b25c73d"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:31:04.000Z",
-          "updatedAt": "2026-08-03T11:31:04.000Z",
-          "uid": "35240-fd87a0f4-57d9-4b29-a5f2-26d0216fba22"
-        }
-      ],
-      "id": "b4b87c87-47f7-422e-88e8-291ca88b6d6a",
-      "createdAt": "2026-08-03T11:31:04.000Z",
-      "updatedAt": "2026-08-03T11:31:04.000Z",
-      "uid": "35240-b4b87c87-47f7-422e-88e8-291ca88b6d6a"
-    },
-    {
-      "name": "rest",
-      "item": [
-        {
-          "name": "images",
-          "item": [
-            {
-              "name": "{image_urn}",
-              "item": [
-                {
-                  "name": "LinkedIn Get a Single Image",
-                  "id": "c83bc989-6687-483e-8932-e1ea551c9911",
-                  "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                  },
-                  "request": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "X-Restli-Protocol-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/rest/images/:image_urn",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "rest",
-                        "images",
-                        ":image_urn"
-                      ],
-                      "variable": [
-                        {
-                          "id": "6ddd03e8-969d-4f86-a1b7-3e03a7580359",
-                          "key": "image_urn",
-                          "value": "<string>",
-                          "description": "(Required) "
-                        }
-                      ]
-                    },
-                    "description": "This API rerieve a single image."
-                  },
-                  "response": [
-                    {
-                      "id": "828cdfaa-d188-4eda-b5c9-95bbf2dd0bf1",
-                      "name": "Successful response",
-                      "originalRequest": {
-                        "method": "GET",
-                        "header": [
-                          {
-                            "key": "LinkedIn-Version",
-                            "value": "<string>"
-                          },
-                          {
-                            "key": "X-Restli-Protocol-Version",
-                            "value": "<string>"
-                          },
-                          {
-                            "key": "Accept",
-                            "value": "application/json"
-                          },
-                          {
-                            "description": "Added as a part of security scheme: oauth2",
-                            "key": "Authorization",
-                            "value": "<token>"
-                          }
-                        ],
-                        "url": {
-                          "raw": "{{baseUrl}}/rest/images/:image_urn",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "rest",
-                            "images",
-                            ":image_urn"
-                          ],
-                          "variable": [
-                            {
-                              "key": "image_urn"
-                            }
-                          ]
-                        }
-                      },
-                      "status": "OK",
-                      "code": 200,
-                      "_postman_previewlanguage": "json",
-                      "header": [
-                        {
-                          "key": "Content-Type",
-                          "value": "application/json"
-                        }
-                      ],
-                      "cookie": [],
-                      "responseTime": null,
-                      "body": "",
-                      "createdAt": "2026-08-03T11:31:04.000Z",
-                      "updatedAt": "2026-08-03T11:31:04.000Z",
-                      "uid": "35240-828cdfaa-d188-4eda-b5c9-95bbf2dd0bf1"
-                    }
-                  ],
-                  "createdAt": "2026-08-03T11:31:04.000Z",
-                  "updatedAt": "2026-08-03T11:31:04.000Z",
-                  "uid": "35240-c83bc989-6687-483e-8932-e1ea551c9911"
-                }
-              ],
-              "id": "73b01ab3-38f1-4040-ae41-5806f89b4d13",
-              "createdAt": "2026-08-03T11:31:04.000Z",
-              "updatedAt": "2026-08-03T11:31:04.000Z",
-              "uid": "35240-73b01ab3-38f1-4040-ae41-5806f89b4d13"
-            }
-          ],
-          "id": "74a5929a-2fcf-4899-a405-1fb730cf97c7",
-          "createdAt": "2026-08-03T11:31:04.000Z",
-          "updatedAt": "2026-08-03T11:31:04.000Z",
-          "uid": "35240-74a5929a-2fcf-4899-a405-1fb730cf97c7"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
-          "name": "posts",
-          "item": [
-            {
-              "name": "{postId}",
-              "item": [
-                {
-                  "name": "LinkedIn Get Image Content",
-                  "id": "30239f26-0055-4dfa-82f1-1bf9589e11ef",
-                  "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                  },
-                  "request": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "X-Restli-Protocol-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/rest/posts/:postId",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "rest",
-                        "posts",
-                        ":postId"
-                      ],
-                      "variable": [
-                        {
-                          "id": "a240b26d-d9f5-41ca-bb7f-cbd854a6ba5c",
-                          "key": "postId",
-                          "value": "<string>",
-                          "description": "(Required) "
-                        }
-                      ]
-                    },
-                    "description": "This API rerieve the content associated with a single image."
-                  },
-                  "response": [
-                    {
-                      "id": "0989dcd4-6788-429c-8f2c-c87e036dcb5b",
-                      "name": "Successful response",
-                      "originalRequest": {
-                        "method": "GET",
-                        "header": [
-                          {
-                            "key": "LinkedIn-Version",
-                            "value": "<string>"
-                          },
-                          {
-                            "key": "X-Restli-Protocol-Version",
-                            "value": "<string>"
-                          },
-                          {
-                            "key": "Accept",
-                            "value": "application/json"
-                          },
-                          {
-                            "description": "Added as a part of security scheme: oauth2",
-                            "key": "Authorization",
-                            "value": "<token>"
-                          }
-                        ],
-                        "url": {
-                          "raw": "{{baseUrl}}/rest/posts/:postId",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "rest",
-                            "posts",
-                            ":postId"
-                          ],
-                          "variable": [
-                            {
-                              "key": "postId"
-                            }
-                          ]
-                        }
-                      },
-                      "status": "OK",
-                      "code": 200,
-                      "_postman_previewlanguage": "json",
-                      "header": [
-                        {
-                          "key": "Content-Type",
-                          "value": "application/json"
-                        }
-                      ],
-                      "cookie": [],
-                      "responseTime": null,
-                      "body": "",
-                      "createdAt": "2026-08-03T11:31:04.000Z",
-                      "updatedAt": "2026-08-03T11:31:04.000Z",
-                      "uid": "35240-0989dcd4-6788-429c-8f2c-c87e036dcb5b"
-                    }
-                  ],
-                  "createdAt": "2026-08-03T11:31:04.000Z",
-                  "updatedAt": "2026-08-03T11:31:04.000Z",
-                  "uid": "35240-30239f26-0055-4dfa-82f1-1bf9589e11ef"
-                }
-              ],
-              "id": "dbfa08ef-57d4-4acb-9321-97e28157144d",
-              "createdAt": "2026-08-03T11:31:04.000Z",
-              "updatedAt": "2026-08-03T11:31:04.000Z",
-              "uid": "35240-dbfa08ef-57d4-4acb-9321-97e28157144d"
+          "id": "8d142c94-524e-44b3-9fc8-ecd7d948a160",
+          "name": "LinkedIn Get a Single Image",
+          "request": {
+            "name": "LinkedIn Get a Single Image",
+            "description": {
+              "content": "This API rerieve a single image.",
+              "type": "text/plain"
             },
-            {
-              "name": "LinkedIn Fetch Multiple Image Content",
-              "id": "e8ca198b-338f-4f14-93b5-ec8985cae294",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
+            "url": {
+              "path": [
+                "rest",
+                "images",
+                ":image_urn"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "image_urn",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
               },
-              "request": {
-                "method": "GET",
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23daabb9-47d2-410b-ac3b-acbb4792ba49",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "images",
+                    ":image_urn"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "image_urn",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
                 "header": [
                   {
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
+                    "disabled": false,
                     "key": "LinkedIn-Version",
-                    "value": "<string>"
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff6fccfd-83a9-46c7-abb6-d9172b00e3ff",
+          "name": "LinkedIn Fetch Multiple Image Content",
+          "request": {
+            "name": "LinkedIn Fetch Multiple Image Content",
+            "description": {
+              "content": "This API rerieve content from multiple images.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a211e9f-98a4-4b05-b5a8-b82e09dddc5d",
+              "name": "Successful response",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/rest/posts?ids=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "rest",
                     "posts"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
                       "key": "ids",
-                      "value": "<string>"
+                      "value": "List({encoded postId},{encoded postId})"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9311964-c60f-4c48-b23f-8ad8a00b8d2f",
+          "name": "LinkedIn Get Image Content",
+          "request": {
+            "name": "LinkedIn Get Image Content",
+            "description": {
+              "content": "This API rerieve the content associated with a single image.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "posts",
+                ":postId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "postId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "LinkedIn-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "X-Restli-Protocol-Version",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "38be2bae-d2d2-43b9-bad0-2dcdc69a3f7e",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "posts",
+                    ":postId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "postId",
+                      "description": "(Required) "
                     }
                   ]
                 },
-                "description": "This API rerieve content from multiple images."
-              },
-              "response": [
-                {
-                  "id": "8bff21ed-24bf-4f2f-8c3f-f5c4948fccf5",
-                  "name": "Successful response",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "X-Restli-Protocol-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "LinkedIn-Version",
-                        "value": "<string>"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/rest/posts?ids=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "rest",
-                        "posts"
-                      ],
-                      "query": [
-                        {
-                          "key": "ids",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "",
-                  "createdAt": "2026-08-03T11:31:04.000Z",
-                  "updatedAt": "2026-08-03T11:31:04.000Z",
-                  "uid": "35240-8bff21ed-24bf-4f2f-8c3f-f5c4948fccf5"
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "createdAt": "2026-08-03T11:31:04.000Z",
-              "updatedAt": "2026-08-03T11:31:04.000Z",
-              "uid": "35240-e8ca198b-338f-4f14-93b5-ec8985cae294"
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "id": "afac0f51-1bda-4340-9937-311a193af29f",
-          "createdAt": "2026-08-03T11:31:04.000Z",
-          "updatedAt": "2026-08-03T11:31:04.000Z",
-          "uid": "35240-afac0f51-1bda-4340-9937-311a193af29f"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "ab836e68-c38d-44c2-ab38-c05e54142e92",
-      "createdAt": "2026-08-03T11:31:04.000Z",
-      "updatedAt": "2026-08-03T11:31:04.000Z",
-      "uid": "35240-ab836e68-c38d-44c2-ab38-c05e54142e92"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -502,30 +508,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "40af5729-1c2a-42da-98bc-dbd887f41c94",
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Image Ad API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

@@ -1,26 +1,32 @@
 {
-  "info": {
-    "_postman_id": "4bbf81c9-0a3a-4155-b14b-9f2975c225d4",
-    "name": "LinkedIn Compliance Events Access Control Creative Management API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:25:19.000Z",
-    "updatedAt": "2026-08-03T11:25:19.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-4bbf81c9-0a3a-4155-b14b-9f2975c225d4"
-  },
   "item": [
     {
-      "name": "creatives",
+      "id": "bd112c91-e388-40f5-b6a3-40a2967d767b",
+      "name": "Creative Management",
+      "description": {
+        "content": "APIs to create and manage ad creatives",
+        "type": "text/plain"
+      },
       "item": [
         {
+          "id": "e6157feb-0868-4187-b162-18acdbd87177",
           "name": "LinkedIn Create Creative",
-          "id": "c94a8ae3-cd34-4553-9563-832abeac26cd",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "POST",
+            "name": "LinkedIn Create Creative",
+            "description": {
+              "content": "Create a new ad creative.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creatives"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
             "header": [
               {
                 "key": "Content-Type",
@@ -31,150 +37,137 @@
                 "value": "application/json"
               }
             ],
+            "method": "POST",
+            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"campaign\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variables\": {\n    \"data\": {}\n  }\n}",
+              "raw": "{\n  \"campaign\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variables\": {\n    \"data\": \"<object>\"\n  }\n}",
               "options": {
                 "raw": {
-                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/creatives",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "creatives"
-              ]
-            },
-            "description": "Create a new ad creative."
+            }
           },
           "response": [
             {
-              "id": "dda72c02-e064-409d-b5a0-74795014db42",
+              "id": "599a7d44-f2d8-4db7-a49a-3097b3f27c30",
               "name": "Creative created successfully",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"campaign\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variables\": {\n    \"data\": {}\n  }\n}",
+                  "raw": "{\n  \"campaign\": \"urn:li:sponsoredCampaign:444555666\",\n  \"reference\": \"urn:li:ugcPost:123456789\",\n  \"status\": \"ACTIVE\",\n  \"type\": \"SPONSORED_VIDEO\",\n  \"variables\": {\n    \"data\": {\n      \"com.linkedin.ads.SponsoredVideoCreativeVariables\": {}\n    }\n  }\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/creatives",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "creatives"
-                  ]
                 }
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"id\": \"urn:li:sponsoredCreative:777888999\",\n  \"campaign\": \"urn:li:sponsoredCampaign:444555666\",\n  \"reference\": \"urn:li:ugcPost:123456789\",\n  \"status\": \"ACTIVE\",\n  \"type\": \"SPONSORED_VIDEO\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"id\": \"<string>\",\n  \"campaign\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"status\": \"DRAFT\",\n  \"type\": \"SPONSORED_STATUS_UPDATE\"\n}",
-              "createdAt": "2026-08-03T11:25:19.000Z",
-              "updatedAt": "2026-08-03T11:25:19.000Z",
-              "uid": "35240-dda72c02-e064-409d-b5a0-74795014db42"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "401c8013-b2ce-40e6-9d42-579294e579cd",
+              "id": "7e2abcc4-e0b6-4eb9-b412-c6e3f8d89ec5",
               "name": "Bad request",
               "originalRequest": {
-                "method": "POST",
+                "url": {
+                  "path": [
+                    "creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"campaign\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variables\": {\n    \"data\": {}\n  }\n}",
+                  "raw": "{\n  \"campaign\": \"urn:li:sponsoredCampaign:444555666\",\n  \"reference\": \"urn:li:ugcPost:123456789\",\n  \"status\": \"ACTIVE\",\n  \"type\": \"SPONSORED_VIDEO\",\n  \"variables\": {\n    \"data\": {\n      \"com.linkedin.ads.SponsoredVideoCreativeVariables\": {}\n    }\n  }\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/creatives",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "creatives"
-                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:25:19.000Z",
-              "updatedAt": "2026-08-03T11:25:19.000Z",
-              "uid": "35240-401c8013-b2ce-40e6-9d42-579294e579cd"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:25:19.000Z",
-          "updatedAt": "2026-08-03T11:25:19.000Z",
-          "uid": "35240-c94a8ae3-cd34-4553-9563-832abeac26cd"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "320003e3-2acb-4836-81e4-5ae9da9156f5",
-      "createdAt": "2026-08-03T11:25:19.000Z",
-      "updatedAt": "2026-08-03T11:25:19.000Z",
-      "uid": "35240-320003e3-2acb-4836-81e4-5ae9da9156f5"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -182,30 +175,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "6c7b12d9-22f5-45db-bc21-ee495acc8155",
+    "name": "LinkedIn Compliance Events Access Control Creative Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

@@ -1,0 +1,173 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Creatives API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Creatives",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Search for Creative",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/creatives",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "accounts",
+                "value": "List(id1,id2,id3)",
+                "type": "query"
+              },
+              {
+                "name": "campaigns",
+                "value": "List(id1,id2,id3)",
+                "type": "query"
+              },
+              {
+                "name": "contentReferences",
+                "value": "List(id1,id2,id3)",
+                "type": "query"
+              },
+              {
+                "name": "creatives",
+                "value": "List(id1,id2,id3)",
+                "type": "query"
+              },
+              {
+                "name": "intendedStatuses",
+                "value": "List(ARCHIVED,CANCELED,ARCHIVED)",
+                "type": "query"
+              },
+              {
+                "name": "isTestAccount",
+                "value": "true",
+                "type": "query"
+              },
+              {
+                "name": "isTotalIncluded",
+                "value": "false",
+                "type": "query"
+              },
+              {
+                "name": "leadgenCreativeCallToActionDestinations",
+                "value": "List()",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "criteria",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "ASCENDING",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "You can search for creative content in order to get a collection of creatives matching your search parameters. The Creative API currently supports search by `creative id`, `campaign`, `account`, `content reference`, `intendedStatus`, `leadgenCreativeCallToActionDestinations` and test fields. The API supports finding creatives from multiple accounts. The values within each field are displayed with 'or' (ORed) and values across fields are displayed with 'and' (ANDed)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get a Sponsored Creative",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/creatives/:urn_creatives",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "urn_creatives",
+                "value": "urn:li:organization:123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "LinkedIn Get a Sponsored Creative"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update a Creative",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/creatives/:creative ID",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ]
+          },
+          "docs": "You can change the details of following Creatives fields:\n\n\\*   `intendedStatus`:\n\\*   `leadgenCallToAction`: field `adFormUrn` - The ad form that is a target destination for the `callToAction` button. It can only be modified when the creative is in DRAFT status. It is read only once it is set for a creative and once it transitions to any non-draft intended status.\n\\*   `leadgenCallToAction`: field label `-Label` for the `callToAction` button\n    \n\n  \nThis API updates a sponsored creative."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete a Creative",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/creatives/:creative ID",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ]
+          },
+          "docs": "A Creative can be deleted. Use DELETE method to delete a creative that meets one of the following conditions. To start the process of deleting other creative, update the status to `PENDING_DELETION`.\n\n\\*   It is in a DRAFT state.\n\\*   It is linked to a Campaign in a DRAFT state.\n\\*   It is a video ad creative and `processingState` is `PROCESSING_FAILED`.\n    \n\nThe header X-RestLi-Method must be included in the request and set to `DELETE`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Integration Configuration API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integration Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Integration Status Change Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/atsIntegrations",
+            "params": [
+              {
+                "name": "q",
+                "value": "request",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "requestId",
+                "value": "req-12345-abcde",
+                "type": "query",
+                "description": "Request ID from push notification"
+              }
+            ]
+          },
+          "docs": "Retrieves details about integration status changes when a customer enables or modifies an integration.\nFor more information, refer to the [Verify Customer Integrations documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#5-verify-customer-integrations-enablement)."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Customer ATS Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/atsIntegrations",
+            "headers": [
+              {
+                "name": "x-restli-method",
+                "value": "batch_update"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:contract:12345",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].integrationType",
+                "value": "CSA_API",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].tenantType",
+                "value": "RECRUITER",
+                "type": "query"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates customer ATS integration settings including CSA_API, ONE_CLICK_EXPORT, IN_ATS_INDICATOR, and PROFILE_PLUGIN integrations.\nFor more information, refer to the [RSC Customer Configuration documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#sample-request)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

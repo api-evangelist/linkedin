@@ -1,0 +1,164 @@
+generated: '2026-08-13'
+method: searched
+source:
+- https://learn.microsoft.com/en-us/linkedin/shared/api-guide/webhook-validation
+- https://learn.microsoft.com/en-us/linkedin/marketing/community-management/organizations/organization-social-action-notifications
+- https://learn.microsoft.com/en-us/linkedin/marketing/lead-sync/leadsync
+spec_type: null
+asyncapi_published: false
+note: >-
+  LinkedIn publishes NO AsyncAPI document for its event surface. It does document a real,
+  first-party webhook surface: a shared webhook registration + HMAC validation contract in the
+  API guide, and two event families (organization social action notifications, and Lead Sync lead
+  notifications). This artifact captures that webhook catalog verbatim from the provider docs.
+  Nothing here is inferred — every header, event type, field and endpoint below is quoted from the
+  three source pages. Webhook access is gated: the Webhooks tab in the developer portal is only
+  enabled for applications with an approved use case for webhooks.
+registration:
+  portal: https://www.linkedin.com/developers/apps
+  docs: https://learn.microsoft.com/en-us/linkedin/shared/api-guide/webhook-validation
+  transport: HTTPS only
+  constraints:
+  - All webhook URLs must use HTTPS. Non-HTTPS URLs are not supported.
+  - ngrok URIs are not supported.
+  - LinkedIn recommends testing with lambda/serverless functions on a cloud provider.
+  - Lead Sync webhook subscriptions must be created via the Lead Notification Subscriptions API, not the portal UI.
+validation:
+  style: challenge-response (HMAC-SHA256 over a challenge code)
+  challenge_request: GET {webhook_url}?challengeCode={type-4 UUID}
+  challenge_extra_param: applicationId (only for parent-child application integrations such as Apply Connect)
+  expected_response_status: 200
+  expected_response_deadline_seconds: 3
+  expected_response_content_type: application/json
+  computation: 'challengeResponse = Hex-encoded(HMACSHA256(challengeCode, clientSecret))'
+  encoding: lowercase hex
+  response_body_fields: [challengeCode, challengeResponse]
+  failure_message: This URL did not pass the security challenge check
+  revalidation_interval_hours: 2
+  block_threshold_consecutive_failures: 3
+  blocked_state_recovery: Developers are emailed on failures and can manually restart validation from the developer portal.
+signature:
+  header: X-LI-Signature
+  algorithm: HMAC-SHA256
+  key: the application clientSecret
+  string_to_sign: '"hmacsha256=" + <raw JSON POST body>'
+  computation: 'X-LI-Signature = Hex-encoded(HMACSHA256(stringToSign, clientSecret))'
+  encoding: lowercase hex (header carries the digest only; the "hmacsha256=" literal is part of the string-to-sign, not the header value)
+  comparison: constant-time; discard the event on mismatch
+  body_handling: Use the request body exactly as received — do not re-serialize, pretty-print or reformat before hashing.
+delivery:
+  ack_required: any 2xx HTTP status
+  deduplication: required — dedupe on the notification identifier in the payload
+  retry_policy:
+    organization_social_actions: every 5 minutes for 8 hours, then aborted
+  backfill:
+    organization_social_actions:
+      api: GET https://api.linkedin.com/rest/organizationalEntityNotifications?q=criteria
+      retention_days: 60
+event_families:
+- name: Organization Social Action Notifications
+  event_type: ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS
+  docs: https://learn.microsoft.com/en-us/linkedin/marketing/community-management/organizations/organization-social-action-notifications
+  permission: rw_organization_admin
+  subscription:
+    resource: /rest/eventSubscriptions
+    create: >-
+      PUT https://api.linkedin.com/rest/eventSubscriptions/(developerApplication:urn:li:developerApplication:{id},user:urn:li:person:{id},entity:urn:li:organization:{id},eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)
+    body_fields: [webhook]
+    read_by_key: GET https://api.linkedin.com/rest/eventSubscriptions/(developerApplication:...,user:...,entity:...,eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)
+    read_for_member: GET https://api.linkedin.com/rest/eventSubscriptions?q=subscriberAndEventType&eventType=ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS
+    delete: DELETE https://api.linkedin.com/rest/eventSubscriptions/(developerApplication:...,user:...,entity:...,eventType:ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS)
+    lifetime: >-
+      A subscription lives only as long as the member's authorization grant to the application and the
+      member's ADMINISTRATOR role on the organization. Revoked grant (401) or lost admin role (403)
+      silently removes the subscription.
+    expires_at_field: expiresAt
+  batching:
+    batched_by: event type
+    batch_size: 10
+  payload_envelope:
+    schema: OrganizationSocialActionNotificationEventsPayload
+    fields:
+    - {name: type, type: string, description: 'Always ORGANIZATION_SOCIAL_ACTION_NOTIFICATIONS'}
+    - {name: notifications, type: 'OrganizationSocialActionNotification[]', description: List of notifications}
+  notification_schema:
+    name: OrganizationSocialActionNotification
+    dedupe_field: notificationId
+    fields:
+    - {name: notificationId, type: long}
+    - {name: organizationalEntity, type: URN}
+    - {name: action, type: string}
+    - {name: sourcePost, type: URN}
+    - {name: decoratedSourcePost, type: Share}
+    - {name: lastModifiedAt, type: long}
+    - {name: generatedActivity, type: URN}
+    - {name: decoratedGeneratedActivity, type: '[Share, Comment]'}
+    - {name: subscriber, type: URN}
+  actions:
+  - LIKE
+  - COMMENT
+  - SHARE
+  - SHARE_MENTION
+  - ADMIN_COMMENT
+  - COMMENT_EDIT
+  - COMMENT_DELETE
+  constraints:
+  - Webhook events for LIKE, COMMENT and SHARE are only triggered for posts with visibility set to PUBLIC.
+  - LinkedIn re-checks the subscriber's admin access and authorization before each send; the notification is skipped if either fails.
+  captured_in_openapi:
+  - openapi/linkedin-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow-api-openapi.yml
+  - openapi/linkedin-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow-api-openapi.yml
+  operations: [putCreateASubscriptionRequest, getRetrieveSubscriptionByKey, deleteRemoveASubscription, getRetrieveNotificationsForThe]
+- name: Lead Sync Lead Notifications
+  event_type: LEAD_ACTION
+  docs: https://learn.microsoft.com/en-us/linkedin/marketing/lead-sync/leadsync
+  permission: r_marketing_leadgen_automation
+  subscription:
+    resource: /rest/leadNotifications
+    create_owner_level: 'POST https://api.linkedin.com/rest/leadNotifications  body: {webhook, owner, leadType}'
+    create_associated_entity_level: 'POST https://api.linkedin.com/rest/leadNotifications  body: {webhook, owner, associatedEntity, leadType}'
+    create_form_level: 'POST https://api.linkedin.com/rest/leadNotifications  body: {webhook, owner, versionedForm, leadType}'
+    read_finder: GET https://api.linkedin.com/rest/leadNotifications?q=criteria&owner=(value:(sponsoredAccount:...))&leadType=(leadType:SPONSORED)
+    read_by_id: GET https://api.linkedin.com/rest/leadNotifications/{id}
+    delete: DELETE https://api.linkedin.com/rest/leadNotifications/{id}
+    schema_docs: https://learn.microsoft.com/en-us/linkedin/marketing/lead-sync/lead-sync-schema
+    recommendation: LinkedIn recommends subscribing at the owner level so one subscription covers an owner.
+  enforcement:
+    validated_webhooks_only_since: '2026-03-16'
+    note: Only HTTPS URLs are supported; from 16 March 2026 new lead notifications are only pushed to validated webhooks.
+  payload_envelope:
+    fields:
+    - {name: type, type: string, description: Always set to LEAD_ACTION}
+    - {name: leadGenFormResponse, type: URN, description: URN of the lead}
+    - {name: owner, type: object, description: 'sponsoredAccount URN for SPONSORED leads, organization URN otherwise'}
+    - {name: associatedEntity, type: object, description: Entity the lead is associated with (e.g. event)}
+    - {name: leadGenForm, type: URN, description: URN of the versioned Lead Gen Form}
+    - {name: leadType, type: string, description: 'Type of lead, e.g. SPONSORED or EVENT'}
+    - {name: leadAction, type: string, description: CREATED or DELETED}
+    - {name: occurredAt, type: long, description: Unix timestamp of the action}
+  actions: [CREATED, DELETED]
+  deduplication: >-
+    LinkedIn states notifications can be delivered multiple times and the application MUST implement
+    deduplication logic to avoid processing the same lead twice.
+  captured_in_openapi:
+  - openapi/linkedin-use-cases-sponsored-api-openapi.yml
+  operations: [postSubscribeForLeadNotification, getFetchFullLeadData, deletePushDeleteARegistered, getGetFormsForThe]
+related_non_webhook_event_surfaces:
+- name: Compliance Events API
+  style: pull / polling
+  docs: https://learn.microsoft.com/en-us/linkedin/compliance/
+  note: Archives up to the last 30 days of a regulated member's LinkedIn activity; polled, not pushed.
+  operations: [getComplianceEvents, optInMemberForCompliance, optOutMemberFromCompliance, checkMemberRegulationStatus]
+- name: Conversions API (streaming)
+  style: client-to-LinkedIn event streaming (outbound from the integrator)
+  note: >-
+    postStreamMultipleConversionEvents streams conversion events INTO LinkedIn; it is an event
+    ingestion endpoint, not a webhook LinkedIn calls.
+  operations: [postStreamMultipleConversionEvents]
+- name: Audience streaming
+  style: client-to-LinkedIn batch streaming
+  operations: [streamUsersToSegment, streamCompaniesToSegment]
+gaps:
+- No AsyncAPI document is published for any LinkedIn event family.
+- No public event catalog page enumerates every eventType across product lines; the two families above are the ones LinkedIn documents.
+- Talent (Apply Connect) uses the same parent-child webhook validation flow but does not publish a standalone event-type table.

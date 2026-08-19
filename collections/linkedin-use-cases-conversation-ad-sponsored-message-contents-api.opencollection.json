@@ -1,0 +1,239 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Conversation Ad > Sponsored Message Contents API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Conversation Ad > Sponsored Message Contents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Batch Create Sponsored Message Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/conversationAds/:conversationAdsId/sponsoredMessageContents",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "X-RestLi-Method",
+                "value": "BATCH_CREATE"
+              }
+            ],
+            "params": [
+              {
+                "name": "conversationAdsId",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Creates Sponsored Message Content in Batches."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Sponsored Message Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/conversationAds/:conversationUrn/sponsoredMessageContents/:messageUrn",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "conversationUrn",
+                "value": "urn:li:organization:123456",
+                "type": "path"
+              },
+              {
+                "name": "messageUrn",
+                "value": "urn:li:organization:123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves just a single message content from all the conversations in a conversation Ad."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Sponsored Message Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/conversationAds/:conversationUrn/sponsoredMessageContents/:messageUrn",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "conversationUrn",
+                "value": "urn:li:organization:123456",
+                "type": "path"
+              },
+              {
+                "name": "messageUrn",
+                "value": "urn:li:organization:123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates the message contents from all the conversations in a conversation Ad."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch Get Sponsored Message Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/conversationAds/:conversationUrn/sponsoredMessageContents",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "X-RestLi-Method",
+                "value": "BATCH_GET"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({message-urn1},{message-urn2})",
+                "type": "query"
+              },
+              {
+                "name": "conversationUrn",
+                "value": "urn:li:organization:123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves Sponsored Message Content in Batches."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch Update Sponsored Message Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/conversationAds/:conversationUrn/sponsoredMessageContents",
+            "headers": [
+              {
+                "name": "'Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-RestLi-Method",
+                "value": "BATCH_UPDATE"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({message-urn1},{message-urn2})",
+                "type": "query"
+              },
+              {
+                "name": "conversationUrn",
+                "value": "urn:li:organization:123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates Sponsored Message Content in Batches."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch Delete Sponsored Message Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/conversationAds/:conversationUrn/sponsoredMessageContents",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-RestLi-Method",
+                "value": "BATCH_DELETE"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "List({message-urn1},{message-urn2})'",
+                "type": "query"
+              },
+              {
+                "name": "conversationUrn",
+                "value": "urn:li:organization:123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes Sponsored Message Content in Batches."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

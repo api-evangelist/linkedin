@@ -1,7 +1,40 @@
-generated: '2026-06-20'
-method: derived
-source: openapi/*.yml, well-known/linkedin-openid-configuration.json, LinkedIn API docs
+generated: '2026-08-13'
+method: searched
+source: openapi/*.yml, well-known/linkedin-openid-configuration.json, LinkedIn API docs, https://security.linkedin.com/trust-and-compliance
 standards:
+- id: iso-27001
+  conforms: true
+  evidence: >-
+    LinkedIn publishes ISO 27001 certification covering products and services on the LinkedIn platform,
+    with per-product-line certificates (Learning, Marketing, Sales, Talent Solutions). Source:
+    https://security.linkedin.com/trust-and-compliance (probed 200, 2026-08-13). See
+    security/linkedin-trust-center.yml.
+- id: iso-27018
+  conforms: true
+  evidence: 'ISO 27018 (privacy protection for PII in cloud services) listed at https://security.linkedin.com/trust-and-compliance.'
+- id: iso-22301
+  conforms: true
+  evidence: 'ISO 22301 business continuity certification listed at https://security.linkedin.com/trust-and-compliance; stated valid until May 2026.'
+- id: soc2
+  conforms: true
+  evidence: >-
+    SOC 2 report covering LinkedIn Learning, Marketing, Sales and Talent Solutions (a separate report
+    covers Glint); obtained through the LinkedIn Smart Trust Center, not published anonymously.
+- id: pci-dss
+  conforms: true
+  evidence: 'Annual third-party QSA assessment with an Attestation of Compliance; reports are not shared publicly. Source: https://security.linkedin.com/trust-and-compliance.'
+- id: gdpr
+  conforms: true
+  evidence: >-
+    LinkedIn publishes a Data Processing Agreement incorporating the EU Standard Contractual Clauses
+    (Modules 1 and 2) and the UK Addendum, with the Irish Data Protection Commission as competent
+    supervisory authority. Source: https://www.linkedin.com/legal/l/dpa (probed 200, 2026-08-13).
+- id: rfc9116-webhook-hmac
+  conforms: false
+  evidence: >-
+    Not a standard - recorded to be explicit that LinkedIn's webhook signing is a proprietary scheme
+    (X-LI-Signature, HMAC-SHA256 over "hmacsha256=" + raw body, keyed on the app clientSecret) rather
+    than RFC 9421 HTTP Message Signatures. See asyncapi/linkedin-webhooks.yml.
 - id: oauth2
   conforms: true
   evidence: OpenAPI securitySchemes declare oauth2 (authorizationCode + clientCredentials flows).

@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Sales Contracts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sales Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Find All Contracts Where User Has Active Seat",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/salesContracts",
+            "params": [
+              {
+                "name": "q",
+                "value": "contractsByMember",
+                "type": "query",
+                "description": "Query parameter to fetch contracts for the member"
+              }
+            ]
+          },
+          "docs": "Retrieve all Sales Navigator contracts where the authenticated user has an active seat."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

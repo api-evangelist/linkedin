@@ -1,47 +1,84 @@
-generated: '2026-06-20'
+generated: '2026-08-13'
 method: searched
-source: npm registry, PyPI, and github.com/linkedin-developers
+source:
+- https://registry.npmjs.org/linkedin-api-client
+- https://pypi.org/pypi/linkedin-api-client/json
+- https://github.com/linkedin-developers
 note: >-
-  LinkedIn ships two first-party API client libraries (JavaScript and Python),
-  both published under the shared name "linkedin-api-client" and maintained in
-  the linkedin-developers GitHub org. Third-party libraries (e.g. tomquirk's
-  linkedin-api on PyPI) are NOT first-party and are marked official: false.
+  LinkedIn ships two first-party API client libraries (JavaScript and Python), both published under the
+  shared name "linkedin-api-client" and maintained in the linkedin-developers GitHub org. Third-party
+  libraries (e.g. tomquirk's linkedin-api on PyPI) are NOT first-party and are recorded separately with
+  official: false.
+currency_finding: >-
+  CURRENCY GAP. Both first-party SDKs are still on 0.3.0 — npm published 2023-02-07 and PyPI published
+  2023-06-29, read from the registry metadata endpoints on 2026-08-13. The API they wrap ships a NEW
+  monthly version every month and the current Linkedin-Version is 202607, so the officially maintained
+  clients predate roughly three years of versioned API releases. Version pinning in these clients cannot
+  reflect any API surface added since mid-2023.
 packages:
 - language: javascript
   registry: npm
   name: linkedin-api-client
   version: 0.3.0
+  published: '2023-02-07'
   url: https://www.npmjs.com/package/linkedin-api-client
   repository: https://github.com/linkedin-developers/linkedin-api-js-client
   install: npm install linkedin-api-client
   official: true
+  source: https://registry.npmjs.org/linkedin-api-client
 - language: python
   registry: pypi
   name: linkedin-api-client
   version: 0.3.0
+  published: '2023-06-29'
   url: https://pypi.org/project/linkedin-api-client/
   repository: https://github.com/linkedin-developers/linkedin-api-python-client
   install: pip install linkedin-api-client
   official: true
+  source: https://pypi.org/pypi/linkedin-api-client/json
 - language: java
   registry: github
   name: java-sample-application
+  version: null
+  published: null
   url: https://github.com/linkedin-developers/java-sample-application
   repository: https://github.com/linkedin-developers/java-sample-application
   install: git clone https://github.com/linkedin-developers/java-sample-application
   official: true
-  note: Official Java sample application (reference, not a published Maven artifact).
+  note: >-
+    Official Java sample application (reference implementation, not a published Maven Central artifact).
+    version/published are null because there is no package-registry metadata endpoint to query — the
+    distribution is a git clone, so a consumer cannot pin a release either.
 - language: javascript
   registry: github
   name: linkedin-capi-tag-template
+  version: null
+  published: null
   url: https://github.com/linkedin-developers/linkedin-capi-tag-template
   repository: https://github.com/linkedin-developers/linkedin-capi-tag-template
   official: true
-  note: Google Tag Manager template for streaming conversion events to the Conversions API.
+  note: >-
+    Google Tag Manager template for streaming conversion events to the Conversions API. Distributed
+    through the GTM community template gallery and GitHub, not a package registry; version/published are
+    null because no registry metadata endpoint exists for it.
 third_party:
 - language: python
   registry: pypi
   name: linkedin-api
+  version: 2.3.1
+  published: '2024-11-07'
   url: https://pypi.org/project/linkedin-api/
   official: false
-  note: Unofficial Voyager-based client by tomquirk; not sanctioned by LinkedIn.
+  note: >-
+    Unofficial Voyager-based client by tomquirk; not sanctioned by LinkedIn and not built on the public
+    versioned REST APIs. Recorded for completeness only.
+  source: https://pypi.org/pypi/linkedin-api/json
+registries_checked:
+- {registry: npm, result: 'linkedin-api-client found'}
+- {registry: pypi, result: 'linkedin-api-client found'}
+- {registry: 'maven central', result: 'no first-party com.linkedin API client artifact for the public REST APIs'}
+- {registry: nuget, result: 'no first-party package'}
+- {registry: 'pkg.go.dev', result: 'no first-party module'}
+- {registry: rubygems, result: 'no first-party gem'}
+- {registry: packagist, result: 'no first-party package'}
+- {registry: crates.io, result: 'no first-party crate'}

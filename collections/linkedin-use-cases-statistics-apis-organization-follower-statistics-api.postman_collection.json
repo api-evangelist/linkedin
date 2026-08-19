@@ -1,117 +1,100 @@
 {
-  "info": {
-    "_postman_id": "270834c9-d303-49c7-9597-63eb6e374b82",
-    "name": "LinkedIn Compliance Events Access Control Use Cases > Statistics APIs > Organization Follower Statistics API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:33:30.000Z",
-    "updatedAt": "2026-08-03T11:33:31.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-270834c9-d303-49c7-9597-63eb6e374b82"
-  },
   "item": [
     {
-      "name": "organizationalEntityFollowerStatistics",
+      "id": "190cf381-b224-43d0-9239-ad638e157d86",
+      "name": "Use Cases > Statistics APIs > Organization Follower Statistics",
+      "description": {
+        "content": "This API describes usage of Organization Follower Statistics. Fore more details, check [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/follower-statistics?tabs=http&view=li-lms-unversioned).",
+        "type": "text/plain"
+      },
       "item": [
         {
+          "id": "d717b5b8-f3fc-4ce5-b558-249bfebdddf8",
           "name": "LinkedIn Time-Bound Follower Statistics",
-          "id": "64a14ebc-e00a-43b9-a7bf-7dc50f618aa0",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "GET",
+            "name": "LinkedIn Time-Bound Follower Statistics",
+            "description": {},
+            "url": {
+              "path": [
+                "organizationalEntityFollowerStatistics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "organizationalEntity",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeIntervals.timeGranularityType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeIntervals.timeRange.start",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeIntervals.timeRange.end",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
             "header": [
               {
+                "disabled": false,
                 "key": "LinkedIn-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
+                "disabled": false,
                 "key": "X-Restli-Protocol-Version",
-                "value": "<string>"
+                "value": "<string>",
+                "description": ""
               },
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/organizationalEntityFollowerStatistics?q=<string>&organizationalEntity=<string>&timeIntervals.timeGranularityType=<string>&timeIntervals.timeRange.start=<integer>&timeIntervals.timeRange.end=<integer>",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "organizationalEntityFollowerStatistics"
-              ],
-              "query": [
-                {
-                  "key": "q",
-                  "value": "<string>"
-                },
-                {
-                  "key": "organizationalEntity",
-                  "value": "<string>"
-                },
-                {
-                  "key": "timeIntervals.timeGranularityType",
-                  "value": "<string>"
-                },
-                {
-                  "key": "timeIntervals.timeRange.start",
-                  "value": "<integer>"
-                },
-                {
-                  "key": "timeIntervals.timeRange.end",
-                  "value": "<integer>"
-                }
-              ]
-            }
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "c9ecb6c9-4f04-4c6f-a515-879bdc9af530",
+              "id": "2c6da4c2-591e-436c-b095-58b853edf75c",
               "name": "Successful response",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "X-Restli-Protocol-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/organizationalEntityFollowerStatistics?q=<string>&organizationalEntity=<string>&timeIntervals.timeGranularityType=<string>&timeIntervals.timeRange.start=<integer>&timeIntervals.timeRange.end=<integer>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "organizationalEntityFollowerStatistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
                       "key": "q",
-                      "value": "<string>"
+                      "value": "organizationalEntity"
                     },
                     {
                       "key": "organizationalEntity",
-                      "value": "<string>"
+                      "value": "urn%3Ali%3Aorganization%3A2414183"
                     },
                     {
                       "key": "timeIntervals.timeGranularityType",
-                      "value": "<string>"
+                      "value": "DAY"
                     },
                     {
                       "key": "timeIntervals.timeRange.start",
@@ -121,35 +104,66 @@
                       "key": "timeIntervals.timeRange.end",
                       "value": "<integer>"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "LinkedIn-Version",
+                    "value": "{{insert_version}}",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Restli-Protocol-Version",
+                    "value": "2.0.0",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "\"\"",
               "cookie": [],
-              "responseTime": null,
-              "body": "",
-              "createdAt": "2026-08-03T11:33:31.000Z",
-              "updatedAt": "2026-08-03T11:33:31.000Z",
-              "uid": "35240-c9ecb6c9-4f04-4c6f-a515-879bdc9af530"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:33:31.000Z",
-          "updatedAt": "2026-08-03T11:33:31.000Z",
-          "uid": "35240-64a14ebc-e00a-43b9-a7bf-7dc50f618aa0"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "9fc97c72-a0c5-4333-94f2-8b13246b98e4",
-      "createdAt": "2026-08-03T11:33:31.000Z",
-      "updatedAt": "2026-08-03T11:33:31.000Z",
-      "uid": "35240-9fc97c72-a0c5-4333-94f2-8b13246b98e4"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -157,30 +171,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "5f26e4c0-b012-4861-a972-8714b3306ef4",
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Statistics APIs > Organization Follower Statistics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

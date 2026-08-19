@@ -1,507 +1,539 @@
 {
-  "info": {
-    "_postman_id": "962a8de1-aa91-484b-b7e8-9df547b720f8",
-    "name": "LinkedIn Compliance Events Access Control Profile Associations API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:29:07.000Z",
-    "updatedAt": "2026-08-03T11:29:07.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-962a8de1-aa91-484b-b7e8-9df547b720f8"
-  },
   "item": [
     {
-      "name": "salesNavigatorProfileAssociations",
+      "id": "7bdde192-45cc-407b-b666-cf58f0d7af89",
+      "name": "Profile Associations",
+      "description": {
+        "content": "Fetch Sales Navigator profile associations from CRM records",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "{InstanceId},{Partner},{RecordId}",
-          "item": [
-            {
-              "name": "LinkedIn Fetch Profile Association by Key",
-              "id": "35b1481e-1a23-408e-992b-026d3ed530fa",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "salesNavigatorProfileAssociations",
-                    "{{InstanceId}},{{Partner}},{{RecordId}}"
-                  ]
-                },
-                "description": "Fetch the corresponding match when provided with a SalesNavigatorProfileAssociationKey."
-              },
-              "response": [
-                {
-                  "id": "f8ce57d4-aa58-49a8-b44e-81c493df88af",
-                  "name": "Successfully retrieved Sales Navigator Profile Association",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "salesNavigatorProfileAssociations",
-                        "{{InstanceId}},{{Partner}},{{RecordId}}"
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"member\": \"<string>\",\n  \"profile\": \"<uri>\",\n  \"profilePhoto\": \"<uri>\"\n}",
-                  "createdAt": "2026-08-03T11:29:07.000Z",
-                  "updatedAt": "2026-08-03T11:29:07.000Z",
-                  "uid": "35240-f8ce57d4-aa58-49a8-b44e-81c493df88af"
-                },
-                {
-                  "id": "0d94e255-68e0-4c6d-9649-0c451898fafd",
-                  "name": "Bad request, missing parameter",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "salesNavigatorProfileAssociations",
-                        "{{InstanceId}},{{Partner}},{{RecordId}}"
-                      ]
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:29:07.000Z",
-                  "updatedAt": "2026-08-03T11:29:07.000Z",
-                  "uid": "35240-0d94e255-68e0-4c6d-9649-0c451898fafd"
-                },
-                {
-                  "id": "a503e9e3-e8ee-4f63-a5d8-af0e86d1cfb3",
-                  "name": "Unauthorized, invalid token",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "salesNavigatorProfileAssociations",
-                        "{{InstanceId}},{{Partner}},{{RecordId}}"
-                      ]
-                    }
-                  },
-                  "status": "Unauthorized",
-                  "code": 401,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:29:07.000Z",
-                  "updatedAt": "2026-08-03T11:29:07.000Z",
-                  "uid": "35240-a503e9e3-e8ee-4f63-a5d8-af0e86d1cfb3"
-                },
-                {
-                  "id": "360008bc-2295-4afa-890b-97f93019979f",
-                  "name": "Insufficient application access",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "salesNavigatorProfileAssociations",
-                        "{{InstanceId}},{{Partner}},{{RecordId}}"
-                      ]
-                    }
-                  },
-                  "status": "Forbidden",
-                  "code": 403,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:29:07.000Z",
-                  "updatedAt": "2026-08-03T11:29:07.000Z",
-                  "uid": "35240-360008bc-2295-4afa-890b-97f93019979f"
-                },
-                {
-                  "id": "8e556fbb-1b11-4247-90e6-041340d5d63e",
-                  "name": "Match unavailable",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "salesNavigatorProfileAssociations",
-                        "{{InstanceId}},{{Partner}},{{RecordId}}"
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:29:07.000Z",
-                  "updatedAt": "2026-08-03T11:29:07.000Z",
-                  "uid": "35240-8e556fbb-1b11-4247-90e6-041340d5d63e"
-                },
-                {
-                  "id": "3688d0b7-f94d-4728-8043-fa60e3dcf63b",
-                  "name": "Too many requests",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/salesNavigatorProfileAssociations/{{InstanceId}},{{Partner}},{{RecordId}}",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "salesNavigatorProfileAssociations",
-                        "{{InstanceId}},{{Partner}},{{RecordId}}"
-                      ]
-                    }
-                  },
-                  "status": "Too Many Requests",
-                  "code": 429,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:29:07.000Z",
-                  "updatedAt": "2026-08-03T11:29:07.000Z",
-                  "uid": "35240-3688d0b7-f94d-4728-8043-fa60e3dcf63b"
-                }
-              ],
-              "createdAt": "2026-08-03T11:29:07.000Z",
-              "updatedAt": "2026-08-03T11:29:07.000Z",
-              "uid": "35240-35b1481e-1a23-408e-992b-026d3ed530fa"
-            }
-          ],
-          "id": "1c695379-e898-48ca-a2f9-25f251841a3a",
-          "createdAt": "2026-08-03T11:29:07.000Z",
-          "updatedAt": "2026-08-03T11:29:07.000Z",
-          "uid": "35240-1c695379-e898-48ca-a2f9-25f251841a3a"
-        },
-        {
-          "name": "LinkedIn Batch Fetch Profile Associations",
-          "id": "e242e72b-83b7-455a-9a23-f00776548a0b",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
+          "id": "05907081-dd6c-4a1a-803e-8a7d7f6930c5",
+          "name": "LinkedIn Fetch Profile Association by Key",
           "request": {
-            "method": "GET",
+            "name": "LinkedIn Fetch Profile Association by Key",
+            "description": {
+              "content": "Fetch the corresponding match when provided with a SalesNavigatorProfileAssociationKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "salesNavigatorProfileAssociations",
+                "{{InstanceId}},{{Partner}},{{RecordId}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/salesNavigatorProfileAssociations?ids=<string>",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "salesNavigatorProfileAssociations"
-              ],
-              "query": [
-                {
-                  "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))",
-                  "key": "ids",
-                  "value": "<string>"
-                }
-              ]
-            },
-            "description": "Batch fetch matches when provided with multiple SalesNavigatorProfileAssociationKeys."
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "3fa680a1-e677-497b-a496-5d95bdd5916c",
-              "name": "Successfully retrieved batch Sales Navigator Profile Associations",
+              "id": "24ffe1a7-df57-48b5-b911-b1c11aed550f",
+              "name": "Successfully retrieved Sales Navigator Profile Association",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/salesNavigatorProfileAssociations?ids=<string>",
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "path": [
-                    "salesNavigatorProfileAssociations"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))",
-                      "key": "ids",
-                      "value": "<string>"
-                    }
-                  ]
-                }
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"member\": \"urn:li:person:ABC123def\",\n  \"profile\": \"https://www.linkedin.com/sales/people/ABC123def\",\n  \"profilePhoto\": \"https://media.licdn.com/dms/image/ABC123/profile.jpg\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"statuses\": {\n    \"amete\": \"<integer>\",\n    \"aute37\": \"<integer>\",\n    \"Duisef\": \"<integer>\"\n  },\n  \"results\": {\n    \"labore_7c\": {\n      \"member\": \"<string>\",\n      \"profile\": \"<uri>\",\n      \"profilePhoto\": \"<uri>\"\n    },\n    \"in_d\": {\n      \"member\": \"<string>\",\n      \"profile\": \"<uri>\",\n      \"profilePhoto\": \"<uri>\"\n    }\n  },\n  \"errors\": {\n    \"Lorem_6\": \"<string>\",\n    \"in4\": \"<string>\"\n  }\n}",
-              "createdAt": "2026-08-03T11:29:07.000Z",
-              "updatedAt": "2026-08-03T11:29:07.000Z",
-              "uid": "35240-3fa680a1-e677-497b-a496-5d95bdd5916c"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "dbf1756b-6118-44b3-9c8a-a1f8ccc1fcca",
+              "id": "d20c9cd6-5b5e-4350-975a-3fcf91b1599d",
               "name": "Bad request, missing parameter",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/salesNavigatorProfileAssociations?ids=<string>",
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "path": [
-                    "salesNavigatorProfileAssociations"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))",
-                      "key": "ids",
-                      "value": "<string>"
-                    }
-                  ]
-                }
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "Bad Request",
               "code": 400,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:29:07.000Z",
-              "updatedAt": "2026-08-03T11:29:07.000Z",
-              "uid": "35240-dbf1756b-6118-44b3-9c8a-a1f8ccc1fcca"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "c38253fb-236a-4b00-ab03-a12ac650412a",
+              "id": "28c8f585-c753-4fb7-a323-afdd70a02902",
               "name": "Unauthorized, invalid token",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/salesNavigatorProfileAssociations?ids=<string>",
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "path": [
-                    "salesNavigatorProfileAssociations"
-                  ],
-                  "query": [
-                    {
-                      "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))",
-                      "key": "ids",
-                      "value": "<string>"
-                    }
-                  ]
-                }
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "Unauthorized",
               "code": 401,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:29:07.000Z",
-              "updatedAt": "2026-08-03T11:29:07.000Z",
-              "uid": "35240-c38253fb-236a-4b00-ab03-a12ac650412a"
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29511707-1cec-4d35-8a0c-b8d7af1978c5",
+              "name": "Insufficient application access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df98734a-4b47-4b3b-98c0-cedced9882e4",
+              "name": "Match unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1d37a6c-07a0-42de-b611-eaba238a29fb",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations",
+                    "{{InstanceId}},{{Partner}},{{RecordId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:29:07.000Z",
-          "updatedAt": "2026-08-03T11:29:07.000Z",
-          "uid": "35240-e242e72b-83b7-455a-9a23-f00776548a0b"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0398bd98-f77f-4ac4-b800-06fef4e0f082",
+          "name": "LinkedIn Batch Fetch Profile Associations",
+          "request": {
+            "name": "LinkedIn Batch Fetch Profile Associations",
+            "description": {
+              "content": "Batch fetch matches when provided with multiple SalesNavigatorProfileAssociationKeys.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "salesNavigatorProfileAssociations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) List of association keys in the format List((instanceId,partner,recordId))"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3ce52c1-6c21-48e7-b16a-5a3ddd006caa",
+              "name": "Successfully retrieved batch Sales Navigator Profile Associations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statuses\": {\n    \"(sf-instance-001,salesforce,contact-12345)\": 200,\n    \"(sf-instance-001,salesforce,contact-67890)\": 200\n  },\n  \"results\": {\n    \"(sf-instance-001,salesforce,contact-12345)\": {\n      \"member\": \"urn:li:person:ABC123def\",\n      \"profile\": \"https://www.linkedin.com/sales/people/ABC123def\",\n      \"profilePhoto\": \"https://media.licdn.com/dms/image/ABC123/profile.jpg\"\n    },\n    \"(sf-instance-001,salesforce,contact-67890)\": {\n      \"member\": \"urn:li:person:XYZ789ghi\",\n      \"profile\": \"https://www.linkedin.com/sales/people/XYZ789ghi\"\n    }\n  },\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11ee8ae4-7e72-4eeb-9e33-613ff5cd80d0",
+              "name": "Bad request, missing parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffa61f13-c6fe-4a44-a067-9aecd88e3c85",
+              "name": "Unauthorized, invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "salesNavigatorProfileAssociations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "List((sf-instance-001,salesforce,contact-12345),(sf-instance-001,salesforce,contact-67890))"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "0a12a796-9a31-47c0-87bf-95efe7c28a75",
-      "createdAt": "2026-08-03T11:29:07.000Z",
-      "updatedAt": "2026-08-03T11:29:07.000Z",
-      "uid": "35240-0a12a796-9a31-47c0-87bf-95efe7c28a75"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ID of the CRM instance that synced with Sales Navigator",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "InstanceId"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ID of the CRM partner that synced with Sales Navigator",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "Partner"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ID of the CRM record",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "RecordId"
     }
   ],
   "auth": {
@@ -509,42 +541,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
-    },
-    {
-      "key": "InstanceId",
-      "value": "<string>"
-    },
-    {
-      "key": "Partner",
-      "value": "<string>"
-    },
-    {
-      "key": "RecordId",
-      "value": "<string>"
+  "info": {
+    "_postman_id": "b2d2cdfc-f163-40c7-bb45-5de02eb5c087",
+    "name": "LinkedIn Compliance Events Access Control Profile Associations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

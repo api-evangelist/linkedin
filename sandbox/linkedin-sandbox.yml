@@ -1,0 +1,92 @@
+generated: '2026-08-13'
+method: searched
+source:
+- https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts
+- https://learn.microsoft.com/en-us/linkedin/shared/api-guide/webhook-validation
+note: >-
+  LinkedIn ships no separate sandbox host and no test-vs-live API key prefixes — production and test
+  traffic share https://api.linkedin.com and the same OAuth credentials. The test surface is a flag on
+  the resource itself: a Marketing API test Ad Account, created with "test": true, whose child objects
+  inherit the flag and never serve or bill. Everything recorded here is quoted from LinkedIn's own docs;
+  no test values are invented. Talent, Learning, Sales Navigator and Compliance publish no equivalent
+  test-mode construct.
+separation:
+  model: per-resource test flag (no separate host, no test key prefix)
+  host: https://api.linkedin.com
+  key_prefixes: null
+  credentials: Same developer application and OAuth tokens are used for test and production.
+test_accounts:
+  name: Test Ad Account
+  applies_to: Marketing API (Advertising)
+  docs: https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts#working-with-test-ad-accounts
+  create:
+    endpoint: POST https://api.linkedin.com/rest/adAccounts
+    field: test
+    type: boolean
+    default: false
+    immutable: true
+    body_example:
+      currency: USD
+      name: NAME_OF_T_ACCOUNT
+      type: BUSINESS
+      test: true
+    headers:
+    - 'Authorization: Bearer {token}'
+    - 'Linkedin-Version: {YYYYMM}'
+    - 'X-Restli-Protocol-Version: 2.0.0'
+  limits:
+    max_test_accounts_per_developer_application: 1
+    account_type_required: BUSINESS
+    enterprise_supported: false
+  inheritance: >-
+    Any object created inside a test Ad Account (campaign group, campaign, creative) inherits the test
+    flag; the retrieved entity carries "test": true.
+  behaviors:
+  - Creatives created under a test Ad Account are never served in production.
+  - Creatives under a test Ad Account are auto-rejected in the review process.
+  - Test campaigns do not require billing details and incur no cost; no credit card is needed.
+  - No reporting data is available from /adAnalytics for test campaigns because impressions never occur.
+  - Audience segment upload is not supported for test accounts.
+  - Test campaigns are not publicly available and cannot be duplicated into a production account.
+  - A test Ad Account cannot be created in Campaign Manager; it must be created through the API.
+  - An existing Ad Account cannot be converted to a test account — test status is set only at creation.
+  filtering:
+    parameter: search.test
+    note: >-
+      Finders return both test and non-test entities unless filtered. search.test=true returns only test
+      entities, search.test=false only production ones. The test field is a scalar boolean, not a
+      values:List() document like the other search fields.
+    examples:
+    - GET https://api.linkedin.com/rest/adAccounts?q=search&search.status.values[0]=DRAFT&search.test=true
+    - GET https://api.linkedin.com/rest/adAccounts/{adAccountId}/adCampaignGroups?q=search&search.status.values[0]=ACTIVE&search.test=true
+    - GET https://api.linkedin.com/rest/adAccounts/{adAccountId}/adCampaigns?q=search&search.status.values[0]=ACTIVE&search.test=true&count=5
+    - GET https://api.linkedin.com/rest/adAccounts/{adAccountId}/adCreatives?q=search&search.status.values[0]=ACTIVE&search.test=true&count=5
+  errors:
+  - {scenario: Creating a test ENTERPRISE account, type: INVALID_VALUE, code: CONDITIONAL_INVALID_VALUE, message: '/test cannot be set to true if /type is set to ENTERPRISE'}
+  - {scenario: Creating more than one test account per app, type: INVALID_VALUE, code: TEST_ACCOUNT_LIMIT_REACHED, message: 'Cannot create another test account. Each developer application may have a maximum of 1 test account(s) associated with it'}
+  - {scenario: Batch-creating more than one test account, type: ACTION_NOT_ALLOWED, code: BATCH_CREATION_TEST_ACCOUNTS_CROSSING_LIMIT}
+  - {scenario: Uploading an audience segment under a test account, type: ACTION_NOT_ALLOWED, code: SEGMENT_CREATION_NOT_ALLOWED_FOR_TEST_ACCOUNTS, message: 'Segment creation is not supported for test accounts'}
+  - {scenario: Converting an existing account to test, type: FIELD_NOT_EDITABLE, message: 'Attempted to change the value of an un-editable field.'}
+  - {scenario: Passing the test flag when creating a campaign, type: FIELD_NOT_ALLOWED, message: 'Field is not allowed on creation.'}
+  captured_in_openapi:
+  - openapi/linkedin-account-management-api-openapi.yml
+  operations: [createAdAccount, searchAdAccounts, getAdAccountById, updateAdAccount]
+other_test_tooling:
+- name: Send Test InMail
+  operation: postSendTestInmail
+  source: openapi/linkedin-use-cases-inmail-content-api-openapi.yml
+  note: Sends a test sponsored InMail so a Conversation Ad can be previewed before launch.
+- name: Webhook challenge testing
+  docs: https://learn.microsoft.com/en-us/linkedin/shared/api-guide/webhook-validation
+  note: >-
+    LinkedIn recommends developing webhook handlers on cloud lambda/serverless functions; ngrok URIs are
+    explicitly unsupported and non-HTTPS URLs are rejected.
+- name: Postman workspaces
+  url: https://www.postman.com/linkedin-developer-apis
+  note: LinkedIn publishes first-party Postman workspaces per product line for exercising the APIs.
+absent:
+- No sandbox host or sandbox base URL.
+- No test-mode API keys or key prefixes.
+- No time simulation / test clocks.
+- No fixture or event-trigger CLI.
+- No test constructs documented for the Talent, Learning, Sales Navigator or Compliance APIs.

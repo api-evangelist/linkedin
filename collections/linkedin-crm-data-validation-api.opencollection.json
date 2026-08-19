@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control CRM Data Validation API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CRM Data Validation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Create CRM Data Validation Export Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/crmDataValidationExportJobs",
+            "params": [
+              {
+                "name": "crmInstanceId",
+                "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001",
+                "type": "query",
+                "description": "An URN containing the instance ID of the CRM to execute against. The URN must be URL encoded."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new CRM data validation export job to validate CRM data against LinkedIn."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get CRM Data Validation Export Job Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/crmDataValidationExportJobs/:JobId",
+            "params": [
+              {
+                "name": "JobId",
+                "value": "123456789",
+                "type": "path",
+                "description": "The ID of the export job"
+              },
+              {
+                "name": "crmInstanceId",
+                "value": "urn%3Ali%3AcrmInstance%3Asf-instance-001",
+                "type": "query",
+                "description": "An URN containing the instance ID of the CRM. The URN must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Retrieve the status and details of a CRM data validation export job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

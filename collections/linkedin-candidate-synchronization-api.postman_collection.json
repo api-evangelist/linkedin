@@ -1,36 +1,127 @@
 {
-  "info": {
-    "_postman_id": "d4c8ef37-2311-4cce-8256-e08fdfbd672e",
-    "name": "LinkedIn Compliance Events Access Control Candidate Synchronization API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:23:57.000Z",
-    "updatedAt": "2026-08-03T11:23:57.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-d4c8ef37-2311-4cce-8256-e08fdfbd672e"
-  },
   "item": [
     {
-      "name": "v2",
+      "id": "f3aacee1-420b-4411-b332-0627afab943f",
+      "name": "Candidate Synchronization",
+      "description": {
+        "content": "Sync candidate data from ATS to LinkedIn",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "atsCandidates",
-          "item": [
-            {
-              "name": "LinkedIn Sync Candidates to LinkedIn",
-              "id": "e1dec270-a385-463a-a5ff-9d1e89b0150d",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
+          "id": "9c83b36a-7a72-495d-937c-2596ac4eb15f",
+          "name": "LinkedIn Sync Candidates to LinkedIn",
+          "request": {
+            "name": "LinkedIn Sync Candidates to LinkedIn",
+            "description": {
+              "content": "Creates or updates candidate records in LinkedIn from the ATS system.\nFor more information, refer to the [Sync Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsCandidates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsCandidateId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Rest.li method type",
+                "key": "x-restli-method",
+                "value": "<string>"
               },
-              "request": {
-                "method": "PUT",
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entities\": {\n    \"key_0\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    },\n    \"key_1\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    },\n    \"key_2\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f943102a-1f0f-4aaf-a68c-e2eb36c16f0d",
+              "name": "Successfully synced candidates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsCandidates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].atsCandidateId",
+                      "value": "CAND-001"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    },
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:organization:12345"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "description": "(Required) Rest.li method type",
-                    "key": "x-restli-method",
-                    "value": "batch_partial_update"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
+                    "disabled": false,
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of request body",
                     "key": "Content-Type",
                     "value": "application/json"
                   },
@@ -39,389 +130,291 @@
                     "value": "application/json"
                   }
                 ],
+                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"entities\": {\n    \"exercitation_eb9\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"PROVINCE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"PROVINCE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    },\n    \"consectetur_a_\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"STATE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"STATE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
+                  "raw": "{\n  \"entities\": {\n    \"atsCandidateId=CAND-001&dataProvider=ATS&integrationContext=urn:li:organization:12345\": {\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"emailAddresses\": [\n        \"john.doe@example.com\"\n      ],\n      \"currentCompanyName\": \"Tech Corp\",\n      \"currentJobTitle\": \"Senior Software Engineer\",\n      \"atsCreatedAt\": 1702693664000,\n      \"atsLastModifiedAt\": 1702693664000\n    }\n  }\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fce9ede-3921-4860-94ad-cb29a1080a47",
+              "name": "Bad request",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsCandidates"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].atsCandidateId",
-                      "value": "<string>"
+                      "value": "CAND-001"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].dataProvider",
-                      "value": "<string>"
+                      "value": "ATS"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].integrationContext",
-                      "value": "<string>"
-                    }
-                  ]
-                },
-                "description": "Creates or updates candidate records in LinkedIn from the ATS system.\nFor more information, refer to the [Sync Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates)."
-              },
-              "response": [
-                {
-                  "id": "6993477a-eedf-47b4-b726-579937714a2a",
-                  "name": "Successfully synced candidates",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "description": "(Required) Rest.li method type",
-                        "key": "x-restli-method",
-                        "value": "batch_partial_update"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"entities\": {\n    \"exercitation_eb9\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"PROVINCE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"PROVINCE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    },\n    \"consectetur_a_\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"STATE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"STATE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsCandidates"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsCandidateId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
+                      "value": "urn:li:organization:12345"
                     }
                   ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:23:57.000Z",
-                  "updatedAt": "2026-08-03T11:23:57.000Z",
-                  "uid": "35240-6993477a-eedf-47b4-b726-579937714a2a"
+                  "variable": []
                 },
-                {
-                  "id": "5536eadd-1470-4f7b-9232-df041162bd47",
-                  "name": "Bad request",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "description": "(Required) Rest.li method type",
-                        "key": "x-restli-method",
-                        "value": "batch_partial_update"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"entities\": {\n    \"exercitation_eb9\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"PROVINCE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"PROVINCE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    },\n    \"consectetur_a_\": {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"middleInitial\": \"<string>\",\n      \"prefix\": \"<string>\",\n      \"suffix\": \"<string>\",\n      \"emailAddresses\": [\n        \"<email>\",\n        \"<email>\"\n      ],\n      \"phoneNumbers\": [\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        },\n        {\n          \"number\": \"<string>\",\n          \"extension\": \"<string>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"STATE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"line1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"geographicArea\": \"<string>\",\n          \"geographicAreaType\": \"STATE\",\n          \"postalCode\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"currentCompanyName\": \"<string>\",\n      \"currentJobTitle\": \"<string>\",\n      \"externalProfileUrl\": \"<uri>\",\n      \"atsCreatedAt\": \"<long>\",\n      \"atsLastModifiedAt\": \"<long>\"\n    }\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsCandidates"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsCandidateId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:23:57.000Z",
-                  "updatedAt": "2026-08-03T11:23:57.000Z",
-                  "uid": "35240-5536eadd-1470-4f7b-9232-df041162bd47"
-                }
-              ],
-              "createdAt": "2026-08-03T11:23:57.000Z",
-              "updatedAt": "2026-08-03T11:23:57.000Z",
-              "uid": "35240-e1dec270-a385-463a-a5ff-9d1e89b0150d"
-            },
-            {
-              "name": "LinkedIn Retrieve Candidate Matches",
-              "id": "2399b3e8-0a31-4a4b-b270-9851034024d8",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"atsCandidateId=CAND-001&dataProvider=ATS&integrationContext=urn:li:organization:12345\": {\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"emailAddresses\": [\n        \"john.doe@example.com\"\n      ],\n      \"currentCompanyName\": \"Tech Corp\",\n      \"currentJobTitle\": \"Senior Software Engineer\",\n      \"atsCreatedAt\": 1702693664000,\n      \"atsLastModifiedAt\": 1702693664000\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d764cac8-ebe3-4de5-8a5f-ec0020c5e89a",
+          "name": "LinkedIn Retrieve Candidate Matches",
+          "request": {
+            "name": "LinkedIn Retrieve Candidate Matches",
+            "description": {
+              "content": "Retrieves candidate details including algorithmic and user-supplied matches with LinkedIn members.\nFor more information, refer to the [Retrieve Candidate Matches documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#retrieve-candidate-matches).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsCandidates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].atsCandidateId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ddcbdcca-2cbc-4181-a609-8d01d3e7e3cb",
+              "name": "Successfully retrieved candidate matches",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsCandidates"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].atsCandidateId",
-                      "value": "<string>"
+                      "value": "CAND-001"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].dataProvider",
-                      "value": "<string>"
+                      "value": "ATS"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].integrationContext",
-                      "value": "<string>"
+                      "value": "urn:li:organization:12345"
                     }
-                  ]
+                  ],
+                  "variable": []
                 },
-                "description": "Retrieves candidate details including algorithmic and user-supplied matches with LinkedIn members.\nFor more information, refer to the [Retrieve Candidate Matches documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#retrieve-candidate-matches)."
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
-              "response": [
+              "status": "OK",
+              "code": 200,
+              "header": [
                 {
-                  "id": "6560bd60-344d-4e77-ad03-3d3c092602fc",
-                  "name": "Successfully retrieved candidate matches",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsCandidates"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsCandidateId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"middleInitial\": \"<string>\",\n  \"prefix\": \"<string>\",\n  \"suffix\": \"<string>\",\n  \"emailAddresses\": [\n    \"<email>\",\n    \"<email>\"\n  ],\n  \"phoneNumbers\": [\n    {\n      \"number\": \"<string>\",\n      \"extension\": \"<string>\"\n    },\n    {\n      \"number\": \"<string>\",\n      \"extension\": \"<string>\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"geographicArea\": \"<string>\",\n      \"geographicAreaType\": \"PROVINCE\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"geographicArea\": \"<string>\",\n      \"geographicAreaType\": \"STATE\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"currentCompanyName\": \"<string>\",\n  \"currentJobTitle\": \"<string>\",\n  \"externalProfileUrl\": \"<uri>\",\n  \"atsCreatedAt\": \"<long>\",\n  \"atsLastModifiedAt\": \"<long>\"\n}",
-                  "createdAt": "2026-08-03T11:23:57.000Z",
-                  "updatedAt": "2026-08-03T11:23:57.000Z",
-                  "uid": "35240-6560bd60-344d-4e77-ad03-3d3c092602fc"
-                },
-                {
-                  "id": "a27aef03-4db7-4f8e-b335-f44cd3c4e8cc",
-                  "name": "Candidate not found",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsCandidates?ids[0].atsCandidateId=<string>&ids[0].dataProvider=<string>&ids[0].integrationContext=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsCandidates"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].atsCandidateId",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:23:57.000Z",
-                  "updatedAt": "2026-08-03T11:23:57.000Z",
-                  "uid": "35240-a27aef03-4db7-4f8e-b335-f44cd3c4e8cc"
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "createdAt": "2026-08-03T11:23:57.000Z",
-              "updatedAt": "2026-08-03T11:23:57.000Z",
-              "uid": "35240-2399b3e8-0a31-4a4b-b270-9851034024d8"
+              "body": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"middleInitial\": \"M\",\n  \"prefix\": \"Mr\",\n  \"suffix\": \"Jr\",\n  \"emailAddresses\": [\n    \"john.doe@example.com\"\n  ],\n  \"phoneNumbers\": [\n    {\n      \"number\": \"555-555-5555\",\n      \"extension\": \"1234\"\n    },\n    {\n      \"number\": \"555-555-5555\",\n      \"extension\": \"1234\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"line1\": \"123 Main Street\",\n      \"city\": \"San Francisco\",\n      \"geographicArea\": \"CA\",\n      \"geographicAreaType\": \"STATE\",\n      \"postalCode\": \"94102\",\n      \"country\": \"US\"\n    },\n    {\n      \"line1\": \"123 Main Street\",\n      \"city\": \"San Francisco\",\n      \"geographicArea\": \"CA\",\n      \"geographicAreaType\": \"STATE\",\n      \"postalCode\": \"94102\",\n      \"country\": \"US\"\n    }\n  ],\n  \"currentCompanyName\": \"Tech Corp\",\n  \"currentJobTitle\": \"Senior Software Engineer\",\n  \"externalProfileUrl\": \"https://example.com/profile/johndoe\",\n  \"atsCreatedAt\": 1702693664000,\n  \"atsLastModifiedAt\": 1702693664000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a97e14b-1503-49c6-8a39-f7c8b4cf1d8a",
+              "name": "Candidate not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsCandidates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].atsCandidateId",
+                      "value": "CAND-001"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    },
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:organization:12345"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "id": "2a26de5e-2684-4fe3-a5a3-14cd9e5d4693",
-          "createdAt": "2026-08-03T11:23:57.000Z",
-          "updatedAt": "2026-08-03T11:23:57.000Z",
-          "uid": "35240-2a26de5e-2684-4fe3-a5a3-14cd9e5d4693"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "6345a38e-c188-4c14-8b1f-97dbf403049b",
-      "createdAt": "2026-08-03T11:23:57.000Z",
-      "updatedAt": "2026-08-03T11:23:57.000Z",
-      "uid": "35240-6345a38e-c188-4c14-8b1f-97dbf403049b"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -429,30 +422,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "928a17d9-cf83-4ea7-9579-c51a926db5f6",
+    "name": "LinkedIn Compliance Events Access Control Candidate Synchronization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

@@ -1,28 +1,48 @@
 {
-  "info": {
-    "_postman_id": "b371addf-c1a7-40ba-918c-fd158dbc7036",
-    "name": "LinkedIn Compliance Events Access Control Audience Counts API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:22:31.000Z",
-    "updatedAt": "2026-08-03T11:22:31.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-b371addf-c1a7-40ba-918c-fd158dbc7036"
-  },
   "item": [
     {
-      "name": "audienceCounts",
+      "id": "9af7bff6-32da-41ef-80fa-4755c763a03b",
+      "name": "Audience Counts",
+      "description": {
+        "content": "APIs to retrieve audience counts based on targeting criteria",
+        "type": "text/plain"
+      },
       "item": [
         {
+          "id": "2d7ff4e2-5e7f-4b5b-a0d1-97fd3f6dee2d",
           "name": "LinkedIn Get Audience Count by Targeting Criteria",
-          "id": "5a21ab83-fc35-454f-b823-9aace15624c7",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "GET",
+            "name": "LinkedIn Get Audience Count by Targeting Criteria",
+            "description": {
+              "content": "Get the number of member accounts that fit your targeting criteria. Minimum audience size of 300 is required to run a campaign.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audienceCounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "targetingCriteria",
+                  "value": "<string>",
+                  "description": "(Required) URL-encoded targeting criteria"
+                }
+              ],
+              "variable": []
+            },
             "header": [
               {
+                "disabled": false,
                 "description": "(Required) ",
                 "key": "LinkedIn-Version",
                 "value": "<string>"
@@ -32,217 +52,218 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/audienceCounts?q=targetingCriteriaV2&targetingCriteria=<string>",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "audienceCounts"
-              ],
-              "query": [
-                {
-                  "description": "(Required) ",
-                  "key": "q",
-                  "value": "targetingCriteriaV2"
-                },
-                {
-                  "description": "(Required) URL-encoded targeting criteria",
-                  "key": "targetingCriteria",
-                  "value": "<string>"
-                }
-              ]
-            },
-            "description": "Get the number of member accounts that fit your targeting criteria. Minimum audience size of 300 is required to run a campaign."
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "4c93fb14-421d-43a5-9ea8-007c3ae79c77",
+              "id": "a6ae1338-9cb5-477f-a7ae-d7002771f498",
               "name": "Successfully retrieved audience count",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "description": "(Required) ",
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/audienceCounts?q=targetingCriteriaV2&targetingCriteria=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "audienceCounts"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "q",
                       "value": "targetingCriteriaV2"
                     },
                     {
-                      "description": "(Required) URL-encoded targeting criteria",
                       "key": "targetingCriteria",
-                      "value": "<string>"
+                      "value": "(include:(and:List((or:({encoded facet_URN_1}:List({encoded facet_URN_1_value_1}))))))"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Authorization",
+                    "value": "Bearer YOUR_ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "LinkedIn-Version",
+                    "value": "202401"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"total\": 1500000,\n  \"activeCount\": 1200000\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"total\": \"<integer>\",\n  \"activeCount\": \"<integer>\"\n}",
-              "createdAt": "2026-08-03T11:22:31.000Z",
-              "updatedAt": "2026-08-03T11:22:31.000Z",
-              "uid": "35240-4c93fb14-421d-43a5-9ea8-007c3ae79c77"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "0cd629df-87ad-42d2-ba8f-e50201abf597",
+              "id": "102e05ca-a3a3-469d-afd0-dcf21aa6af84",
               "name": "Bad request - invalid targeting criteria",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "description": "(Required) ",
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/audienceCounts?q=targetingCriteriaV2&targetingCriteria=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "audienceCounts"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "q",
                       "value": "targetingCriteriaV2"
                     },
                     {
-                      "description": "(Required) URL-encoded targeting criteria",
                       "key": "targetingCriteria",
-                      "value": "<string>"
+                      "value": "(include:(and:List((or:({encoded facet_URN_1}:List({encoded facet_URN_1_value_1}))))))"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Authorization",
+                    "value": "Bearer YOUR_ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "LinkedIn-Version",
+                    "value": "202401"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "Bad Request",
               "code": 400,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:22:31.000Z",
-              "updatedAt": "2026-08-03T11:22:31.000Z",
-              "uid": "35240-0cd629df-87ad-42d2-ba8f-e50201abf597"
+              "_postman_previewlanguage": "json"
             },
             {
-              "id": "c226db68-c7b3-4c58-a7da-4e1d15e6fd51",
+              "id": "9f12e43e-36cf-46b3-86ef-2fd8d15eb89e",
               "name": "Unauthorized",
               "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "description": "(Required) ",
-                    "key": "LinkedIn-Version",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "description": "Added as a part of security scheme: oauth2",
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
                 "url": {
-                  "raw": "{{baseUrl}}/audienceCounts?q=targetingCriteriaV2&targetingCriteria=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "audienceCounts"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "q",
                       "value": "targetingCriteriaV2"
                     },
                     {
-                      "description": "(Required) URL-encoded targeting criteria",
                       "key": "targetingCriteria",
-                      "value": "<string>"
+                      "value": "(include:(and:List((or:({encoded facet_URN_1}:List({encoded facet_URN_1_value_1}))))))"
                     }
-                  ]
-                }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Authorization",
+                    "value": "Bearer YOUR_ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "LinkedIn-Version",
+                    "value": "202401"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "Unauthorized",
               "code": 401,
-              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"code\": \"INVALID_PARAMS\"\n}",
               "cookie": [],
-              "responseTime": null,
-              "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"code\": \"<string>\"\n}",
-              "createdAt": "2026-08-03T11:22:31.000Z",
-              "updatedAt": "2026-08-03T11:22:31.000Z",
-              "uid": "35240-c226db68-c7b3-4c58-a7da-4e1d15e6fd51"
+              "_postman_previewlanguage": "json"
             }
           ],
-          "createdAt": "2026-08-03T11:22:31.000Z",
-          "updatedAt": "2026-08-03T11:22:31.000Z",
-          "uid": "35240-5a21ab83-fc35-454f-b823-9aace15624c7"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "a0eb5324-2f41-4e72-8d4c-1680a8f29d0b",
-      "createdAt": "2026-08-03T11:22:31.000Z",
-      "updatedAt": "2026-08-03T11:22:31.000Z",
-      "uid": "35240-a0eb5324-2f41-4e72-8d4c-1680a8f29d0b"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -250,30 +271,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "4dad0a6a-2a98-469a-8e67-3df808faf6f1",
+    "name": "LinkedIn Compliance Events Access Control Audience Counts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

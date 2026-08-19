@@ -1,0 +1,1064 @@
+generated: '2026-08-13'
+method: derived
+source:
+- mcp/linkedin-mcp.yml
+- openapi/*.yml
+- graphql/linkedin-schema.graphql
+note: 'LinkedIn publishes no MCP server, so the MCP side of this crosswalk is the DERIVED candidate tool list in mcp/linkedin-mcp.yml,
+  which is generated one-tool-per-operationId. The binding is therefore 1:1 by construction and carries confidence: high only
+  in the narrow sense that each tool provably names a real operationId in a spec in this repo — it is NOT evidence that LinkedIn
+  ships these tools. There are no mcp_only rows because no LinkedIn-authored tool list exists to diverge from, and no rest_only
+  rows because every captured operation was projected into a tool. The GraphQL surface in graphql/ is a CONCEPTUAL model authored
+  by API Evangelist from the REST surface; LinkedIn serves no public GraphQL endpoint, so no GraphQL fields are bound here.'
+surfaces:
+  openapi:
+    path: openapi/*.yml
+    documents: 64
+    gated: false
+    note: Harvested from the LinkedIn developer documentation and Postman workspaces; all operations target https://api.linkedin.com/rest/.
+  graphql:
+    endpoint: null
+    artifact: graphql/linkedin-schema.graphql
+    gated: null
+    note: No provider-served GraphQL endpoint. The SDL in graphql/ is a conceptual model, not an introspected schema.
+  mcp:
+    url: null
+    artifact: mcp/linkedin-mcp.yml
+    gated: null
+    note: No hosted MCP server. tools/list POST to https://mcp.linkedin.com/mcp and https://api.linkedin.com/mcp both returned
+      404 on 2026-08-13.
+  runtime_requirements:
+  - 'Authorization: Bearer {3-legged or 2-legged OAuth 2.0 token}'
+  - 'Linkedin-Version: YYYYMM'
+  - 'X-Restli-Protocol-Version: 2.0.0'
+coverage:
+  tools_named: 146
+  tools_bound: 146
+  mcp_only: 0
+  rest_operations_total: 146
+  rest_operations_with_tool: 146
+crosswalk:
+- tool: upsertEntityAcl
+  category: access-control
+  rest:
+  - upsertEntityAcl
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-access-control-api-openapi.yml#upsertEntityAcl
+- tool: getEntityAcl
+  category: access-control
+  rest:
+  - getEntityAcl
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-access-control-api-openapi.yml#getEntityAcl
+- tool: deleteEntityAcl
+  category: access-control
+  rest:
+  - deleteEntityAcl
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-access-control-api-openapi.yml#deleteEntityAcl
+- tool: createAdAccount
+  category: account-management
+  rest:
+  - createAdAccount
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-account-management-api-openapi.yml#createAdAccount
+- tool: searchAdAccounts
+  category: account-management
+  rest:
+  - searchAdAccounts
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-account-management-api-openapi.yml#searchAdAccounts
+- tool: getAdAccountById
+  category: account-management
+  rest:
+  - getAdAccountById
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-account-management-api-openapi.yml#getAdAccountById
+- tool: updateAdAccount
+  category: account-management
+  rest:
+  - updateAdAccount
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-account-management-api-openapi.yml#updateAdAccount
+- tool: getAdAccounts
+  category: ad-accounts
+  rest:
+  - getAdAccounts
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-ad-accounts-api-openapi.yml#getAdAccounts
+- tool: getAdTargetingFacets
+  category: ad-targeting-entities
+  rest:
+  - getAdTargetingFacets
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-ad-targeting-entities-api-openapi.yml#getAdTargetingFacets
+- tool: searchAdTargetingEntities
+  category: ad-targeting-entities
+  rest:
+  - searchAdTargetingEntities
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-ad-targeting-entities-api-openapi.yml#searchAdTargetingEntities
+- tool: getAdvertiserTransparencyData
+  category: advertiser-transparency
+  rest:
+  - getAdvertiserTransparencyData
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-advertiser-transparency-api-openapi.yml#getAdvertiserTransparencyData
+- tool: getChildApplication
+  category: application-retrieval
+  rest:
+  - getChildApplication
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-application-retrieval-api-openapi.yml#getChildApplication
+- tool: syncApplications
+  category: application-synchronization
+  rest:
+  - syncApplications
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-application-synchronization-api-openapi.yml#syncApplications
+- tool: createResumeUploadUrl
+  category: application-synchronization
+  rest:
+  - createResumeUploadUrl
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-application-synchronization-api-openapi.yml#createResumeUploadUrl
+- tool: updateChildApplicationCallbackUrls
+  category: application-updates
+  rest:
+  - updateChildApplicationCallbackUrls
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-application-updates-api-openapi.yml#updateChildApplicationCallbackUrls
+- tool: createOrUpdateJobPosting
+  category: apply-connect-jobs
+  rest:
+  - createOrUpdateJobPosting
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-apply-connect-jobs-api-openapi.yml#createOrUpdateJobPosting
+- tool: getAudienceCount
+  category: audience-counts
+  rest:
+  - getAudienceCount
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-audience-counts-api-openapi.yml#getAudienceCount
+- tool: getAudienceInsights
+  category: audience-insights
+  rest:
+  - getAudienceInsights
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-audience-insights-api-openapi.yml#getAudienceInsights
+- tool: getAccessToken
+  category: authentication
+  rest:
+  - getAccessToken
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-authentication-api-openapi.yml#getAccessToken
+- tool: getBusinessManagerRelationships
+  category: business-manager
+  rest:
+  - getBusinessManagerRelationships
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-business-manager-api-openapi.yml#getBusinessManagerRelationships
+- tool: searchCampaignGroups
+  category: campaign-group-management
+  rest:
+  - searchCampaignGroups
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-campaign-group-management-api-openapi.yml#searchCampaignGroups
+- tool: deleteCampaignGroups
+  category: campaign-group-management
+  rest:
+  - deleteCampaignGroups
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-campaign-group-management-api-openapi.yml#deleteCampaignGroups
+- tool: getCampaignGroupById
+  category: campaign-group-management
+  rest:
+  - getCampaignGroupById
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-campaign-group-management-api-openapi.yml#getCampaignGroupById
+- tool: updateCampaignGroup
+  category: campaign-group-management
+  rest:
+  - updateCampaignGroup
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-campaign-group-management-api-openapi.yml#updateCampaignGroup
+- tool: deleteCampaignGroup
+  category: campaign-group-management
+  rest:
+  - deleteCampaignGroup
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-campaign-group-management-api-openapi.yml#deleteCampaignGroup
+- tool: searchCampaigns
+  category: campaign-management
+  rest:
+  - searchCampaigns
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-campaign-management-api-openapi.yml#searchCampaigns
+- tool: getCampaignById
+  category: campaign-management
+  rest:
+  - getCampaignById
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-campaign-management-api-openapi.yml#getCampaignById
+- tool: archiveCampaign
+  category: campaign-management
+  rest:
+  - archiveCampaign
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-campaign-management-api-openapi.yml#archiveCampaign
+- tool: syncCandidates
+  category: candidate-synchronization
+  rest:
+  - syncCandidates
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-candidate-synchronization-api-openapi.yml#syncCandidates
+- tool: getCandidateMatches
+  category: candidate-synchronization
+  rest:
+  - getCandidateMatches
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-candidate-synchronization-api-openapi.yml#getCandidateMatches
+- tool: provisionChildApplication
+  category: child-application-provisioning
+  rest:
+  - provisionChildApplication
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-child-application-provisioning-api-openapi.yml#provisionChildApplication
+- tool: streamCompaniesToSegment
+  category: company-streaming
+  rest:
+  - streamCompaniesToSegment
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-company-streaming-api-openapi.yml#streamCompaniesToSegment
+- tool: optInMemberForCompliance
+  category: compliance-authorization
+  rest:
+  - optInMemberForCompliance
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-compliance-authorization-api-openapi.yml#optInMemberForCompliance
+- tool: checkMemberRegulationStatus
+  category: compliance-authorization
+  rest:
+  - checkMemberRegulationStatus
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-compliance-authorization-api-openapi.yml#checkMemberRegulationStatus
+- tool: optOutMemberFromCompliance
+  category: compliance-authorization
+  rest:
+  - optOutMemberFromCompliance
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-compliance-authorization-api-openapi.yml#optOutMemberFromCompliance
+- tool: getComplianceEvents
+  category: compliance-events
+  rest:
+  - getComplianceEvents
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-compliance-events-api-openapi.yml#getComplianceEvents
+- tool: getRetrieveAuthenticatedUsersSponsored
+  category: conversion-events-streaming-workflow
+  rest:
+  - getRetrieveAuthenticatedUsersSponsored
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-conversion-events-streaming-workflow-api-openapi.yml#getRetrieveAuthenticatedUsersSponsored
+- tool: getFetchExistingConversionRules
+  category: conversion-events-streaming-workflow
+  rest:
+  - getFetchExistingConversionRules
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-conversion-events-streaming-workflow-api-openapi.yml#getFetchExistingConversionRules
+- tool: postCreateANewConversion
+  category: conversion-events-streaming-workflow
+  rest:
+  - postCreateANewConversion
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-conversion-events-streaming-workflow-api-openapi.yml#postCreateANewConversion
+- tool: getFetchActiveCampaigns
+  category: conversion-events-streaming-workflow
+  rest:
+  - getFetchActiveCampaigns
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-conversion-events-streaming-workflow-api-openapi.yml#getFetchActiveCampaigns
+- tool: putAssociateCampaignsToConversion
+  category: conversion-events-streaming-workflow
+  rest:
+  - putAssociateCampaignsToConversion
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-conversion-events-streaming-workflow-api-openapi.yml#putAssociateCampaignsToConversion
+- tool: postStreamMultipleConversionEvents
+  category: conversion-events-streaming-workflow
+  rest:
+  - postStreamMultipleConversionEvents
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-conversion-events-streaming-workflow-api-openapi.yml#postStreamMultipleConversionEvents
+- tool: createCreative
+  category: creative-management
+  rest:
+  - createCreative
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-creative-management-api-openapi.yml#createCreative
+- tool: createCrmDataValidationExportJob
+  category: crm-data-validation
+  rest:
+  - createCrmDataValidationExportJob
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-crm-data-validation-api-openapi.yml#createCrmDataValidationExportJob
+- tool: getCrmDataValidationExportJob
+  category: crm-data-validation
+  rest:
+  - getCrmDataValidationExportJob
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-crm-data-validation-api-openapi.yml#getCrmDataValidationExportJob
+- tool: updateCustomerIntegrations
+  category: customer-integrations
+  rest:
+  - updateCustomerIntegrations
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-customer-integrations-api-openapi.yml#updateCustomerIntegrations
+- tool: getCustomerIntegrations
+  category: customer-integrations
+  rest:
+  - getCustomerIntegrations
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-customer-integrations-api-openapi.yml#getCustomerIntegrations
+- tool: deleteCandidates
+  category: data-deletion
+  rest:
+  - deleteCandidates
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-data-deletion-api-openapi.yml#deleteCandidates
+- tool: deleteApplications
+  category: data-deletion
+  rest:
+  - deleteApplications
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-data-deletion-api-openapi.yml#deleteApplications
+- tool: getExportedCandidates
+  category: data-retrieval
+  rest:
+  - getExportedCandidates
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-data-retrieval-api-openapi.yml#getExportedCandidates
+- tool: getRecruiterSeatholders
+  category: data-retrieval
+  rest:
+  - getRecruiterSeatholders
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-data-retrieval-api-openapi.yml#getRecruiterSeatholders
+- tool: getDmpSegments
+  category: dmp-segments
+  rest:
+  - getDmpSegments
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-dmp-segments-api-openapi.yml#getDmpSegments
+- tool: createDmpSegment
+  category: dmp-segments
+  rest:
+  - createDmpSegment
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-dmp-segments-api-openapi.yml#createDmpSegment
+- tool: getEvents
+  category: events
+  rest:
+  - getEvents
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-events-api-openapi.yml#getEvents
+- tool: getPosts
+  category: feed-content
+  rest:
+  - getPosts
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-feed-content-api-openapi.yml#getPosts
+- tool: getReactions
+  category: feed-content
+  rest:
+  - getReactions
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-feed-content-api-openapi.yml#getReactions
+- tool: getComments
+  category: feed-content
+  rest:
+  - getComments
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-feed-content-api-openapi.yml#getComments
+- tool: postForecastAvgLifetimeFrequency
+  category: fetch-media-plan
+  rest:
+  - postForecastAvgLifetimeFrequency
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-fetch-media-plan-api-openapi.yml#postForecastAvgLifetimeFrequency
+- tool: updateAtsIntegration
+  category: integration-configuration
+  rest:
+  - updateAtsIntegration
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-integration-configuration-api-openapi.yml#updateAtsIntegration
+- tool: getIntegrationNotification
+  category: integration-configuration
+  rest:
+  - getIntegrationNotification
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-integration-configuration-api-openapi.yml#getIntegrationNotification
+- tool: getJobPostingTaskStatus
+  category: job-lifecycle-management
+  rest:
+  - getJobPostingTaskStatus
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-job-lifecycle-management-api-openapi.yml#getJobPostingTaskStatus
+- tool: getLeadGenResponses
+  category: lead-generation
+  rest:
+  - getLeadGenResponses
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-lead-generation-api-openapi.yml#getLeadGenResponses
+- tool: getLearningActivityReports
+  category: learning-activity-reports
+  rest:
+  - getLearningActivityReports
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-learning-activity-reports-api-openapi.yml#getLearningActivityReports
+- tool: attachListToSegment
+  category: list-uploads
+  rest:
+  - attachListToSegment
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-list-uploads-api-openapi.yml#attachListToSegment
+- tool: getOrganizationAcls
+  category: organization-access-control
+  rest:
+  - getOrganizationAcls
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-organization-access-control-api-openapi.yml#getOrganizationAcls
+- tool: batchGetOrganizations
+  category: organizations
+  rest:
+  - batchGetOrganizations
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-organizations-api-openapi.yml#batchGetOrganizations
+- tool: getOrganization
+  category: organizations
+  rest:
+  - getOrganization
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-organizations-api-openapi.yml#getOrganization
+- tool: getPageContentAnalytics
+  category: page-analytics
+  rest:
+  - getPageContentAnalytics
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-page-analytics-api-openapi.yml#getPageContentAnalytics
+- tool: getProfileAssociation
+  category: profile-associations
+  rest:
+  - getProfileAssociation
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-profile-associations-api-openapi.yml#getProfileAssociation
+- tool: batchGetProfileAssociations
+  category: profile-associations
+  rest:
+  - batchGetProfileAssociations
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-profile-associations-api-openapi.yml#batchGetProfileAssociations
+- tool: getSalesAccessToken
+  category: sales-access-tokens
+  rest:
+  - getSalesAccessToken
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-sales-access-tokens-api-openapi.yml#getSalesAccessToken
+- tool: getSalesAnalyticsExportJob
+  category: sales-analytics-export
+  rest:
+  - getSalesAnalyticsExportJob
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-sales-analytics-export-api-openapi.yml#getSalesAnalyticsExportJob
+- tool: createSalesAnalyticsExportJob
+  category: sales-analytics-export
+  rest:
+  - createSalesAnalyticsExportJob
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-sales-analytics-export-api-openapi.yml#createSalesAnalyticsExportJob
+- tool: getContractsByMember
+  category: sales-contracts
+  rest:
+  - getContractsByMember
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-sales-contracts-api-openapi.yml#getContractsByMember
+- tool: getConversionsByMemberCompany
+  category: b2b-templates-conversions-deep-dive
+  rest:
+  - getConversionsByMemberCompany
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-b2b-templates-conversions-deep-dive-api-openapi.yml#getConversionsByMemberCompany
+- tool: postCreateASponsoredConversation
+  category: conversation-ad-sponsored-conversations
+  rest:
+  - postCreateASponsoredConversation
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-conversations-api-openapi.yml#postCreateASponsoredConversation
+- tool: getGetMultipleSponsoredConversations
+  category: conversation-ad-sponsored-conversations
+  rest:
+  - getGetMultipleSponsoredConversations
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-conversations-api-openapi.yml#getGetMultipleSponsoredConversations
+- tool: getGetASponsoredConversation
+  category: conversation-ad-sponsored-conversations
+  rest:
+  - getGetASponsoredConversation
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-conversations-api-openapi.yml#getGetASponsoredConversation
+- tool: postUpdateASponsoredConversation
+  category: conversation-ad-sponsored-conversations
+  rest:
+  - postUpdateASponsoredConversation
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-conversations-api-openapi.yml#postUpdateASponsoredConversation
+- tool: postBatchCreateSponsoredMessage
+  category: conversation-ad-sponsored-message-contents
+  rest:
+  - postBatchCreateSponsoredMessage
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-message-contents-api-openapi.yml#postBatchCreateSponsoredMessage
+- tool: getGetSponsoredMessageContent
+  category: conversation-ad-sponsored-message-contents
+  rest:
+  - getGetSponsoredMessageContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-message-contents-api-openapi.yml#getGetSponsoredMessageContent
+- tool: postUpdateSponsoredMessageContent
+  category: conversation-ad-sponsored-message-contents
+  rest:
+  - postUpdateSponsoredMessageContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-message-contents-api-openapi.yml#postUpdateSponsoredMessageContent
+- tool: getBatchGetSponsoredMessage
+  category: conversation-ad-sponsored-message-contents
+  rest:
+  - getBatchGetSponsoredMessage
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-message-contents-api-openapi.yml#getBatchGetSponsoredMessage
+- tool: postBatchUpdateSponsoredMessage
+  category: conversation-ad-sponsored-message-contents
+  rest:
+  - postBatchUpdateSponsoredMessage
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-message-contents-api-openapi.yml#postBatchUpdateSponsoredMessage
+- tool: deleteBatchDeleteSponsoredMessage
+  category: conversation-ad-sponsored-message-contents
+  rest:
+  - deleteBatchDeleteSponsoredMessage
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-conversation-ad-sponsored-message-contents-api-openapi.yml#deleteBatchDeleteSponsoredMessage
+- tool: getSearchForCreative
+  category: creatives
+  rest:
+  - getSearchForCreative
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-creatives-api-openapi.yml#getSearchForCreative
+- tool: getGetASponsoredCreative
+  category: creatives
+  rest:
+  - getGetASponsoredCreative
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-creatives-api-openapi.yml#getGetASponsoredCreative
+- tool: postUpdateACreative
+  category: creatives
+  rest:
+  - postUpdateACreative
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-creatives-api-openapi.yml#postUpdateACreative
+- tool: deleteDeleteACreative
+  category: creatives
+  rest:
+  - deleteDeleteACreative
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-creatives-api-openapi.yml#deleteDeleteACreative
+- tool: putUploadTheDocumentFile
+  category: document-ad
+  rest:
+  - putUploadTheDocumentFile
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-document-ad-api-openapi.yml#putUploadTheDocumentFile
+- tool: getGetMultipleDocuments
+  category: document-ad
+  rest:
+  - getGetMultipleDocuments
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-document-ad-api-openapi.yml#getGetMultipleDocuments
+- tool: postCreateDocumentContent
+  category: document-ad
+  rest:
+  - postCreateDocumentContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-document-ad-api-openapi.yml#postCreateDocumentContent
+- tool: getFetchMultipleDocumentContent
+  category: document-ad
+  rest:
+  - getFetchMultipleDocumentContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-document-ad-api-openapi.yml#getFetchMultipleDocumentContent
+- tool: postInitializeDocumentUpload
+  category: document-ad
+  rest:
+  - postInitializeDocumentUpload
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-document-ad-api-openapi.yml#postInitializeDocumentUpload
+- tool: getGetASingleDocument
+  category: document-ad
+  rest:
+  - getGetASingleDocument
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-document-ad-api-openapi.yml#getGetASingleDocument
+- tool: postInitializeImageUpload
+  category: image-ad
+  rest:
+  - postInitializeImageUpload
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-image-ad-api-openapi.yml#postInitializeImageUpload
+- tool: getGetASingleImage
+  category: image-ad
+  rest:
+  - getGetASingleImage
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-image-ad-api-openapi.yml#getGetASingleImage
+- tool: getFetchMultipleImageContent
+  category: image-ad
+  rest:
+  - getFetchMultipleImageContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-image-ad-api-openapi.yml#getFetchMultipleImageContent
+- tool: getGetImageContent
+  category: image-ad
+  rest:
+  - getGetImageContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-image-ad-api-openapi.yml#getGetImageContent
+- tool: postCreateInmailContent
+  category: inmail-content
+  rest:
+  - postCreateInmailContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-inmail-content-api-openapi.yml#postCreateInmailContent
+- tool: getGetInmailContent
+  category: inmail-content
+  rest:
+  - getGetInmailContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-inmail-content-api-openapi.yml#getGetInmailContent
+- tool: postUpdateInmailContent
+  category: inmail-content
+  rest:
+  - postUpdateInmailContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-inmail-content-api-openapi.yml#postUpdateInmailContent
+- tool: getBatchGetInmailContent
+  category: inmail-content
+  rest:
+  - getBatchGetInmailContent
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-inmail-content-api-openapi.yml#getBatchGetInmailContent
+- tool: postSendTestInmail
+  category: inmail-content
+  rest:
+  - postSendTestInmail
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-inmail-content-api-openapi.yml#postSendTestInmail
+- tool: getFindOrganizationAccessControl
+  category: organization-access-controls
+  rest:
+  - getFindOrganizationAccessControl
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-access-controls-api-openapi.yml#getFindOrganizationAccessControl
+- tool: getSearchByKeyword
+  category: organization-followers
+  rest:
+  - getSearchByKeyword
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-followers-api-openapi.yml#getSearchByKeyword
+- tool: getSearchByVanityUrl
+  category: organization-followers
+  rest:
+  - getSearchByVanityUrl
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-followers-api-openapi.yml#getSearchByVanityUrl
+- tool: getFindAdministeredOrganizationBrands
+  category: organization-lookup-organization-brands
+  rest:
+  - getFindAdministeredOrganizationBrands
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-lookup-organization-brands-api-openapi.yml#getFindAdministeredOrganizationBrands
+- tool: getBatchGetOnAdministered
+  category: organization-lookup-organization-brands
+  rest:
+  - getBatchGetOnAdministered
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-lookup-organization-brands-api-openapi.yml#getBatchGetOnAdministered
+- tool: getRetrieveAnAdministeredOrganization
+  category: organization-lookup-organization-brands
+  rest:
+  - getRetrieveAnAdministeredOrganization
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-lookup-organization-brands-api-openapi.yml#getRetrieveAnAdministeredOrganization
+- tool: getBatchGetOnNonadministered
+  category: organization-lookup-organization-brands
+  rest:
+  - getBatchGetOnNonadministered
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-lookup-organization-brands-api-openapi.yml#getBatchGetOnNonadministered
+- tool: getLookupByOrganizationPrimary
+  category: organization-lookup-organizations
+  rest:
+  - getLookupByOrganizationPrimary
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-lookup-organizations-api-openapi.yml#getLookupByOrganizationPrimary
+- tool: getFindNonadministeredOrganization
+  category: organization-lookup-organizations
+  rest:
+  - getFindNonadministeredOrganization
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-lookup-organizations-api-openapi.yml#getFindNonadministeredOrganization
+- tool: getRetrieveOrganizationFollowerCount
+  category: organization-lookup-organizations
+  rest:
+  - getRetrieveOrganizationFollowerCount
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-organization-lookup-organizations-api-openapi.yml#getRetrieveOrganizationFollowerCount
+- tool: getGetPostsByUrn
+  category: posts
+  rest:
+  - getGetPostsByUrn
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-posts-api-openapi.yml#getGetPostsByUrn
+- tool: deleteDeleteAPost
+  category: posts
+  rest:
+  - deleteDeleteAPost
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-posts-api-openapi.yml#deleteDeleteAPost
+- tool: postUpdateAPost
+  category: posts
+  rest:
+  - postUpdateAPost
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-posts-api-openapi.yml#postUpdateAPost
+- tool: postCreateAShareWith
+  category: social-actions-notifications-organization-social-actions-notifications-pull-workflow
+  rest:
+  - postCreateAShareWith
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow-api-openapi.yml#postCreateAShareWith
+- tool: getRetrieveNotificationsForThe
+  category: social-actions-notifications-organization-social-actions-notifications-pull-workflow
+  rest:
+  - getRetrieveNotificationsForThe
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-social-actions-notifications-organization-social-actions-notifications-pull-workflow-api-openapi.yml#getRetrieveNotificationsForThe
+- tool: putCreateASubscriptionRequest
+  category: social-actions-notifications-organization-social-actions-notifications-push-workflow
+  rest:
+  - putCreateASubscriptionRequest
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow-api-openapi.yml#putCreateASubscriptionRequest
+- tool: getRetrieveSubscriptionByKey
+  category: social-actions-notifications-organization-social-actions-notifications-push-workflow
+  rest:
+  - getRetrieveSubscriptionByKey
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow-api-openapi.yml#getRetrieveSubscriptionByKey
+- tool: deleteRemoveASubscription
+  category: social-actions-notifications-organization-social-actions-notifications-push-workflow
+  rest:
+  - deleteRemoveASubscription
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-social-actions-notifications-organization-social-actions-notifications-push-workflow-api-openapi.yml#deleteRemoveASubscription
+- tool: getValidateTheUsersOrganization
+  category: sponsored
+  rest:
+  - getValidateTheUsersOrganization
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-sponsored-api-openapi.yml#getValidateTheUsersOrganization
+- tool: getGetFormsForThe
+  category: sponsored
+  rest:
+  - getGetFormsForThe
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-sponsored-api-openapi.yml#getGetFormsForThe
+- tool: getSchedulePeriodicFormResponse
+  category: sponsored
+  rest:
+  - getSchedulePeriodicFormResponse
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-sponsored-api-openapi.yml#getSchedulePeriodicFormResponse
+- tool: postSubscribeForLeadNotification
+  category: sponsored
+  rest:
+  - postSubscribeForLeadNotification
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-sponsored-api-openapi.yml#postSubscribeForLeadNotification
+- tool: getFetchFullLeadData
+  category: sponsored
+  rest:
+  - getFetchFullLeadData
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-sponsored-api-openapi.yml#getFetchFullLeadData
+- tool: deletePushDeleteARegistered
+  category: sponsored
+  rest:
+  - deletePushDeleteARegistered
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-sponsored-api-openapi.yml#deletePushDeleteARegistered
+- tool: getGetTheUsersSponsored
+  category: sponsored
+  rest:
+  - getGetTheUsersSponsored
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-sponsored-api-openapi.yml#getGetTheUsersSponsored
+- tool: postCreateADynamicSpotlight
+  category: spotlight-ad
+  rest:
+  - postCreateADynamicSpotlight
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-spotlight-ad-api-openapi.yml#postCreateADynamicSpotlight
+- tool: getGetADynamicSpotlight
+  category: spotlight-ad
+  rest:
+  - getGetADynamicSpotlight
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-spotlight-ad-api-openapi.yml#getGetADynamicSpotlight
+- tool: postUpdateADynamicSpotlight
+  category: spotlight-ad
+  rest:
+  - postUpdateADynamicSpotlight
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-spotlight-ad-api-openapi.yml#postUpdateADynamicSpotlight
+- tool: deleteDeleteADynamicSpotlight
+  category: spotlight-ad
+  rest:
+  - deleteDeleteADynamicSpotlight
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-spotlight-ad-api-openapi.yml#deleteDeleteADynamicSpotlight
+- tool: getTimeboundFollowerStatistics
+  category: statistics-apis-organization-follower-statistics
+  rest:
+  - getTimeboundFollowerStatistics
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-statistics-apis-organization-follower-statistics-api-openapi.yml#getTimeboundFollowerStatistics
+- tool: getLifetimePageStatistics
+  category: statistics-apis-organization-page-statistics
+  rest:
+  - getLifetimePageStatistics
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-statistics-apis-organization-page-statistics-api-openapi.yml#getLifetimePageStatistics
+- tool: getTimeBoundShareStatistics
+  category: statistics-apis-organization-share-statistics
+  rest:
+  - getTimeBoundShareStatistics
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-statistics-apis-organization-share-statistics-api-openapi.yml#getTimeBoundShareStatistics
+- tool: getGetMultipleVideos
+  category: video-ad
+  rest:
+  - getGetMultipleVideos
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-video-ad-api-openapi.yml#getGetMultipleVideos
+- tool: postInitializeVideoUpload
+  category: video-ad
+  rest:
+  - postInitializeVideoUpload
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-video-ad-api-openapi.yml#postInitializeVideoUpload
+- tool: getGetASingleVideo
+  category: video-ad
+  rest:
+  - getGetASingleVideo
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-use-cases-video-ad-api-openapi.yml#getGetASingleVideo
+- tool: createAdAccountUser
+  category: user-access
+  rest:
+  - createAdAccountUser
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-user-access-api-openapi.yml#createAdAccountUser
+- tool: getAdAccountUser
+  category: user-access
+  rest:
+  - getAdAccountUser
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-user-access-api-openapi.yml#getAdAccountUser
+- tool: updateAdAccountUser
+  category: user-access
+  rest:
+  - updateAdAccountUser
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-user-access-api-openapi.yml#updateAdAccountUser
+- tool: deleteAdAccountUser
+  category: user-access
+  rest:
+  - deleteAdAccountUser
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-user-access-api-openapi.yml#deleteAdAccountUser
+- tool: getAuthenticatedUserAdAccounts
+  category: user-access
+  rest:
+  - getAuthenticatedUserAdAccounts
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-user-access-api-openapi.yml#getAuthenticatedUserAdAccounts
+- tool: getOrganizationAcls
+  category: user-access
+  rest:
+  - getOrganizationAcls
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-user-access-api-openapi.yml#getOrganizationAcls
+- tool: streamUsersToSegment
+  category: user-streaming
+  rest:
+  - streamUsersToSegment
+  binding: rest
+  confidence: high
+  source_operation: openapi/linkedin-user-streaming-api-openapi.yml#streamUsersToSegment
+mcp_only: []
+rest_only: []

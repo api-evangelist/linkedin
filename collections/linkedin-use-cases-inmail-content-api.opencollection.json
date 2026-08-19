@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Use Cases > InMail Content API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > InMail Content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Create InMail Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/inMailContents/",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ]
+          },
+          "docs": "API to create an inMail Content."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get InMail Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/inMailContents/:adInMailContentId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "adInMailContentId",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "API to retrieve an inMail Content."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update InMail Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/inMailContents/:adInMailContentId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              }
+            ],
+            "params": [
+              {
+                "name": "adInMailContentId",
+                "value": "123456",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "API to update an inMail Content."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Batch Get InMail Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/inMailContents",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "X-RestLi-Method",
+                "value": "BATCH_CREATE"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "{encoded adInMailContentId}",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "API to retrieve an inMail Content in Batches."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Send Test InMail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/rest/inMailContents",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "{{insert_token}}"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "action",
+                "value": "sendTestInMail",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "API to send/share an inMail Content."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

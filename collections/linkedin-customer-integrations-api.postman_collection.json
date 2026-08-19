@@ -1,651 +1,609 @@
 {
-  "info": {
-    "_postman_id": "183ecf4b-b67c-436b-a7d9-f3ca97fbdd55",
-    "name": "LinkedIn Compliance Events Access Control Customer Integrations API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:25:43.000Z",
-    "updatedAt": "2026-08-03T11:25:43.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-183ecf4b-b67c-436b-a7d9-f3ca97fbdd55"
-  },
   "item": [
     {
-      "name": "v2",
+      "id": "0f8ec44d-a417-4ca7-946b-d0017246d5a6",
+      "name": "Customer Integrations",
+      "description": {
+        "content": "APIs for managing customer ATS integrations for premium job posting",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "atsIntegrations",
-          "item": [
-            {
-              "name": "LinkedIn Update Customer ATS Integrations",
-              "id": "eae00ede-8514-4422-9d8a-32d6267c33f2",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
+          "id": "fbbabd5f-f21b-4208-ae7e-6abb7985eb0c",
+          "name": "LinkedIn Update Customer ATS Integrations",
+          "request": {
+            "name": "LinkedIn Update Customer ATS Integrations",
+            "description": {
+              "content": "Updates customer ATS integrations for premium job posting capabilities. Partners use this endpoint to configure the integration name and other settings for their customers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsIntegrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) Integration context URN"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationType",
+                  "value": "<string>",
+                  "description": "(Required) Type of integration"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].tenantType",
+                  "value": "<string>",
+                  "description": "(Required) Tenant type for the integration"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) Data provider identifier"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
               },
-              "request": {
-                "method": "POST",
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entities\": {\n    \"key_0\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"key_1\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cbb1c866-3981-442f-a869-c1eef2964f20",
+              "name": "Successfully updated the integration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"entities\": {\n    \"magnaae9\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"cillum0a\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"quis7\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "raw": "{\n  \"entities\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\"\n        }\n      }\n    }\n  }\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"integrationContext\": \"urn:li:contract:12345\",\n      \"integrationType\": \"PREMIUM_JOB_POSTING\",\n      \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\",\n      \"status\": \"ENABLED\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb3a083d-9dee-4531-992c-8fc91724a24d",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsIntegrations"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) Integration context URN",
                       "key": "ids[0].integrationContext",
-                      "value": "<string>"
+                      "value": "urn:li:contract:12345"
                     },
                     {
-                      "description": "(Required) Type of integration",
                       "key": "ids[0].integrationType",
-                      "value": "<string>"
+                      "value": "PREMIUM_JOB_POSTING"
                     },
                     {
-                      "description": "(Required) Tenant type for the integration",
                       "key": "ids[0].tenantType",
-                      "value": "<string>"
+                      "value": "JOBS"
                     },
                     {
-                      "description": "(Required) Data provider identifier",
                       "key": "ids[0].dataProvider",
-                      "value": "<string>"
-                    }
-                  ]
-                },
-                "description": "Updates customer ATS integrations for premium job posting capabilities. Partners use this endpoint to configure the integration name and other settings for their customers."
-              },
-              "response": [
-                {
-                  "id": "8c924fdc-e541-492b-8fbb-5a533c1e41c9",
-                  "name": "Successfully updated the integration",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"entities\": {\n    \"magnaae9\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"cillum0a\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"quis7\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Integration context URN",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Type of integration",
-                          "key": "ids[0].integrationType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Tenant type for the integration",
-                          "key": "ids[0].tenantType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Data provider identifier",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
+                      "value": "ATS"
                     }
                   ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"results\": {\n    \"veniam20\": {\n      \"integrationContext\": \"<string>\",\n      \"integrationType\": \"<string>\",\n      \"integrationName\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  }\n}",
-                  "createdAt": "2026-08-03T11:25:43.000Z",
-                  "updatedAt": "2026-08-03T11:25:43.000Z",
-                  "uid": "35240-8c924fdc-e541-492b-8fbb-5a533c1e41c9"
+                  "variable": []
                 },
-                {
-                  "id": "cbc000b6-552f-4dd0-9e2c-4d487b476d2a",
-                  "name": "Bad request - invalid parameters",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"entities\": {\n    \"magnaae9\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"cillum0a\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"quis7\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Integration context URN",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Type of integration",
-                          "key": "ids[0].integrationType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Tenant type for the integration",
-                          "key": "ids[0].tenantType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Data provider identifier",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:25:43.000Z",
-                  "updatedAt": "2026-08-03T11:25:43.000Z",
-                  "uid": "35240-cbc000b6-552f-4dd0-9e2c-4d487b476d2a"
-                },
-                {
-                  "id": "fe88f5ee-c3a2-4bdd-bd20-6db20ad37e1c",
-                  "name": "Unauthorized - invalid or missing authentication",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"entities\": {\n    \"magnaae9\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"cillum0a\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"quis7\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Integration context URN",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Type of integration",
-                          "key": "ids[0].integrationType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Tenant type for the integration",
-                          "key": "ids[0].tenantType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Data provider identifier",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Unauthorized",
-                  "code": 401,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:25:43.000Z",
-                  "updatedAt": "2026-08-03T11:25:43.000Z",
-                  "uid": "35240-fe88f5ee-c3a2-4bdd-bd20-6db20ad37e1c"
-                }
-              ],
-              "createdAt": "2026-08-03T11:25:43.000Z",
-              "updatedAt": "2026-08-03T11:25:43.000Z",
-              "uid": "35240-eae00ede-8514-4422-9d8a-32d6267c33f2"
-            },
-            {
-              "name": "LinkedIn Get Customer ATS Integration Details",
-              "id": "cc2b5387-74b7-4507-9d5f-83f66deb7312",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ece5def-7907-4601-9fb1-91a99afc912c",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsIntegrations"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) Integration context URN",
                       "key": "ids[0].integrationContext",
-                      "value": "<string>"
+                      "value": "urn:li:contract:12345"
                     },
                     {
-                      "description": "(Required) Type of integration",
                       "key": "ids[0].integrationType",
-                      "value": "<string>"
+                      "value": "PREMIUM_JOB_POSTING"
                     },
                     {
-                      "description": "(Required) Tenant type for the integration",
                       "key": "ids[0].tenantType",
-                      "value": "<string>"
+                      "value": "JOBS"
                     },
                     {
-                      "description": "(Required) Data provider identifier",
                       "key": "ids[0].dataProvider",
-                      "value": "<string>"
+                      "value": "ATS"
                     }
-                  ]
+                  ],
+                  "variable": []
                 },
-                "description": "Retrieves the details of a customer's ATS integration for premium job posting. Use this endpoint to verify integration configuration and status."
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
               },
-              "response": [
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
                 {
-                  "id": "7ba687fa-7091-463e-bc81-b15678b2296c",
-                  "name": "Successfully retrieved integration details",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Integration context URN",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Type of integration",
-                          "key": "ids[0].integrationType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Tenant type for the integration",
-                          "key": "ids[0].tenantType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Data provider identifier",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"results\": {\n    \"veniam20\": {\n      \"integrationContext\": \"<string>\",\n      \"integrationType\": \"<string>\",\n      \"integrationName\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  }\n}",
-                  "createdAt": "2026-08-03T11:25:43.000Z",
-                  "updatedAt": "2026-08-03T11:25:43.000Z",
-                  "uid": "35240-7ba687fa-7091-463e-bc81-b15678b2296c"
-                },
-                {
-                  "id": "5a8c7fe7-e3a1-4a5e-b5fd-bc3a70c7a6b7",
-                  "name": "Bad request - invalid parameters",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Integration context URN",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Type of integration",
-                          "key": "ids[0].integrationType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Tenant type for the integration",
-                          "key": "ids[0].tenantType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Data provider identifier",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:25:43.000Z",
-                  "updatedAt": "2026-08-03T11:25:43.000Z",
-                  "uid": "35240-5a8c7fe7-e3a1-4a5e-b5fd-bc3a70c7a6b7"
-                },
-                {
-                  "id": "7a3a37ce-9afb-4b10-8dfe-7673051b7195",
-                  "name": "Unauthorized - invalid or missing authentication",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Integration context URN",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Type of integration",
-                          "key": "ids[0].integrationType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Tenant type for the integration",
-                          "key": "ids[0].tenantType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Data provider identifier",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Unauthorized",
-                  "code": 401,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:25:43.000Z",
-                  "updatedAt": "2026-08-03T11:25:43.000Z",
-                  "uid": "35240-7a3a37ce-9afb-4b10-8dfe-7673051b7195"
-                },
-                {
-                  "id": "effab48c-26f2-4397-a828-7d15d7e2b0e2",
-                  "name": "Integration not found",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=<string>&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Integration context URN",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Type of integration",
-                          "key": "ids[0].integrationType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Tenant type for the integration",
-                          "key": "ids[0].tenantType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Data provider identifier",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:25:43.000Z",
-                  "updatedAt": "2026-08-03T11:25:43.000Z",
-                  "uid": "35240-effab48c-26f2-4397-a828-7d15d7e2b0e2"
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "createdAt": "2026-08-03T11:25:43.000Z",
-              "updatedAt": "2026-08-03T11:25:43.000Z",
-              "uid": "35240-cc2b5387-74b7-4507-9d5f-83f66deb7312"
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "id": "e8692cbe-c6fb-4bcf-a14c-a9d6de122699",
-          "createdAt": "2026-08-03T11:25:43.000Z",
-          "updatedAt": "2026-08-03T11:25:43.000Z",
-          "uid": "35240-e8692cbe-c6fb-4bcf-a14c-a9d6de122699"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac6e516f-715f-41ff-a19d-b8b43775e639",
+          "name": "LinkedIn Get Customer ATS Integration Details",
+          "request": {
+            "name": "LinkedIn Get Customer ATS Integration Details",
+            "description": {
+              "content": "Retrieves the details of a customer's ATS integration for premium job posting. Use this endpoint to verify integration configuration and status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsIntegrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) Integration context URN"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationType",
+                  "value": "<string>",
+                  "description": "(Required) Type of integration"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].tenantType",
+                  "value": "<string>",
+                  "description": "(Required) Tenant type for the integration"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) Data provider identifier"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3832813-ec3d-4250-95fc-61724cb8fc7e",
+              "name": "Successfully retrieved integration details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS\": {\n      \"integrationContext\": \"urn:li:contract:12345\",\n      \"integrationType\": \"PREMIUM_JOB_POSTING\",\n      \"integrationName\": \"Customer Name - LinkedIn LTS Premium Job Posting Integration\",\n      \"status\": \"ENABLED\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f38f67cb-729d-42b1-94b7-5418888c6f3d",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cd567c7-63e0-4584-84ce-c564691f9fdd",
+              "name": "Unauthorized - invalid or missing authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6052dc2-a069-46ff-b0a8-12dbe4b726f6",
+              "name": "Integration not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "PREMIUM_JOB_POSTING"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "JOBS"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "5932d40e-9d8b-487b-8017-01fc5e5b20ed",
-      "createdAt": "2026-08-03T11:25:43.000Z",
-      "updatedAt": "2026-08-03T11:25:43.000Z",
-      "uid": "35240-5932d40e-9d8b-487b-8017-01fc5e5b20ed"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -653,30 +611,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "a48e414d-0eff-4150-a2a4-b1270f417690",
+    "name": "LinkedIn Compliance Events Access Control Customer Integrations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

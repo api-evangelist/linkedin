@@ -1,36 +1,137 @@
 {
-  "info": {
-    "_postman_id": "082e3e3c-ffff-4a1e-a666-c3ed23a53a31",
-    "name": "LinkedIn Compliance Events Access Control Integration Configuration API",
-    "description": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "createdAt": "2026-08-03T11:27:21.000Z",
-    "updatedAt": "2026-08-03T11:27:21.000Z",
-    "lastUpdatedBy": "35240",
-    "uid": "35240-082e3e3c-ffff-4a1e-a666-c3ed23a53a31"
-  },
   "item": [
     {
-      "name": "v2",
+      "id": "3e2897fa-2c4d-4bc9-a3b0-9739c5c45a64",
+      "name": "Integration Configuration",
+      "description": {
+        "content": "Configure and manage customer ATS integrations",
+        "type": "text/plain"
+      },
       "item": [
         {
-          "name": "atsIntegrations",
-          "item": [
-            {
-              "name": "LinkedIn Update Customer ATS Integration",
-              "id": "03b9b91f-f3ce-4266-a51c-f9b28f92015c",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
+          "id": "a26960e9-758c-4f5d-8363-8f09b48beed9",
+          "name": "LinkedIn Update Customer ATS Integration",
+          "request": {
+            "name": "LinkedIn Update Customer ATS Integration",
+            "description": {
+              "content": "Updates customer ATS integration settings including CSA_API, ONE_CLICK_EXPORT, IN_ATS_INDICATOR, and PROFILE_PLUGIN integrations.\nFor more information, refer to the [RSC Customer Configuration documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#sample-request).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsIntegrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationContext",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].integrationType",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].tenantType",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ids[0].dataProvider",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Rest.li method type",
+                "key": "x-restli-method",
+                "value": "<string>"
               },
-              "request": {
-                "method": "POST",
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entities\": {\n    \"key_0\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    },\n    \"key_1\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aa58b085-a317-43f8-b40d-bf7aaab43f53",
+              "name": "Successfully updated integration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids[0].integrationContext",
+                      "value": "urn:li:contract:12345"
+                    },
+                    {
+                      "key": "ids[0].integrationType",
+                      "value": "CSA_API"
+                    },
+                    {
+                      "key": "ids[0].tenantType",
+                      "value": "RECRUITER"
+                    },
+                    {
+                      "key": "ids[0].dataProvider",
+                      "value": "ATS"
+                    }
+                  ],
+                  "variable": []
+                },
                 "header": [
                   {
-                    "description": "(Required) Rest.li method type",
-                    "key": "x-restli-method",
-                    "value": "batch_create"
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
                   },
                   {
+                    "disabled": false,
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of request body",
                     "key": "Content-Type",
                     "value": "application/json"
                   },
@@ -39,389 +140,281 @@
                     "value": "application/json"
                   }
                 ],
+                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"entities\": {\n    \"aute_ab4\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "raw": "{\n  \"entities\": {\n    \"key_0\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"Customer Name LinkedIn Recruiter CSA_API Integration\"\n        }\n      }\n    }\n  }\n}",
                   "options": {
                     "raw": {
-                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                },
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "225cc10d-6cfb-4d12-93dc-26b212998679",
+              "name": "Bad request",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=CSA_API&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsIntegrations"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].integrationContext",
-                      "value": "<string>"
+                      "value": "urn:li:contract:12345"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].integrationType",
                       "value": "CSA_API"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].tenantType",
-                      "value": "<string>"
+                      "value": "RECRUITER"
                     },
                     {
-                      "description": "(Required) ",
                       "key": "ids[0].dataProvider",
-                      "value": "<string>"
-                    }
-                  ]
-                },
-                "description": "Updates customer ATS integration settings including CSA_API, ONE_CLICK_EXPORT, IN_ATS_INDICATOR, and PROFILE_PLUGIN integrations.\nFor more information, refer to the [RSC Customer Configuration documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#sample-request)."
-              },
-              "response": [
-                {
-                  "id": "ffa244bb-25ba-48c2-9f02-dcf70275cc8b",
-                  "name": "Successfully updated integration",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "description": "(Required) Rest.li method type",
-                        "key": "x-restli-method",
-                        "value": "batch_create"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"entities\": {\n    \"aute_ab4\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=CSA_API&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationType",
-                          "value": "CSA_API"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].tenantType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
+                      "value": "ATS"
                     }
                   ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:27:21.000Z",
-                  "updatedAt": "2026-08-03T11:27:21.000Z",
-                  "uid": "35240-ffa244bb-25ba-48c2-9f02-dcf70275cc8b"
+                  "variable": []
                 },
-                {
-                  "id": "922d4f3d-ecf4-4f4f-a3db-6fea45dc36c2",
-                  "name": "Bad request",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "description": "(Required) Rest.li method type",
-                        "key": "x-restli-method",
-                        "value": "batch_create"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      },
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"entities\": {\n    \"aute_ab4\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?ids[0].integrationContext=<string>&ids[0].integrationType=CSA_API&ids[0].tenantType=<string>&ids[0].dataProvider=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationContext",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].integrationType",
-                          "value": "CSA_API"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].tenantType",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) ",
-                          "key": "ids[0].dataProvider",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:27:21.000Z",
-                  "updatedAt": "2026-08-03T11:27:21.000Z",
-                  "uid": "35240-922d4f3d-ecf4-4f4f-a3db-6fea45dc36c2"
-                }
-              ],
-              "createdAt": "2026-08-03T11:27:21.000Z",
-              "updatedAt": "2026-08-03T11:27:21.000Z",
-              "uid": "35240-03b9b91f-f3ce-4266-a51c-f9b28f92015c"
-            },
-            {
-              "name": "LinkedIn Get Integration Status Change Notification",
-              "id": "e5d82f91-d7f4-4cc2-ae94-d20a88d4119a",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Rest.li method type",
+                    "key": "x-restli-method",
+                    "value": "batch_update"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Content type of request body",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": {\n    \"key_0\": {\n      \"patch\": {\n        \"$set\": {\n          \"integrationName\": \"Customer Name LinkedIn Recruiter CSA_API Integration\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b82dec3-643f-44da-8d7c-7b2cf853e51b",
+          "name": "LinkedIn Get Integration Status Change Notification",
+          "request": {
+            "name": "LinkedIn Get Integration Status Change Notification",
+            "description": {
+              "content": "Retrieves details about integration status changes when a customer enables or modifies an integration.\nFor more information, refer to the [Verify Customer Integrations documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#5-verify-customer-integrations-enablement).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "atsIntegrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Query type"
+                },
+                {
+                  "disabled": false,
+                  "key": "requestId",
+                  "value": "<string>",
+                  "description": "(Required) Request ID from push notification"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "652af427-ca42-484c-9c66-366948ffff13",
+              "name": "Successfully retrieved notification details",
+              "originalRequest": {
                 "url": {
-                  "raw": "{{baseUrl}}/v2/atsIntegrations?q=<string>&requestId=<string>",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "path": [
                     "v2",
                     "atsIntegrations"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "query": [
                     {
-                      "description": "(Required) Query type",
                       "key": "q",
-                      "value": "<string>"
+                      "value": "request"
                     },
                     {
-                      "description": "(Required) Request ID from push notification",
                       "key": "requestId",
-                      "value": "<string>"
+                      "value": "req-12345-abcde"
                     }
-                  ]
+                  ],
+                  "variable": []
                 },
-                "description": "Retrieves details about integration status changes when a customer enables or modifies an integration.\nFor more information, refer to the [Verify Customer Integrations documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#5-verify-customer-integrations-enablement)."
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
-              "response": [
+              "status": "OK",
+              "code": 200,
+              "header": [
                 {
-                  "id": "9459511e-ddf7-48db-be06-265cc8ad1d38",
-                  "name": "Successfully retrieved notification details",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?q=<string>&requestId=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Query type",
-                          "key": "q",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Request ID from push notification",
-                          "key": "requestId",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<string>\"\n}",
-                  "createdAt": "2026-08-03T11:27:21.000Z",
-                  "updatedAt": "2026-08-03T11:27:21.000Z",
-                  "uid": "35240-9459511e-ddf7-48db-be06-265cc8ad1d38"
-                },
-                {
-                  "id": "d3f1f208-62d2-457a-8acb-625e04f5622c",
-                  "name": "Notification not found",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      },
-                      {
-                        "description": "Added as a part of security scheme: oauth2",
-                        "key": "Authorization",
-                        "value": "<token>"
-                      }
-                    ],
-                    "url": {
-                      "raw": "{{baseUrl}}/v2/atsIntegrations?q=<string>&requestId=<string>",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "v2",
-                        "atsIntegrations"
-                      ],
-                      "query": [
-                        {
-                          "description": "(Required) Query type",
-                          "key": "q",
-                          "value": "<string>"
-                        },
-                        {
-                          "description": "(Required) Request ID from push notification",
-                          "key": "requestId",
-                          "value": "<string>"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "responseTime": null,
-                  "body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"serviceErrorCode\": \"<integer>\"\n}",
-                  "createdAt": "2026-08-03T11:27:21.000Z",
-                  "updatedAt": "2026-08-03T11:27:21.000Z",
-                  "uid": "35240-d3f1f208-62d2-457a-8acb-625e04f5622c"
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "createdAt": "2026-08-03T11:27:21.000Z",
-              "updatedAt": "2026-08-03T11:27:21.000Z",
-              "uid": "35240-e5d82f91-d7f4-4cc2-ae94-d20a88d4119a"
+              "body": "{\n  \"status\": \"SUCCESS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9509a19-1c1e-4311-9214-2737506ae3ba",
+              "name": "Notification not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "atsIntegrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "request"
+                    },
+                    {
+                      "key": "requestId",
+                      "value": "req-12345-abcde"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"message\": \"Invalid request parameters\",\n  \"serviceErrorCode\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
-          "id": "826f2bd1-dfb3-4817-822b-9a83d47349a5",
-          "createdAt": "2026-08-03T11:27:21.000Z",
-          "updatedAt": "2026-08-03T11:27:21.000Z",
-          "uid": "35240-826f2bd1-dfb3-4817-822b-9a83d47349a5"
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
-      "id": "f8d14306-075b-4e3e-991d-98a1d15120c5",
-      "createdAt": "2026-08-03T11:27:21.000Z",
-      "updatedAt": "2026-08-03T11:27:21.000Z",
-      "uid": "35240-f8d14306-075b-4e3e-991d-98a1d15120c5"
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.linkedin.com",
+      "key": "baseUrl"
     }
   ],
   "auth": {
@@ -429,30 +422,29 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "r_compliance",
-        "type": "string"
+        "value": "r_compliance"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.linkedin.com/oauth/v2/accessToken",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/accessToken"
       },
       {
         "key": "authUrl",
-        "value": "https://www.linkedin.com/oauth/v2/authorization",
-        "type": "string"
+        "value": "https://www.linkedin.com/oauth/v2/authorization"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code",
-        "type": "string"
+        "value": "authorization_code"
       }
     ]
   },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "https://api.linkedin.com"
+  "info": {
+    "_postman_id": "4881b382-2d15-4c3b-bee8-20aa4f385dd3",
+    "name": "LinkedIn Compliance Events Access Control Integration Configuration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.\n\nContact Support:\n Name: LinkedIn API Support",
+      "type": "text/plain"
     }
-  ]
+  }
 }

@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control DMP Segments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DMP Segments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Monitor DMP Segment Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/dmpSegments",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "account",
+                "type": "query",
+                "description": "Query type"
+              },
+              {
+                "name": "account",
+                "value": "urn%3Ali%3AsponsoredAccount%3A123456",
+                "type": "query",
+                "description": "Sponsored account URN (URL encoded)"
+              },
+              {
+                "name": "sourcePlatform",
+                "value": "LIST_UPLOAD",
+                "type": "query",
+                "description": "Filter by source platform"
+              }
+            ]
+          },
+          "docs": "Retrieve DMP segments for a specific ad account. Monitor status, match rate, and audience size."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Create DMP Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/dmpSegments",
+            "headers": [
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              },
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new DMP segment for list upload or streaming. Note: There must be at least a 5 second delay between creating the segment and attaching data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

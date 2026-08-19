@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Statistics APIs > Organization Follower Statistics API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Statistics APIs > Organization Follower Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Time-Bound Follower Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/organizationalEntityFollowerStatistics",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "organizationalEntity",
+                "type": "query"
+              },
+              {
+                "name": "organizationalEntity",
+                "value": "urn%3Ali%3Aorganization%3A2414183",
+                "type": "query"
+              },
+              {
+                "name": "timeIntervals.timeGranularityType",
+                "value": "DAY",
+                "type": "query"
+              },
+              {
+                "name": "timeIntervals.timeRange.start",
+                "value": "1634018799000",
+                "type": "query"
+              },
+              {
+                "name": "timeIntervals.timeRange.end",
+                "value": "1634623599000",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Time-Bound Follower Statistics"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Sales Access Tokens API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sales Access Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Retrieve Sales Access Token for Authenticated Iframe Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/salesAccessTokens",
+            "params": [
+              {
+                "name": "q",
+                "value": "viewerAndDeveloperApp",
+                "type": "query",
+                "description": "Query parameter for retrieving a Sales Access Token"
+              }
+            ]
+          },
+          "docs": "Get a short-lived, limited-scope OAuth token for authenticated iframe sessions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

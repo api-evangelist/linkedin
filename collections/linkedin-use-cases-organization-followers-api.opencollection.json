@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Use Cases > Organization Followers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Use Cases > Organization Followers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Search by Keyword",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/peopleTypeahead",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "organizationFollowers",
+                "type": "query"
+              },
+              {
+                "name": "keywords",
+                "value": "chris",
+                "type": "query"
+              },
+              {
+                "name": "organization",
+                "value": "urn%3Ali%3Aorganization%3A{{organization_id}}",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Search by Keyword"
+        },
+        {
+          "info": {
+            "name": "LinkedIn Search by Vanity URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/vanityUrl",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "{{insert_version}}"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "vanityUrlAsOrganization",
+                "type": "query"
+              },
+              {
+                "name": "vanityUrl",
+                "value": "https%3A//www.linkedin.com/in/vanityName/",
+                "type": "query"
+              },
+              {
+                "name": "organization",
+                "value": "urn%3Ali%3Aorganization%3A{{organization_id}}",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "LinkedIn Search by Vanity URL"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Feed Content API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Feed Content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Posts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaPosts",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "author",
+                "value": "urn:li:organization:10002687",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves posts published by an organization for data portability compliance. Returns post content, visibility settings, and engagement metadata."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Reactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaReactions",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "activityUrn",
+                "value": "urn:li:share:7012345678901234567",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves reactions on content for data portability compliance. Returns reaction types and actor information."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Get Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/rest/dmaComments",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202312"
+              },
+              {
+                "name": "X-Restli-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "roleAssignee",
+                "type": "query",
+                "description": "Query type for finder operations"
+              },
+              {
+                "name": "activityUrn",
+                "value": "urn:li:share:7012345678901234567",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "0",
+                "type": "query",
+                "description": "Pagination start index"
+              },
+              {
+                "name": "count",
+                "value": "25",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "Retrieves comments on content for data portability compliance. Returns comment text, author information, and timestamps."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

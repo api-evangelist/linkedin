@@ -1,0 +1,209 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Campaign Group Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaign Group Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Search Campaign Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccounts/:AdAccountsId/adCampaignGroups",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "q",
+                "value": "search",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "(status:(values:List(ACTIVE,DRAFT)))",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "(field:ID,order:DESCENDING)",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search for campaign groups by ID, account, name, and status."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Multiple Campaign Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/adAccounts/:AdAccountsId/adCampaignGroups",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "ids",
+                "value": "List(111222333,111222334)",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete multiple campaign groups. Only DRAFT campaign groups can be deleted."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Fetch Campaign Group by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignGroupId",
+                "value": "111222333",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a campaign group by its ID."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Campaign Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignGroupId",
+                "value": "111222333",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a campaign group using partial update."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Delete Campaign Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.linkedin.com/adAccounts/:AdAccountsId/adCampaignGroups/:CampaignGroupId",
+            "headers": [
+              {
+                "name": "LinkedIn-Version",
+                "value": "202401"
+              },
+              {
+                "name": "X-RestLi-Protocol-Version",
+                "value": "2.0.0"
+              }
+            ],
+            "params": [
+              {
+                "name": "AdAccountsId",
+                "value": "123456",
+                "type": "path"
+              },
+              {
+                "name": "CampaignGroupId",
+                "value": "111222333",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a campaign group. Only DRAFT campaign groups can be deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

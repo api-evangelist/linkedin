@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LinkedIn Compliance Events Access Control Customer Integrations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.linkedin.com/oauth/v2/authorization",
+      "accessTokenUrl": "https://www.linkedin.com/oauth/v2/accessToken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "LinkedIn Get Customer ATS Integration Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.linkedin.com/v2/atsIntegrations",
+            "params": [
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:contract:12345",
+                "type": "query",
+                "description": "Integration context URN"
+              },
+              {
+                "name": "ids[0].integrationType",
+                "value": "PREMIUM_JOB_POSTING",
+                "type": "query",
+                "description": "Type of integration"
+              },
+              {
+                "name": "ids[0].tenantType",
+                "value": "JOBS",
+                "type": "query",
+                "description": "Tenant type for the integration"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query",
+                "description": "Data provider identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a customer's ATS integration for premium job posting. Use this endpoint to verify integration configuration and status."
+        },
+        {
+          "info": {
+            "name": "LinkedIn Update Customer ATS Integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.linkedin.com/v2/atsIntegrations",
+            "params": [
+              {
+                "name": "ids[0].integrationContext",
+                "value": "urn:li:contract:12345",
+                "type": "query",
+                "description": "Integration context URN"
+              },
+              {
+                "name": "ids[0].integrationType",
+                "value": "PREMIUM_JOB_POSTING",
+                "type": "query",
+                "description": "Type of integration"
+              },
+              {
+                "name": "ids[0].tenantType",
+                "value": "JOBS",
+                "type": "query",
+                "description": "Tenant type for the integration"
+              },
+              {
+                "name": "ids[0].dataProvider",
+                "value": "ATS",
+                "type": "query",
+                "description": "Data provider identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates customer ATS integrations for premium job posting capabilities. Partners use this endpoint to configure the integration name and other settings for their customers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
