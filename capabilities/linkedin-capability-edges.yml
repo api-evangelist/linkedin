@@ -1,0 +1,260 @@
+slug: linkedin
+provider: LinkedIn
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 25
+edges:
+- tag: Apply Connect Jobs
+  spec_file: linkedin-apply-connect-jobs-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.9
+  evidence: 'POST /v2/simpleJobPostings  createOrUpdateJobPosting  LinkedIn Create or Update Apply Connect
+    Job Posting; schemas: ApplicationQuestions, ResumeQuestions, EducationQuestions'
+  reason: Creates and updates job postings with application screening questions and resume/cover-letter
+    configuration — job posting and candidate application intake, i.e. recruiting/talent acquisition.
+- tag: Application Synchronization
+  spec_file: linkedin-application-synchronization-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.85
+  evidence: PUT /v2/atsApplications  syncApplications  LinkedIn Sync Job Applications; POST /v2/hireMediaUrl  createResumeUploadUrl
+  reason: Operations sync job applications from an ATS and create resume upload URLs — recruiting/candidate
+    application handling, i.e. Talent Acquisition Management.
+- tag: Candidate Synchronization
+  spec_file: linkedin-candidate-synchronization-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.85
+  evidence: PUT /v2/atsCandidates  syncCandidates  LinkedIn Sync Candidates to LinkedIn; GET getCandidateMatches
+  reason: Synchronising ATS candidate records and retrieving candidate matches is recruiting/sourcing
+    functionality — talent acquisition.
+- tag: Learning Activity Reports
+  spec_file: linkedin-learning-activity-reports-api-openapi.yml
+  capability_id: BC-300.40
+  capability_id_l1: BC-300
+  capability_name: Learning & Development Management
+  confidence: 0.85
+  evidence: GET /v2/learningActivityReports  "LinkedIn Get Learning Activity Reports"; schemas LearningActivity,
+    LearnerEntity, LearnerDetails
+  reason: Reports learner activity on LinkedIn Learning courses — training consumption reporting, realising
+    Learning & Development Management for the buying enterprise.
+- tag: Use Cases > Spotlight Ad
+  spec_file: linkedin-use-cases-spotlight-ad-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.85
+  evidence: POST /creatives Create a Dynamic Spotlight Ad; DELETE /creatives/{sponsoredCreative-urn} Delete
+    a Dynamic Spotlight Ad
+  reason: Full CRUD over sponsored ad creatives — paid digital advertising asset management, squarely
+    Digital Marketing Management (paid media).
+- tag: Ad Targeting Entities
+  spec_file: linkedin-ad-targeting-entities-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: GET /adTargetingFacets  ... Get List of Available Ad Targeting Facets; GET /adTargetingEntities  searchAdTargetingEntities
+  reason: Operations expose ad targeting facets and entities used to build paid-media audience targeting
+    — squarely digital/paid-media marketing capability rather than any technical or banking function.
+- tag: Lead Generation
+  spec_file: linkedin-lead-generation-api-openapi.yml
+  capability_id: BC-400.40
+  capability_id_l1: BC-400
+  capability_name: Demand Generation Management
+  confidence: 0.8
+  evidence: GET /rest/dmaLeadGenResponses  getLeadGenResponses  "LinkedIn Get Lead Generation Responses";
+    schemas LeadGenRecord, LeadGenAnswer
+  reason: Retrieval of lead-generation form responses collected from LinkedIn ads — demand generation
+    / lead capture. Some ambiguity as it could feed CRM lead management, but generation is the closer
+    fit.
+- tag: Use Cases > Conversation Ad > Sponsored Conversations
+  spec_file: linkedin-use-cases-conversation-ad-sponsored-conversations-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: POST /conversationAds — 'Create a Sponsored Conversation'
+  reason: CRUD over sponsored conversation ad units on a social platform is paid-media/digital marketing
+    execution, despite the compliance-flavoured title (title is unreliable).
+- tag: Use Cases > Creatives
+  spec_file: linkedin-use-cases-creatives-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: GET /creatives/{urn_creatives} — 'Get a Sponsored Creative'
+  reason: Management of sponsored ad creatives is core paid-media/digital marketing operations.
+- tag: Conversion Events Streaming Workflow
+  spec_file: linkedin-conversion-events-streaming-workflow-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.78
+  evidence: POST /conversionEvents  postStreamMultipleConversionEvents  LinkedIn 10. Stream Multiple Conversion
+    Events to the Conversion Rule
+  reason: Conversion rule creation, campaign association and conversion event streaming is paid-media
+    conversion tracking/attribution — digital marketing.
+- tag: Job Lifecycle Management
+  spec_file: linkedin-job-lifecycle-management-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.78
+  evidence: GET /v2/simpleJobPostingTasks  getJobPostingTaskStatus  "LinkedIn Check Job Posting Task Status"
+  reason: Surface tracks the status of job-posting tasks, i.e. publishing job requisitions to LinkedIn
+    — recruiting/talent acquisition. Only a status-check operation is exposed, so slightly reduced confidence.
+- tag: Account Management
+  spec_file: linkedin-account-management-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /adAccounts createAdAccount — Create Test Ad Account; GET /adAccounts searchAdAccounts
+    — Search Ad Accounts by Type; schema AdAccount, SponsoredAccountId
+  reason: Despite the compliance-flavoured title, the operations manage LinkedIn Sponsored (advertising)
+    accounts — the administrative container for paid digital advertising campaigns, i.e. digital marketing
+    operations. Sub-capability choice between digital marketing and marketing operations is somewhat ambiguous.
+- tag: Campaign Group Management
+  spec_file: linkedin-campaign-group-management-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: 'GET /adAccounts/{AdAccountsId}/adCampaignGroups  searchCampaignGroups; schemas: Budget, CampaignGroup,
+    RunSchedule'
+  reason: Operations manage advertising campaign groups (budget, run schedule) inside ad accounts — paid
+    media / digital marketing campaign administration, not the compliance archiving implied by the concatenated
+    title.
+- tag: Campaign Management
+  spec_file: linkedin-campaign-management-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: GET /adAccounts/{AdAccountsId}/adCampaigns  searchCampaigns  LinkedIn Search Campaigns
+  reason: Ad campaign search/fetch/archive with Budget and RunSchedule schemas is paid-media campaign
+    management on LinkedIn's marketing platform.
+- tag: Use Cases > Conversation Ad > Sponsored Message Contents
+  spec_file: linkedin-use-cases-conversation-ad-sponsored-message-contents-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /conversationAds/{conversationAdsId}/sponsoredMessageContents — 'Batch Create Sponsored
+    Message Content'
+  reason: Authoring and lifecycle of sponsored message ad content — paid social/digital marketing execution;
+    some overlap with content marketing keeps it below 0.8.
+- tag: Use Cases > InMail Content
+  spec_file: linkedin-use-cases-inmail-content-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /rest/inMailContents/ — 'Create InMail Content'; 'Send Test InMail'
+  reason: Creation and testing of sponsored InMail ad content — paid social message advertising, i.e.
+    digital marketing execution.
+- tag: Use Cases > Sponsored
+  spec_file: linkedin-use-cases-sponsored-api-openapi.yml
+  capability_id: BC-400.40
+  capability_id_l1: BC-400
+  capability_name: Demand Generation Management
+  confidence: 0.75
+  evidence: GET /leadFormResponses Schedule Periodic Form Response (lead) Pulls; POST /leadNotifications
+    Subscribe for Lead Notification Webhooks
+  reason: Operations retrieve LinkedIn lead-gen forms and lead form responses from sponsored ad accounts
+    — lead capture from paid campaigns, i.e. demand generation. Webhook operations are plumbing but the
+    lead data surface dominates.
+- tag: Access Control
+  spec_file: linkedin-access-control-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: PUT /v2/atsEntityAcls upsertEntityAcl — Upsert Entity ACL; DELETE /v2/atsEntityAcls deleteEntityAcl
+  reason: Operations manage access control lists (ACLs) granting entity-level permissions, which is identity
+    & access management. Somewhat generic/plumbing, so moderate confidence.
+- tag: Ad Accounts
+  spec_file: linkedin-ad-accounts-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: 'GET /adAccounts  getAdAccounts  LinkedIn Retrieve User Ad Accounts; schemas: AdAccountsResponse,
+    AdAccount'
+  reason: Operation retrieves advertising accounts on LinkedIn's marketing/advertising platform — digital
+    marketing (paid media) account administration. Not a banking account; the 'Accounts' noun here is
+    an ad-platform construct. L2 Digital Marketing Management is the closest fit, though it is administrative
+    plumbing for the ad platform, hence moderate confidence.
+- tag: Audience Counts
+  spec_file: linkedin-audience-counts-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: GET /audienceCounts  getAudienceCount  LinkedIn Get Audience Count by Targeting Criteria
+  reason: Returns reachable audience size for ad targeting criteria — campaign planning within paid digital
+    media. Marketing capability; sub-capability choice between digital marketing and market intelligence
+    is somewhat ambiguous.
+- tag: Compliance Authorization
+  spec_file: linkedin-compliance-authorization-api-openapi.yml
+  capability_id: BC-130.10
+  capability_id_l1: BC-130
+  capability_name: Regulatory Compliance Management
+  confidence: 0.7
+  evidence: POST /v2/memberComplianceAuthorizations  optInMemberForCompliance  LinkedIn Opt in Member
+    for Compliance Monitoring
+  reason: Opt-in/opt-out and regulation-status checks that enable communications monitoring for regulated
+    industries serve regulatory compliance programmes.
+- tag: Compliance Events
+  spec_file: linkedin-compliance-events-api-openapi.yml
+  capability_id: BC-130.10
+  capability_id_l1: BC-130
+  capability_name: Regulatory Compliance Management
+  confidence: 0.7
+  evidence: GET /v2/complianceEvents  getComplianceEvents  LinkedIn Retrieve Compliance Events for Regulated
+    Member
+  reason: Retrieving member activity events for archiving 'for enterprises in regulated industries' supports
+    sector regulatory compliance (comms surveillance/archiving).
+- tag: Use Cases > Document Ad
+  spec_file: linkedin-use-cases-document-ad-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /documents — 'Initialize Document Upload'; POST /posts — 'Create Document Content'
+  reason: Asset upload and post creation in service of Document Ads — advertising content production for
+    paid social. Part of the surface is generic file upload, hence 0.7.
+- tag: Use Cases > Image Ad
+  spec_file: linkedin-use-cases-image-ad-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /images — 'Initialize Image Upload'; GET /rest/posts/{postId} — 'Get Image Content'
+  reason: Image asset upload and retrieval for Image Ads — paid social creative production. Upload plumbing
+    dilutes the signal somewhat.
+- tag: Use Cases > Posts
+  spec_file: linkedin-use-cases-posts-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /posts/{shared ID}/{ugcPosts ID} LinkedIn Update a Post; DELETE ... Delete a Post
+  reason: CRUD over LinkedIn posts/shares — publishing and managing social content for a page. This is
+    social/digital marketing content publishing, best fitting Digital Marketing Management; some ambiguity
+    with Content Marketing Management, hence moderate confidence.
