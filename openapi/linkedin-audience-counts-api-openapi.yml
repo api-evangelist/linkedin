@@ -1,17 +1,19 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LinkedIn Compliance Events Access Control Audience Counts API
-  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  title: LinkedIn Marketing Campaign Management Audience Counts API
+  description: 'Campaign Manager is LinkedIn''s online tool for creating and managing ad accounts and campaigns. This API provides capabilities for account management, campaign group management, campaign management, creative management, ad targeting, and forecasting.
+
+    You must apply for access to the Marketing Developer Platform to use these APIs.'
   version: 1.0.0
   contact:
-    name: LinkedIn API Support
-    url: https://docs.microsoft.com/en-us/linkedin/compliance/
+    name: LinkedIn Marketing API Support
+    url: https://developer.linkedin.com/product-catalog/marketing/campaign-management
 servers:
-- url: https://api.linkedin.com
-  description: LinkedIn Production API Server
+- url: https://api.linkedin.com/rest
+  description: LinkedIn REST API Server
 security:
 - OAuth2Auth:
-  - r_compliance
+  - rw_ads
 tags:
 - name: Audience Counts
   description: APIs to retrieve audience counts based on targeting criteria
@@ -111,4 +113,5 @@ components:
           authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
           tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
           scopes:
-            r_compliance: Read compliance data
+            rw_ads: Read and write advertising data
+            r_ads: Read advertising data

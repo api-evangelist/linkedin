@@ -1,17 +1,22 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LinkedIn Compliance Events Access Control Use Cases > Statistics APIs > Organization Follower Statistics API
-  description: LinkedIn provides Compliance API Guides for monitoring, archiving, and management of communications for enterprises in regulated industries. The Compliance Events API allows applications to archive all LinkedIn activities from the past 30 days of a regulated, authenticated member.
+  title: Community Management Use Cases > Statistics APIs > Organization Follower Statistics API
+  description: '**You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** [**Developer Portal**](https://developer.linkedin.com/product-catalog/marketing/page-management) **on how to apply.**
+
+
+    This collection aims to focus on different Community Management use cases, for example, social action notifications, and should be used with the **community-management-env-versioning** environment.
+
+
+    \--All requests for the Community Management API collection are in the Restli 2.0 format--
+
+
+    AuthorizationOAuth 2.0'
   version: 1.0.0
-  contact:
-    name: LinkedIn API Support
-    url: https://docs.microsoft.com/en-us/linkedin/compliance/
 servers:
 - url: https://api.linkedin.com
-  description: LinkedIn Production API Server
+  description: LinkedIn Marketing API Production Server
 security:
-- OAuth2Auth:
-  - r_compliance
+- oauth2Auth: []
 tags:
 - name: Use Cases > Statistics APIs > Organization Follower Statistics
   description: This API describes usage of Organization Follower Statistics. Fore more details, check [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/follower-statistics?tabs=http&view=li-lms-unversioned).
@@ -69,11 +74,6 @@ paths:
         delay: 0
 components:
   securitySchemes:
-    OAuth2Auth:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
-          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
-          scopes:
-            r_compliance: Read compliance data
+    oauth2Auth:
+      type: http
+      scheme: oauth2
