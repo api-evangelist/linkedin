@@ -2,24 +2,22 @@ generated: '2026-08-13'
 method: derived
 status: candidate
 source: openapi/*.yml (all refined LinkedIn OpenAPI documents in this repo)
-note: 'No first-party LinkedIn-hosted or LinkedIn-published MCP server exists. Probed https://mcp.linkedin.com/mcp (404) and
-  https://api.linkedin.com/mcp (404) with a tools/list JSON-RPC POST on 2026-08-13; an npm registry search for "linkedin mcp"
-  returns only third-party community servers (@luminarylane/linkedin-mcp-server, linkedin-mcp-runner, @humanagencyp/linkedin-mcp
-  and similar), none published by LinkedIn or Microsoft. Microsoft does operate a Learn Docs MCP server at https://learn.microsoft.com/api/mcp
-  (tools/list returns 200, tool microsoft_docs_search) which can search the LinkedIn developer documentation, but it is a
-  documentation-search server, not a LinkedIn API server, so it is NOT recorded as LinkedIn MCP deployment. The tools below
-  are a DERIVED candidate list, one per operationId in this repo, offered as an agent-enablement starting point. Every tool
-  inherits its real input contract from the referenced OpenAPI operation. All calls additionally require the Linkedin-Version:
-  YYYYMM header and X-Restli-Protocol-Version: 2.0.0.'
+note: 'No first-party LinkedIn-hosted or LinkedIn-published MCP server exists. Probed https://mcp.linkedin.com/mcp
+  (404) and https://api.linkedin.com/mcp (404) with a tools/list JSON-RPC POST on 2026-08-13; an npm registry
+  search for "linkedin mcp" returns only third-party community servers (@luminarylane/linkedin-mcp-server,
+  linkedin-mcp-runner, @humanagencyp/linkedin-mcp and similar), none published by LinkedIn or Microsoft.
+  Microsoft does operate a Learn Docs MCP server at https://learn.microsoft.com/api/mcp (tools/list returns
+  200, tool microsoft_docs_search) which can search the LinkedIn developer documentation, but it is a
+  documentation-search server, not a LinkedIn API server, so it is NOT recorded as LinkedIn MCP deployment.
+  The tools below are a DERIVED candidate list, one per operationId in this repo, offered as an agent-enablement
+  starting point. Every tool inherits its real input contract from the referenced OpenAPI operation. All
+  calls additionally require the Linkedin-Version: YYYYMM header and X-Restli-Protocol-Version: 2.0.0.'
 deployment:
   mode: none
-  endpoint: null
-  install: null
-  package: null
-  auth: oauth
-  verified: probed
-  note: 'mode: none — nobody ships an official LinkedIn MCP server; this file is a derived candidate. auth: oauth records
-    what a server would have to implement (LinkedIn 3-legged OAuth 2.0 with the member-scoped permissions in scopes/linkedin-scopes.yml).'
+  verified: derived
+  tools: 147
+  checked: '2026-08-12'
+  source: catalog MCP census
 server:
   name: linkedin
   transport: http
