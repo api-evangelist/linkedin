@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 16
+edge_count: 29
 edges:
 - tag: Apply Connect Jobs
   spec_file: linkedin-apply-connect-jobs-api-openapi.yml
@@ -66,6 +66,27 @@ edges:
   reason: 'Lead Sync collection: retrieves lead gen forms and lead form responses from sponsored ad accounts
     and subscribes to lead notifications. This is lead capture/generation from paid campaigns — Demand
     Generation Management.'
+- tag: Use Cases > Spotlight Ad
+  spec_file: linkedin-use-cases-spotlight-ad-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.85
+  evidence: POST /creatives Create a Dynamic Spotlight Ad; DELETE /creatives/{sponsoredCreative-urn} Delete
+    a Dynamic Spotlight Ad
+  reason: Full CRUD over sponsored ad creatives — paid digital advertising asset management, squarely
+    Digital Marketing Management (paid media).
+  recovered_from: capability-edges-sweep.json
+- tag: Ad Targeting Entities
+  spec_file: linkedin-ad-targeting-entities-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: GET /adTargetingFacets  ... Get List of Available Ad Targeting Facets; GET /adTargetingEntities  searchAdTargetingEntities
+  reason: Operations expose ad targeting facets and entities used to build paid-media audience targeting
+    — squarely digital/paid-media marketing capability rather than any technical or banking function.
+  recovered_from: capability-edges-sweep.json
 - tag: Conversion Events Streaming Workflow
   spec_file: linkedin-conversion-events-streaming-workflow-api-openapi.yml
   capability_id: BC-400.60
@@ -77,6 +98,37 @@ edges:
     ... and use this data to power campaign optimization"
   reason: Conversion rule creation, campaign association, and server-side conversion event streaming for
     ad measurement and optimisation — digital marketing measurement and paid-media optimisation.
+- tag: Lead Generation
+  spec_file: linkedin-lead-generation-api-openapi.yml
+  capability_id: BC-400.40
+  capability_id_l1: BC-400
+  capability_name: Demand Generation Management
+  confidence: 0.8
+  evidence: GET /rest/dmaLeadGenResponses  getLeadGenResponses  "LinkedIn Get Lead Generation Responses";
+    schemas LeadGenRecord, LeadGenAnswer
+  reason: Retrieval of lead-generation form responses collected from LinkedIn ads — demand generation
+    / lead capture. Some ambiguity as it could feed CRM lead management, but generation is the closer
+    fit.
+  recovered_from: capability-edges-sweep.json
+- tag: Use Cases > Conversation Ad > Sponsored Conversations
+  spec_file: linkedin-use-cases-conversation-ad-sponsored-conversations-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: POST /conversationAds — 'Create a Sponsored Conversation'
+  reason: CRUD over sponsored conversation ad units on a social platform is paid-media/digital marketing
+    execution, despite the compliance-flavoured title (title is unreliable).
+  recovered_from: capability-edges-sweep.json
+- tag: Use Cases > Creatives
+  spec_file: linkedin-use-cases-creatives-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: GET /creatives/{urn_creatives} — 'Get a Sponsored Creative'
+  reason: Management of sponsored ad creatives is core paid-media/digital marketing operations.
+  recovered_from: capability-edges-sweep.json
 - tag: Data Retrieval
   spec_file: linkedin-data-retrieval-api-openapi.yml
   capability_id: BC-300.10
@@ -88,6 +140,18 @@ edges:
   reason: Despite the generic tag, the operations retrieve exported candidate profiles and recruiter seatholders
     in an ATS/recruiting integration — sourcing and recruiting activity, i.e. Talent Acquisition. Some
     ambiguity because one operation (seatholders) is licence administration.
+- tag: Account Management
+  spec_file: linkedin-account-management-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /adAccounts createAdAccount — Create Test Ad Account; GET /adAccounts searchAdAccounts
+    — Search Ad Accounts by Type; schema AdAccount, SponsoredAccountId
+  reason: Despite the compliance-flavoured title, the operations manage LinkedIn Sponsored (advertising)
+    accounts — the administrative container for paid digital advertising campaigns, i.e. digital marketing
+    operations. Sub-capability choice between digital marketing and marketing operations is somewhat ambiguous.
+  recovered_from: capability-edges-sweep.json
 - tag: Application Updates
   spec_file: linkedin-application-updates-api-openapi.yml
   capability_id: BC-4270.40
@@ -133,6 +197,27 @@ edges:
     Status'''
   reason: Surface manages the lifecycle/status of job postings, i.e. job advertising and recruiting —
     Talent Acquisition. Slight discount because the only exposed operation is an async task-status poll.
+- tag: Use Cases > Conversation Ad > Sponsored Message Contents
+  spec_file: linkedin-use-cases-conversation-ad-sponsored-message-contents-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /conversationAds/{conversationAdsId}/sponsoredMessageContents — 'Batch Create Sponsored
+    Message Content'
+  reason: Authoring and lifecycle of sponsored message ad content — paid social/digital marketing execution;
+    some overlap with content marketing keeps it below 0.8.
+  recovered_from: capability-edges-sweep.json
+- tag: Use Cases > InMail Content
+  spec_file: linkedin-use-cases-inmail-content-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /rest/inMailContents/ — 'Create InMail Content'; 'Send Test InMail'
+  reason: Creation and testing of sponsored InMail ad content — paid social message advertising, i.e.
+    digital marketing execution.
+  recovered_from: capability-edges-sweep.json
 - tag: Application Retrieval
   spec_file: linkedin-application-retrieval-api-openapi.yml
   capability_id: BC-4270.40
@@ -144,6 +229,40 @@ edges:
   reason: '"Application" here is a developer/OAuth application, not a job application: the operation retrieves
     a provisioned child developer app and its credentials. That is developer credential and OAuth client
     stewardship on a platform''s developer ecosystem, not any HR or business capability.'
+- tag: Access Control
+  spec_file: linkedin-access-control-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: PUT /v2/atsEntityAcls upsertEntityAcl — Upsert Entity ACL; DELETE /v2/atsEntityAcls deleteEntityAcl
+  reason: Operations manage access control lists (ACLs) granting entity-level permissions, which is identity
+    & access management. Somewhat generic/plumbing, so moderate confidence.
+  recovered_from: capability-edges-sweep.json
+- tag: Ad Accounts
+  spec_file: linkedin-ad-accounts-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: 'GET /adAccounts  getAdAccounts  LinkedIn Retrieve User Ad Accounts; schemas: AdAccountsResponse,
+    AdAccount'
+  reason: Operation retrieves advertising accounts on LinkedIn's marketing/advertising platform — digital
+    marketing (paid media) account administration. Not a banking account; the 'Accounts' noun here is
+    an ad-platform construct. L2 Digital Marketing Management is the closest fit, though it is administrative
+    plumbing for the ad platform, hence moderate confidence.
+  recovered_from: capability-edges-sweep.json
+- tag: Audience Counts
+  spec_file: linkedin-audience-counts-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: GET /audienceCounts  getAudienceCount  LinkedIn Get Audience Count by Targeting Criteria
+  reason: Returns reachable audience size for ad targeting criteria — campaign planning within paid digital
+    media. Marketing capability; sub-capability choice between digital marketing and market intelligence
+    is somewhat ambiguous.
+  recovered_from: capability-edges-sweep.json
 - tag: Compliance Authorization
   spec_file: linkedin-compliance-authorization-api-openapi.yml
   capability_id: BC-130.10
@@ -175,6 +294,26 @@ edges:
     management, campaign group management, campaign management, creative management, ad targeting"
   reason: Creates ad creatives within LinkedIn Campaign Manager — buy-side paid media asset setup, part
     of Digital Marketing Management. Thin surface (one operation) so confidence moderate.
+- tag: Use Cases > Document Ad
+  spec_file: linkedin-use-cases-document-ad-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /documents — 'Initialize Document Upload'; POST /posts — 'Create Document Content'
+  reason: Asset upload and post creation in service of Document Ads — advertising content production for
+    paid social. Part of the surface is generic file upload, hence 0.7.
+  recovered_from: capability-edges-sweep.json
+- tag: Use Cases > Image Ad
+  spec_file: linkedin-use-cases-image-ad-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /images — 'Initialize Image Upload'; GET /rest/posts/{postId} — 'Get Image Content'
+  reason: Image asset upload and retrieval for Image Ads — paid social creative production. Upload plumbing
+    dilutes the signal somewhat.
+  recovered_from: capability-edges-sweep.json
 - tag: Use Cases > Posts
   spec_file: linkedin-use-cases-posts-api-openapi.yml
   capability_id: BC-400.60
