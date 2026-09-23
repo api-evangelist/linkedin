@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: LinkedIn Marketing Campaign Management Creative Management API
+  title: LinkedIn Marketing Campaign Management Creative Management…
   description: 'Campaign Manager is LinkedIn''s online tool for creating and managing ad accounts and campaigns. This API provides capabilities for account management, campaign group management, campaign management, creative management, ad targeting, and forecasting.
 
     You must apply for access to the Marketing Developer Platform to use these APIs.'
@@ -104,6 +104,18 @@ components:
           - MESSAGE_AD
           description: Creative type
           example: SPONSORED_VIDEO
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
     CreativeCreateRequest:
       type: object
       properties:
@@ -129,18 +141,6 @@ components:
       - reference
       - status
       - type
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        code:
-          type: string
-          example: INVALID_PARAMS
   securitySchemes:
     OAuth2Auth:
       type: oauth2

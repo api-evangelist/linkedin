@@ -1,15 +1,7 @@
 openapi: 3.2.0
 info:
   title: LinkedIn Job Posting Job Lifecycle Management API
-  description: 'LinkedIn''s Job Posting API enables authorized third parties such as clients, ATS systems, and Job Distributors to post jobs directly to LinkedIn on behalf of customers.
-
-    This API supports two job categories:
-
-    - **Basic Jobs**: Free job posts gathered by LinkedIn from external sources - **Promoted Jobs**: Paid job postings with enhanced visibility
-
-    The use of these APIs is restricted to developers approved by LinkedIn. Please reach out to your LinkedIn Relationship Manager or Business Development contact for access.
-
-    For more information, refer to the [Job Posting Overview](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/job-posting-overview).'
+  description: LinkedIn's Job Posting API enables authorized third parties such as clients, ATS systems, and Job Distributors to post jobs directly to LinkedIn on behalf of customers.
   version: 1.0.0
   contact:
     name: LinkedIn Talent Solutions
@@ -33,7 +25,7 @@ paths:
 
         After successful completion, the response includes the `jobPostingUrn` which can be used to view the job at: `https://www.linkedin.com/jobs/view/{jobPostingId}`
 
-        For more information, refer to the [Check Job Task Status documentation](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/api/check-job-taskstatus).'
+        For more information, refer to the Check Job Task Status documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -70,6 +62,14 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    JobPostingTaskResponse:
+      type: object
+      description: Response for job posting task status
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/JobPostingTaskResult'
     ErrorResponse:
       type: object
       properties:
@@ -100,14 +100,14 @@ components:
           type: string
           description: Error message if task failed
           example: example_value
-    JobPostingTaskResponse:
-      type: object
-      description: Response for job posting task status
-      properties:
+  examples:
+    JobPostingTaskResponseExample:
+      summary: Example job posting task status response
+      value:
         results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/JobPostingTaskResult'
+          urn:li:simpleJobPostingTask:12345678:
+            status: SUCCEEDED
+            jobPostingUrn: urn:li:jobPosting:2722131308
   parameters:
     TaskIdsQuery:
       name: ids
@@ -117,14 +117,6 @@ components:
       schema:
         type: string
       example: urn:li:simpleJobPostingTask:12345678
-  examples:
-    JobPostingTaskResponseExample:
-      summary: Example job posting task status response
-      value:
-        results:
-          urn:li:simpleJobPostingTask:12345678:
-            status: SUCCEEDED
-            jobPostingUrn: urn:li:jobPosting:2722131308
   securitySchemes:
     BearerAuth:
       type: http

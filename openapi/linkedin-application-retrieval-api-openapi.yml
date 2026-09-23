@@ -1,9 +1,9 @@
 openapi: 3.2.0
 info:
-  title: LinkedIn Parent Application Management Application Retrieval API
+  title: LinkedIn Parent Application Management Application…
   description: 'LinkedIn''s Provisioning APIs allow partners to create and configure developer applications on behalf of their customers. This is an initial step to manage and enable customer integrations.
 
-    For more information, refer to the [Provisioning API documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api).'
+    For more information, refer to the Provisioning API documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn Talent Solutions
@@ -25,7 +25,7 @@ paths:
       summary: LinkedIn Get Child Application
       description: 'Retrieves the credentials and details of a child application for a mutual customer using the partner''s unique foreign identifier.
 
-        For more information, refer to the [Get Application documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/provisioning-api#get-application).'
+        For more information, refer to the Get Application documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -62,22 +62,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    GetApplicationResponseExample:
+      summary: Example response for retrieving application credentials
+      value:
+        elements:
+        - applicationUrn: urn:li:developerApplication:12345678
+          clientId: 78abc123def456
+          clientSecret: secretXYZ789
+          uniqueForeignId: acme-corp-12345
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          description: LinkedIn service-specific error code
-          example: 100
     ApplicationCredentials:
       type: object
       properties:
@@ -105,15 +99,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApplicationCredentials'
-  examples:
-    GetApplicationResponseExample:
-      summary: Example response for retrieving application credentials
-      value:
-        elements:
-        - applicationUrn: urn:li:developerApplication:12345678
-          clientId: 78abc123def456
-          clientSecret: secretXYZ789
-          uniqueForeignId: acme-corp-12345
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          description: LinkedIn service-specific error code
+          example: 100
   parameters:
     QueryTypeParameter:
       name: q

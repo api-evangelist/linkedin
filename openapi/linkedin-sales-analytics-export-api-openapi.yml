@@ -125,22 +125,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    SalesAnalyticsExportJobExample:
+      summary: Completed export job
+      value:
+        id: 987654321
+        status: COMPLETED
+        downloadUrl: https://media.licdn.com/exports/analytics_123.csv
+        expireAt: 1640200000
+        rowCount: 5000
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
     SalesAnalyticsExportJobRequest:
       type: object
       properties:
@@ -160,6 +154,26 @@ components:
       - contract
       - startAt
       - endAt
+    SalesAnalyticsExportJobResponse:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/SalesAnalyticsExportJob'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     SalesAnalyticsExportJob:
       type: object
       properties:
@@ -197,20 +211,6 @@ components:
       required:
       - id
       - status
-    SalesAnalyticsExportJobResponse:
-      type: object
-      properties:
-        value:
-          $ref: '#/components/schemas/SalesAnalyticsExportJob'
-  examples:
-    SalesAnalyticsExportJobExample:
-      summary: Completed export job
-      value:
-        id: 987654321
-        status: COMPLETED
-        downloadUrl: https://media.licdn.com/exports/analytics_123.csv
-        expireAt: 1640200000
-        rowCount: 5000
   securitySchemes:
     BearerAuth:
       type: http

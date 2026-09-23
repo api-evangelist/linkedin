@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: Conversions Conversion Events Streaming Workflow API
-  description: "**See the** [Getting Access](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/conversions/getting-access-conversions) guide **on how to apply.**\n\n[LinkedIn's Conversion API](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/ads-reporting/conversions-api) is a conversion tracking tool that creates a direct connection between marketing data from an advertiser’s server and LinkedIn. This API enables advertisers to measure the performance of their LinkedIn marketing campaigns no matter where the conversion happens and use this data to power campaign optimization.\n\nThis collection aims to focus on the new Conversions API and should be used with the **conversions-env-versioning** environment.\n\nThere are two conditions for successful calls: (1) Scope permissions to `rw_conversions`, `r_ads` and (2) the user assigning permission holding one of the following roles in the Ad Account.\n\nScope permissions for [3-legged Oauth](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)\n\n- `rw_conversions` (Read/Write)\n- `r_ads` (Read)\n    \n\nAd Account Roles:\n\n- `ACCOUNT_BILLING_ADMIN`\n- `ACCOUNT_MANAGER`\n- `CAMPAIGN_MANAGER`\n- `CREATIVE_MANAGER`\n    \n\n\\--All requests for the Conversions collection are in the Restli 2.0 format--"
+  description: '**See the** Getting Access guide **on how to apply.**
+
+
+    LinkedIn''s Conversion API is a conversion tracking tool that creates a direct connection between marketing data from an advertiser’s server and LinkedIn.'
   version: 1.0.0
 servers:
 - url: https://api.linkedin.com
@@ -10,7 +13,7 @@ security:
 - oauth2Auth: []
 tags:
 - name: Conversion Events Streaming Workflow
-  description: "1. Obtain user authorization with consent to create and manage conversions using `rw_conversions`, `r_ads` permissions in the scope.\n2. Retrieve authenticated user's sponsored Ad Accounts where user has a non-viewer user role.\n3. Ask the user to select one of their Ad Account where conversion events would be streamed.\n4. Fetch existing Conversion Rules for CAPI in the selected Ad Account\n5. Allow the user to choose if they want to create a new Conversion Rule or update an existing one\n6. Create a new Conversion Rule (skip this step if the user chose to update an existing Conversion Rule)\n7. Fetch active campaign URNs to associate with conversion rule\n8. Associate campaigns to conversion rule for campaign attribution and optimization\n9. Stream conversion event to the conversion rule\n    \n10. Stream multiple conversion events to the conversion rule"
+  description: '1.'
 paths:
   /adAccountUsers:
     get:
@@ -202,7 +205,7 @@ paths:
       tags:
       - Conversion Events Streaming Workflow
       summary: LinkedIn 6. Create a New Conversion Rule
-      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
+      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
       requestBody:
         content:
           application/json:
@@ -410,7 +413,7 @@ paths:
       tags:
       - Conversion Events Streaming Workflow
       summary: LinkedIn 8. Associate Campaigns to Conversion Rule
-      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
+      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
       requestBody:
         content:
           application/json:
@@ -504,7 +507,7 @@ paths:
       tags:
       - Conversion Events Streaming Workflow
       summary: LinkedIn 10. Stream Multiple Conversion Events to the Conversion Rule
-      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
+      description: Create one or more conversion rules with this endpoint and set `conversionMethod` to `CONVERSIONS_API` for streaming conversions through API.
       requestBody:
         content:
           application/json:
@@ -600,40 +603,16 @@ paths:
         delay: 0
 components:
   schemas:
-    AssociateCampaignsToConversionResponse204:
-      type: string
-    FetchActiveCampaignsResponse200:
+    CreateANewConversionRequest:
       type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  rel:
-                    type: string
-                  href:
-                    type: string
-            total:
-              type: integer
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              id:
-                type: integer
+      example:
+        name: Conversion API Segment 5
+        account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+        conversionMethod: CONVERSIONS_API
+        postClickAttributionWindowSize: 90
+        viewThroughAttributionWindowSize: 30
+        attributionType: LAST_TOUCH_BY_CAMPAIGN
+        type: LEAD
     FetchExistingConversionRulesResponse200:
       type: object
       properties:
@@ -667,6 +646,43 @@ components:
                 items: {}
               enabled:
                 type: boolean
+    AssociateCampaignsToConversionRequest:
+      type: object
+      example:
+        campaign: urn:li:sponsoredCampaign:{{campaign_id}}
+        conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+    FetchActiveCampaignsResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  rel:
+                    type: string
+                  href:
+                    type: string
+            total:
+              type: integer
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              id:
+                type: integer
     RetrieveAuthenticatedUsersSponsoredResponse200:
       type: object
       properties:
@@ -693,26 +709,6 @@ components:
                 type: string
               role:
                 type: string
-    CreateANewConversionRequest:
-      type: object
-      example:
-        name: Conversion API Segment 5
-        account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
-        conversionMethod: CONVERSIONS_API
-        postClickAttributionWindowSize: 90
-        viewThroughAttributionWindowSize: 30
-        attributionType: LAST_TOUCH_BY_CAMPAIGN
-        type: LEAD
-    StreamMultipleConversionEventsResponse200:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              status:
-                type: integer
     CreateANewConversionResponse201:
       type: object
       properties:
@@ -758,11 +754,16 @@ components:
         account:
           type: string
           example: example_value
-    AssociateCampaignsToConversionRequest:
+    StreamMultipleConversionEventsResponse200:
       type: object
-      example:
-        campaign: urn:li:sponsoredCampaign:{{campaign_id}}
-        conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+      properties:
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: integer
     StreamMultipleConversionEventsRequest:
       type: object
       example:
@@ -803,27 +804,9 @@ components:
               companyName: linkedin
               countryCode: US
           eventId: xyz345
+    AssociateCampaignsToConversionResponse204:
+      type: string
   examples:
-    FetchActiveCampaignsResponse200Example:
-      summary: Example 200 response for FetchActiveCampaigns
-      value:
-        paging:
-          start: 0
-          count: 10
-          links:
-          - type: application/json
-            rel: next
-            href: /rest/adAccounts/5012345/adCampaigns?q=search&search=(status:(values:List(ACTIVE,DRAFT)))&start=10&count=10&fields=name,id
-          total: 4
-        elements:
-        - name: Website visits - May 4, 2021
-          id: 12345
-        - name: Brand awareness - Jul 14, 2022
-          id: 14567
-        - name: Lead generation - Dec 5, 2022
-          id: 789090
-        - name: Website conversions - Dec 6, 2022
-          id: 899887
     CreateANewConversionResponse201Example:
       summary: Example 201 response for CreateANewConversion
       value:
@@ -841,33 +824,6 @@ components:
         attributionType: LAST_TOUCH_BY_CAMPAIGN
         urlRules: []
         account: urn:li:sponsoredAccount:5012345
-    AssociateCampaignsToConversionResponse204Example:
-      summary: Example 204 response for AssociateCampaignsToConversion
-      value: null
-    StreamMultipleConversionEventsResponse200Example:
-      summary: Example 200 response for StreamMultipleConversionEvents
-      value:
-        elements:
-        - status: 201
-        - status: 201
-    RetrieveAuthenticatedUsersSponsoredResponse200Example:
-      summary: Example 200 response for RetrieveAuthenticatedUsersSponsored
-      value:
-        paging:
-          start: 0
-          count: 2147483647
-          links: []
-          total: 3
-        elements:
-        - user: urn:li:person:abcd
-          account: urn:li:sponsoredAccount:5000123
-          role: VIEWER
-        - user: urn:li:person:abcd
-          account: urn:li:sponsoredAccount:5000234
-          role: ACCOUNT_BILLING_ADMIN
-        - user: urn:li:person:abcd
-          account: urn:li:sponsoredAccount:5000345
-          role: ACCOUNT_BILLING_ADMIN
     FetchExistingConversionRulesResponse200Example:
       summary: Example 200 response for FetchExistingConversionRules
       value:
@@ -906,6 +862,53 @@ components:
           type: REQUEST_QUOTE
           campaigns: []
           enabled: false
+    FetchActiveCampaignsResponse200Example:
+      summary: Example 200 response for FetchActiveCampaigns
+      value:
+        paging:
+          start: 0
+          count: 10
+          links:
+          - type: application/json
+            rel: next
+            href: /rest/adAccounts/5012345/adCampaigns?q=search&search=(status:(values:List(ACTIVE,DRAFT)))&start=10&count=10&fields=name,id
+          total: 4
+        elements:
+        - name: Website visits - May 4, 2021
+          id: 12345
+        - name: Brand awareness - Jul 14, 2022
+          id: 14567
+        - name: Lead generation - Dec 5, 2022
+          id: 789090
+        - name: Website conversions - Dec 6, 2022
+          id: 899887
+    StreamMultipleConversionEventsResponse200Example:
+      summary: Example 200 response for StreamMultipleConversionEvents
+      value:
+        elements:
+        - status: 201
+        - status: 201
+    AssociateCampaignsToConversionResponse204Example:
+      summary: Example 204 response for AssociateCampaignsToConversion
+      value: null
+    RetrieveAuthenticatedUsersSponsoredResponse200Example:
+      summary: Example 200 response for RetrieveAuthenticatedUsersSponsored
+      value:
+        paging:
+          start: 0
+          count: 2147483647
+          links: []
+          total: 3
+        elements:
+        - user: urn:li:person:abcd
+          account: urn:li:sponsoredAccount:5000123
+          role: VIEWER
+        - user: urn:li:person:abcd
+          account: urn:li:sponsoredAccount:5000234
+          role: ACCOUNT_BILLING_ADMIN
+        - user: urn:li:person:abcd
+          account: urn:li:sponsoredAccount:5000345
+          role: ACCOUNT_BILLING_ADMIN
   securitySchemes:
     oauth2Auth:
       type: http

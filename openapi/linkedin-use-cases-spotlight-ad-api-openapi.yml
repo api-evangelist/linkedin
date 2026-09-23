@@ -1,16 +1,7 @@
 openapi: 3.2.0
 info:
   title: Content Use Cases > Spotlight Ad API
-  description: 'Please note that these are versioned set of APIs and they are different than the earlier one.
-
-
-    These must be used with the **content-api-env-versioning** environment.
-
-
-    Content APIs are the APIs that are published with the versioned release. These APIs bring capabilities to partners/developers to create rich content via LinkedIn Ads with minimal operational and technical overhead.
-
-
-    **You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** [**Developer Portal**](https://developer.linkedin.com/product-catalog/marketing/campaign-management) **on how to apply.**'
+  description: Please note that these are versioned set of APIs and they are different than the earlier one.
   version: 1.0.0
 servers:
 - url: https://api.linkedin.com
@@ -19,7 +10,7 @@ security:
 - oauth2Auth: []
 tags:
 - name: Use Cases > Spotlight Ad
-  description: 'Spotlight Ads allow you to showcase your product, service, event, content, and more. Upon clicking your Ad, you navigate to the website or landing page of your choice. Learn more about [Spotlight Ads](https://www.linkedin.com/help/lms/answer/a420806).
+  description: 'Spotlight Ads allow you to showcase your product, service, event, content, and more. Upon clicking your Ad, you navigate to the website or landing page of your choice. Learn more about Spotlight Ads.
 
 
     ##'
@@ -32,7 +23,7 @@ paths:
       description: 'Creates a Dynamic Spotlight Ad Creative.
 
 
-        A successful response returns a `201 Created HTTP` status code and the ID in the `x-linkedin-id` response header. For example, `urn:li:sponsoredCreative:123456789`
+        A successful response returns a `201 Created HTTP` status code and the ID in the `x-linkedin-id` response header. For example, `urn:li:sponsoredCreative:123456789`
 
 
         ##'
@@ -62,7 +53,81 @@ paths:
       tags:
       - Use Cases > Spotlight Ad
       summary: LinkedIn Get a Dynamic Spotlight Ad
-      description: "Retrives a Dynamic Spotlight Ad.\n\n#### Sample Response\n\nJSONCopy\n\n```\n{\n    \"servingHoldReasons\": [\n        \"UNDER_REVIEW\",\n        \"CAMPAIGN_STOPPED\"\n    ],\n    \"lastModifiedAt\": 1648512200000,\n    \"lastModifiedBy\": \"urn:li:member:123\",\n    \"content\": {\n        \"spotlight\": {\n            \"organizationName\": \"LinkedIn Demo\",\n            \"showMemberProfilePhoto\": true,\n            \"landingPage\": \"http://linkedin.com\",\n            \"description\": \"Check out this demo\",\n            \"logo\": \"urn:li:image:abc\",\n            \"headline\": \"Spotlight Ad Demo\",\n            \"callToAction\": \"Join Us Now\"\n        }\n    },\n    \"createdAt\": 1648512200000,\n    \"createdBy\": \"urn:li:member:123\",\n    \"isTest\": false,\n    \"review\": {\n        \"status\": \"PENDING\"\n    },\n    \"isServing\": false,\n    \"campaign\": \"urn:li:sponsoredCampaign:123\",\n    \"id\": \"urn:li:sponsoredCreative:123456789\",\n    \"intendedStatus\": \"ACTIVE\",\n    \"account\": \"urn:li:sponsoredAccount:123\"\n}\n```\n\n##"
+      description: 'Retrives a Dynamic Spotlight Ad.
+
+
+        #### Sample Response
+
+
+        JSONCopy
+
+
+        ```
+
+        {
+
+        "servingHoldReasons": [
+
+        "UNDER_REVIEW",
+
+        "CAMPAIGN_STOPPED"
+
+        ],
+
+        "lastModifiedAt": 1648512200000,
+
+        "lastModifiedBy": "urn:li:member:123",
+
+        "content": {
+
+        "spotlight": {
+
+        "organizationName": "LinkedIn Demo",
+
+        "showMemberProfilePhoto": true,
+
+        "landingPage": "http://linkedin.com",
+
+        "description": "Check out this demo",
+
+        "logo": "urn:li:image:abc",
+
+        "headline": "Spotlight Ad Demo",
+
+        "callToAction": "Join Us Now"
+
+        }
+
+        },
+
+        "createdAt": 1648512200000,
+
+        "createdBy": "urn:li:member:123",
+
+        "isTest": false,
+
+        "review": {
+
+        "status": "PENDING"
+
+        },
+
+        "isServing": false,
+
+        "campaign": "urn:li:sponsoredCampaign:123",
+
+        "id": "urn:li:sponsoredCreative:123456789",
+
+        "intendedStatus": "ACTIVE",
+
+        "account": "urn:li:sponsoredAccount:123"
+
+        }
+
+        ```
+
+
+        ##'
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -89,7 +154,69 @@ paths:
       tags:
       - Use Cases > Spotlight Ad
       summary: LinkedIn Update a Dynamic Spotlight Ad
-      description: "## Update a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_3_curl)\n    \n\nHTTPCopy\n\n```\nPOST https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nJSONCopy\n\n```\n{\n    \"patch\": {\n        \"$set\": {\n            \"content\": {\n                \"spotlight\": {\n                    \"callToAction\": \"New Action\",\n                    \"description\": \"New Description\",\n                    \"headline\": \"New Headline\",\n                    \"landingPage\": \"http://example.com\",                       \n                    \"organizationName\": \"New Organization Name\",\n                    \"logo\": \"urn:li:image:def\",\n                    \"showMemberProfilePhoto\": false\n                }\n            }\n        }\n    }\n}\n\n```\n\nA successful response returns a `204 No Content`."
+      description: '## Update a Dynamic Spotlight Ad Creative
+
+
+        \* http
+
+        \* curl
+
+
+        HTTPCopy
+
+
+        ```
+
+        POST https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}
+
+
+        ```
+
+
+        JSONCopy
+
+
+        ```
+
+        {
+
+        "patch": {
+
+        "$set": {
+
+        "content": {
+
+        "spotlight": {
+
+        "callToAction": "New Action",
+
+        "description": "New Description",
+
+        "headline": "New Headline",
+
+        "landingPage": "http://example.com",
+
+        "organizationName": "New Organization Name",
+
+        "logo": "urn:li:image:def",
+
+        "showMemberProfilePhoto": false
+
+        }
+
+        }
+
+        }
+
+        }
+
+        }
+
+
+        ```
+
+
+        A successful response returns a `204 No Content`.'
       requestBody:
         content:
           '*/*':
@@ -121,7 +248,26 @@ paths:
       tags:
       - Use Cases > Spotlight Ad
       summary: LinkedIn Delete a Dynamic Spotlight Ad
-      description: "## Delete a Dynamic Spotlight Ad Creative\n\n\\*   [http](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_http)\n\\*   [curl](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/version/spotlight-ads?view=li-lms-2022-08&tabs=http#tabpanel_4_curl)\n    \n\nHTTPCopy\n\n```\nDELETE https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}\n\n```\n\nA successful response returns a `204 No Content`."
+      description: '## Delete a Dynamic Spotlight Ad Creative
+
+
+        \* http
+
+        \* curl
+
+
+        HTTPCopy
+
+
+        ```
+
+        DELETE https://api.linkedin.com/rest/creatives/{sponsoredCreative-urn}
+
+
+        ```
+
+
+        A successful response returns a `204 No Content`.'
       parameters:
       - name: LinkedIn-Version
         in: header

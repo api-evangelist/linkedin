@@ -11,9 +11,7 @@ info:
 
     Authentication uses an OAuth 2.0 bearer token with scopes such as
 
-    rw_ads (read/write) or r_ads (read-only).
-
-    '
+    rw_ads (read/write) or r_ads (read-only).'
   version: '202605'
   contact:
     name: Kin Lane
@@ -28,13 +26,13 @@ security:
 - oauth2:
   - rw_ads
 tags:
-- name: AdCampaigns
+- name: Ad Campaigns
   description: Manage campaigns
 paths:
   /rest/adAccounts/{adAccountID}/adCampaigns:
     get:
       tags:
-      - AdCampaigns
+      - Ad Campaigns
       summary: Search campaigns under an ad account
       operationId: adCampaigns_search
       parameters:
@@ -52,7 +50,7 @@ paths:
           description: OK
     post:
       tags:
-      - AdCampaigns
+      - Ad Campaigns
       summary: Create a campaign
       operationId: adCampaigns_create
       parameters:
@@ -71,7 +69,7 @@ paths:
   /rest/adAccounts/{adAccountID}/adCampaigns/{adCampaignID}:
     get:
       tags:
-      - AdCampaigns
+      - Ad Campaigns
       summary: Get a campaign
       operationId: adCampaigns_get
       parameters:
@@ -92,7 +90,7 @@ paths:
                 $ref: '#/components/schemas/AdCampaign'
     post:
       tags:
-      - AdCampaigns
+      - Ad Campaigns
       summary: Update a campaign (partial update)
       operationId: adCampaigns_update
       parameters:
@@ -120,29 +118,6 @@ paths:
         '204':
           description: No Content
 components:
-  parameters:
-    adAccountID:
-      name: adAccountID
-      in: path
-      required: true
-      schema:
-        type: string
-    restliProtocol:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      schema:
-        type: string
-        enum:
-        - 2.0.0
-    linkedinVersion:
-      name: Linkedin-Version
-      in: header
-      required: true
-      description: LinkedIn API version in YYYYMM format
-      schema:
-        type: string
-        example: '202605'
   schemas:
     AdCampaign:
       type: object
@@ -197,6 +172,29 @@ components:
           type: object
         test:
           type: boolean
+  parameters:
+    linkedinVersion:
+      name: Linkedin-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+        example: '202605'
+    adAccountID:
+      name: adAccountID
+      in: path
+      required: true
+      schema:
+        type: string
+    restliProtocol:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      schema:
+        type: string
+        enum:
+        - 2.0.0
   securitySchemes:
     oauth2:
       type: oauth2

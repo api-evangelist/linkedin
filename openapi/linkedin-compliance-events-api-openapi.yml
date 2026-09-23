@@ -84,7 +84,51 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    ComplianceEventsResponseExample:
+      summary: Compliance events response
+      value:
+        elements:
+        - id: evt_123456789
+          capturedAt: 1640000000000
+          processedAt: 1640000001000
+          configVersion: '1.0'
+          owner:
+            firstName: John
+            lastName: Doe
+            headline: Software Engineer at Tech Corp
+          actor:
+            firstName: Jane
+            lastName: Smith
+            headline: Product Manager at Innovation Inc
+          resourceName: MESSAGE
+          resourceId: res_987654321
+          resourceUri: urn:li:message:987654321
+          method: CREATE
+          activity: {}
+          processedActivity: {}
+          siblingActivities: []
+        paging:
+          start: 0
+          count: 10
+          total: 25
+          links:
+          - rel: next
+            href: /v2/complianceEvents?start=10&count=10
+            type: application/json
   schemas:
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /v2/complianceEvents?start=10&count=10
+        type:
+          type: string
+          example: application/json
     ComplianceEventsResponse:
       type: object
       properties:
@@ -94,6 +138,25 @@ components:
             $ref: '#/components/schemas/ComplianceEvent'
         paging:
           $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of elements returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of elements available
+          example: 100
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
     MemberProfile:
       type: object
       properties:
@@ -109,21 +172,6 @@ components:
           type: string
           description: Professional headline
           example: Software Engineer at Tech Corp
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
     ComplianceEvent:
       type: object
       properties:
@@ -196,69 +244,21 @@ components:
       - capturedAt
       - resourceName
       - method
-    PagingLink:
+    ErrorResponse:
       type: object
       properties:
-        rel:
-          type: string
-          example: next
-        href:
-          type: string
-          example: /v2/complianceEvents?start=10&count=10
-        type:
-          type: string
-          example: application/json
-    Paging:
-      type: object
-      properties:
-        start:
+        status:
           type: integer
-          description: Starting index
-          example: 0
-        count:
-          type: integer
-          description: Number of elements returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of elements available
-          example: 100
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/PagingLink'
-  examples:
-    ComplianceEventsResponseExample:
-      summary: Compliance events response
-      value:
-        elements:
-        - id: evt_123456789
-          capturedAt: 1640000000000
-          processedAt: 1640000001000
-          configVersion: '1.0'
-          owner:
-            firstName: John
-            lastName: Doe
-            headline: Software Engineer at Tech Corp
-          actor:
-            firstName: Jane
-            lastName: Smith
-            headline: Product Manager at Innovation Inc
-          resourceName: MESSAGE
-          resourceId: res_987654321
-          resourceUri: urn:li:message:987654321
-          method: CREATE
-          activity: {}
-          processedActivity: {}
-          siblingActivities: []
-        paging:
-          start: 0
-          count: 10
-          total: 25
-          links:
-          - rel: next
-            href: /v2/complianceEvents?start=10&count=10
-            type: application/json
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
   securitySchemes:
     OAuth2Auth:
       type: oauth2

@@ -180,15 +180,23 @@ paths:
                     code: RATE_LIMIT_EXCEEDED
 components:
   schemas:
-    LearningActivityReportResponse:
+    LearnerDetails:
       type: object
       properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/LearningActivityReport'
-        paging:
-          $ref: '#/components/schemas/Paging'
+        entity:
+          $ref: '#/components/schemas/LearnerEntity'
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /v2/learningActivityReports?aggregationCriteria.primary=ACCOUNT&count=1&q=criteria&start=1&startedAt=1627267600000&timeOffset.duration=7&timeOffset.unit=DAY
+        type:
+          type: string
+          example: application/json
     LearningActivity:
       type: object
       properties:
@@ -240,6 +248,44 @@ components:
       - engagementType
       - engagementValue
       - engagementMetricQualifier
+    LearnerEntity:
+      type: object
+      properties:
+        accountUrn:
+          type: string
+          description: URN of the enterprise account
+          example: urn:li:enterpriseAccount:999
+        groupUrn:
+          type: string
+          description: URN of the learner group (if grouped by group)
+          example: urn:li:learnerGroup:456
+        learnerUrn:
+          type: string
+          description: URN of the individual learner (if grouped by individual)
+          example: urn:li:learner:789
+        contentUrn:
+          type: string
+          description: URN of the content (if grouped by content)
+          example: urn:li:learningCourse:123
+    Paging:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of results
+          example: 1
+        count:
+          type: integer
+          description: Number of results in this response
+          example: 1
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
     ErrorResponse:
       type: object
       properties:
@@ -269,61 +315,15 @@ components:
             $ref: '#/components/schemas/LearningActivity'
         learnerDetails:
           $ref: '#/components/schemas/LearnerDetails'
-    LearnerDetails:
+    LearningActivityReportResponse:
       type: object
       properties:
-        entity:
-          $ref: '#/components/schemas/LearnerEntity'
-    PagingLink:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: next
-        href:
-          type: string
-          example: /v2/learningActivityReports?aggregationCriteria.primary=ACCOUNT&count=1&q=criteria&start=1&startedAt=1627267600000&timeOffset.duration=7&timeOffset.unit=DAY
-        type:
-          type: string
-          example: application/json
-    Paging:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of results
-          example: 1
-        count:
-          type: integer
-          description: Number of results in this response
-          example: 1
-        start:
-          type: integer
-          description: Starting index
-          example: 0
-        links:
+        elements:
           type: array
           items:
-            $ref: '#/components/schemas/PagingLink'
-    LearnerEntity:
-      type: object
-      properties:
-        accountUrn:
-          type: string
-          description: URN of the enterprise account
-          example: urn:li:enterpriseAccount:999
-        groupUrn:
-          type: string
-          description: URN of the learner group (if grouped by group)
-          example: urn:li:learnerGroup:456
-        learnerUrn:
-          type: string
-          description: URN of the individual learner (if grouped by individual)
-          example: urn:li:learner:789
-        contentUrn:
-          type: string
-          description: URN of the content (if grouped by content)
-          example: urn:li:learningCourse:123
+            $ref: '#/components/schemas/LearningActivityReport'
+        paging:
+          $ref: '#/components/schemas/Paging'
   examples:
     LearningActivityReportResponseExample:
       summary: Learning activity report aggregated by account

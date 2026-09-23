@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: LinkedIn Recruiter System Connect Integration Configuration API
+  title: LinkedIn Recruiter System Connect Integration Configuration…
   description: 'The LinkedIn Recruiter System Connect (RSC) API enables partners to integrate their Applicant Tracking Systems (ATS) with LinkedIn Recruiter. This API supports:
 
     - Configuring customer middleware integrations - Syncing data from ATS to LinkedIn (jobs, candidates, applications) - Retrieving data from LinkedIn (exported candidates, InMail history) - Defining permissions via Access Control Lists (ACLs) - Managing synced data lifecycle
 
-    For comprehensive documentation, visit the [RSC Documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/).'
+    For comprehensive documentation, visit the RSC Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn Talent Solutions
@@ -29,7 +29,7 @@ paths:
       summary: LinkedIn Update Customer ATS Integration
       description: 'Updates customer ATS integration settings including CSA_API, ONE_CLICK_EXPORT, IN_ATS_INDICATOR, and PROFILE_PLUGIN integrations.
 
-        For more information, refer to the [RSC Customer Configuration documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#sample-request).'
+        For more information, refer to the RSC Customer Configuration documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -95,7 +95,7 @@ paths:
       summary: LinkedIn Get Integration Status Change Notification
       description: 'Retrieves details about integration status changes when a customer enables or modifies an integration.
 
-        For more information, refer to the [Verify Customer Integrations documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/rsc-customer-configuration#5-verify-customer-integrations-enablement).'
+        For more information, refer to the Verify Customer Integrations documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -117,27 +117,44 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type
+      schema:
+        type: string
+      example: request
+    RestliMethodHeader:
+      name: x-restli-method
+      in: header
+      required: true
+      description: Rest.li method type
+      schema:
+        type: string
+        enum:
+        - batch_update
+        - batch_partial_update
+        - batch_create
+      example: batch_update
+    RequestIdParameter:
+      name: requestId
+      in: query
+      required: true
+      description: Request ID from push notification
+      schema:
+        type: string
+      example: req-12345-abcde
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    AtsIntegrationUpdateRequest:
-      type: object
-      description: Request for updating ATS integrations
-      properties:
-        entities:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/IntegrationPatch'
     IntegrationPatch:
       type: object
       properties:
@@ -156,43 +173,26 @@ components:
         status:
           type: string
           example: SUCCESS
-  parameters:
-    RestliMethodHeader:
-      name: x-restli-method
-      in: header
-      required: true
-      description: Rest.li method type
-      schema:
-        type: string
-        enum:
-        - batch_update
-        - batch_partial_update
-        - batch_create
-      example: batch_update
-    ContentTypeHeader:
-      name: Content-Type
-      in: header
-      required: true
-      description: Content type of request body
-      schema:
-        type: string
-      example: application/json
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type
-      schema:
-        type: string
-      example: request
-    RequestIdParameter:
-      name: requestId
-      in: query
-      required: true
-      description: Request ID from push notification
-      schema:
-        type: string
-      example: req-12345-abcde
+    AtsIntegrationUpdateRequest:
+      type: object
+      description: Request for updating ATS integrations
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IntegrationPatch'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
   examples:
     SuccessResponseExample:
       summary: Successful operation response

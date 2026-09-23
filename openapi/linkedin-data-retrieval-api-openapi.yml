@@ -5,7 +5,7 @@ info:
 
     - Configuring customer middleware integrations - Syncing data from ATS to LinkedIn (jobs, candidates, applications) - Retrieving data from LinkedIn (exported candidates, InMail history) - Defining permissions via Access Control Lists (ACLs) - Managing synced data lifecycle
 
-    For comprehensive documentation, visit the [RSC Documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/).'
+    For comprehensive documentation, visit the RSC Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn Talent Solutions
@@ -29,7 +29,7 @@ paths:
       summary: LinkedIn Get Exported Candidate Profile
       description: 'Retrieves limited profile information of candidates exported via One-Click Export.
 
-        For more information, refer to the [Retrieve Exported Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/retrieve-exported-candidates#retrieving-exported-candidate-information).'
+        For more information, refer to the Retrieve Exported Candidates documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -61,7 +61,7 @@ paths:
       summary: LinkedIn Retrieve Recruiter Seatholders
       description: 'Retrieves details of contract seat holders including name, email, and unique ID.
 
-        For more information, refer to the [Recruiter Seatholders documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/recruiter-prospect-interactions/recruiter-seatholders).'
+        For more information, refer to the Recruiter Seatholders documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -115,6 +115,44 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    Seatholder:
+      type: object
+      properties:
+        seatUrn:
+          type: string
+          example: urn:li:seat:12345
+        firstName:
+          type: string
+          example: Jane
+        lastName:
+          type: string
+          example: Recruiter
+        emailAddress:
+          type: string
+          format: email
+          example: jane.recruiter@company.com
+        active:
+          type: boolean
+          example: true
+    ExportedCandidate:
+      type: object
+      properties:
+        personUrn:
+          type: string
+          example: urn:li:person:ABC123
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        headline:
+          type: string
+          example: Senior Software Engineer at Tech Corp
+        profilePictureUrl:
+          type: string
+          format: uri
+          example: https://media.licdn.com/...
     SeatholdersResponse:
       type: object
       description: Response containing recruiter seatholders
@@ -149,44 +187,6 @@ components:
         serviceErrorCode:
           type: integer
           example: 100
-    ExportedCandidate:
-      type: object
-      properties:
-        personUrn:
-          type: string
-          example: urn:li:person:ABC123
-        firstName:
-          type: string
-          example: John
-        lastName:
-          type: string
-          example: Doe
-        headline:
-          type: string
-          example: Senior Software Engineer at Tech Corp
-        profilePictureUrl:
-          type: string
-          format: uri
-          example: https://media.licdn.com/...
-    Seatholder:
-      type: object
-      properties:
-        seatUrn:
-          type: string
-          example: urn:li:seat:12345
-        firstName:
-          type: string
-          example: Jane
-        lastName:
-          type: string
-          example: Recruiter
-        emailAddress:
-          type: string
-          format: email
-          example: jane.recruiter@company.com
-        active:
-          type: boolean
-          example: true
     ExportedCandidateResponse:
       type: object
       description: Response containing exported candidate data
@@ -195,28 +195,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExportedCandidate'
-  examples:
-    ExportedCandidateResponseExample:
-      summary: Example exported candidate response
-      value:
-        elements:
-        - personUrn: urn:li:person:ABC123
-          firstName: John
-          lastName: Doe
-          headline: Senior Software Engineer at Tech Corp
-    SeatholdersResponseExample:
-      summary: Example seatholders response
-      value:
-        elements:
-        - seatUrn: urn:li:seat:12345
-          firstName: Jane
-          lastName: Recruiter
-          emailAddress: jane.recruiter@company.com
-          active: true
-        paging:
-          start: 0
-          count: 100
-          total: 1
   parameters:
     QueryTypeParameter:
       name: q
@@ -234,6 +212,28 @@ components:
       schema:
         type: string
       example: req-12345-abcde
+  examples:
+    SeatholdersResponseExample:
+      summary: Example seatholders response
+      value:
+        elements:
+        - seatUrn: urn:li:seat:12345
+          firstName: Jane
+          lastName: Recruiter
+          emailAddress: jane.recruiter@company.com
+          active: true
+        paging:
+          start: 0
+          count: 100
+          total: 1
+    ExportedCandidateResponseExample:
+      summary: Example exported candidate response
+      value:
+        elements:
+        - personUrn: urn:li:person:ABC123
+          firstName: John
+          lastName: Doe
+          headline: Senior Software Engineer at Tech Corp
   securitySchemes:
     BearerAuth:
       type: http

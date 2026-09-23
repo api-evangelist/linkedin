@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: LinkedIn Recruiter System Connect Candidate Synchronization API
+  title: LinkedIn Recruiter System Connect Candidate Synchronization…
   description: 'The LinkedIn Recruiter System Connect (RSC) API enables partners to integrate their Applicant Tracking Systems (ATS) with LinkedIn Recruiter. This API supports:
 
     - Configuring customer middleware integrations - Syncing data from ATS to LinkedIn (jobs, candidates, applications) - Retrieving data from LinkedIn (exported candidates, InMail history) - Defining permissions via Access Control Lists (ACLs) - Managing synced data lifecycle
 
-    For comprehensive documentation, visit the [RSC Documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/).'
+    For comprehensive documentation, visit the RSC Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn Talent Solutions
@@ -29,7 +29,7 @@ paths:
       summary: LinkedIn Sync Candidates to LinkedIn
       description: 'Creates or updates candidate records in LinkedIn from the ATS system.
 
-        For more information, refer to the [Sync Candidates documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates).'
+        For more information, refer to the Sync Candidates documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -87,7 +87,7 @@ paths:
       summary: LinkedIn Retrieve Candidate Matches
       description: 'Retrieves candidate details including algorithmic and user-supplied matches with LinkedIn members.
 
-        For more information, refer to the [Retrieve Candidate Matches documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-candidates#retrieve-candidate-matches).'
+        For more information, refer to the Retrieve Candidate Matches documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -125,60 +125,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  schemas:
-    Address:
-      type: object
-      properties:
-        line1:
-          type: string
-          example: 123 Main Street
-        city:
-          type: string
-          example: San Francisco
-        geographicArea:
-          type: string
-          example: CA
-        geographicAreaType:
-          type: string
-          enum:
-          - STATE
-          - PROVINCE
-          example: STATE
-        postalCode:
-          type: string
-          example: '94102'
-        country:
-          type: string
-          example: US
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    PhoneNumber:
-      type: object
-      properties:
-        number:
-          type: string
-          example: 555-555-5555
-        extension:
-          type: string
-          example: '1234'
-    CandidateRequest:
-      type: object
-      description: Request for syncing candidate data
-      properties:
+  examples:
+    SuccessResponseExample:
+      summary: Successful operation response
+      value:
+        status: SUCCESS
+    CandidateRequestExample:
+      summary: Example candidate sync request
+      value:
         entities:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/CandidateData'
+          atsCandidateId=CAND-001&dataProvider=ATS&integrationContext=urn:li:organization:12345:
+            firstName: John
+            lastName: Doe
+            emailAddresses:
+            - john.doe@example.com
+            currentCompanyName: Tech Corp
+            currentJobTitle: Senior Software Engineer
+            atsCreatedAt: 1702693664000
+            atsLastModifiedAt: 1702693664000
+  parameters:
+    RestliMethodHeader:
+      name: x-restli-method
+      in: header
+      required: true
+      description: Rest.li method type
+      schema:
+        type: string
+        enum:
+        - batch_update
+        - batch_partial_update
+        - batch_create
+      example: batch_update
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
+  schemas:
     CandidateData:
       type: object
       properties:
@@ -230,51 +216,65 @@ components:
           type: integer
           format: int64
           example: 1702693664000
+    CandidateRequest:
+      type: object
+      description: Request for syncing candidate data
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CandidateData'
     SuccessResponse:
       type: object
       properties:
         status:
           type: string
           example: SUCCESS
-  examples:
-    CandidateRequestExample:
-      summary: Example candidate sync request
-      value:
-        entities:
-          atsCandidateId=CAND-001&dataProvider=ATS&integrationContext=urn:li:organization:12345:
-            firstName: John
-            lastName: Doe
-            emailAddresses:
-            - john.doe@example.com
-            currentCompanyName: Tech Corp
-            currentJobTitle: Senior Software Engineer
-            atsCreatedAt: 1702693664000
-            atsLastModifiedAt: 1702693664000
-    SuccessResponseExample:
-      summary: Successful operation response
-      value:
-        status: SUCCESS
-  parameters:
-    RestliMethodHeader:
-      name: x-restli-method
-      in: header
-      required: true
-      description: Rest.li method type
-      schema:
-        type: string
-        enum:
-        - batch_update
-        - batch_partial_update
-        - batch_create
-      example: batch_update
-    ContentTypeHeader:
-      name: Content-Type
-      in: header
-      required: true
-      description: Content type of request body
-      schema:
-        type: string
-      example: application/json
+    PhoneNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          example: 555-555-5555
+        extension:
+          type: string
+          example: '1234'
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          example: 123 Main Street
+        city:
+          type: string
+          example: San Francisco
+        geographicArea:
+          type: string
+          example: CA
+        geographicAreaType:
+          type: string
+          enum:
+          - STATE
+          - PROVINCE
+          example: STATE
+        postalCode:
+          type: string
+          example: '94102'
+        country:
+          type: string
+          example: US
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
   securitySchemes:
     BearerAuth:
       type: http

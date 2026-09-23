@@ -5,7 +5,7 @@ info:
 
     - Organization profiles and settings - Organization ACLs and authorization - Page content analytics - Feed posts, reactions, and comments - Lead generation data - Talent attraction data - Events and live video - Creator analytics
 
-    For comprehensive documentation, visit the [DMA Documentation](https://learn.microsoft.com/en-us/linkedin/dma/).'
+    For comprehensive documentation, visit the DMA Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn API Support
@@ -149,7 +149,112 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
   schemas:
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:li:share:7012345678901234567
+        author:
+          type: string
+          example: urn:li:organization:10002687
+        commentary:
+          type: string
+          example: Exciting news from our team!
+        visibility:
+          type: string
+          enum:
+          - PUBLIC
+          - CONNECTIONS
+          example: PUBLIC
+        lifecycleState:
+          type: string
+          enum:
+          - PUBLISHED
+          - DRAFT
+          example: PUBLISHED
+        created:
+          $ref: '#/components/schemas/Timestamp'
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
+    Reaction:
+      type: object
+      properties:
+        actor:
+          type: string
+          example: urn:li:person:ABC123
+        reactionType:
+          type: string
+          enum:
+          - LIKE
+          - CELEBRATE
+          - SUPPORT
+          - LOVE
+          - INSIGHTFUL
+          - FUNNY
+          example: LIKE
+        created:
+          $ref: '#/components/schemas/Timestamp'
+    ReactionResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reaction'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    PostResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+        paging:
+          $ref: '#/components/schemas/Paging'
     Paging:
       type: object
       properties:
@@ -194,13 +299,6 @@ components:
         serviceErrorCode:
           type: integer
           example: 100
-    Timestamp:
-      type: object
-      properties:
-        time:
-          type: integer
-          format: int64
-          example: 1702693664000
     CommentResponse:
       type: object
       properties:
@@ -210,70 +308,13 @@ components:
             $ref: '#/components/schemas/Comment'
         paging:
           $ref: '#/components/schemas/Paging'
-    Reaction:
+    Timestamp:
       type: object
       properties:
-        actor:
-          type: string
-          example: urn:li:person:ABC123
-        reactionType:
-          type: string
-          enum:
-          - LIKE
-          - CELEBRATE
-          - SUPPORT
-          - LOVE
-          - INSIGHTFUL
-          - FUNNY
-          example: LIKE
-        created:
-          $ref: '#/components/schemas/Timestamp'
-    Post:
-      type: object
-      properties:
-        id:
-          type: string
-          example: urn:li:share:7012345678901234567
-        author:
-          type: string
-          example: urn:li:organization:10002687
-        commentary:
-          type: string
-          example: Exciting news from our team!
-        visibility:
-          type: string
-          enum:
-          - PUBLIC
-          - CONNECTIONS
-          example: PUBLIC
-        lifecycleState:
-          type: string
-          enum:
-          - PUBLISHED
-          - DRAFT
-          example: PUBLISHED
-        created:
-          $ref: '#/components/schemas/Timestamp'
-        lastModified:
-          $ref: '#/components/schemas/Timestamp'
-    PostResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Post'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    ReactionResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Reaction'
-        paging:
-          $ref: '#/components/schemas/Paging'
+        time:
+          type: integer
+          format: int64
+          example: 1702693664000
   examples:
     PostResponseExample:
       summary: Post response
@@ -287,47 +328,6 @@ components:
         paging:
           start: 0
           count: 25
-  parameters:
-    StartParameter:
-      name: start
-      in: query
-      required: false
-      description: Pagination start index
-      schema:
-        type: integer
-      example: 0
-    LinkedInVersionHeader:
-      name: LinkedIn-Version
-      in: header
-      required: true
-      description: LinkedIn API version in YYYYMM format
-      schema:
-        type: string
-      example: '202312'
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for finder operations
-      schema:
-        type: string
-      example: roleAssignee
-    CountParameter:
-      name: count
-      in: query
-      required: false
-      description: Number of results to return
-      schema:
-        type: integer
-      example: 25
-    RestliProtocolVersionHeader:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      description: Rest.li protocol version
-      schema:
-        type: string
-      example: 2.0.0
   securitySchemes:
     BearerAuth:
       type: http

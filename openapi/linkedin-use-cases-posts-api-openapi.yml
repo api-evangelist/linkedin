@@ -1,16 +1,7 @@
 openapi: 3.2.0
 info:
   title: Content Use Cases > Posts API
-  description: 'Please note that these are versioned set of APIs and they are different than the earlier one.
-
-
-    These must be used with the **content-api-env-versioning** environment.
-
-
-    Content APIs are the APIs that are published with the versioned release. These APIs bring capabilities to partners/developers to create rich content via LinkedIn Ads with minimal operational and technical overhead.
-
-
-    **You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** [**Developer Portal**](https://developer.linkedin.com/product-catalog/marketing/campaign-management) **on how to apply.**'
+  description: Please note that these are versioned set of APIs and they are different than the earlier one.
   version: 1.0.0
 servers:
 - url: https://api.linkedin.com
@@ -26,7 +17,7 @@ paths:
       tags:
       - Use Cases > Posts
       summary: LinkedIn Get Posts by URN
-      description: Creating posts with image requires uploading an image asset to obtain a Image URN (urn:li:image:{id}) for creating the post. See the [Images API](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/images-api?view=li-lms-2022-08) for instructions on how to do this.
+      description: Creating posts with image requires uploading an image asset to obtain a Image URN (urn:li:image:{id}) for creating the post. See the Images API for instructions on how to do this.
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -52,7 +43,7 @@ paths:
       tags:
       - Use Cases > Posts
       summary: LinkedIn Delete a Post
-      description: 'Post deletions are idempotent. Deletion requests for a previously deleted UGC Post will return a `204` code - No Content.
+      description: 'Post deletions are idempotent. Deletion requests for a previously deleted UGC Post will return a `204` code - No Content.
 
 
         ####'
@@ -82,7 +73,7 @@ paths:
       tags:
       - Use Cases > Posts
       summary: LinkedIn Update a Post
-      description: 'The following `posts` field are available to update. Refer to [Schema](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/posts-api?view=li-lms-2022-08&tabs=http#post-schema) for complete field details.
+      description: 'The following `posts` field are available to update. Refer to Schema for complete field details.
 
 
         | Field | Description |
@@ -95,11 +86,13 @@ paths:
 
         | contentLandingPage | URL of the landing page |
 
-        | reshareContext |  |
+        | reshareContext | |
 
-        | lifecycleState |  |
+        | lifecycleState | |
 
-        | adContext | \*   dscName: Update the name of the sponsored content<br>\*   dscStatus: Update the status of the sponsored content |'
+        | adContext | \* dscName: Update the name of the sponsored content
+
+        \* dscStatus: Update the status of the sponsored content |'
       requestBody:
         content:
           '*/*':

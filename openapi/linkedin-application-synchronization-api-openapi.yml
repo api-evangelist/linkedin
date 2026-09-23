@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: LinkedIn Recruiter System Connect Application Synchronization API
+  title: LinkedIn Recruiter System Connect Application…
   description: 'The LinkedIn Recruiter System Connect (RSC) API enables partners to integrate their Applicant Tracking Systems (ATS) with LinkedIn Recruiter. This API supports:
 
     - Configuring customer middleware integrations - Syncing data from ATS to LinkedIn (jobs, candidates, applications) - Retrieving data from LinkedIn (exported candidates, InMail history) - Defining permissions via Access Control Lists (ACLs) - Managing synced data lifecycle
 
-    For comprehensive documentation, visit the [RSC Documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/).'
+    For comprehensive documentation, visit the RSC Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn Talent Solutions
@@ -29,7 +29,7 @@ paths:
       summary: LinkedIn Sync Job Applications
       description: 'Creates or updates job application records in LinkedIn.
 
-        For more information, refer to the [Sync Applications documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications).'
+        For more information, refer to the Sync Applications documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -88,7 +88,7 @@ paths:
       summary: LinkedIn Create Resume Upload URL
       description: 'Creates a signed URL for uploading resume files to LinkedIn.
 
-        For more information, refer to the [Resume Upload documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-applications#resume-upload).'
+        For more information, refer to the Resume Upload documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -125,54 +125,6 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/ApplicationData'
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    ApplicationData:
-      type: object
-      properties:
-        atsCandidateId:
-          type: string
-          example: CAND-001
-        atsJobPostingId:
-          type: string
-          example: JOB-2024-001
-        atsJobPostingName:
-          type: string
-          example: Senior Software Engineer
-        candidateEmail:
-          type: string
-          format: email
-          example: johndoe@example.com
-        firstName:
-          type: string
-          example: John
-        lastName:
-          type: string
-          example: Doe
-        source:
-          type: string
-          example: Referral
-        dispositionReason:
-          type: string
-          example: ''
-        atsCreatedAt:
-          type: integer
-          format: int64
-          example: 1702693664000
-        atsLastModifiedAt:
-          type: integer
-          format: int64
-          example: 1702693664000
     ResumeUploadResponse:
       type: object
       description: Response containing signed upload URL
@@ -214,13 +166,65 @@ components:
           properties:
             recruiterSystemConnectResumeParameters:
               type: object
+    ApplicationData:
+      type: object
+      properties:
+        atsCandidateId:
+          type: string
+          example: CAND-001
+        atsJobPostingId:
+          type: string
+          example: JOB-2024-001
+        atsJobPostingName:
+          type: string
+          example: Senior Software Engineer
+        candidateEmail:
+          type: string
+          format: email
+          example: johndoe@example.com
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        source:
+          type: string
+          example: Referral
+        dispositionReason:
+          type: string
+          example: ''
+        atsCreatedAt:
+          type: integer
+          format: int64
+          example: 1702693664000
+        atsLastModifiedAt:
+          type: integer
+          format: int64
+          example: 1702693664000
     SuccessResponse:
       type: object
       properties:
         status:
           type: string
           example: SUCCESS
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
   examples:
+    SuccessResponseExample:
+      summary: Successful operation response
+      value:
+        status: SUCCESS
     ApplicationRequestExample:
       summary: Example application sync request
       value:
@@ -233,10 +237,6 @@ components:
             lastName: Doe
             source: Referral
             atsCreatedAt: 1702693664000
-    SuccessResponseExample:
-      summary: Successful operation response
-      value:
-        status: SUCCESS
   parameters:
     RestliMethodHeader:
       name: x-restli-method

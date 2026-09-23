@@ -52,31 +52,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    ContractsResponseExample:
+      summary: List of sales contracts
+      value:
+        elements:
+        - contract: urn:li:salesContract:12345
+          name: Enterprise Sales Contract
+          description: Annual enterprise subscription for sales team
+          hasReportingAccess: true
+        - contract: urn:li:salesContract:67890
+          name: Professional Sales Contract
+          description: Monthly professional subscription
+          hasReportingAccess: false
+        paging:
+          count: 10
+          start: 0
+          links: []
   schemas:
-    Contract:
+    Paging:
       type: object
       properties:
-        contract:
-          type: string
-          description: The URN of this Sales Navigator contract
-          example: urn:li:salesContract:12345
-        name:
-          type: string
-          description: The name of this contract, appropriate for display to an end-user
-          example: Enterprise Sales Contract
-        description:
-          type: string
-          nullable: true
-          description: Additional information about the contract
-          example: Annual enterprise subscription for sales team
-        hasReportingAccess:
-          type: boolean
-          description: Indicates whether the user can export data for this contract
-          example: true
-      required:
-      - contract
-      - name
-      - hasReportingAccess
+        count:
+          type: integer
+          example: 10
+        start:
+          type: integer
+          example: 0
+        links:
+          type: array
+          items:
+            type: string
     ErrorResponse:
       type: object
       properties:
@@ -101,36 +107,30 @@ components:
             $ref: '#/components/schemas/Contract'
         paging:
           $ref: '#/components/schemas/Paging'
-    Paging:
+    Contract:
       type: object
       properties:
-        count:
-          type: integer
-          example: 10
-        start:
-          type: integer
-          example: 0
-        links:
-          type: array
-          items:
-            type: string
-  examples:
-    ContractsResponseExample:
-      summary: List of sales contracts
-      value:
-        elements:
-        - contract: urn:li:salesContract:12345
-          name: Enterprise Sales Contract
-          description: Annual enterprise subscription for sales team
-          hasReportingAccess: true
-        - contract: urn:li:salesContract:67890
-          name: Professional Sales Contract
-          description: Monthly professional subscription
-          hasReportingAccess: false
-        paging:
-          count: 10
-          start: 0
-          links: []
+        contract:
+          type: string
+          description: The URN of this Sales Navigator contract
+          example: urn:li:salesContract:12345
+        name:
+          type: string
+          description: The name of this contract, appropriate for display to an end-user
+          example: Enterprise Sales Contract
+        description:
+          type: string
+          nullable: true
+          description: Additional information about the contract
+          example: Annual enterprise subscription for sales team
+        hasReportingAccess:
+          type: boolean
+          description: Indicates whether the user can export data for this contract
+          example: true
+      required:
+      - contract
+      - name
+      - hasReportingAccess
   securitySchemes:
     BearerAuth:
       type: http

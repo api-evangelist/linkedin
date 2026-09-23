@@ -163,25 +163,6 @@ paths:
       description: LinkedIn REST API Server
 components:
   schemas:
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          description: Starting index
-          example: 0
-        count:
-          type: integer
-          description: Number of results returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of results
-          example: 100
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/PagingLink'
     AdTargetingEntity:
       type: object
       properties:
@@ -201,6 +182,55 @@ components:
       - name
       - urn
       - facetUrn
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /rest/adTargetingEntities?q=typeahead&query=united%20states&start=10&count=10
+        type:
+          type: string
+          example: application/json
+    AdTargetingFacetsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdTargetingFacet'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    AdTargetingEntitiesResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdTargetingEntity'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of results returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of results
+          example: 100
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
     ErrorResponse:
       type: object
       properties:
@@ -216,27 +246,6 @@ components:
           type: string
           description: Error code
           example: INVALID_PARAMS
-    PagingLink:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: next
-        href:
-          type: string
-          example: /rest/adTargetingEntities?q=typeahead&query=united%20states&start=10&count=10
-        type:
-          type: string
-          example: application/json
-    AdTargetingEntitiesResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdTargetingEntity'
-        paging:
-          $ref: '#/components/schemas/Paging'
     AdTargetingFacet:
       type: object
       properties:
@@ -270,15 +279,6 @@ components:
       - facetName
       - urn
       - entityTypes
-    AdTargetingFacetsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdTargetingFacet'
-        paging:
-          $ref: '#/components/schemas/Paging'
     GetBingGeoLocationsResponse200:
       type: object
       properties:

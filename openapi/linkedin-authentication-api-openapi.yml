@@ -5,7 +5,7 @@ info:
 
     - Configuring customer middleware integrations - Syncing data from ATS to LinkedIn (jobs, candidates, applications) - Retrieving data from LinkedIn (exported candidates, InMail history) - Defining permissions via Access Control Lists (ACLs) - Managing synced data lifecycle
 
-    For comprehensive documentation, visit the [RSC Documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/).'
+    For comprehensive documentation, visit the RSC Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn Talent Solutions
@@ -58,6 +58,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    AccessTokenResponseExample:
+      summary: Successful access token response
+      value:
+        access_token: AQV8vPRN5zF9BxJ...
+        expires_in: 5184000
+        token_type: Bearer
   schemas:
     AccessTokenResponse:
       type: object
@@ -75,18 +82,6 @@ components:
           type: string
           description: Token type
           example: Bearer
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
     AccessTokenRequest:
       type: object
       description: Request body for obtaining access token
@@ -108,13 +103,18 @@ components:
           type: string
           description: OAuth 2.0 client secret
           example: secretXYZ789
-  examples:
-    AccessTokenResponseExample:
-      summary: Successful access token response
-      value:
-        access_token: AQV8vPRN5zF9BxJ...
-        expires_in: 5184000
-        token_type: Bearer
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
   parameters:
     ContentTypeHeader:
       name: Content-Type

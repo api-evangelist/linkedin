@@ -52,22 +52,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    SalesAccessTokenResponseExample:
+      summary: Sales access token response
+      value:
+        elements:
+        - token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          expiryTime: 1640100000
+        paging:
+          count: 1
+          start: 0
+          links: []
   schemas:
-    ErrorResponse:
+    SalesAccessTokenResponse:
       type: object
       properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesAccessToken'
+        paging:
+          $ref: '#/components/schemas/Paging'
     SalesAccessToken:
       type: object
       properties:
@@ -95,26 +100,21 @@ components:
           type: array
           items:
             type: string
-    SalesAccessTokenResponse:
+    ErrorResponse:
       type: object
       properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/SalesAccessToken'
-        paging:
-          $ref: '#/components/schemas/Paging'
-  examples:
-    SalesAccessTokenResponseExample:
-      summary: Sales access token response
-      value:
-        elements:
-        - token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-          expiryTime: 1640100000
-        paging:
-          count: 1
-          start: 0
-          links: []
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
   securitySchemes:
     BearerAuth:
       type: http

@@ -11,9 +11,7 @@ info:
 
     Authentication uses an OAuth 2.0 bearer token with scopes such as
 
-    rw_ads (read/write) or r_ads (read-only).
-
-    '
+    rw_ads (read/write) or r_ads (read-only).'
   version: '202605'
   contact:
     name: Kin Lane
@@ -57,14 +55,6 @@ paths:
           description: OK
 components:
   parameters:
-    restliProtocol:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      schema:
-        type: string
-        enum:
-        - 2.0.0
     linkedinVersion:
       name: Linkedin-Version
       in: header
@@ -73,6 +63,14 @@ components:
       schema:
         type: string
         example: '202605'
+    restliProtocol:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      schema:
+        type: string
+        enum:
+        - 2.0.0
   securitySchemes:
     oauth2:
       type: oauth2

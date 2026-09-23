@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Community Management Use Cases > Organization Lookup > Organizations API
-  description: '**You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** [**Developer Portal**](https://developer.linkedin.com/product-catalog/marketing/page-management) **on how to apply.**
+  title: Community Management Use Cases > Organization Lookup >…
+  description: '**You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** **Developer Portal** **on how to apply.**
 
 
     This collection aims to focus on different Community Management use cases, for example, social action notifications, and should be used with the **community-management-env-versioning** environment.
@@ -295,6 +295,54 @@ paths:
         dispatcherRules: '{}'
         delay: 0
 components:
+  examples:
+    RetrieveOrganizationFollowerCountResponse200Example:
+      summary: Example 200 response for RetrieveOrganizationFollowerCount
+      value:
+        firstDegreeSize: 0
+    FindNonadministeredOrganizationResponse200Example:
+      summary: Example 200 response for FindNonadministeredOrganization
+      value:
+        results:
+          '3803':
+            name:
+              localized:
+                en_US: New Century
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: NONE
+            vanityName: new-century
+            locations:
+            - staffCountRange: SIZE_1
+              locationType: HEADQUARTERS
+              address:
+                country: US
+            - staffCountRange: SIZE_1
+              locationType: OTHER
+              address: {}
+            localizedName: New Century
+            id: 3803
+          '79988552':
+            name:
+              localized:
+                en_US: FirstDemoCompany
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: NONE
+            vanityName: firstdemocompany
+            locations: []
+            localizedName: FirstDemoCompany
+            id: 79988552
+        statuses:
+          '3803': 200
+          '79988552': 200
+        errors: {}
+    LookupByOrganizationPrimaryResponse200Example:
+      summary: Example 200 response for LookupByOrganizationPrimary
+      value:
+        primaryOrganizationType: NONE
   schemas:
     RetrieveOrganizationFollowerCountResponse200:
       type: object
@@ -302,6 +350,12 @@ components:
         firstDegreeSize:
           type: integer
           example: 42
+    LookupByOrganizationPrimaryResponse200:
+      type: object
+      properties:
+        primaryOrganizationType:
+          type: string
+          example: example_value
     FindNonadministeredOrganizationResponse200:
       type: object
       properties:
@@ -387,60 +441,6 @@ components:
         errors:
           type: object
           properties: {}
-    LookupByOrganizationPrimaryResponse200:
-      type: object
-      properties:
-        primaryOrganizationType:
-          type: string
-          example: example_value
-  examples:
-    RetrieveOrganizationFollowerCountResponse200Example:
-      summary: Example 200 response for RetrieveOrganizationFollowerCount
-      value:
-        firstDegreeSize: 0
-    FindNonadministeredOrganizationResponse200Example:
-      summary: Example 200 response for FindNonadministeredOrganization
-      value:
-        results:
-          '3803':
-            name:
-              localized:
-                en_US: New Century
-              preferredLocale:
-                country: US
-                language: en
-            primaryOrganizationType: NONE
-            vanityName: new-century
-            locations:
-            - staffCountRange: SIZE_1
-              locationType: HEADQUARTERS
-              address:
-                country: US
-            - staffCountRange: SIZE_1
-              locationType: OTHER
-              address: {}
-            localizedName: New Century
-            id: 3803
-          '79988552':
-            name:
-              localized:
-                en_US: FirstDemoCompany
-              preferredLocale:
-                country: US
-                language: en
-            primaryOrganizationType: NONE
-            vanityName: firstdemocompany
-            locations: []
-            localizedName: FirstDemoCompany
-            id: 79988552
-        statuses:
-          '3803': 200
-          '79988552': 200
-        errors: {}
-    LookupByOrganizationPrimaryResponse200Example:
-      summary: Example 200 response for LookupByOrganizationPrimary
-      value:
-        primaryOrganizationType: NONE
   securitySchemes:
     oauth2Auth:
       type: http

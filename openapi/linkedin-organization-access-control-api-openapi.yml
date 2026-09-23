@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: LinkedIn Pages Data Portability Organization Access Control API
+  title: LinkedIn Pages Data Portability Organization Access Control…
   description: 'The LinkedIn Pages Data Portability API provides access to organization data for regulatory compliance with the Digital Markets Act (DMA). This API enables data portability for:
 
     - Organization profiles and settings - Organization ACLs and authorization - Page content analytics - Feed posts, reactions, and comments - Lead generation data - Talent attraction data - Events and live video - Creator analytics
 
-    For comprehensive documentation, visit the [DMA Documentation](https://learn.microsoft.com/en-us/linkedin/dma/).'
+    For comprehensive documentation, visit the DMA Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn API Support
@@ -60,7 +60,94 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    RoleParameter:
+      name: role
+      in: query
+      required: false
+      description: Role filter for ACL queries
+      schema:
+        type: string
+        enum:
+        - ADMINISTRATOR
+        - CONTENT_ADMIN
+        - ANALYST
+      example: ADMINISTRATOR
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
   schemas:
+    OrganizationAclResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationAcl'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    OrganizationAcl:
+      type: object
+      properties:
+        organization:
+          type: string
+          example: urn:li:organization:10002687
+        roleAssignee:
+          type: string
+          example: urn:li:person:ABC123
+        role:
+          type: string
+          enum:
+          - ADMINISTRATOR
+          - CONTENT_ADMIN
+          - ANALYST
+          - RECRUITING_POSTER
+          example: ADMINISTRATOR
+        state:
+          type: string
+          enum:
+          - APPROVED
+          - PENDING
+          example: APPROVED
+        created:
+          $ref: '#/components/schemas/Timestamp'
     Paging:
       type: object
       properties:
@@ -96,40 +183,6 @@ components:
           type: integer
           format: int64
           example: 1702693664000
-    OrganizationAclResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationAcl'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    OrganizationAcl:
-      type: object
-      properties:
-        organization:
-          type: string
-          example: urn:li:organization:10002687
-        roleAssignee:
-          type: string
-          example: urn:li:person:ABC123
-        role:
-          type: string
-          enum:
-          - ADMINISTRATOR
-          - CONTENT_ADMIN
-          - ANALYST
-          - RECRUITING_POSTER
-          example: ADMINISTRATOR
-        state:
-          type: string
-          enum:
-          - APPROVED
-          - PENDING
-          example: APPROVED
-        created:
-          $ref: '#/components/schemas/Timestamp'
   examples:
     OrganizationAclResponseExample:
       summary: Organization ACL response
@@ -143,59 +196,6 @@ components:
           start: 0
           count: 25
           total: 1
-  parameters:
-    StartParameter:
-      name: start
-      in: query
-      required: false
-      description: Pagination start index
-      schema:
-        type: integer
-      example: 0
-    LinkedInVersionHeader:
-      name: LinkedIn-Version
-      in: header
-      required: true
-      description: LinkedIn API version in YYYYMM format
-      schema:
-        type: string
-      example: '202312'
-    CountParameter:
-      name: count
-      in: query
-      required: false
-      description: Number of results to return
-      schema:
-        type: integer
-      example: 25
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for finder operations
-      schema:
-        type: string
-      example: roleAssignee
-    RestliProtocolVersionHeader:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      description: Rest.li protocol version
-      schema:
-        type: string
-      example: 2.0.0
-    RoleParameter:
-      name: role
-      in: query
-      required: false
-      description: Role filter for ACL queries
-      schema:
-        type: string
-        enum:
-        - ADMINISTRATOR
-        - CONTENT_ADMIN
-        - ANALYST
-      example: ADMINISTRATOR
   securitySchemes:
     BearerAuth:
       type: http

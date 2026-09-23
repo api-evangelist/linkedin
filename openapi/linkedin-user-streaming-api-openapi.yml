@@ -85,14 +85,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   examples:
-    StreamResponseExample:
-      summary: Successful stream response
-      value:
-        elements:
-        - status: 201
-        - status: 201
-        - status: 201
-        - status: 201
     UserStreamRequestExample:
       summary: Add multiple users to segment
       value:
@@ -113,22 +105,15 @@ components:
           userIds:
           - idType: SHA256_EMAIL
             idValue: 4f123dc421f679369532452374c003dd9e825273e9929bd61060a65cd8587bb3
+    StreamResponseExample:
+      summary: Successful stream response
+      value:
+        elements:
+        - status: 201
+        - status: 201
+        - status: 201
+        - status: 201
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
     UserId:
       type: object
       properties:
@@ -147,13 +132,6 @@ components:
       required:
       - idType
       - idValue
-    StreamResultElement:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code for this element
-          example: 201
     UserStreamElement:
       type: object
       properties:
@@ -171,13 +149,6 @@ components:
       required:
       - action
       - userIds
-    StreamResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/StreamResultElement'
     UserStreamRequest:
       type: object
       properties:
@@ -187,6 +158,35 @@ components:
             $ref: '#/components/schemas/UserStreamElement'
       required:
       - elements
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    StreamResultElement:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code for this element
+          example: 201
+    StreamResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamResultElement'
   securitySchemes:
     OAuth2Auth:
       type: oauth2

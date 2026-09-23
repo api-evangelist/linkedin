@@ -5,7 +5,7 @@ info:
 
     - Configuring customer middleware integrations - Syncing data from ATS to LinkedIn (jobs, candidates, applications) - Retrieving data from LinkedIn (exported candidates, InMail history) - Defining permissions via Access Control Lists (ACLs) - Managing synced data lifecycle
 
-    For comprehensive documentation, visit the [RSC Documentation](https://docs.microsoft.com/en-us/linkedin/talent/recruiter-system-connect/).'
+    For comprehensive documentation, visit the RSC Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn Talent Solutions
@@ -29,7 +29,7 @@ paths:
       summary: LinkedIn Upsert Entity ACL
       description: 'Creates or updates entity ACLs that control visibility of synced entities within LinkedIn products.
 
-        For more information, refer to the [Sync ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#sync-entity-acls).'
+        For more information, refer to the Sync ACLs documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -99,7 +99,7 @@ paths:
       summary: LinkedIn Retrieve Entity ACL
       description: 'Retrieves details of previously synced entity ACLs.
 
-        For more information, refer to the [Retrieve Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#retrieve-entity-acls).'
+        For more information, refer to the Retrieve Entity ACLs documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -167,7 +167,7 @@ paths:
       summary: LinkedIn Delete Entity ACL
       description: 'Deletes previously synced entity ACLs.
 
-        For more information, refer to the [Delete Entity ACLs documentation](https://docs.microsoft.com/en-us/linkedin/talent/middleware-platform/sync-acls#delete-entity-acls).'
+        For more information, refer to the Delete Entity ACLs documentation.'
       x-microcks-operation:
         dispatcher: FALLBACK
         dispatcherRules: "{\n  \"dispatcher\": \"FALLBACK\",\n  \"dispatcherRules\": \"\"\n}\n"
@@ -218,18 +218,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
     EntityAclRequest:
       type: object
       description: Request for upserting entity ACLs
@@ -242,6 +230,23 @@ components:
         status:
           type: string
           example: SUCCESS
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+  examples:
+    SuccessResponseExample:
+      summary: Successful operation response
+      value:
+        status: SUCCESS
   parameters:
     RestliMethodHeader:
       name: x-restli-method
@@ -263,11 +268,6 @@ components:
       schema:
         type: string
       example: application/json
-  examples:
-    SuccessResponseExample:
-      summary: Successful operation response
-      value:
-        status: SUCCESS
   securitySchemes:
     BearerAuth:
       type: http

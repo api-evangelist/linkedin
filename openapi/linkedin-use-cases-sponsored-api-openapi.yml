@@ -13,44 +13,29 @@ security:
 - oauth2Auth: []
 tags:
 - name: Use Cases > Sponsored
-  description: 'In order to support collecting leads for sponsored use cases, a partner app needs to build a UX where a user is able to select the sponsored accounts and forms to collect leads for.
-
-
-    ###### Step 1: Obtain user authorization to access their leads
-
-
-    ###### Step 2: Get the user''s sponsored accounts
-
-
-    ###### Step 3: Ask the user to select the sponsored account(s) whose leads they are interested in syncing
-
-
-    ###### Step 4: Validate the user''s organization role tied to the chosen sponsored account
-
-
-    ###### Step 5: Retrieve forms for the user''s selected sponsored account
-
-
-    ###### Step 6: Ask the user to select and map fields to the target destination (e.g. a CRM)
-
-
-    ###### Step 7: Allow the user to do a one time pull of all form responses looking back up to 365 days to grab any missed leads
-
-
-    ###### Step 8: \[PULL\] Schedule periodic form response pulls to collect leads
-
-
-    ###### Step 8: \[PUSH\] Allow the user to subscribe for lead notification webhooks
-
-
-    ###### Step 9: \[PUSH\] Fetch full lead data after a webhook notification is received'
+  description: In order to support collecting leads for sponsored use cases, a partner app needs to build a UX where a user is able to select the sponsored accounts and forms to collect leads for.
 paths:
   /organizationAcls:
     get:
       tags:
       - Use Cases > Sponsored
       summary: LinkedIn 4. Validate the User's Organization Role
-      description: "View the [Organization Access Control](https://docs.microsoft.com/linkedin/marketing/integrations/community-management/organizations/organization-access-control-by-role?tabs=http#organization-roles) documentation.\n\nTake note of the organization (company page) from the previous request (`referenceInfo.organization.id`). A member must have access to not only the Sponsored Account (step 2) but also have one of the roles mentioned in our [permissions](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#permissions) table for the associated company page to successfully sync leads.\n\nIf the user's role is not one of the approved roles for pulling leads, or the ad account does not have a company page associated to it (empty `referenceInfo` object in previous request) you should display a helpful message to the user guiding them on next steps.\n\nBelow are two resources to better understand Page Admin vs Paid Media Admin:\n\n- [Permissions for Lead Gen Forms](https://www.linkedin.com/help/lms/answer/a421620/permissions-for-lead-gen-forms?lang=en)\n    \n- [LinkedIn Page Admiin Roles - Overview](https://www.linkedin.com/help/lms/answer/4783)"
+      description: 'View the Organization Access Control documentation.
+
+
+        Take note of the organization (company page) from the previous request (`referenceInfo.organization.id`). A member must have access to not only the Sponsored Account (step 2) but also have one of the roles mentioned in our permissions table for the associated company page to successfully sync leads.
+
+
+        If the user''s role is not one of the approved roles for pulling leads, or the ad account does not have a company page associated to it (empty `referenceInfo` object in previous request) you should display a helpful message to the user guiding them on next steps.
+
+
+        Below are two resources to better understand Page Admin vs Paid Media Admin:
+
+
+        - Permissions for Lead Gen Forms
+
+
+        - LinkedIn Page Admiin Roles - Overview'
       parameters:
       - name: X-Restli-Protocol-Version
         in: header
@@ -265,7 +250,7 @@ paths:
       tags:
       - Use Cases > Sponsored
       summary: LinkedIn 8. Schedule Periodic Form Response (lead) Pulls
-      description: 'This example pulls back all form responses (leads) for the chosen sponsored account. It also uses [field projection](https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/projections?context=linkedin/marketing/context) to pull back specific fields in the response and the `submittedAtTimeRange` field to pull back leads up to 365 days in the past.
+      description: 'This example pulls back all form responses (leads) for the chosen sponsored account. It also uses field projection to pull back specific fields in the response and the `submittedAtTimeRange` field to pull back leads up to 365 days in the past.
 
 
         Currently the only sponsored leadType is `SPONSORED`
@@ -274,7 +259,7 @@ paths:
         LinkedIn will store form response (lead) data for up to 365 days. It is a best practice to allow the user to do a one time pull upon integration setup to ensure no leads are missed.
 
 
-        Refer to [Lead Form Responses](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses) documentation for more information.'
+        Refer to Lead Form Responses documentation for more information.'
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -341,16 +326,16 @@ paths:
       tags:
       - Use Cases > Sponsored
       summary: LinkedIn 8. Subscribe for Lead Notification Webhooks
-      description: '[Register a lead notification webhook](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#lead-notification-subscriptions) to receive notifications for new leads. Lead notifications can also be subscribed at a more granular level - see the linked documentation.
+      description: 'Register a lead notification webhook to receive notifications for new leads. Lead notifications can also be subscribed at a more granular level - see the linked documentation.
 
 
-        This example registers the webhook url, [https://www.example.com](https://www.example.com/), at the Ad Account level (sponsoredAccount). For any new lead submitted for campaigns that live within this Ad Account, a webhook notification will be sent.
+        This example registers the webhook url, https://www.example.com, at the Ad Account level (sponsoredAccount). For any new lead submitted for campaigns that live within this Ad Account, a webhook notification will be sent.
 
 
         **Listen for lead notifications**
 
 
-        As leads flow into the user''s ad account, LinkedIn will send your webhook endpoint a notification for each lead. The notification body will contain content as laid out in our documentation [here.](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event)'
+        As leads flow into the user''s ad account, LinkedIn will send your webhook endpoint a notification for each lead. The notification body will contain content as laid out in our documentation here.'
       requestBody:
         content:
           application/json:
@@ -382,10 +367,10 @@ paths:
       tags:
       - Use Cases > Sponsored
       summary: LinkedIn 9. Fetch Full Lead Data After a Lead Notification is Received
-      description: '[Responses can be fetched](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#get-lead-sync-form-responses) for a single form response, multiple form responses, or at the form or Ad Account level.
+      description: 'Responses can be fetched for a single form response, multiple form responses, or at the form or Ad Account level.
 
 
-        When a lead notification event is received, the form response id exists in the lead notification [content](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#example-payload-for-when-a-member-registers-for-an-event).
+        When a lead notification event is received, the form response id exists in the lead notification content.
 
 
         This example pulls back data for a single form response (lead) by ID and uses field projection to pull back specific fields in the request response.'
@@ -480,7 +465,7 @@ paths:
       tags:
       - Use Cases > Sponsored
       summary: LinkedIn [PUSH] Delete a Registered Webhook by Id
-      description: '[Delete a lead notification subsription](https://learn.microsoft.com/en-us/linkedin/marketing/integrations/lead-sync/leadsync?tabs=http#delete-lead-notification-url)
+      description: 'Delete a lead notification subsription
 
 
         When an integration is deleted, the associated webhooks should also be deleted to ensure that lead notifications are not unnecessarily being sent.'
@@ -510,13 +495,13 @@ paths:
       tags:
       - Use Cases > Sponsored
       summary: LinkedIn 2. Get the User's Sponsored Accounts (ad Accounts)
-      description: 'View [Search for Accounts](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#search-for-accounts) documentation for more information.
+      description: 'View Search for Accounts documentation for more information.
 
 
         This API call pulls back Ad Accounts that the member has access to where the status = ACTIVE and test = false (NOT a test Ad Account).
 
 
-        Learn more about Test Ad Accounts [here](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/account-structure/create-and-manage-accounts?tabs=http#working-with-test-ad-accounts).
+        Learn more about Test Ad Accounts here.
 
 
         For testing purposes, if you wish to use this example api to pull back a Test Ad Account, simply remove `test:false` from the search parameter.
@@ -1128,6 +1113,43 @@ components:
             impersonator: urn:li:servicePrincipal:organization
             time: 1655913677098
           organization: urn:li:organization:11223344
+    GetTheUsersSponsoredResponse200Example:
+      summary: Example 200 response for GetTheUsersSponsored
+      value:
+        paging:
+          start: 0
+          count: 10
+          links: []
+          total: 2
+        elements:
+        - name: Ad Account A
+          id: 1234567
+          test: false
+          referenceInfo:
+            organization:
+              name:
+                localized:
+                  en_US: Highlander Cranberries LLC
+                preferredLocale:
+                  country: US
+                  language: en
+              vanityName: highlander-cranberries-llc
+              localizedName: Highlander Cranberries LLC
+              id: 11223344
+        - name: New Ad Account B
+          id: 5678910
+          test: false
+          referenceInfo:
+            organization:
+              name:
+                localized:
+                  en_US: Highlander Cranberries LLC
+                preferredLocale:
+                  country: US
+                  language: en
+              vanityName: highlander-cranberries-llc
+              localizedName: Highlander Cranberries LLC
+              id: 11223344
     FetchFullLeadDataResponse200Example:
       summary: Example 200 response for FetchFullLeadData
       value:
@@ -1182,45 +1204,8 @@ components:
               textQuestionAnswer:
                 answer: Ingeniería
             questionId: 507234246
-    GetTheUsersSponsoredResponse200Example:
-      summary: Example 200 response for GetTheUsersSponsored
-      value:
-        paging:
-          start: 0
-          count: 10
-          links: []
-          total: 2
-        elements:
-        - name: Ad Account A
-          id: 1234567
-          test: false
-          referenceInfo:
-            organization:
-              name:
-                localized:
-                  en_US: Highlander Cranberries LLC
-                preferredLocale:
-                  country: US
-                  language: en
-              vanityName: highlander-cranberries-llc
-              localizedName: Highlander Cranberries LLC
-              id: 11223344
-        - name: New Ad Account B
-          id: 5678910
-          test: false
-          referenceInfo:
-            organization:
-              name:
-                localized:
-                  en_US: Highlander Cranberries LLC
-                preferredLocale:
-                  country: US
-                  language: en
-              vanityName: highlander-cranberries-llc
-              localizedName: Highlander Cranberries LLC
-              id: 11223344
   schemas:
-    ValidateTheUsersOrganizationResponse200:
+    GetTheUsersSponsoredResponse200:
       type: object
       properties:
         paging:
@@ -1233,44 +1218,46 @@ components:
             links:
               type: array
               items: {}
+            total:
+              type: integer
         elements:
           type: array
           items:
             type: object
             properties:
-              roleAssignee:
+              name:
                 type: string
-              state:
-                type: string
-              lastModified:
+              id:
+                type: integer
+              test:
+                type: boolean
+              referenceInfo:
                 type: object
                 properties:
-                  actor:
-                    type: string
-                  impersonator:
-                    type: string
-                  time:
-                    type: integer
-              role:
-                type: string
-              created:
-                type: object
-                properties:
-                  actor:
-                    type: string
-                  impersonator:
-                    type: string
-                  time:
-                    type: integer
-              organization:
-                type: string
-    SubscribeForLeadNotificationRequest:
-      type: object
-      example:
-        webhook: https://www.example.com
-        owner:
-          sponsoredAccount: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
-        leadType: '{{leadtype_sponsored}}'
+                  organization:
+                    type: object
+                    properties:
+                      name:
+                        type: object
+                        properties:
+                          localized:
+                            type: object
+                            properties:
+                              en_US:
+                                type: string
+                          preferredLocale:
+                            type: object
+                            properties:
+                              country:
+                                type: string
+                              language:
+                                type: string
+                      vanityName:
+                        type: string
+                      localizedName:
+                        type: string
+                      id:
+                        type: integer
     FetchFullLeadDataResponse200:
       type: object
       properties:
@@ -1337,6 +1324,57 @@ components:
                             type: string
                   questionId:
                     type: integer
+    ValidateTheUsersOrganizationResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              roleAssignee:
+                type: string
+              state:
+                type: string
+              lastModified:
+                type: object
+                properties:
+                  actor:
+                    type: string
+                  impersonator:
+                    type: string
+                  time:
+                    type: integer
+              role:
+                type: string
+              created:
+                type: object
+                properties:
+                  actor:
+                    type: string
+                  impersonator:
+                    type: string
+                  time:
+                    type: integer
+              organization:
+                type: string
+    SubscribeForLeadNotificationRequest:
+      type: object
+      example:
+        webhook: https://www.example.com
+        owner:
+          sponsoredAccount: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+        leadType: '{{leadtype_sponsored}}'
     GetFormsForTheResponse200:
       type: object
       properties:
@@ -1483,59 +1521,6 @@ components:
                         properties:
                           sv_SE:
                             type: string
-    GetTheUsersSponsoredResponse200:
-      type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items: {}
-            total:
-              type: integer
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              id:
-                type: integer
-              test:
-                type: boolean
-              referenceInfo:
-                type: object
-                properties:
-                  organization:
-                    type: object
-                    properties:
-                      name:
-                        type: object
-                        properties:
-                          localized:
-                            type: object
-                            properties:
-                              en_US:
-                                type: string
-                          preferredLocale:
-                            type: object
-                            properties:
-                              country:
-                                type: string
-                              language:
-                                type: string
-                      vanityName:
-                        type: string
-                      localizedName:
-                        type: string
-                      id:
-                        type: integer
   securitySchemes:
     oauth2Auth:
       type: http

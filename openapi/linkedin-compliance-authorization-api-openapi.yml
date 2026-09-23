@@ -138,21 +138,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
     PagingLink:
       type: object
       properties:
@@ -174,6 +159,40 @@ components:
           example: urn:li:person:ABC123def
       required:
       - member
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of elements returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of elements available
+          example: 100
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     ComplianceAuthorization:
       type: object
       properties:
@@ -201,25 +220,6 @@ components:
       - developerApplication
       - member
       - status
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          description: Starting index
-          example: 0
-        count:
-          type: integer
-          description: Number of elements returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of elements available
-          example: 100
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/PagingLink'
     ComplianceAuthorizationResponse:
       type: object
       properties:

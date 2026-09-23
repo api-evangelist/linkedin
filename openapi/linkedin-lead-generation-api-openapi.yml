@@ -5,7 +5,7 @@ info:
 
     - Organization profiles and settings - Organization ACLs and authorization - Page content analytics - Feed posts, reactions, and comments - Lead generation data - Talent attraction data - Events and live video - Creator analytics
 
-    For comprehensive documentation, visit the [DMA Documentation](https://learn.microsoft.com/en-us/linkedin/dma/).'
+    For comprehensive documentation, visit the DMA Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn API Support
@@ -62,7 +62,83 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
   schemas:
+    LeadGenResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeadGenRecord'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    LeadGenRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:li:leadGenResponse:123456
+        formId:
+          type: string
+          example: urn:li:leadGenForm:789012
+        submittedAt:
+          type: integer
+          format: int64
+          example: 1702693664000
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeadGenAnswer'
+    LeadGenAnswer:
+      type: object
+      properties:
+        questionId:
+          type: string
+          example: firstName
+        answerValue:
+          type: string
+          example: John
     Paging:
       type: object
       properties:
@@ -91,82 +167,6 @@ components:
         serviceErrorCode:
           type: integer
           example: 100
-    LeadGenRecord:
-      type: object
-      properties:
-        id:
-          type: string
-          example: urn:li:leadGenResponse:123456
-        formId:
-          type: string
-          example: urn:li:leadGenForm:789012
-        submittedAt:
-          type: integer
-          format: int64
-          example: 1702693664000
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeadGenAnswer'
-    LeadGenResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeadGenRecord'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    LeadGenAnswer:
-      type: object
-      properties:
-        questionId:
-          type: string
-          example: firstName
-        answerValue:
-          type: string
-          example: John
-  parameters:
-    StartParameter:
-      name: start
-      in: query
-      required: false
-      description: Pagination start index
-      schema:
-        type: integer
-      example: 0
-    LinkedInVersionHeader:
-      name: LinkedIn-Version
-      in: header
-      required: true
-      description: LinkedIn API version in YYYYMM format
-      schema:
-        type: string
-      example: '202312'
-    CountParameter:
-      name: count
-      in: query
-      required: false
-      description: Number of results to return
-      schema:
-        type: integer
-      example: 25
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for finder operations
-      schema:
-        type: string
-      example: roleAssignee
-    RestliProtocolVersionHeader:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      description: Rest.li protocol version
-      schema:
-        type: string
-      example: 2.0.0
   securitySchemes:
     BearerAuth:
       type: http

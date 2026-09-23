@@ -200,32 +200,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        code:
-          type: string
-          example: INVALID_PARAMS
-    CampaignUpdateRequest:
-      type: object
-      properties:
-        patch:
-          type: object
-          properties:
-            $set:
-              type: object
-              properties:
-                status:
-                  type: string
-                  example: ARCHIVED
-                runSchedule:
-                  $ref: '#/components/schemas/RunSchedule'
     Campaign:
       type: object
       properties:
@@ -284,17 +258,20 @@ components:
           $ref: '#/components/schemas/Budget'
         totalBudget:
           $ref: '#/components/schemas/Budget'
-    Budget:
+    CampaignUpdateRequest:
       type: object
       properties:
-        amount:
-          type: string
-          description: Budget amount
-          example: '1000'
-        currencyCode:
-          type: string
-          description: Currency code
-          example: USD
+        patch:
+          type: object
+          properties:
+            $set:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: ARCHIVED
+                runSchedule:
+                  $ref: '#/components/schemas/RunSchedule'
     Paging:
       type: object
       properties:
@@ -311,6 +288,29 @@ components:
           type: array
           items:
             type: string
+    Budget:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: Budget amount
+          example: '1000'
+        currencyCode:
+          type: string
+          description: Currency code
+          example: USD
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
     RunSchedule:
       type: object
       properties:

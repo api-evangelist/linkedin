@@ -5,7 +5,7 @@ info:
 
     - Organization profiles and settings - Organization ACLs and authorization - Page content analytics - Feed posts, reactions, and comments - Lead generation data - Talent attraction data - Events and live video - Creator analytics
 
-    For comprehensive documentation, visit the [DMA Documentation](https://learn.microsoft.com/en-us/linkedin/dma/).'
+    For comprehensive documentation, visit the DMA Documentation.'
   version: 1.0.0
   contact:
     name: LinkedIn API Support
@@ -103,7 +103,76 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    BatchOrganizationResponseExample:
+      summary: Batch organization response
+      value:
+        results:
+          '10002687':
+            id: 10002687
+            localizedName: Acme Corporation
+            entityStatus: ACTIVE
+        statuses:
+          '10002687': 200
+        errors: {}
+    OrganizationResponseExample:
+      summary: Organization profile response
+      value:
+        id: 10002687
+        localizedName: Acme Corporation
+        localizedDescription: Leading provider of innovative solutions
+        localizedTagline: Innovation at its best
+        vanityName: acme-corp
+        organizationType: PRIVATELY_HELD
+        staffCountRange: SIZE_201_TO_500
+        industriesV2:
+        - urn:li:industry:33
+        entityStatus: ACTIVE
+        locations:
+        - locationType: HEADQUARTERS
+          address:
+            line1: 123 Main Street
+            city: San Francisco
+            geographicArea: California
+            postalCode: '94102'
+            country: US
+        created:
+          time: 1518028624160
+        lastModified:
+          time: 1702644474447
+    ErrorResponseExample:
+      summary: Error response
+      value:
+        status: 400
+        message: Invalid request parameters
+        serviceErrorCode: 100
   schemas:
+    LocalizedString:
+      type: object
+      properties:
+        localized:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            en_US: Acme Corporation
+        preferredLocale:
+          $ref: '#/components/schemas/Locale'
+    BatchOrganizationResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/OrganizationResponse'
+        statuses:
+          type: object
+          additionalProperties:
+            type: integer
+        errors:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ErrorDetail'
     Address:
       type: object
       properties:
@@ -122,18 +191,18 @@ components:
         country:
           type: string
           example: US
-    ErrorResponse:
+    ErrorDetail:
       type: object
       properties:
-        status:
-          type: integer
-          example: 400
+        code:
+          type: string
+          example: FORBIDDEN
         message:
           type: string
-          example: Invalid request parameters
-        serviceErrorCode:
+          example: Viewer doesn't have permission to access this resource
+        status:
           type: integer
-          example: 100
+          example: 403
     Timestamp:
       type: object
       properties:
@@ -216,24 +285,6 @@ components:
           $ref: '#/components/schemas/Timestamp'
         lastModified:
           $ref: '#/components/schemas/Timestamp'
-    ImageAsset:
-      type: object
-      properties:
-        downloadUrl:
-          type: string
-          format: uri
-          example: https://media.licdn.com/dms/image/...
-        downloadUrlExpiresAt:
-          type: integer
-          format: int64
-          example: 1710979200000
-        status:
-          type: string
-          enum:
-          - AVAILABLE
-          - PROCESSING
-          - FAILED
-          example: AVAILABLE
     OrganizationLocation:
       type: object
       properties:
@@ -253,29 +304,33 @@ components:
           example: SIZE_1
         description:
           $ref: '#/components/schemas/LocalizedString'
-    DateInfo:
+    ImageAsset:
       type: object
       properties:
-        year:
+        downloadUrl:
+          type: string
+          format: uri
+          example: https://media.licdn.com/dms/image/...
+        downloadUrlExpiresAt:
           type: integer
-          example: 2001
-        month:
-          type: integer
-          example: 1
-        day:
-          type: integer
-          example: 15
-    LocalizedString:
+          format: int64
+          example: 1710979200000
+        status:
+          type: string
+          enum:
+          - AVAILABLE
+          - PROCESSING
+          - FAILED
+          example: AVAILABLE
+    Locale:
       type: object
       properties:
-        localized:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            en_US: Acme Corporation
-        preferredLocale:
-          $ref: '#/components/schemas/Locale'
+        country:
+          type: string
+          example: US
+        language:
+          type: string
+          example: en
     ImageReference:
       type: object
       properties:
@@ -298,67 +353,31 @@ components:
             height:
               type: integer
               example: 400
-    Locale:
+    DateInfo:
       type: object
       properties:
-        country:
-          type: string
-          example: US
-        language:
-          type: string
-          example: en
-    ErrorDetail:
+        year:
+          type: integer
+          example: 2001
+        month:
+          type: integer
+          example: 1
+        day:
+          type: integer
+          example: 15
+    ErrorResponse:
       type: object
       properties:
-        code:
-          type: string
-          example: FORBIDDEN
-        message:
-          type: string
-          example: Viewer doesn't have permission to access this resource
         status:
           type: integer
-          example: 403
-    BatchOrganizationResponse:
-      type: object
-      properties:
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/OrganizationResponse'
-        statuses:
-          type: object
-          additionalProperties:
-            type: integer
-        errors:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ErrorDetail'
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
   parameters:
-    IdsQuery:
-      name: ids
-      in: query
-      required: true
-      description: List of entity IDs to retrieve
-      schema:
-        type: string
-      example: List(10002687,10002688)
-    OrganizationIdPath:
-      name: organizationId
-      in: path
-      required: true
-      description: Organization identifier
-      schema:
-        type: string
-      example: '10002687'
-    LinkedInVersionHeader:
-      name: LinkedIn-Version
-      in: header
-      required: true
-      description: LinkedIn API version in YYYYMM format
-      schema:
-        type: string
-      example: '202312'
     RestliProtocolVersionHeader:
       name: X-Restli-Protocol-Version
       in: header
@@ -367,49 +386,30 @@ components:
       schema:
         type: string
       example: 2.0.0
-  examples:
-    ErrorResponseExample:
-      summary: Error response
-      value:
-        status: 400
-        message: Invalid request parameters
-        serviceErrorCode: 100
-    OrganizationResponseExample:
-      summary: Organization profile response
-      value:
-        id: 10002687
-        localizedName: Acme Corporation
-        localizedDescription: Leading provider of innovative solutions
-        localizedTagline: Innovation at its best
-        vanityName: acme-corp
-        organizationType: PRIVATELY_HELD
-        staffCountRange: SIZE_201_TO_500
-        industriesV2:
-        - urn:li:industry:33
-        entityStatus: ACTIVE
-        locations:
-        - locationType: HEADQUARTERS
-          address:
-            line1: 123 Main Street
-            city: San Francisco
-            geographicArea: California
-            postalCode: '94102'
-            country: US
-        created:
-          time: 1518028624160
-        lastModified:
-          time: 1702644474447
-    BatchOrganizationResponseExample:
-      summary: Batch organization response
-      value:
-        results:
-          '10002687':
-            id: 10002687
-            localizedName: Acme Corporation
-            entityStatus: ACTIVE
-        statuses:
-          '10002687': 200
-        errors: {}
+    OrganizationIdPath:
+      name: organizationId
+      in: path
+      required: true
+      description: Organization identifier
+      schema:
+        type: string
+      example: '10002687'
+    IdsQuery:
+      name: ids
+      in: query
+      required: true
+      description: List of entity IDs to retrieve
+      schema:
+        type: string
+      example: List(10002687,10002688)
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
   securitySchemes:
     BearerAuth:
       type: http

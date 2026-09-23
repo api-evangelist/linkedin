@@ -1,7 +1,9 @@
 ---
 title: Artificial Intelligence News
 url: https://www.linkedin.com/showcase/artificial-intelligence-news/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"LinkedIn" press release artificial intelligence'
 position: 4
 source: serpapi-google

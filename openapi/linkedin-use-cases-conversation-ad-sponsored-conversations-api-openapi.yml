@@ -1,16 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Content Use Cases > Conversation Ad > Sponsored Conversations API
-  description: 'Please note that these are versioned set of APIs and they are different than the earlier one.
-
-
-    These must be used with the **content-api-env-versioning** environment.
-
-
-    Content APIs are the APIs that are published with the versioned release. These APIs bring capabilities to partners/developers to create rich content via LinkedIn Ads with minimal operational and technical overhead.
-
-
-    **You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** [**Developer Portal**](https://developer.linkedin.com/product-catalog/marketing/campaign-management) **on how to apply.**'
+  title: Content Use Cases > Conversation Ad > Sponsored…
+  description: Please note that these are versioned set of APIs and they are different than the earlier one.
   version: 1.0.0
 servers:
 - url: https://api.linkedin.com
@@ -19,14 +10,14 @@ security:
 - oauth2Auth: []
 tags:
 - name: Use Cases > Conversation Ad > Sponsored Conversations
-  description: Linkedin is introducing its next generation of APIs to create and manage Conversation Ads, enabling advertisers to better deliver automated messages to a targeted LinkedIn member's inbox. This API replaces the previous [/sponsoredConversations](https://docs.microsoft.com/en-us/linkedin/marketing/integrations/ads/advertising-targeting/create-and-manage-conversation-ads?view=li-lms-2022-08) API.
+  description: Linkedin is introducing its next generation of APIs to create and manage Conversation Ads, enabling advertisers to better deliver automated messages to a targeted LinkedIn member's inbox. This API replaces the previous /sponsoredConversations API.
 paths:
   /conversationAds:
     post:
       tags:
       - Use Cases > Conversation Ad > Sponsored Conversations
       summary: LinkedIn Create a Sponsored Conversation
-      description: Successful response will have Status `201 Created` and the ID in the `x-linkedin-id` response header. For example,`urn:li:sponsoredConversation:164380864`
+      description: Successful response will have Status `201 Created` and the ID in the `x-linkedin-id` response header. For example,`urn:li:sponsoredConversation:164380864`
       requestBody:
         content: {}
       parameters:
@@ -54,7 +45,57 @@ paths:
       tags:
       - Use Cases > Conversation Ad > Sponsored Conversations
       summary: LinkedIn Get Multiple Sponsored Conversations
-      description: "Makes a BATCH_GET request to let a list of conversations that are created.\n\n#### Sample Response\n\nJSONCopy\n\n```\n{\n    \"statuses\": {\n        \"urn:li:sponsoredConversation:704255\": 200,\n        \"urn:li:sponsoredConversation:703695\": 200\n    },\n    \"results\": {\n        \"urn:li:sponsoredConversation:704255\": \n         {\n            \"id\": \"urn:li:sponsoredConversation:704255\",\n            \"parentAccount\": \"urn:li:sponsoredAccount:520866471\"\n            \n        },\n        \"urn:li:sponsoredConversation:703695\": \n        {\n            \"id\": \"urn:li:sponsoredConversation:703695\",\n            \"parentAccount\": \"urn:li:sponsoredAccount:520866471\",\n        }\n    },\n    \"errors\": {}\n}\n```"
+      description: 'Makes a BATCH_GET request to let a list of conversations that are created.
+
+
+        #### Sample Response
+
+
+        JSONCopy
+
+
+        ```
+
+        {
+
+        "statuses": {
+
+        "urn:li:sponsoredConversation:704255": 200,
+
+        "urn:li:sponsoredConversation:703695": 200
+
+        },
+
+        "results": {
+
+        "urn:li:sponsoredConversation:704255":
+
+        {
+
+        "id": "urn:li:sponsoredConversation:704255",
+
+        "parentAccount": "urn:li:sponsoredAccount:520866471"
+
+
+        },
+
+        "urn:li:sponsoredConversation:703695":
+
+        {
+
+        "id": "urn:li:sponsoredConversation:703695",
+
+        "parentAccount": "urn:li:sponsoredAccount:520866471",
+
+        }
+
+        },
+
+        "errors": {}
+
+        }
+
+        ```'
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -91,7 +132,24 @@ paths:
       tags:
       - Use Cases > Conversation Ad > Sponsored Conversations
       summary: LinkedIn Get a Sponsored Conversation
-      description: "#### Sample Response\n\nJSONCopy\n\n```\n{\n  \"id\": \"urn:li:sponsoredConversation:185204\",\n  \"parentAccount\": \"urn:li:sponsoredAccount:520866471\"\n}\n\n```"
+      description: '#### Sample Response
+
+
+        JSONCopy
+
+
+        ```
+
+        {
+
+        "id": "urn:li:sponsoredConversation:185204",
+
+        "parentAccount": "urn:li:sponsoredAccount:520866471"
+
+        }
+
+
+        ```'
       parameters:
       - name: LinkedIn-Version
         in: header
@@ -123,7 +181,7 @@ paths:
       tags:
       - Use Cases > Conversation Ad > Sponsored Conversations
       summary: LinkedIn Update a Sponsored Conversation
-      description: In the following example, the `firstMessageContent` field is changed to point to the first message of the conversation.
+      description: In the following example, the `firstMessageContent` field is changed to point to the first message of the conversation.
       requestBody:
         content:
           '*/*':

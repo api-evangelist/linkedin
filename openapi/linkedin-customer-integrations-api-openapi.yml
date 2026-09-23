@@ -1,15 +1,7 @@
 openapi: 3.2.0
 info:
   title: LinkedIn Job Posting Customer Integrations API
-  description: 'LinkedIn''s Job Posting API enables authorized third parties such as clients, ATS systems, and Job Distributors to post jobs directly to LinkedIn on behalf of customers.
-
-    This API supports two job categories:
-
-    - **Basic Jobs**: Free job posts gathered by LinkedIn from external sources - **Promoted Jobs**: Paid job postings with enhanced visibility
-
-    The use of these APIs is restricted to developers approved by LinkedIn. Please reach out to your LinkedIn Relationship Manager or Business Development contact for access.
-
-    For more information, refer to the [Job Posting Overview](https://docs.microsoft.com/en-us/linkedin/talent/job-postings/job-posting-overview).'
+  description: LinkedIn's Job Posting API enables authorized third parties such as clients, ATS systems, and Job Distributors to post jobs directly to LinkedIn on behalf of customers.
   version: 1.0.0
   contact:
     name: LinkedIn Talent Solutions
@@ -114,27 +106,70 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    AtsIntegrationUpdateRequest:
-      type: object
-      description: Request body for updating ATS integrations
-      properties:
+  examples:
+    AtsIntegrationResponseExample:
+      summary: Example ATS integration response
+      value:
+        results:
+          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
+            integrationContext: urn:li:contract:12345
+            integrationType: PREMIUM_JOB_POSTING
+            integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
+            status: ENABLED
+    AtsIntegrationUpdateRequestExample:
+      summary: Example ATS integration update request
+      value:
         entities:
+          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
+            patch:
+              $set:
+                integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
+  parameters:
+    IntegrationTypeQuery:
+      name: ids[0].integrationType
+      in: query
+      required: true
+      description: Type of integration
+      schema:
+        type: string
+      example: PREMIUM_JOB_POSTING
+    TenantTypeQuery:
+      name: ids[0].tenantType
+      in: query
+      required: true
+      description: Tenant type for the integration
+      schema:
+        type: string
+      example: JOBS
+    IntegrationContextQuery:
+      name: ids[0].integrationContext
+      in: query
+      required: true
+      description: Integration context URN
+      schema:
+        type: string
+      example: urn:li:contract:12345
+    DataProviderQuery:
+      name: ids[0].dataProvider
+      in: query
+      required: true
+      description: Data provider identifier
+      schema:
+        type: string
+      example: ATS
+  schemas:
+    AtsIntegrationPatch:
+      type: object
+      properties:
+        patch:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/AtsIntegrationPatch'
+          properties:
+            $set:
+              type: object
+              properties:
+                integrationName:
+                  type: string
+                  example: Customer Name - LinkedIn LTS Premium Job Posting Integration
     AtsIntegrationDetail:
       type: object
       properties:
@@ -158,69 +193,26 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/AtsIntegrationDetail'
-    AtsIntegrationPatch:
+    AtsIntegrationUpdateRequest:
+      type: object
+      description: Request body for updating ATS integrations
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AtsIntegrationPatch'
+    ErrorResponse:
       type: object
       properties:
-        patch:
-          type: object
-          properties:
-            $set:
-              type: object
-              properties:
-                integrationName:
-                  type: string
-                  example: Customer Name - LinkedIn LTS Premium Job Posting Integration
-  examples:
-    AtsIntegrationUpdateRequestExample:
-      summary: Example ATS integration update request
-      value:
-        entities:
-          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
-            patch:
-              $set:
-                integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
-    AtsIntegrationResponseExample:
-      summary: Example ATS integration response
-      value:
-        results:
-          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
-            integrationContext: urn:li:contract:12345
-            integrationType: PREMIUM_JOB_POSTING
-            integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
-            status: ENABLED
-  parameters:
-    DataProviderQuery:
-      name: ids[0].dataProvider
-      in: query
-      required: true
-      description: Data provider identifier
-      schema:
-        type: string
-      example: ATS
-    IntegrationContextQuery:
-      name: ids[0].integrationContext
-      in: query
-      required: true
-      description: Integration context URN
-      schema:
-        type: string
-      example: urn:li:contract:12345
-    TenantTypeQuery:
-      name: ids[0].tenantType
-      in: query
-      required: true
-      description: Tenant type for the integration
-      schema:
-        type: string
-      example: JOBS
-    IntegrationTypeQuery:
-      name: ids[0].integrationType
-      in: query
-      required: true
-      description: Type of integration
-      schema:
-        type: string
-      example: PREMIUM_JOB_POSTING
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
   securitySchemes:
     BearerAuth:
       type: http

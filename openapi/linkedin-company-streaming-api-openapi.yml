@@ -87,7 +87,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    CompanyStreamRequestExample:
+      summary: Add multiple companies to segment
+      value:
+        elements:
+        - action: ADD
+          companyName: LinkedIn
+        - action: ADD
+          companyName: Microsoft
   schemas:
+    CompanyStreamRequest:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyStreamElement'
+      required:
+      - elements
     ErrorResponse:
       type: object
       properties:
@@ -103,15 +121,20 @@ components:
           type: string
           description: Error code
           example: INVALID_PARAMS
-    CompanyStreamRequest:
+    StreamResultElement:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code for this element
+          example: 201
+    StreamResponse:
       type: object
       properties:
         elements:
           type: array
           items:
-            $ref: '#/components/schemas/CompanyStreamElement'
-      required:
-      - elements
+            $ref: '#/components/schemas/StreamResultElement'
     CompanyStreamElement:
       type: object
       properties:
@@ -137,29 +160,6 @@ components:
       required:
       - action
       - companyName
-    StreamResultElement:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code for this element
-          example: 201
-    StreamResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/StreamResultElement'
-  examples:
-    CompanyStreamRequestExample:
-      summary: Add multiple companies to segment
-      value:
-        elements:
-        - action: ADD
-          companyName: LinkedIn
-        - action: ADD
-          companyName: Microsoft
   securitySchemes:
     OAuth2Auth:
       type: oauth2

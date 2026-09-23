@@ -1,16 +1,7 @@
 openapi: 3.2.0
 info:
   title: Use Cases > Conversation Ad > Sponsored Message Contents API
-  description: 'Please note that these are versioned set of APIs and they are different than the earlier one.
-
-
-    These must be used with the **content-api-env-versioning** environment.
-
-
-    Content APIs are the APIs that are published with the versioned release. These APIs bring capabilities to partners/developers to create rich content via LinkedIn Ads with minimal operational and technical overhead.
-
-
-    **You must apply for access to the Marketing Developer Platform in order to use these APIs. See the** [**Developer Portal**](https://developer.linkedin.com/product-catalog/marketing/campaign-management) **on how to apply.**'
+  description: Please note that these are versioned set of APIs and they are different than the earlier one.
   version: 1.0.0
 servers:
 - url: https://api.linkedin.com
@@ -280,15 +271,15 @@ paths:
         delay: 0
 components:
   schemas:
-    BatchUpdateSponsoredMessageRequest:
-      type: string
-      example: '"{\n       \"entities\": {\n        \"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\": {\n              \"patch\": {\n                  \"$set\": {\n                      \"bodySource\": {\n                         “text”: “New updated text”\n                      }\n                   }\n                }\n    },\n         \"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\": {\n              \"patch\": {\n                  \"$set\": {\n                      \"bodySource\": {\n                         “text”: “New updated text2”\n                      }\n                   }\n                }\n    }\n    }\n}\n\n"'
     UpdateSponsoredMessageContentRequest:
       type: string
       example: '"{\n  \"patch\": {\n    \"$set\": {\n      \"bodySource\": {\n         “text”: “New updated text”\n      }\n    }\n  }\n}\n"'
     BatchCreateSponsoredMessageRequest:
       type: string
       example: '"{\n    \"elements\": [ {\n              \"bodySource\": {\n         \"leadGenerationForm\": \"urn:li:adForm:434835\"\n       },\n               \"nextAction\":{\n                  \"options\":[\n                    {\n                        \"replyType\": \"LEAD_GENERATION_THANK_YOU\",\n                        \"optionText\": \"Visit website\"\n                    },\n                    {\n                        \"replyType\": \"SIMPLE_REPLY\",\n                                                \"nextContent\": \"urn:li:sponsoredMessageContent:(urn:li:sponsoredConversation:186604,14253)\",\n                        \"optionText\": \"Simple reply\"\n                    },\n                    {\n                        \"replyType\": \"EXTERNAL_WEBSITE\",\n                        \"optionText\": \"Visit website\",\n                        \"landingPage\": \"http://www.linkedin.com\"\n                    }\n                  ]\n               }\n        },{\n            \"bodySource\": {\n        \"text\": \"Sample text\"\n      },\n             \"nextAction\":{\n                  \"options\":[\n                    {\n                        \"replyType\": \"EXTERNAL_WEBSITE\",\n                        \"optionText\": \"Other website\",\n                        \"landingPage\": \"http://www.microsoft.com\"\n                    }\n                  ]\n               }\n\n        }]\n}\n\n"'
+    BatchUpdateSponsoredMessageRequest:
+      type: string
+      example: '"{\n       \"entities\": {\n        \"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\": {\n              \"patch\": {\n                  \"$set\": {\n                      \"bodySource\": {\n                         “text”: “New updated text”\n                      }\n                   }\n                }\n    },\n         \"urn:li:sponsoredMessageContent:(urn_sponsoredConversation:sp1,sp2)\": {\n              \"patch\": {\n                  \"$set\": {\n                      \"bodySource\": {\n                         “text”: “New updated text2”\n                      }\n                   }\n                }\n    }\n    }\n}\n\n"'
   securitySchemes:
     oauth2Auth:
       type: http

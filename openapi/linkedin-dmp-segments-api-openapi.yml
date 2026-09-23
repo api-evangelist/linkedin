@@ -168,15 +168,79 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    SegmentDestination:
+    DmpSegmentsResponse:
       type: object
       properties:
-        destination:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/DmpSegment'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of results returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of results
+          example: 2
+        links:
+          type: array
+          items:
+            type: string
+    DmpSegmentCreateRequest:
+      type: object
+      properties:
+        accessPolicy:
           type: string
           enum:
-          - LINKEDIN
-          description: Destination platform
-          example: LINKEDIN
+          - PRIVATE
+          - PUBLIC
+          description: Access policy for the segment
+          example: PRIVATE
+        account:
+          type: string
+          description: URN of the sponsored account
+          example: urn:li:sponsoredAccount:123456
+        destinations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentDestination'
+        name:
+          type: string
+          description: Display name for the segment
+          example: DMP segment for CSV uploads
+        sourcePlatform:
+          type: string
+          enum:
+          - LIST_UPLOAD
+          - STREAMING
+          description: Source platform
+          example: LIST_UPLOAD
+        type:
+          type: string
+          enum:
+          - COMPANY_LIST_UPLOAD
+          - USER_LIST_UPLOAD
+          - COMPANY_STREAMING
+          - USER_STREAMING
+          description: Type of segment
+          example: COMPANY_LIST_UPLOAD
+      required:
+      - accessPolicy
+      - account
+      - destinations
+      - name
+      - sourcePlatform
+      - type
     ErrorResponse:
       type: object
       properties:
@@ -192,15 +256,15 @@ components:
           type: string
           description: Error code
           example: INVALID_PARAMS
-    DmpSegmentsResponse:
+    SegmentDestination:
       type: object
       properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/DmpSegment'
-        paging:
-          $ref: '#/components/schemas/Paging'
+        destination:
+          type: string
+          enum:
+          - LINKEDIN
+          description: Destination platform
+          example: LINKEDIN
     DmpSegment:
       type: object
       properties:
@@ -270,70 +334,6 @@ components:
       - account
       - type
       - sourcePlatform
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          description: Starting index
-          example: 0
-        count:
-          type: integer
-          description: Number of results returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of results
-          example: 2
-        links:
-          type: array
-          items:
-            type: string
-    DmpSegmentCreateRequest:
-      type: object
-      properties:
-        accessPolicy:
-          type: string
-          enum:
-          - PRIVATE
-          - PUBLIC
-          description: Access policy for the segment
-          example: PRIVATE
-        account:
-          type: string
-          description: URN of the sponsored account
-          example: urn:li:sponsoredAccount:123456
-        destinations:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentDestination'
-        name:
-          type: string
-          description: Display name for the segment
-          example: DMP segment for CSV uploads
-        sourcePlatform:
-          type: string
-          enum:
-          - LIST_UPLOAD
-          - STREAMING
-          description: Source platform
-          example: LIST_UPLOAD
-        type:
-          type: string
-          enum:
-          - COMPANY_LIST_UPLOAD
-          - USER_LIST_UPLOAD
-          - COMPANY_STREAMING
-          - USER_STREAMING
-          description: Type of segment
-          example: COMPANY_LIST_UPLOAD
-      required:
-      - accessPolicy
-      - account
-      - destinations
-      - name
-      - sourcePlatform
-      - type
   examples:
     DmpSegmentCreateRequestExample:
       summary: Create list upload DMP segment

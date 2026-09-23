@@ -365,26 +365,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        code:
-          type: string
-          example: INVALID_PARAMS
-    AdAccountUserUpdateRequest:
-      type: object
-      properties:
-        patch:
-          type: object
-          properties:
-            $set:
-              $ref: '#/components/schemas/AdAccountUser'
     AdAccountUser:
       type: object
       properties:
@@ -410,6 +390,42 @@ components:
       - account
       - user
       - role
+    AdAccountUserUpdateRequest:
+      type: object
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              $ref: '#/components/schemas/AdAccountUser'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
     AdAccountUserCreateRequest:
       type: object
       properties:
@@ -459,22 +475,6 @@ components:
           - REQUESTED
           description: State of the role assignment
           example: APPROVED
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 10
-        total:
-          type: integer
-          example: 100
-        links:
-          type: array
-          items:
-            type: string
   examples:
     AdAccountUserCreateExample:
       summary: Create ad account user

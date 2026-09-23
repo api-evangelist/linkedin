@@ -11,9 +11,7 @@ info:
 
     Authentication uses an OAuth 2.0 bearer token with scopes such as
 
-    rw_ads (read/write) or r_ads (read-only).
-
-    '
+    rw_ads (read/write) or r_ads (read-only).'
   version: '202605'
   contact:
     name: Kin Lane
@@ -28,13 +26,13 @@ security:
 - oauth2:
   - rw_ads
 tags:
-- name: AdCreatives
+- name: Ad Creatives
   description: Manage creatives
 paths:
   /rest/adAccounts/{adAccountID}/adCreatives:
     get:
       tags:
-      - AdCreatives
+      - Ad Creatives
       summary: Search creatives under an ad account
       operationId: adCreatives_search
       parameters:
@@ -52,7 +50,7 @@ paths:
           description: OK
     post:
       tags:
-      - AdCreatives
+      - Ad Creatives
       summary: Create a creative
       operationId: adCreatives_create
       parameters:
@@ -71,7 +69,7 @@ paths:
   /rest/adAccounts/{adAccountID}/adCreatives/{adCreativeID}:
     get:
       tags:
-      - AdCreatives
+      - Ad Creatives
       summary: Get a creative
       operationId: adCreatives_get
       parameters:
@@ -88,20 +86,6 @@ paths:
           description: OK
 components:
   parameters:
-    restliProtocol:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      schema:
-        type: string
-        enum:
-        - 2.0.0
-    adAccountID:
-      name: adAccountID
-      in: path
-      required: true
-      schema:
-        type: string
     linkedinVersion:
       name: Linkedin-Version
       in: header
@@ -110,6 +94,20 @@ components:
       schema:
         type: string
         example: '202605'
+    adAccountID:
+      name: adAccountID
+      in: path
+      required: true
+      schema:
+        type: string
+    restliProtocol:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      schema:
+        type: string
+        enum:
+        - 2.0.0
   securitySchemes:
     oauth2:
       type: oauth2

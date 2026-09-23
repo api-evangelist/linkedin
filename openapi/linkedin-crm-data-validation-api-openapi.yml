@@ -145,6 +145,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    CrmDataValidationJobExample:
+      summary: CRM data validation export job
+      value:
+        jobId: 123456789
+        exportStartAt: 1640000000000
+        exportEndAt: 1640001000000
+        status: COMPLETED
+        downloadUrls:
+        - https://media.licdn.com/crm-validation/export_1.csv
+        nextExportStartAt: 1640001000000
+        expireAt: 1640100000000
   schemas:
     CrmDataValidationExportJobRequest:
       type: object
@@ -154,6 +166,21 @@ components:
           format: int64
           description: Time at which export was started
           example: 1640000000000
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     CrmDataValidationExportJob:
       type: object
       properties:
@@ -202,33 +229,6 @@ components:
           nullable: true
           description: Expiration timestamp for download URLs
           example: 1640100000000
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
-  examples:
-    CrmDataValidationJobExample:
-      summary: CRM data validation export job
-      value:
-        jobId: 123456789
-        exportStartAt: 1640000000000
-        exportEndAt: 1640001000000
-        status: COMPLETED
-        downloadUrls:
-        - https://media.licdn.com/crm-validation/export_1.csv
-        nextExportStartAt: 1640001000000
-        expireAt: 1640100000000
   securitySchemes:
     BearerAuth:
       type: http

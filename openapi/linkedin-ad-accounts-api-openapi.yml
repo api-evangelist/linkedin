@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: LinkedIn Marketing Audiences Ad Accounts API
-  description: LinkedIn Audiences API enables combining LinkedIn's data with your own data to reach the right audiences on LinkedIn. This includes streaming companies for account targeting, streaming users for contact targeting, and CSV list uploads for both account and contact targeting.
+  title: Linkedin Ad Accounts API
   version: 1.0.0
   contact:
     name: LinkedIn Marketing API Support
     url: https://docs.microsoft.com/en-us/linkedin/marketing/
+  description: 'Operations tagged Ad Accounts across 2 of this provider''s published API definitions: linkedin-marketing-audience.yml, linkedin-ad-accounts-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.linkedin.com/rest
   description: LinkedIn REST API Server
@@ -80,32 +80,162 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-components:
-  schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
+    servers:
+    - url: https://api.linkedin.com/rest
+      description: LinkedIn REST API Server
+  /rest/adAccounts:
+    get:
+      tags:
+      - Ad Accounts
+      summary: Search ad accounts
+      operationId: adAccounts_search
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - search
+      - name: search
+        in: query
+        schema:
+          type: string
+          description: Search criteria, e.g. (type:(values:List(BUSINESS)),status:(values:List(ACTIVE)))
+      - name: pageSize
+        in: query
+        schema:
           type: integer
-          description: HTTP status code
-          example: 400
-        message:
+          maximum: 1000
+      - name: pageToken
+        in: query
+        schema:
           type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
+      - $ref: '#/components/parameters/linkedinVersion'
+      - $ref: '#/components/parameters/restliProtocol'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccountSearchResponse'
+    post:
+      tags:
+      - Ad Accounts
+      summary: Create an ad account (or batch create with X-RestLi-Method header)
+      operationId: adAccounts_create
+      parameters:
+      - $ref: '#/components/parameters/linkedinVersion'
+      - $ref: '#/components/parameters/restliProtocol'
+      - name: X-RestLi-Method
+        in: header
+        schema:
           type: string
-          description: Error code
-          example: INVALID_PARAMS
-    AdAccountsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdAccount'
+          enum:
+          - BATCH_CREATE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/AdAccount'
+              - type: object
+                properties:
+                  elements:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdAccount'
+      responses:
+        '201':
+          description: Created (account ID returned in x-restli-id header)
+    servers:
+    - url: https://api.linkedin.com/rest
+      description: LinkedIn REST API Server
+  /rest/adAccounts/{adAccountID}:
+    get:
+      tags:
+      - Ad Accounts
+      summary: Fetch an ad account
+      operationId: adAccounts_get
+      parameters:
+      - $ref: '#/components/parameters/adAccountID'
+      - $ref: '#/components/parameters/linkedinVersion'
+      - $ref: '#/components/parameters/restliProtocol'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccount'
+    post:
+      tags:
+      - Ad Accounts
+      summary: Update an ad account (partial update via patch payload)
+      operationId: adAccounts_update
+      parameters:
+      - $ref: '#/components/parameters/adAccountID'
+      - $ref: '#/components/parameters/linkedinVersion'
+      - $ref: '#/components/parameters/restliProtocol'
+      - name: X-RestLi-Method
+        in: header
+        schema:
+          type: string
+          enum:
+          - PARTIAL_UPDATE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patch:
+                  type: object
+                  properties:
+                    $set:
+                      type: object
+                      additionalProperties: true
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - Ad Accounts
+      summary: Delete a DRAFT ad account
+      operationId: adAccounts_delete
+      parameters:
+      - $ref: '#/components/parameters/adAccountID'
+      - $ref: '#/components/parameters/linkedinVersion'
+      - $ref: '#/components/parameters/restliProtocol'
+      responses:
+        '204':
+          description: No Content
+    servers:
+    - url: https://api.linkedin.com/rest
+      description: LinkedIn REST API Server
+components:
+  examples:
+    AdAccountsResponseExample:
+      summary: List of ad accounts
+      value:
         paging:
-          $ref: '#/components/schemas/Paging'
+          start: 0
+          count: 10
+          total: 2
+          links: []
+        elements:
+        - name: Test ad account
+          reference: urn:li:organization:11223344
+          id: 123456
+          test: false
+        - name: MDO ad account
+          reference: urn:li:organization:2355689
+          id: 456789
+          test: false
+  schemas:
     Paging:
       type: object
       properties:
@@ -149,24 +279,65 @@ components:
       - id
       - name
       - test
-  examples:
-    AdAccountsResponseExample:
-      summary: List of ad accounts
-      value:
-        paging:
-          start: 0
-          count: 10
-          total: 2
-          links: []
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    AdAccountsResponse:
+      type: object
+      properties:
         elements:
-        - name: Test ad account
-          reference: urn:li:organization:11223344
-          id: 123456
-          test: false
-        - name: MDO ad account
-          reference: urn:li:organization:2355689
-          id: 456789
-          test: false
+          type: array
+          items:
+            $ref: '#/components/schemas/AdAccount'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    AdAccountSearchResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdAccount'
+        metadata:
+          type: object
+          properties:
+            nextPageToken:
+              type: string
+  parameters:
+    linkedinVersion:
+      name: Linkedin-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+        example: '202605'
+    adAccountID:
+      name: adAccountID
+      in: path
+      required: true
+      schema:
+        type: string
+    restliProtocol:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      schema:
+        type: string
+        enum:
+        - 2.0.0
   securitySchemes:
     OAuth2Auth:
       type: oauth2
@@ -176,3 +347,19 @@ components:
           tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
           scopes:
             rw_ads: Read and write advertising data
+    oauth2:
+      type: oauth2
+      description: LinkedIn OAuth 2.0 (3-legged or 2-legged)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.linkedin.com/oauth/v2/authorization
+          tokenUrl: https://www.linkedin.com/oauth/v2/accessToken
+          scopes:
+            rw_ads: Read and write LinkedIn ads data
+            r_ads: Read LinkedIn ads data
+            r_ads_reporting: Read LinkedIn ads reporting
+            r_organization_social: Read organization social actions
+            w_organization_social: Write organization social actions
+x-refined-from:
+- linkedin-marketing-audience.yml
+- linkedin-ad-accounts-api-openapi.yml

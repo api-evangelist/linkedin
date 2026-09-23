@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: LinkedIn Marketing Campaign Management Campaign Group Management API
+  title: LinkedIn Marketing Campaign Management Campaign Group…
   description: 'Campaign Manager is LinkedIn''s online tool for creating and managing ad accounts and campaigns. This API provides capabilities for account management, campaign group management, campaign management, creative management, ad targeting, and forecasting.
 
     You must apply for access to the Marketing Developer Platform to use these APIs.'
@@ -303,7 +303,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    CampaignGroupUpdateExample:
+      summary: Update campaign group budget
+      value:
+        patch:
+          $set:
+            totalBudget:
+              amount: '3000'
+              currencyCode: USD
   schemas:
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: string
+    Budget:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: Budget amount
+          example: '1000'
+        currencyCode:
+          type: string
+          description: Currency code
+          example: USD
     ErrorResponse:
       type: object
       properties:
@@ -316,17 +352,19 @@ components:
         code:
           type: string
           example: INVALID_PARAMS
-    Budget:
+    RunSchedule:
       type: object
       properties:
-        amount:
-          type: string
-          description: Budget amount
-          example: '1000'
-        currencyCode:
-          type: string
-          description: Currency code
-          example: USD
+        start:
+          type: integer
+          format: int64
+          description: Start timestamp in milliseconds
+          example: 1647927789001
+        end:
+          type: integer
+          format: int64
+          description: End timestamp in milliseconds
+          example: 1648186989000
     CampaignGroup:
       type: object
       properties:
@@ -359,44 +397,6 @@ components:
           $ref: '#/components/schemas/Budget'
         runSchedule:
           $ref: '#/components/schemas/RunSchedule'
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 10
-        total:
-          type: integer
-          example: 100
-        links:
-          type: array
-          items:
-            type: string
-    RunSchedule:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int64
-          description: Start timestamp in milliseconds
-          example: 1647927789001
-        end:
-          type: integer
-          format: int64
-          description: End timestamp in milliseconds
-          example: 1648186989000
-  examples:
-    CampaignGroupUpdateExample:
-      summary: Update campaign group budget
-      value:
-        patch:
-          $set:
-            totalBudget:
-              amount: '3000'
-              currencyCode: USD
   securitySchemes:
     OAuth2Auth:
       type: oauth2
