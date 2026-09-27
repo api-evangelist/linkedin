@@ -117,6 +117,45 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+    IntegrationPatch:
+      type: object
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              type: object
+              properties:
+                integrationName:
+                  type: string
+                  example: Customer Name LinkedIn Recruiter CSA_API Integration
+    AtsIntegrationUpdateRequest:
+      type: object
+      description: Request for updating ATS integrations
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IntegrationPatch'
   parameters:
     QueryTypeParameter:
       name: q
@@ -154,45 +193,6 @@ components:
       schema:
         type: string
       example: application/json
-  schemas:
-    IntegrationPatch:
-      type: object
-      properties:
-        patch:
-          type: object
-          properties:
-            $set:
-              type: object
-              properties:
-                integrationName:
-                  type: string
-                  example: Customer Name LinkedIn Recruiter CSA_API Integration
-    SuccessResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: SUCCESS
-    AtsIntegrationUpdateRequest:
-      type: object
-      description: Request for updating ATS integrations
-      properties:
-        entities:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/IntegrationPatch'
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
   examples:
     SuccessResponseExample:
       summary: Successful operation response

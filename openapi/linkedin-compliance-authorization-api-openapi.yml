@@ -138,27 +138,21 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    PagingLink:
+    ErrorResponse:
       type: object
       properties:
-        rel:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
           type: string
-          example: next
-        href:
+          description: Error message
+          example: Invalid request parameters
+        code:
           type: string
-          example: /v2/complianceEvents?start=10&count=10
-        type:
-          type: string
-          example: application/json
-    ComplianceAuthorizationRequest:
-      type: object
-      properties:
-        member:
-          type: string
-          description: URN of the member to regulate
-          example: urn:li:person:ABC123def
-      required:
-      - member
+          description: Error code
+          example: INVALID_PARAMS
     Paging:
       type: object
       properties:
@@ -178,21 +172,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PagingLink'
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
     ComplianceAuthorization:
       type: object
       properties:
@@ -229,6 +208,27 @@ components:
             $ref: '#/components/schemas/ComplianceAuthorization'
         paging:
           $ref: '#/components/schemas/Paging'
+    ComplianceAuthorizationRequest:
+      type: object
+      properties:
+        member:
+          type: string
+          description: URN of the member to regulate
+          example: urn:li:person:ABC123def
+      required:
+      - member
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /v2/complianceEvents?start=10&count=10
+        type:
+          type: string
+          example: application/json
   examples:
     ComplianceAuthorizationResponseExample:
       summary: Successful authorization response

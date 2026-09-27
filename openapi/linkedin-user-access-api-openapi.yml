@@ -365,6 +365,42 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: string
+    AdAccountUserUpdateRequest:
+      type: object
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              $ref: '#/components/schemas/AdAccountUser'
     AdAccountUser:
       type: object
       properties:
@@ -385,67 +421,6 @@ components:
           - CREATIVE_MANAGER
           - VIEWER
           description: Role of the user in the account
-          example: VIEWER
-      required:
-      - account
-      - user
-      - role
-    AdAccountUserUpdateRequest:
-      type: object
-      properties:
-        patch:
-          type: object
-          properties:
-            $set:
-              $ref: '#/components/schemas/AdAccountUser'
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 10
-        total:
-          type: integer
-          example: 100
-        links:
-          type: array
-          items:
-            type: string
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        code:
-          type: string
-          example: INVALID_PARAMS
-    AdAccountUserCreateRequest:
-      type: object
-      properties:
-        account:
-          type: string
-          description: URN of the sponsored account
-          example: urn:li:sponsoredAccount:123456
-        user:
-          type: string
-          description: URN of the person
-          example: urn:li:person:ABC123def
-        role:
-          type: string
-          enum:
-          - ACCOUNT_BILLING_ADMIN
-          - ACCOUNT_MANAGER
-          - CAMPAIGN_MANAGER
-          - CREATIVE_MANAGER
-          - VIEWER
-          description: Role to assign
           example: VIEWER
       required:
       - account
@@ -475,6 +450,31 @@ components:
           - REQUESTED
           description: State of the role assignment
           example: APPROVED
+    AdAccountUserCreateRequest:
+      type: object
+      properties:
+        account:
+          type: string
+          description: URN of the sponsored account
+          example: urn:li:sponsoredAccount:123456
+        user:
+          type: string
+          description: URN of the person
+          example: urn:li:person:ABC123def
+        role:
+          type: string
+          enum:
+          - ACCOUNT_BILLING_ADMIN
+          - ACCOUNT_MANAGER
+          - CAMPAIGN_MANAGER
+          - CREATIVE_MANAGER
+          - VIEWER
+          description: Role to assign
+          example: VIEWER
+      required:
+      - account
+      - user
+      - role
   examples:
     AdAccountUserCreateExample:
       summary: Create ad account user

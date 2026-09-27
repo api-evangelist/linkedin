@@ -117,14 +117,24 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ApplicationRequest:
+    ErrorResponse:
       type: object
-      description: Request for syncing job applications
       properties:
-        entities:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ApplicationData'
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
     ResumeUploadResponse:
       type: object
       description: Response containing signed upload URL
@@ -136,6 +146,14 @@ components:
         resumeUrn:
           type: string
           example: urn:li:ambryBlob:/AAYUAgCvAAkAAQ...
+    ApplicationRequest:
+      type: object
+      description: Request for syncing job applications
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ApplicationData'
     ResumeUploadRequest:
       type: object
       description: Request for creating resume upload URL
@@ -202,24 +220,6 @@ components:
           type: integer
           format: int64
           example: 1702693664000
-    SuccessResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: SUCCESS
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
   examples:
     SuccessResponseExample:
       summary: Successful operation response

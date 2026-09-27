@@ -52,37 +52,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    ContractsResponseExample:
-      summary: List of sales contracts
-      value:
-        elements:
-        - contract: urn:li:salesContract:12345
-          name: Enterprise Sales Contract
-          description: Annual enterprise subscription for sales team
-          hasReportingAccess: true
-        - contract: urn:li:salesContract:67890
-          name: Professional Sales Contract
-          description: Monthly professional subscription
-          hasReportingAccess: false
-        paging:
-          count: 10
-          start: 0
-          links: []
   schemas:
-    Paging:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 10
-        start:
-          type: integer
-          example: 0
-        links:
-          type: array
-          items:
-            type: string
     ErrorResponse:
       type: object
       properties:
@@ -107,6 +77,19 @@ components:
             $ref: '#/components/schemas/Contract'
         paging:
           $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 10
+        start:
+          type: integer
+          example: 0
+        links:
+          type: array
+          items:
+            type: string
     Contract:
       type: object
       properties:
@@ -131,6 +114,23 @@ components:
       - contract
       - name
       - hasReportingAccess
+  examples:
+    ContractsResponseExample:
+      summary: List of sales contracts
+      value:
+        elements:
+        - contract: urn:li:salesContract:12345
+          name: Enterprise Sales Contract
+          description: Annual enterprise subscription for sales team
+          hasReportingAccess: true
+        - contract: urn:li:salesContract:67890
+          name: Professional Sales Contract
+          description: Monthly professional subscription
+          hasReportingAccess: false
+        paging:
+          count: 10
+          start: 0
+          links: []
   securitySchemes:
     BearerAuth:
       type: http

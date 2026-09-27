@@ -67,6 +67,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
     Creative:
       type: object
       properties:
@@ -104,18 +116,6 @@ components:
           - MESSAGE_AD
           description: Creative type
           example: SPONSORED_VIDEO
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        code:
-          type: string
-          example: INVALID_PARAMS
     CreativeCreateRequest:
       type: object
       properties:

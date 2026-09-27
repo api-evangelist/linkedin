@@ -141,21 +141,21 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    BatchProfileAssociationResponse:
+    ErrorResponse:
       type: object
       properties:
-        statuses:
-          type: object
-          additionalProperties:
-            type: integer
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/SalesNavigatorProfileAssociation'
-        errors:
-          type: object
-          additionalProperties:
-            type: string
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     SalesNavigatorProfileAssociation:
       type: object
       properties:
@@ -173,21 +173,21 @@ components:
           format: uri
           description: Absolute URL of the LinkedIn profile photo (optional)
           example: https://media.licdn.com/dms/image/ABC123/profile.jpg
-    ErrorResponse:
+    BatchProfileAssociationResponse:
       type: object
       properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
+        statuses:
+          type: object
+          additionalProperties:
+            type: integer
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SalesNavigatorProfileAssociation'
+        errors:
+          type: object
+          additionalProperties:
+            type: string
   examples:
     ProfileAssociationExample:
       summary: Profile association response

@@ -58,30 +58,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    AccessTokenResponseExample:
-      summary: Successful access token response
-      value:
-        access_token: AQV8vPRN5zF9BxJ...
-        expires_in: 5184000
-        token_type: Bearer
   schemas:
-    AccessTokenResponse:
+    ErrorResponse:
       type: object
-      description: Response containing access token
       properties:
-        access_token:
-          type: string
-          description: OAuth 2.0 access token
-          example: AQV8vPRN5zF9BxJ...
-        expires_in:
+        status:
           type: integer
-          description: Token expiration time in seconds
-          example: 5184000
-        token_type:
+          example: 400
+        message:
           type: string
-          description: Token type
-          example: Bearer
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
     AccessTokenRequest:
       type: object
       description: Request body for obtaining access token
@@ -103,18 +92,29 @@ components:
           type: string
           description: OAuth 2.0 client secret
           example: secretXYZ789
-    ErrorResponse:
+    AccessTokenResponse:
       type: object
+      description: Response containing access token
       properties:
-        status:
-          type: integer
-          example: 400
-        message:
+        access_token:
           type: string
-          example: Invalid request parameters
-        serviceErrorCode:
+          description: OAuth 2.0 access token
+          example: AQV8vPRN5zF9BxJ...
+        expires_in:
           type: integer
-          example: 100
+          description: Token expiration time in seconds
+          example: 5184000
+        token_type:
+          type: string
+          description: Token type
+          example: Bearer
+  examples:
+    AccessTokenResponseExample:
+      summary: Successful access token response
+      value:
+        access_token: AQV8vPRN5zF9BxJ...
+        expires_in: 5184000
+        token_type: Bearer
   parameters:
     ContentTypeHeader:
       name: Content-Type

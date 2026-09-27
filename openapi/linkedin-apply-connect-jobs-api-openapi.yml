@@ -70,6 +70,33 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    CustomQuestionSet:
+      type: object
+      properties:
+        questionSetId:
+          type: string
+          example: custom-questions-001
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomQuestion'
+    ApplicationQuestions:
+      type: object
+      description: Questions configuration for job applications
+      properties:
+        resumeQuestions:
+          $ref: '#/components/schemas/ResumeQuestions'
+        coverLetterQuestions:
+          $ref: '#/components/schemas/CoverLetterQuestions'
+        voluntarySelfIdentificationQuestions:
+          type: object
+          description: Voluntary self-identification questions
+        educationQuestions:
+          $ref: '#/components/schemas/EducationQuestions'
+        workQuestions:
+          $ref: '#/components/schemas/WorkQuestions'
+        additionalQuestions:
+          $ref: '#/components/schemas/AdditionalQuestions'
     CoverLetterQuestions:
       type: object
       properties:
@@ -138,51 +165,22 @@ components:
           example: https://company.com/careers/apply
         onsiteApplyConfiguration:
           $ref: '#/components/schemas/OnsiteApplyConfiguration'
-    CustomQuestionSet:
-      type: object
-      properties:
-        questionSetId:
-          type: string
-          example: custom-questions-001
-        questions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomQuestion'
     EducationQuestions:
       type: object
       properties:
         educationExperienceQuestionSet:
           type: object
-    SimpleJobPostingRequest:
+    OnsiteApplyConfiguration:
       type: object
-      description: Request body for creating or updating job postings
-      required:
-      - elements
+      description: Configuration for onsite application collection
       properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobPostingElement'
-    JobPostingResult:
-      type: object
-      properties:
-        status:
+        jobApplicationWebhookUrl:
           type: string
-          example: ACCEPTED
-        taskUrn:
-          type: string
-          description: URN of the task to track posting status
-          example: urn:li:simpleJobPostingTask:12345678
-    ResumeQuestions:
-      type: object
-      properties:
-        resumeQuestionRequirement:
-          type: string
-          enum:
-          - REQUIRED
-          - OPTIONAL
-          - NOT_AVAILABLE
-          example: REQUIRED
+          format: uri
+          description: Webhook URL for receiving job applications
+          example: https://ats.company.com/webhooks/linkedin-applications
+        questions:
+          $ref: '#/components/schemas/ApplicationQuestions'
     CustomQuestion:
       type: object
       properties:
@@ -197,80 +195,11 @@ components:
           example: Are you authorized to work in the United States?
         questionDetails:
           $ref: '#/components/schemas/QuestionDetails'
-    QuestionChoice:
-      type: object
-      properties:
-        symbolicName:
-          type: string
-          example: 'yes'
-        displayValue:
-          type: string
-          example: 'Yes'
     QuestionDetails:
       type: object
       properties:
         multipleChoiceQuestionDetails:
           $ref: '#/components/schemas/MultipleChoiceQuestionDetails'
-    AdditionalQuestions:
-      type: object
-      properties:
-        customQuestionSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomQuestionSet'
-    ApplicationQuestions:
-      type: object
-      description: Questions configuration for job applications
-      properties:
-        resumeQuestions:
-          $ref: '#/components/schemas/ResumeQuestions'
-        coverLetterQuestions:
-          $ref: '#/components/schemas/CoverLetterQuestions'
-        voluntarySelfIdentificationQuestions:
-          type: object
-          description: Voluntary self-identification questions
-        educationQuestions:
-          $ref: '#/components/schemas/EducationQuestions'
-        workQuestions:
-          $ref: '#/components/schemas/WorkQuestions'
-        additionalQuestions:
-          $ref: '#/components/schemas/AdditionalQuestions'
-    OnsiteApplyConfiguration:
-      type: object
-      description: Configuration for onsite application collection
-      properties:
-        jobApplicationWebhookUrl:
-          type: string
-          format: uri
-          description: Webhook URL for receiving job applications
-          example: https://ats.company.com/webhooks/linkedin-applications
-        questions:
-          $ref: '#/components/schemas/ApplicationQuestions'
-    JobPostingResponse:
-      type: object
-      description: Response from job posting creation
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobPostingResult'
-    WorkQuestions:
-      type: object
-      properties:
-        workExperienceQuestionSet:
-          type: object
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
     MultipleChoiceQuestionDetails:
       type: object
       properties:
@@ -288,15 +217,77 @@ components:
           - DROPDOWN
           - CHECKBOXES
           example: RADIO_BUTTONS
-  parameters:
-    RestliMethodHeader:
-      name: x-restli-method
-      in: header
-      required: true
-      description: Rest.li method for batch operations
-      schema:
-        type: string
-      example: batch_create
+    SimpleJobPostingRequest:
+      type: object
+      description: Request body for creating or updating job postings
+      required:
+      - elements
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobPostingElement'
+    AdditionalQuestions:
+      type: object
+      properties:
+        customQuestionSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomQuestionSet'
+    JobPostingResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ACCEPTED
+        taskUrn:
+          type: string
+          description: URN of the task to track posting status
+          example: urn:li:simpleJobPostingTask:12345678
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    JobPostingResponse:
+      type: object
+      description: Response from job posting creation
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobPostingResult'
+    WorkQuestions:
+      type: object
+      properties:
+        workExperienceQuestionSet:
+          type: object
+    QuestionChoice:
+      type: object
+      properties:
+        symbolicName:
+          type: string
+          example: 'yes'
+        displayValue:
+          type: string
+          example: 'Yes'
+    ResumeQuestions:
+      type: object
+      properties:
+        resumeQuestionRequirement:
+          type: string
+          enum:
+          - REQUIRED
+          - OPTIONAL
+          - NOT_AVAILABLE
+          example: REQUIRED
   examples:
     SimpleJobPostingRequestExample:
       summary: Example Apply Connect job posting request
@@ -318,6 +309,12 @@ components:
                 resumeQuestionRequirement: REQUIRED
               coverLetterQuestions:
                 coverLetterQuestionRequirement: OPTIONAL
+    ErrorResponseExample:
+      summary: Example error response
+      value:
+        status: 400
+        message: Invalid request parameters
+        serviceErrorCode: 100
     JobPostingResponseExample:
       summary: Example job posting response
       value:
@@ -336,12 +333,15 @@ components:
           listingType: BASIC
           listedAt: 1702693664000
           location: San Francisco, CA
-    ErrorResponseExample:
-      summary: Example error response
-      value:
-        status: 400
-        message: Invalid request parameters
-        serviceErrorCode: 100
+  parameters:
+    RestliMethodHeader:
+      name: x-restli-method
+      in: header
+      required: true
+      description: Rest.li method for batch operations
+      schema:
+        type: string
+      example: batch_create
   securitySchemes:
     BearerAuth:
       type: http

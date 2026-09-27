@@ -84,6 +84,9 @@ paths:
     - url: https://api.linkedin.com/rest
       description: LinkedIn REST API Server
   /rest/adAccounts:
+    servers:
+    - url: https://api.linkedin.com/rest
+      description: LinkedIn REST API Server
     get:
       tags:
       - Ad Accounts
@@ -150,10 +153,10 @@ paths:
       responses:
         '201':
           description: Created (account ID returned in x-restli-id header)
+  /rest/adAccounts/{adAccountID}:
     servers:
     - url: https://api.linkedin.com/rest
       description: LinkedIn REST API Server
-  /rest/adAccounts/{adAccountID}:
     get:
       tags:
       - Ad Accounts
@@ -213,48 +216,23 @@ paths:
       responses:
         '204':
           description: No Content
-    servers:
-    - url: https://api.linkedin.com/rest
-      description: LinkedIn REST API Server
 components:
-  examples:
-    AdAccountsResponseExample:
-      summary: List of ad accounts
-      value:
-        paging:
-          start: 0
-          count: 10
-          total: 2
-          links: []
-        elements:
-        - name: Test ad account
-          reference: urn:li:organization:11223344
-          id: 123456
-          test: false
-        - name: MDO ad account
-          reference: urn:li:organization:2355689
-          id: 456789
-          test: false
   schemas:
-    Paging:
+    ErrorResponse:
       type: object
       properties:
-        start:
+        status:
           type: integer
-          description: Starting index
-          example: 0
-        count:
-          type: integer
-          description: Number of results returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of results
-          example: 2
-        links:
-          type: array
-          items:
-            type: string
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     AdAccount:
       type: object
       properties:
@@ -279,21 +257,25 @@ components:
       - id
       - name
       - test
-    ErrorResponse:
+    Paging:
       type: object
       properties:
-        status:
+        start:
           type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of results returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of results
+          example: 2
+        links:
+          type: array
+          items:
+            type: string
     AdAccountsResponse:
       type: object
       properties:
@@ -315,6 +297,24 @@ components:
           properties:
             nextPageToken:
               type: string
+  examples:
+    AdAccountsResponseExample:
+      summary: List of ad accounts
+      value:
+        paging:
+          start: 0
+          count: 10
+          total: 2
+          links: []
+        elements:
+        - name: Test ad account
+          reference: urn:li:organization:11223344
+          id: 123456
+          test: false
+        - name: MDO ad account
+          reference: urn:li:organization:2355689
+          id: 456789
+          test: false
   parameters:
     linkedinVersion:
       name: Linkedin-Version
@@ -324,12 +324,6 @@ components:
       schema:
         type: string
         example: '202605'
-    adAccountID:
-      name: adAccountID
-      in: path
-      required: true
-      schema:
-        type: string
     restliProtocol:
       name: X-Restli-Protocol-Version
       in: header
@@ -338,6 +332,12 @@ components:
         type: string
         enum:
         - 2.0.0
+    adAccountID:
+      name: adAccountID
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     OAuth2Auth:
       type: oauth2

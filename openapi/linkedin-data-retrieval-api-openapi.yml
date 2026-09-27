@@ -115,6 +115,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    SeatholdersResponse:
+      type: object
+      description: Response containing recruiter seatholders
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Seatholder'
+        paging:
+          $ref: '#/components/schemas/Paging'
     Seatholder:
       type: object
       properties:
@@ -134,6 +156,26 @@ components:
         active:
           type: boolean
           example: true
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 100
+        total:
+          type: integer
+          example: 250
+    ExportedCandidateResponse:
+      type: object
+      description: Response containing exported candidate data
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportedCandidate'
     ExportedCandidate:
       type: object
       properties:
@@ -153,48 +195,6 @@ components:
           type: string
           format: uri
           example: https://media.licdn.com/...
-    SeatholdersResponse:
-      type: object
-      description: Response containing recruiter seatholders
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Seatholder'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 100
-        total:
-          type: integer
-          example: 250
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    ExportedCandidateResponse:
-      type: object
-      description: Response containing exported candidate data
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportedCandidate'
   parameters:
     QueryTypeParameter:
       name: q

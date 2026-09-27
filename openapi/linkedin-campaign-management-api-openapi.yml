@@ -200,6 +200,61 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: string
+    CampaignUpdateRequest:
+      type: object
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: ARCHIVED
+                runSchedule:
+                  $ref: '#/components/schemas/RunSchedule'
+    RunSchedule:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+          description: Start timestamp in milliseconds
+          example: 1647927789001
+        end:
+          type: integer
+          format: int64
+          description: End timestamp in milliseconds
+          example: 1648186989000
     Campaign:
       type: object
       properties:
@@ -258,36 +313,6 @@ components:
           $ref: '#/components/schemas/Budget'
         totalBudget:
           $ref: '#/components/schemas/Budget'
-    CampaignUpdateRequest:
-      type: object
-      properties:
-        patch:
-          type: object
-          properties:
-            $set:
-              type: object
-              properties:
-                status:
-                  type: string
-                  example: ARCHIVED
-                runSchedule:
-                  $ref: '#/components/schemas/RunSchedule'
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 10
-        total:
-          type: integer
-          example: 100
-        links:
-          type: array
-          items:
-            type: string
     Budget:
       type: object
       properties:
@@ -299,31 +324,6 @@ components:
           type: string
           description: Currency code
           example: USD
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        code:
-          type: string
-          example: INVALID_PARAMS
-    RunSchedule:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int64
-          description: Start timestamp in milliseconds
-          example: 1647927789001
-        end:
-          type: integer
-          format: int64
-          description: End timestamp in milliseconds
-          example: 1648186989000
   examples:
     CampaignArchiveExample:
       summary: Archive a campaign

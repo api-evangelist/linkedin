@@ -167,35 +167,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    DmpSegmentCreateRequestExample:
+      summary: Create list upload DMP segment
+      value:
+        accessPolicy: PRIVATE
+        account: urn:li:sponsoredAccount:123456
+        destinations:
+        - destination: LINKEDIN
+        name: DMP segment for CSV uploads
+        sourcePlatform: LIST_UPLOAD
+        type: COMPANY_LIST_UPLOAD
   schemas:
-    DmpSegmentsResponse:
+    ErrorResponse:
       type: object
       properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/DmpSegment'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    Paging:
-      type: object
-      properties:
-        start:
+        status:
           type: integer
-          description: Starting index
-          example: 0
-        count:
-          type: integer
-          description: Number of results returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of results
-          example: 2
-        links:
-          type: array
-          items:
-            type: string
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     DmpSegmentCreateRequest:
       type: object
       properties:
@@ -241,30 +239,25 @@ components:
       - name
       - sourcePlatform
       - type
-    ErrorResponse:
+    Paging:
       type: object
       properties:
-        status:
+        start:
           type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
-    SegmentDestination:
-      type: object
-      properties:
-        destination:
-          type: string
-          enum:
-          - LINKEDIN
-          description: Destination platform
-          example: LINKEDIN
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of results returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of results
+          example: 2
+        links:
+          type: array
+          items:
+            type: string
     DmpSegment:
       type: object
       properties:
@@ -334,17 +327,24 @@ components:
       - account
       - type
       - sourcePlatform
-  examples:
-    DmpSegmentCreateRequestExample:
-      summary: Create list upload DMP segment
-      value:
-        accessPolicy: PRIVATE
-        account: urn:li:sponsoredAccount:123456
-        destinations:
-        - destination: LINKEDIN
-        name: DMP segment for CSV uploads
-        sourcePlatform: LIST_UPLOAD
-        type: COMPANY_LIST_UPLOAD
+    DmpSegmentsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/DmpSegment'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    SegmentDestination:
+      type: object
+      properties:
+        destination:
+          type: string
+          enum:
+          - LINKEDIN
+          description: Destination platform
+          example: LINKEDIN
   securitySchemes:
     OAuth2Auth:
       type: oauth2

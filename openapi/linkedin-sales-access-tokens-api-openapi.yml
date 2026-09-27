@@ -52,18 +52,35 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    SalesAccessTokenResponseExample:
-      summary: Sales access token response
-      value:
-        elements:
-        - token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-          expiryTime: 1640100000
-        paging:
-          count: 1
-          start: 0
-          links: []
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    Paging:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 10
+        start:
+          type: integer
+          example: 0
+        links:
+          type: array
+          items:
+            type: string
     SalesAccessTokenResponse:
       type: object
       properties:
@@ -87,34 +104,17 @@ components:
       required:
       - token
       - expiryTime
-    Paging:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 10
-        start:
-          type: integer
-          example: 0
-        links:
-          type: array
-          items:
-            type: string
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
+  examples:
+    SalesAccessTokenResponseExample:
+      summary: Sales access token response
+      value:
+        elements:
+        - token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          expiryTime: 1640100000
+        paging:
+          count: 1
+          start: 0
+          links: []
   securitySchemes:
     BearerAuth:
       type: http

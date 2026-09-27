@@ -74,43 +74,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ProvisionApplicationRequest:
-      type: object
-      description: Request body for provisioning a new child application
-      required:
-      - name
-      - uniqueForeignId
-      - oauth2AuthorizedCallbackUrls
-      properties:
-        name:
-          type: string
-          description: Name of the customer application
-          example: Acme Corporation
-        description:
-          type: string
-          description: Description of the application
-          example: Test application for Acme Corporation
-        uniqueForeignId:
-          type: string
-          description: Unique identifier for the customer in the partner's system
-          example: acme-corp-12345
-        oauth2AuthorizedCallbackUrls:
-          type: array
-          description: List of authorized OAuth 2.0 callback URLs
-          items:
-            type: string
-            format: uri
-          example:
-          - https://app.acme.com/oauth2/callback
-          - https://staging.acme.com/oauth2/callback
-        validJsSdkDomains:
-          type: array
-          description: List of valid JavaScript SDK domains
-          items:
-            type: string
-          example:
-          - https://app.acme.com
-          - http://localhost:5000
     ErrorResponse:
       type: object
       properties:
@@ -168,6 +131,43 @@ components:
           format: int64
           description: Timestamp of application creation
           example: 1702693664000
+    ProvisionApplicationRequest:
+      type: object
+      description: Request body for provisioning a new child application
+      required:
+      - name
+      - uniqueForeignId
+      - oauth2AuthorizedCallbackUrls
+      properties:
+        name:
+          type: string
+          description: Name of the customer application
+          example: Acme Corporation
+        description:
+          type: string
+          description: Description of the application
+          example: Test application for Acme Corporation
+        uniqueForeignId:
+          type: string
+          description: Unique identifier for the customer in the partner's system
+          example: acme-corp-12345
+        oauth2AuthorizedCallbackUrls:
+          type: array
+          description: List of authorized OAuth 2.0 callback URLs
+          items:
+            type: string
+            format: uri
+          example:
+          - https://app.acme.com/oauth2/callback
+          - https://staging.acme.com/oauth2/callback
+        validJsSdkDomains:
+          type: array
+          description: List of valid JavaScript SDK domains
+          items:
+            type: string
+          example:
+          - https://app.acme.com
+          - http://localhost:5000
   examples:
     ProvisionApplicationResponseExample:
       summary: Example response for provisioned application
@@ -182,12 +182,6 @@ components:
         validJsSdkDomains:
         - https://app.acme.com
         createdAt: 1702693664000
-    ErrorResponseExample:
-      summary: Example error response
-      value:
-        status: 400
-        message: Invalid request parameters
-        serviceErrorCode: 100
     ProvisionApplicationRequestExample:
       summary: Example request to provision a child application
       value:
@@ -199,6 +193,12 @@ components:
         validJsSdkDomains:
         - https://app.acme.com
         - http://localhost:5000
+    ErrorResponseExample:
+      summary: Example error response
+      value:
+        status: 400
+        message: Invalid request parameters
+        serviceErrorCode: 100
   parameters:
     ContentTypeHeader:
       name: Content-Type

@@ -84,60 +84,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    ComplianceEventsResponseExample:
-      summary: Compliance events response
-      value:
-        elements:
-        - id: evt_123456789
-          capturedAt: 1640000000000
-          processedAt: 1640000001000
-          configVersion: '1.0'
-          owner:
-            firstName: John
-            lastName: Doe
-            headline: Software Engineer at Tech Corp
-          actor:
-            firstName: Jane
-            lastName: Smith
-            headline: Product Manager at Innovation Inc
-          resourceName: MESSAGE
-          resourceId: res_987654321
-          resourceUri: urn:li:message:987654321
-          method: CREATE
-          activity: {}
-          processedActivity: {}
-          siblingActivities: []
-        paging:
-          start: 0
-          count: 10
-          total: 25
-          links:
-          - rel: next
-            href: /v2/complianceEvents?start=10&count=10
-            type: application/json
   schemas:
-    PagingLink:
+    ErrorResponse:
       type: object
       properties:
-        rel:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
           type: string
-          example: next
-        href:
+          description: Error message
+          example: Invalid request parameters
+        code:
           type: string
-          example: /v2/complianceEvents?start=10&count=10
-        type:
-          type: string
-          example: application/json
-    ComplianceEventsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComplianceEvent'
-        paging:
-          $ref: '#/components/schemas/Paging'
+          description: Error code
+          example: INVALID_PARAMS
     Paging:
       type: object
       properties:
@@ -157,21 +119,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PagingLink'
-    MemberProfile:
-      type: object
-      properties:
-        firstName:
-          type: string
-          description: First name of the member
-          example: John
-        lastName:
-          type: string
-          description: Last name of the member
-          example: Doe
-        headline:
-          type: string
-          description: Professional headline
-          example: Software Engineer at Tech Corp
     ComplianceEvent:
       type: object
       properties:
@@ -244,21 +191,74 @@ components:
       - capturedAt
       - resourceName
       - method
-    ErrorResponse:
+    MemberProfile:
       type: object
       properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
+        firstName:
           type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
+          description: First name of the member
+          example: John
+        lastName:
           type: string
-          description: Error code
-          example: INVALID_PARAMS
+          description: Last name of the member
+          example: Doe
+        headline:
+          type: string
+          description: Professional headline
+          example: Software Engineer at Tech Corp
+    ComplianceEventsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceEvent'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /v2/complianceEvents?start=10&count=10
+        type:
+          type: string
+          example: application/json
+  examples:
+    ComplianceEventsResponseExample:
+      summary: Compliance events response
+      value:
+        elements:
+        - id: evt_123456789
+          capturedAt: 1640000000000
+          processedAt: 1640000001000
+          configVersion: '1.0'
+          owner:
+            firstName: John
+            lastName: Doe
+            headline: Software Engineer at Tech Corp
+          actor:
+            firstName: Jane
+            lastName: Smith
+            headline: Product Manager at Innovation Inc
+          resourceName: MESSAGE
+          resourceId: res_987654321
+          resourceUri: urn:li:message:987654321
+          method: CREATE
+          activity: {}
+          processedActivity: {}
+          siblingActivities: []
+        paging:
+          start: 0
+          count: 10
+          total: 25
+          links:
+          - rel: next
+            href: /v2/complianceEvents?start=10&count=10
+            type: application/json
   securitySchemes:
     OAuth2Auth:
       type: oauth2
