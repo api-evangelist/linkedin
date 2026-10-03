@@ -74,21 +74,43 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
+    ProvisionApplicationRequest:
       type: object
+      description: Request body for provisioning a new child application
+      required:
+      - name
+      - uniqueForeignId
+      - oauth2AuthorizedCallbackUrls
       properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
+        name:
           type: string
-          description: Error message
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          description: LinkedIn service-specific error code
-          example: 100
+          description: Name of the customer application
+          example: Acme Corporation
+        description:
+          type: string
+          description: Description of the application
+          example: Test application for Acme Corporation
+        uniqueForeignId:
+          type: string
+          description: Unique identifier for the customer in the partner's system
+          example: acme-corp-12345
+        oauth2AuthorizedCallbackUrls:
+          type: array
+          description: List of authorized OAuth 2.0 callback URLs
+          items:
+            type: string
+            format: uri
+          example:
+          - https://app.acme.com/oauth2/callback
+          - https://staging.acme.com/oauth2/callback
+        validJsSdkDomains:
+          type: array
+          description: List of valid JavaScript SDK domains
+          items:
+            type: string
+          example:
+          - https://app.acme.com
+          - http://localhost:5000
     ProvisionApplicationResponse:
       type: object
       description: Response containing provisioned application details
@@ -131,57 +153,22 @@ components:
           format: int64
           description: Timestamp of application creation
           example: 1702693664000
-    ProvisionApplicationRequest:
+    ErrorResponse:
       type: object
-      description: Request body for provisioning a new child application
-      required:
-      - name
-      - uniqueForeignId
-      - oauth2AuthorizedCallbackUrls
       properties:
-        name:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
           type: string
-          description: Name of the customer application
-          example: Acme Corporation
-        description:
-          type: string
-          description: Description of the application
-          example: Test application for Acme Corporation
-        uniqueForeignId:
-          type: string
-          description: Unique identifier for the customer in the partner's system
-          example: acme-corp-12345
-        oauth2AuthorizedCallbackUrls:
-          type: array
-          description: List of authorized OAuth 2.0 callback URLs
-          items:
-            type: string
-            format: uri
-          example:
-          - https://app.acme.com/oauth2/callback
-          - https://staging.acme.com/oauth2/callback
-        validJsSdkDomains:
-          type: array
-          description: List of valid JavaScript SDK domains
-          items:
-            type: string
-          example:
-          - https://app.acme.com
-          - http://localhost:5000
+          description: Error message
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          description: LinkedIn service-specific error code
+          example: 100
   examples:
-    ProvisionApplicationResponseExample:
-      summary: Example response for provisioned application
-      value:
-        applicationUrn: urn:li:developerApplication:12345678
-        clientId: 78abc123def456
-        clientSecret: secretXYZ789
-        name: Acme Corporation
-        uniqueForeignId: acme-corp-12345
-        oauth2AuthorizedCallbackUrls:
-        - https://app.acme.com/oauth2/callback
-        validJsSdkDomains:
-        - https://app.acme.com
-        createdAt: 1702693664000
     ProvisionApplicationRequestExample:
       summary: Example request to provision a child application
       value:
@@ -199,6 +186,19 @@ components:
         status: 400
         message: Invalid request parameters
         serviceErrorCode: 100
+    ProvisionApplicationResponseExample:
+      summary: Example response for provisioned application
+      value:
+        applicationUrn: urn:li:developerApplication:12345678
+        clientId: 78abc123def456
+        clientSecret: secretXYZ789
+        name: Acme Corporation
+        uniqueForeignId: acme-corp-12345
+        oauth2AuthorizedCallbackUrls:
+        - https://app.acme.com/oauth2/callback
+        validJsSdkDomains:
+        - https://app.acme.com
+        createdAt: 1702693664000
   parameters:
     ContentTypeHeader:
       name: Content-Type

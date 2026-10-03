@@ -65,28 +65,48 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    AnalyticsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalyticsRecord'
-        paging:
-          $ref: '#/components/schemas/Paging'
     AnalyticsRecord:
       type: object
       properties:
@@ -116,6 +136,18 @@ components:
           type: number
           format: double
           example: 0.055
+    DateInfo:
+      type: object
+      properties:
+        year:
+          type: integer
+          example: 2001
+        month:
+          type: integer
+          example: 1
+        day:
+          type: integer
+          example: 15
     Paging:
       type: object
       properties:
@@ -132,59 +164,27 @@ components:
           type: array
           items:
             type: object
-    DateInfo:
+    ErrorResponse:
       type: object
       properties:
-        year:
+        status:
           type: integer
-          example: 2001
-        month:
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
           type: integer
-          example: 1
-        day:
-          type: integer
-          example: 15
-  parameters:
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for finder operations
-      schema:
-        type: string
-      example: roleAssignee
-    CountParameter:
-      name: count
-      in: query
-      required: false
-      description: Number of results to return
-      schema:
-        type: integer
-      example: 25
-    LinkedInVersionHeader:
-      name: LinkedIn-Version
-      in: header
-      required: true
-      description: LinkedIn API version in YYYYMM format
-      schema:
-        type: string
-      example: '202312'
-    RestliProtocolVersionHeader:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      description: Rest.li protocol version
-      schema:
-        type: string
-      example: 2.0.0
-    StartParameter:
-      name: start
-      in: query
-      required: false
-      description: Pagination start index
-      schema:
-        type: integer
-      example: 0
+          example: 100
+    AnalyticsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsRecord'
+        paging:
+          $ref: '#/components/schemas/Paging'
   examples:
     AnalyticsResponseExample:
       summary: Analytics response

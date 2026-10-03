@@ -87,7 +87,32 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    CompanyStreamRequestExample:
+      summary: Add multiple companies to segment
+      value:
+        elements:
+        - action: ADD
+          companyName: LinkedIn
+        - action: ADD
+          companyName: Microsoft
   schemas:
+    CompanyStreamRequest:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyStreamElement'
+      required:
+      - elements
+    StreamResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamResultElement'
     ErrorResponse:
       type: object
       properties:
@@ -103,13 +128,6 @@ components:
           type: string
           description: Error code
           example: INVALID_PARAMS
-    StreamResultElement:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code for this element
-          example: 201
     CompanyStreamElement:
       type: object
       properties:
@@ -135,31 +153,13 @@ components:
       required:
       - action
       - companyName
-    StreamResponse:
+    StreamResultElement:
       type: object
       properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/StreamResultElement'
-    CompanyStreamRequest:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyStreamElement'
-      required:
-      - elements
-  examples:
-    CompanyStreamRequestExample:
-      summary: Add multiple companies to segment
-      value:
-        elements:
-        - action: ADD
-          companyName: LinkedIn
-        - action: ADD
-          companyName: Microsoft
+        status:
+          type: integer
+          description: HTTP status code for this element
+          example: 201
   securitySchemes:
     OAuth2Auth:
       type: oauth2

@@ -115,18 +115,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
     SeatholdersResponse:
       type: object
       description: Response containing recruiter seatholders
@@ -137,25 +125,25 @@ components:
             $ref: '#/components/schemas/Seatholder'
         paging:
           $ref: '#/components/schemas/Paging'
-    Seatholder:
+    ExportedCandidate:
       type: object
       properties:
-        seatUrn:
+        personUrn:
           type: string
-          example: urn:li:seat:12345
+          example: urn:li:person:ABC123
         firstName:
           type: string
-          example: Jane
+          example: John
         lastName:
           type: string
-          example: Recruiter
-        emailAddress:
+          example: Doe
+        headline:
           type: string
-          format: email
-          example: jane.recruiter@company.com
-        active:
-          type: boolean
-          example: true
+          example: Senior Software Engineer at Tech Corp
+        profilePictureUrl:
+          type: string
+          format: uri
+          example: https://media.licdn.com/...
     Paging:
       type: object
       properties:
@@ -176,25 +164,59 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExportedCandidate'
-    ExportedCandidate:
+    Seatholder:
       type: object
       properties:
-        personUrn:
+        seatUrn:
           type: string
-          example: urn:li:person:ABC123
+          example: urn:li:seat:12345
         firstName:
           type: string
-          example: John
+          example: Jane
         lastName:
           type: string
-          example: Doe
-        headline:
+          example: Recruiter
+        emailAddress:
           type: string
-          example: Senior Software Engineer at Tech Corp
-        profilePictureUrl:
+          format: email
+          example: jane.recruiter@company.com
+        active:
+          type: boolean
+          example: true
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
           type: string
-          format: uri
-          example: https://media.licdn.com/...
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+  examples:
+    ExportedCandidateResponseExample:
+      summary: Example exported candidate response
+      value:
+        elements:
+        - personUrn: urn:li:person:ABC123
+          firstName: John
+          lastName: Doe
+          headline: Senior Software Engineer at Tech Corp
+    SeatholdersResponseExample:
+      summary: Example seatholders response
+      value:
+        elements:
+        - seatUrn: urn:li:seat:12345
+          firstName: Jane
+          lastName: Recruiter
+          emailAddress: jane.recruiter@company.com
+          active: true
+        paging:
+          start: 0
+          count: 100
+          total: 1
   parameters:
     QueryTypeParameter:
       name: q
@@ -212,28 +234,6 @@ components:
       schema:
         type: string
       example: req-12345-abcde
-  examples:
-    SeatholdersResponseExample:
-      summary: Example seatholders response
-      value:
-        elements:
-        - seatUrn: urn:li:seat:12345
-          firstName: Jane
-          lastName: Recruiter
-          emailAddress: jane.recruiter@company.com
-          active: true
-        paging:
-          start: 0
-          count: 100
-          total: 1
-    ExportedCandidateResponseExample:
-      summary: Example exported candidate response
-      value:
-        elements:
-        - personUrn: urn:li:person:ABC123
-          firstName: John
-          lastName: Doe
-          headline: Senior Software Engineer at Tech Corp
   securitySchemes:
     BearerAuth:
       type: http

@@ -62,6 +62,24 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    JobPostingTaskResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - SUCCEEDED
+          - FAILED
+          example: SUCCEEDED
+        jobPostingUrn:
+          type: string
+          description: URN of the created job posting
+          example: urn:li:jobPosting:2722131308
+        errorMessage:
+          type: string
+          description: Error message if task failed
+          example: example_value
     ErrorResponse:
       type: object
       properties:
@@ -82,24 +100,6 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/JobPostingTaskResult'
-    JobPostingTaskResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - PENDING
-          - SUCCEEDED
-          - FAILED
-          example: SUCCEEDED
-        jobPostingUrn:
-          type: string
-          description: URN of the created job posting
-          example: urn:li:jobPosting:2722131308
-        errorMessage:
-          type: string
-          description: Error message if task failed
-          example: example_value
   examples:
     JobPostingTaskResponseExample:
       summary: Example job posting task status response

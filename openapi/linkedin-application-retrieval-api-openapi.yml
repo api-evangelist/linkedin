@@ -62,49 +62,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          description: LinkedIn service-specific error code
-          example: 100
-    ApplicationCredentials:
-      type: object
-      properties:
-        applicationUrn:
-          type: string
-          description: URN of the application
-          example: urn:li:developerApplication:12345678
-        clientId:
-          type: string
-          description: OAuth 2.0 client ID
-          example: 78abc123def456
-        clientSecret:
-          type: string
-          description: OAuth 2.0 client secret
-          example: secretXYZ789
-        uniqueForeignId:
-          type: string
-          description: Partner's unique identifier
-          example: acme-corp-12345
-    GetApplicationResponse:
-      type: object
-      description: Response containing application credentials and details
-      properties:
+  examples:
+    GetApplicationResponseExample:
+      summary: Example response for retrieving application credentials
+      value:
         elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicationCredentials'
+        - applicationUrn: urn:li:developerApplication:12345678
+          clientId: 78abc123def456
+          clientSecret: secretXYZ789
+          uniqueForeignId: acme-corp-12345
   parameters:
     QueryTypeParameter:
       name: q
@@ -124,15 +90,49 @@ components:
       schema:
         type: string
       example: acme-corp-12345
-  examples:
-    GetApplicationResponseExample:
-      summary: Example response for retrieving application credentials
-      value:
+  schemas:
+    GetApplicationResponse:
+      type: object
+      description: Response containing application credentials and details
+      properties:
         elements:
-        - applicationUrn: urn:li:developerApplication:12345678
-          clientId: 78abc123def456
-          clientSecret: secretXYZ789
-          uniqueForeignId: acme-corp-12345
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationCredentials'
+    ApplicationCredentials:
+      type: object
+      properties:
+        applicationUrn:
+          type: string
+          description: URN of the application
+          example: urn:li:developerApplication:12345678
+        clientId:
+          type: string
+          description: OAuth 2.0 client ID
+          example: 78abc123def456
+        clientSecret:
+          type: string
+          description: OAuth 2.0 client secret
+          example: secretXYZ789
+        uniqueForeignId:
+          type: string
+          description: Partner's unique identifier
+          example: acme-corp-12345
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          description: LinkedIn service-specific error code
+          example: 100
   securitySchemes:
     OAuth2Auth:
       type: oauth2

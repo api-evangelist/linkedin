@@ -180,68 +180,6 @@ paths:
                     code: RATE_LIMIT_EXCEEDED
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
-    LearnerDetails:
-      type: object
-      properties:
-        entity:
-          $ref: '#/components/schemas/LearnerEntity'
-    LearningActivityReport:
-      type: object
-      properties:
-        latestDataAt:
-          type: integer
-          format: int64
-          description: Timestamp of the latest data included in this report
-          example: 1632207540000
-        activities:
-          type: array
-          items:
-            $ref: '#/components/schemas/LearningActivity'
-        learnerDetails:
-          $ref: '#/components/schemas/LearnerDetails'
-    LearningActivityReportResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/LearningActivityReport'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    Paging:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of results
-          example: 1
-        count:
-          type: integer
-          description: Number of results in this response
-          example: 1
-        start:
-          type: integer
-          description: Starting index
-          example: 0
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/PagingLink'
     LearningActivity:
       type: object
       properties:
@@ -312,6 +250,68 @@ components:
           type: string
           description: URN of the content (if grouped by content)
           example: urn:li:learningCourse:123
+    LearningActivityReport:
+      type: object
+      properties:
+        latestDataAt:
+          type: integer
+          format: int64
+          description: Timestamp of the latest data included in this report
+          example: 1632207540000
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningActivity'
+        learnerDetails:
+          $ref: '#/components/schemas/LearnerDetails'
+    Paging:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of results
+          example: 1
+        count:
+          type: integer
+          description: Number of results in this response
+          example: 1
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
+    LearningActivityReportResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningActivityReport'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    LearnerDetails:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/LearnerEntity'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     PagingLink:
       type: object
       properties:

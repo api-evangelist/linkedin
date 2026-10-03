@@ -63,18 +63,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
     Event:
       type: object
       properties:
@@ -107,22 +95,6 @@ components:
           example: 1702780064000
         created:
           $ref: '#/components/schemas/Timestamp'
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 25
-        total:
-          type: integer
-          example: 100
-        links:
-          type: array
-          items:
-            type: object
     Timestamp:
       type: object
       properties:
@@ -139,23 +111,35 @@ components:
             $ref: '#/components/schemas/Event'
         paging:
           $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 25
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: object
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
   parameters:
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for finder operations
-      schema:
-        type: string
-      example: roleAssignee
-    CountParameter:
-      name: count
-      in: query
-      required: false
-      description: Number of results to return
-      schema:
-        type: integer
-      example: 25
     LinkedInVersionHeader:
       name: LinkedIn-Version
       in: header
@@ -164,6 +148,14 @@ components:
       schema:
         type: string
       example: '202312'
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
     RestliProtocolVersionHeader:
       name: X-Restli-Protocol-Version
       in: header
@@ -172,6 +164,14 @@ components:
       schema:
         type: string
       example: 2.0.0
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
     StartParameter:
       name: start
       in: query

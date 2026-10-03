@@ -150,46 +150,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
+    Timestamp:
       type: object
       properties:
-        status:
+        time:
           type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    Post:
-      type: object
-      properties:
-        id:
-          type: string
-          example: urn:li:share:7012345678901234567
-        author:
-          type: string
-          example: urn:li:organization:10002687
-        commentary:
-          type: string
-          example: Exciting news from our team!
-        visibility:
-          type: string
-          enum:
-          - PUBLIC
-          - CONNECTIONS
-          example: PUBLIC
-        lifecycleState:
-          type: string
-          enum:
-          - PUBLISHED
-          - DRAFT
-          example: PUBLISHED
-        created:
-          $ref: '#/components/schemas/Timestamp'
-        lastModified:
-          $ref: '#/components/schemas/Timestamp'
+          format: int64
+          example: 1702693664000
     Reaction:
       type: object
       properties:
@@ -242,13 +209,55 @@ components:
             $ref: '#/components/schemas/Comment'
         paging:
           $ref: '#/components/schemas/Paging'
-    Timestamp:
+    ErrorResponse:
       type: object
       properties:
-        time:
+        status:
           type: integer
-          format: int64
-          example: 1702693664000
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    PostResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+          example: urn:li:share:7012345678901234567
+        author:
+          type: string
+          example: urn:li:organization:10002687
+        commentary:
+          type: string
+          example: Exciting news from our team!
+        visibility:
+          type: string
+          enum:
+          - PUBLIC
+          - CONNECTIONS
+          example: PUBLIC
+        lifecycleState:
+          type: string
+          enum:
+          - PUBLISHED
+          - DRAFT
+          example: PUBLISHED
+        created:
+          $ref: '#/components/schemas/Timestamp'
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
     Comment:
       type: object
       properties:
@@ -265,32 +274,7 @@ components:
           $ref: '#/components/schemas/Timestamp'
         lastModified:
           $ref: '#/components/schemas/Timestamp'
-    PostResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Post'
-        paging:
-          $ref: '#/components/schemas/Paging'
   parameters:
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for finder operations
-      schema:
-        type: string
-      example: roleAssignee
-    CountParameter:
-      name: count
-      in: query
-      required: false
-      description: Number of results to return
-      schema:
-        type: integer
-      example: 25
     LinkedInVersionHeader:
       name: LinkedIn-Version
       in: header
@@ -299,6 +283,14 @@ components:
       schema:
         type: string
       example: '202312'
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
     RestliProtocolVersionHeader:
       name: X-Restli-Protocol-Version
       in: header
@@ -307,6 +299,14 @@ components:
       schema:
         type: string
       example: 2.0.0
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
     StartParameter:
       name: start
       in: query

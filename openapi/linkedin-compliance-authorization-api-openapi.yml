@@ -138,21 +138,15 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
+    ComplianceAuthorizationResponse:
       type: object
       properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceAuthorization'
+        paging:
+          $ref: '#/components/schemas/Paging'
     Paging:
       type: object
       properties:
@@ -199,24 +193,21 @@ components:
       - developerApplication
       - member
       - status
-    ComplianceAuthorizationResponse:
+    ErrorResponse:
       type: object
       properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComplianceAuthorization'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    ComplianceAuthorizationRequest:
-      type: object
-      properties:
-        member:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
           type: string
-          description: URN of the member to regulate
-          example: urn:li:person:ABC123def
-      required:
-      - member
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     PagingLink:
       type: object
       properties:
@@ -229,6 +220,15 @@ components:
         type:
           type: string
           example: application/json
+    ComplianceAuthorizationRequest:
+      type: object
+      properties:
+        member:
+          type: string
+          description: URN of the member to regulate
+          example: urn:li:person:ABC123def
+      required:
+      - member
   examples:
     ComplianceAuthorizationResponseExample:
       summary: Successful authorization response

@@ -91,6 +91,73 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    InsightSegmentation:
+      type: object
+      properties:
+        entityCount:
+          type: integer
+          description: Number of members matching this segment
+          example: 4900000
+        entityPercentage:
+          type: integer
+          description: Percentage of audience matching this segment
+          example: 89
+        value:
+          type: string
+          description: URN of the segment value
+          example: urn:li:interest:71363
+    TargetingCriteria:
+      type: object
+      properties:
+        include:
+          type: object
+          properties:
+            and:
+              type: array
+              items:
+                type: object
+                properties:
+                  or:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+    AudienceInsight:
+      type: object
+      properties:
+        segmentations:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsightSegmentation'
+        groupedBy:
+          type: string
+          description: Facet URN the insights are grouped by
+          example: urn:li:adTargetingFacet:interests
+    AudienceInsightsRequest:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            requestMetaData:
+              $ref: '#/components/schemas/RequestMetaData'
+            targetingCriteria:
+              $ref: '#/components/schemas/TargetingCriteria'
+            groupBy:
+              type: string
+              description: Facet URN to group insights by
+              example: urn:li:adTargetingFacet:interests
+          required:
+          - targetingCriteria
+          - groupBy
+    RequestMetaData:
+      type: object
+      properties:
+        sponsoredAccount:
+          type: string
+          description: URN of the sponsored account
+          example: urn:li:sponsoredAccount:123456789
     ErrorResponse:
       type: object
       properties:
@@ -118,93 +185,7 @@ components:
               type: integer
               description: Total count of the target audience
               example: 5500000
-    RequestMetaData:
-      type: object
-      properties:
-        sponsoredAccount:
-          type: string
-          description: URN of the sponsored account
-          example: urn:li:sponsoredAccount:123456789
-    TargetingCriteria:
-      type: object
-      properties:
-        include:
-          type: object
-          properties:
-            and:
-              type: array
-              items:
-                type: object
-                properties:
-                  or:
-                    type: object
-                    additionalProperties:
-                      type: array
-                      items:
-                        type: string
-    InsightSegmentation:
-      type: object
-      properties:
-        entityCount:
-          type: integer
-          description: Number of members matching this segment
-          example: 4900000
-        entityPercentage:
-          type: integer
-          description: Percentage of audience matching this segment
-          example: 89
-        value:
-          type: string
-          description: URN of the segment value
-          example: urn:li:interest:71363
-    AudienceInsightsRequest:
-      type: object
-      properties:
-        request:
-          type: object
-          properties:
-            requestMetaData:
-              $ref: '#/components/schemas/RequestMetaData'
-            targetingCriteria:
-              $ref: '#/components/schemas/TargetingCriteria'
-            groupBy:
-              type: string
-              description: Facet URN to group insights by
-              example: urn:li:adTargetingFacet:interests
-          required:
-          - targetingCriteria
-          - groupBy
-    AudienceInsight:
-      type: object
-      properties:
-        segmentations:
-          type: array
-          items:
-            $ref: '#/components/schemas/InsightSegmentation'
-        groupedBy:
-          type: string
-          description: Facet URN the insights are grouped by
-          example: urn:li:adTargetingFacet:interests
   examples:
-    AudienceInsightsRequestExample:
-      summary: Request for interests of Finance directors in US
-      value:
-        request:
-          requestMetaData:
-            sponsoredAccount: urn:li:sponsoredAccount:123456789
-          targetingCriteria:
-            include:
-              and:
-              - or:
-                  urn:li:adTargetingFacet:locations:
-                  - urn:li:geo:103644278
-              - or:
-                  urn:li:adTargetingFacet:interfaceLocales:
-                  - urn:li:locale:en_US
-              - or:
-                  urn:li:adTargetingFacet:jobFunctions:
-                  - urn:li:function:10
-          groupBy: urn:li:adTargetingFacet:interests
     AudienceInsightsResponseExample:
       summary: Audience insights response with top interests
       value:
@@ -228,6 +209,25 @@ components:
               value: urn:li:interest:1537154
             groupedBy: urn:li:adTargetingFacet:interests
           totalAudienceCount: 5500000
+    AudienceInsightsRequestExample:
+      summary: Request for interests of Finance directors in US
+      value:
+        request:
+          requestMetaData:
+            sponsoredAccount: urn:li:sponsoredAccount:123456789
+          targetingCriteria:
+            include:
+              and:
+              - or:
+                  urn:li:adTargetingFacet:locations:
+                  - urn:li:geo:103644278
+              - or:
+                  urn:li:adTargetingFacet:interfaceLocales:
+                  - urn:li:locale:en_US
+              - or:
+                  urn:li:adTargetingFacet:jobFunctions:
+                  - urn:li:function:10
+          groupBy: urn:li:adTargetingFacet:interests
   securitySchemes:
     OAuth2Auth:
       type: oauth2

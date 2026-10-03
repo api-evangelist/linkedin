@@ -116,44 +116,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    RestliMethodHeader:
+      name: x-restli-method
+      in: header
+      required: true
+      description: Rest.li method type
+      schema:
+        type: string
+        enum:
+        - batch_update
+        - batch_partial_update
+        - batch_create
+      example: batch_update
+    RestliProtocolVersionHeader:
+      name: X-RestLi-Protocol-Version
+      in: header
+      required: false
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
     SuccessResponse:
       type: object
       properties:
         status:
           type: string
           example: SUCCESS
-    ResumeUploadResponse:
-      type: object
-      description: Response containing signed upload URL
-      properties:
-        uploadUrl:
-          type: string
-          format: uri
-          example: https://www.linkedin.com/dms-uploads/...
-        resumeUrn:
-          type: string
-          example: urn:li:ambryBlob:/AAYUAgCvAAkAAQ...
-    ApplicationRequest:
-      type: object
-      description: Request for syncing job applications
-      properties:
-        entities:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ApplicationData'
     ResumeUploadRequest:
       type: object
       description: Request for creating resume upload URL
@@ -184,6 +182,37 @@ components:
           properties:
             recruiterSystemConnectResumeParameters:
               type: object
+    ApplicationRequest:
+      type: object
+      description: Request for syncing job applications
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ApplicationData'
+    ResumeUploadResponse:
+      type: object
+      description: Response containing signed upload URL
+      properties:
+        uploadUrl:
+          type: string
+          format: uri
+          example: https://www.linkedin.com/dms-uploads/...
+        resumeUrn:
+          type: string
+          example: urn:li:ambryBlob:/AAYUAgCvAAkAAQ...
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
     ApplicationData:
       type: object
       properties:
@@ -237,35 +266,6 @@ components:
             lastName: Doe
             source: Referral
             atsCreatedAt: 1702693664000
-  parameters:
-    RestliMethodHeader:
-      name: x-restli-method
-      in: header
-      required: true
-      description: Rest.li method type
-      schema:
-        type: string
-        enum:
-        - batch_update
-        - batch_partial_update
-        - batch_create
-      example: batch_update
-    ContentTypeHeader:
-      name: Content-Type
-      in: header
-      required: true
-      description: Content type of request body
-      schema:
-        type: string
-      example: application/json
-    RestliProtocolVersionHeader:
-      name: X-RestLi-Protocol-Version
-      in: header
-      required: false
-      description: Rest.li protocol version
-      schema:
-        type: string
-      example: 2.0.0
   securitySchemes:
     BearerAuth:
       type: http

@@ -62,19 +62,57 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
   schemas:
-    ErrorResponse:
+    LeadGenResponse:
       type: object
       properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeadGenRecord'
+        paging:
+          $ref: '#/components/schemas/Paging'
     LeadGenRecord:
       type: object
       properties:
@@ -92,15 +130,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LeadGenAnswer'
-    LeadGenResponse:
+    LeadGenAnswer:
       type: object
       properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeadGenRecord'
-        paging:
-          $ref: '#/components/schemas/Paging'
+        questionId:
+          type: string
+          example: firstName
+        answerValue:
+          type: string
+          example: John
     Paging:
       type: object
       properties:
@@ -117,56 +155,18 @@ components:
           type: array
           items:
             type: object
-    LeadGenAnswer:
+    ErrorResponse:
       type: object
       properties:
-        questionId:
+        status:
+          type: integer
+          example: 400
+        message:
           type: string
-          example: firstName
-        answerValue:
-          type: string
-          example: John
-  parameters:
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for finder operations
-      schema:
-        type: string
-      example: roleAssignee
-    CountParameter:
-      name: count
-      in: query
-      required: false
-      description: Number of results to return
-      schema:
-        type: integer
-      example: 25
-    LinkedInVersionHeader:
-      name: LinkedIn-Version
-      in: header
-      required: true
-      description: LinkedIn API version in YYYYMM format
-      schema:
-        type: string
-      example: '202312'
-    RestliProtocolVersionHeader:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      description: Rest.li protocol version
-      schema:
-        type: string
-      example: 2.0.0
-    StartParameter:
-      name: start
-      in: query
-      required: false
-      description: Pagination start index
-      schema:
-        type: integer
-      example: 0
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
   securitySchemes:
     BearerAuth:
       type: http

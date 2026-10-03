@@ -85,21 +85,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
     Paging:
       type: object
       properties:
@@ -119,6 +104,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PagingLink'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     ComplianceEvent:
       type: object
       properties:
@@ -191,6 +191,18 @@ components:
       - capturedAt
       - resourceName
       - method
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /v2/complianceEvents?start=10&count=10
+        type:
+          type: string
+          example: application/json
     MemberProfile:
       type: object
       properties:
@@ -215,18 +227,6 @@ components:
             $ref: '#/components/schemas/ComplianceEvent'
         paging:
           $ref: '#/components/schemas/Paging'
-    PagingLink:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: next
-        href:
-          type: string
-          example: /v2/complianceEvents?start=10&count=10
-        type:
-          type: string
-          example: application/json
   examples:
     ComplianceEventsResponseExample:
       summary: Compliance events response

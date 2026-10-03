@@ -608,324 +608,44 @@ paths:
         dispatcherRules: '{}'
         delay: 0
 components:
-  schemas:
-    GetTheUsersSponsoredResponse200:
-      type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items: {}
-            total:
-              type: integer
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              id:
-                type: integer
-              test:
-                type: boolean
-              referenceInfo:
-                type: object
-                properties:
-                  organization:
-                    type: object
-                    properties:
-                      name:
-                        type: object
-                        properties:
-                          localized:
-                            type: object
-                            properties:
-                              en_US:
-                                type: string
-                          preferredLocale:
-                            type: object
-                            properties:
-                              country:
-                                type: string
-                              language:
-                                type: string
-                      vanityName:
-                        type: string
-                      localizedName:
-                        type: string
-                      id:
-                        type: integer
-    ValidateTheUsersOrganizationResponse200:
-      type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items: {}
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              roleAssignee:
-                type: string
-              state:
-                type: string
-              lastModified:
-                type: object
-                properties:
-                  actor:
-                    type: string
-                  impersonator:
-                    type: string
-                  time:
-                    type: integer
-              role:
-                type: string
-              created:
-                type: object
-                properties:
-                  actor:
-                    type: string
-                  impersonator:
-                    type: string
-                  time:
-                    type: integer
-              organization:
-                type: string
-    GetFormsForTheResponse200:
-      type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items: {}
-            total:
-              type: integer
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              reviewInfo:
-                type: object
-                properties:
-                  rejectionReasons:
-                    type: array
-                    items: {}
-                  lastUpdated:
-                    type: integer
-                  reviewStatus:
-                    type: string
-              owner:
-                type: object
-                properties:
-                  sponsoredAccount:
-                    type: string
-              hiddenFields:
-                type: array
-                items: {}
-              versionId:
-                type: integer
-              created:
-                type: integer
-              creationLocale:
-                type: object
-                properties:
-                  country:
-                    type: string
-                  language:
-                    type: string
-              name:
-                type: string
-              id:
-                type: integer
-              lastModified:
-                type: integer
-              state:
-                type: string
-              content:
-                type: object
-                properties:
-                  questions:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        questionId:
-                          type: integer
-                        question:
-                          type: object
-                          properties:
-                            localized:
-                              type: object
-                              properties:
-                                sv_SE:
-                                  type: string
-                        responseEditable:
-                          type: boolean
-                        name:
-                          type: string
-                        questionDetails:
-                          type: object
-                          properties:
-                            textQuestionDetails:
-                              type: object
-                              properties:
-                                maxResponseLength:
-                                  type: integer
-                        predefinedField:
-                          type: string
-                        responseRequired:
-                          type: boolean
-                  description:
-                    type: object
-                    properties:
-                      localized:
-                        type: object
-                        properties:
-                          sv_SE:
-                            type: string
-                  postSubmissionInfo:
-                    type: object
-                    properties:
-                      message:
-                        type: object
-                        properties:
-                          localized:
-                            type: object
-                            properties:
-                              sv_SE:
-                                type: string
-                      callToAction:
-                        type: object
-                        properties:
-                          callToActionTarget:
-                            type: object
-                            properties:
-                              landingPageUrl:
-                                type: string
-                          callToActionLabel:
-                            type: string
-                  legalInfo:
-                    type: object
-                    properties:
-                      consents:
-                        type: array
-                        items: {}
-                      legalInfoId:
-                        type: integer
-                      privacyPolicyUrl:
-                        type: string
-                      legalDisclaimer:
-                        type: object
-                        properties:
-                          localized:
-                            type: object
-                            properties:
-                              sv_SE:
-                                type: string
-                  headline:
-                    type: object
-                    properties:
-                      localized:
-                        type: object
-                        properties:
-                          sv_SE:
-                            type: string
-    FetchFullLeadDataResponse200:
-      type: object
-      properties:
-        owner:
-          type: object
-          properties:
-            sponsoredAccount:
-              type: string
-        submitter:
-          type: string
-          example: example_value
-        leadType:
-          type: string
-          example: example_value
-        leadMetadata:
-          type: object
-          properties:
-            sponsoredLeadMetadata:
-              type: object
-              properties:
-                campaign:
-                  type: string
-        versionedLeadGenFormUrn:
-          type: string
-          example: urn:li:organization:123456
-        id:
-          type: string
-          example: '123456'
-        submittedAt:
-          type: integer
-          example: 42
-        testLead:
-          type: boolean
-          example: true
-        associatedEntity:
-          type: object
-          properties:
-            associatedCreative:
-              type: string
-        formResponse:
-          type: object
-          properties:
-            consentResponses:
-              type: array
-              items:
-                type: object
-                properties:
-                  accepted:
-                    type: boolean
-                  consentId:
-                    type: integer
-            answers:
-              type: array
-              items:
-                type: object
-                properties:
-                  answerDetails:
-                    type: object
-                    properties:
-                      textQuestionAnswer:
-                        type: object
-                        properties:
-                          answer:
-                            type: string
-                  questionId:
-                    type: integer
-    SubscribeForLeadNotificationRequest:
-      type: object
-      example:
-        webhook: https://www.example.com
-        owner:
-          sponsoredAccount: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
-        leadType: '{{leadtype_sponsored}}'
   examples:
+    GetTheUsersSponsoredResponse200Example:
+      summary: Example 200 response for GetTheUsersSponsored
+      value:
+        paging:
+          start: 0
+          count: 10
+          links: []
+          total: 2
+        elements:
+        - name: Ad Account A
+          id: 1234567
+          test: false
+          referenceInfo:
+            organization:
+              name:
+                localized:
+                  en_US: Highlander Cranberries LLC
+                preferredLocale:
+                  country: US
+                  language: en
+              vanityName: highlander-cranberries-llc
+              localizedName: Highlander Cranberries LLC
+              id: 11223344
+        - name: New Ad Account B
+          id: 5678910
+          test: false
+          referenceInfo:
+            organization:
+              name:
+                localized:
+                  en_US: Highlander Cranberries LLC
+                preferredLocale:
+                  country: US
+                  language: en
+              vanityName: highlander-cranberries-llc
+              localizedName: Highlander Cranberries LLC
+              id: 11223344
     ValidateTheUsersOrganizationResponse200Example:
       summary: Example 200 response for ValidateTheUsersOrganization
       value:
@@ -1430,43 +1150,6 @@ components:
             headline:
               localized:
                 en_US: custom questions
-    GetTheUsersSponsoredResponse200Example:
-      summary: Example 200 response for GetTheUsersSponsored
-      value:
-        paging:
-          start: 0
-          count: 10
-          links: []
-          total: 2
-        elements:
-        - name: Ad Account A
-          id: 1234567
-          test: false
-          referenceInfo:
-            organization:
-              name:
-                localized:
-                  en_US: Highlander Cranberries LLC
-                preferredLocale:
-                  country: US
-                  language: en
-              vanityName: highlander-cranberries-llc
-              localizedName: Highlander Cranberries LLC
-              id: 11223344
-        - name: New Ad Account B
-          id: 5678910
-          test: false
-          referenceInfo:
-            organization:
-              name:
-                localized:
-                  en_US: Highlander Cranberries LLC
-                preferredLocale:
-                  country: US
-                  language: en
-              vanityName: highlander-cranberries-llc
-              localizedName: Highlander Cranberries LLC
-              id: 11223344
     FetchFullLeadDataResponse200Example:
       summary: Example 200 response for FetchFullLeadData
       value:
@@ -1521,6 +1204,323 @@ components:
               textQuestionAnswer:
                 answer: Ingeniería
             questionId: 507234246
+  schemas:
+    GetFormsForTheResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+            total:
+              type: integer
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              reviewInfo:
+                type: object
+                properties:
+                  rejectionReasons:
+                    type: array
+                    items: {}
+                  lastUpdated:
+                    type: integer
+                  reviewStatus:
+                    type: string
+              owner:
+                type: object
+                properties:
+                  sponsoredAccount:
+                    type: string
+              hiddenFields:
+                type: array
+                items: {}
+              versionId:
+                type: integer
+              created:
+                type: integer
+              creationLocale:
+                type: object
+                properties:
+                  country:
+                    type: string
+                  language:
+                    type: string
+              name:
+                type: string
+              id:
+                type: integer
+              lastModified:
+                type: integer
+              state:
+                type: string
+              content:
+                type: object
+                properties:
+                  questions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        questionId:
+                          type: integer
+                        question:
+                          type: object
+                          properties:
+                            localized:
+                              type: object
+                              properties:
+                                sv_SE:
+                                  type: string
+                        responseEditable:
+                          type: boolean
+                        name:
+                          type: string
+                        questionDetails:
+                          type: object
+                          properties:
+                            textQuestionDetails:
+                              type: object
+                              properties:
+                                maxResponseLength:
+                                  type: integer
+                        predefinedField:
+                          type: string
+                        responseRequired:
+                          type: boolean
+                  description:
+                    type: object
+                    properties:
+                      localized:
+                        type: object
+                        properties:
+                          sv_SE:
+                            type: string
+                  postSubmissionInfo:
+                    type: object
+                    properties:
+                      message:
+                        type: object
+                        properties:
+                          localized:
+                            type: object
+                            properties:
+                              sv_SE:
+                                type: string
+                      callToAction:
+                        type: object
+                        properties:
+                          callToActionTarget:
+                            type: object
+                            properties:
+                              landingPageUrl:
+                                type: string
+                          callToActionLabel:
+                            type: string
+                  legalInfo:
+                    type: object
+                    properties:
+                      consents:
+                        type: array
+                        items: {}
+                      legalInfoId:
+                        type: integer
+                      privacyPolicyUrl:
+                        type: string
+                      legalDisclaimer:
+                        type: object
+                        properties:
+                          localized:
+                            type: object
+                            properties:
+                              sv_SE:
+                                type: string
+                  headline:
+                    type: object
+                    properties:
+                      localized:
+                        type: object
+                        properties:
+                          sv_SE:
+                            type: string
+    FetchFullLeadDataResponse200:
+      type: object
+      properties:
+        owner:
+          type: object
+          properties:
+            sponsoredAccount:
+              type: string
+        submitter:
+          type: string
+          example: example_value
+        leadType:
+          type: string
+          example: example_value
+        leadMetadata:
+          type: object
+          properties:
+            sponsoredLeadMetadata:
+              type: object
+              properties:
+                campaign:
+                  type: string
+        versionedLeadGenFormUrn:
+          type: string
+          example: urn:li:organization:123456
+        id:
+          type: string
+          example: '123456'
+        submittedAt:
+          type: integer
+          example: 42
+        testLead:
+          type: boolean
+          example: true
+        associatedEntity:
+          type: object
+          properties:
+            associatedCreative:
+              type: string
+        formResponse:
+          type: object
+          properties:
+            consentResponses:
+              type: array
+              items:
+                type: object
+                properties:
+                  accepted:
+                    type: boolean
+                  consentId:
+                    type: integer
+            answers:
+              type: array
+              items:
+                type: object
+                properties:
+                  answerDetails:
+                    type: object
+                    properties:
+                      textQuestionAnswer:
+                        type: object
+                        properties:
+                          answer:
+                            type: string
+                  questionId:
+                    type: integer
+    GetTheUsersSponsoredResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+            total:
+              type: integer
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              id:
+                type: integer
+              test:
+                type: boolean
+              referenceInfo:
+                type: object
+                properties:
+                  organization:
+                    type: object
+                    properties:
+                      name:
+                        type: object
+                        properties:
+                          localized:
+                            type: object
+                            properties:
+                              en_US:
+                                type: string
+                          preferredLocale:
+                            type: object
+                            properties:
+                              country:
+                                type: string
+                              language:
+                                type: string
+                      vanityName:
+                        type: string
+                      localizedName:
+                        type: string
+                      id:
+                        type: integer
+    SubscribeForLeadNotificationRequest:
+      type: object
+      example:
+        webhook: https://www.example.com
+        owner:
+          sponsoredAccount: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+        leadType: '{{leadtype_sponsored}}'
+    ValidateTheUsersOrganizationResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              roleAssignee:
+                type: string
+              state:
+                type: string
+              lastModified:
+                type: object
+                properties:
+                  actor:
+                    type: string
+                  impersonator:
+                    type: string
+                  time:
+                    type: integer
+              role:
+                type: string
+              created:
+                type: object
+                properties:
+                  actor:
+                    type: string
+                  impersonator:
+                    type: string
+                  time:
+                    type: integer
+              organization:
+                type: string
   securitySchemes:
     oauth2Auth:
       type: http

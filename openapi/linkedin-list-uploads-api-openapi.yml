@@ -83,7 +83,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    ListUploadRequestExample:
+      summary: Attach uploaded list to segment
+      value:
+        inputFile: urn:li:digitalmediaAsset:C5605AQH2...
   schemas:
+    ListUploadRequest:
+      type: object
+      properties:
+        inputFile:
+          type: string
+          description: Media URN of the uploaded file
+          example: urn:li:digitalmediaAsset:C5605AQH2...
+      required:
+      - inputFile
     ErrorResponse:
       type: object
       properties:
@@ -99,20 +113,6 @@ components:
           type: string
           description: Error code
           example: INVALID_PARAMS
-    ListUploadRequest:
-      type: object
-      properties:
-        inputFile:
-          type: string
-          description: Media URN of the uploaded file
-          example: urn:li:digitalmediaAsset:C5605AQH2...
-      required:
-      - inputFile
-  examples:
-    ListUploadRequestExample:
-      summary: Attach uploaded list to segment
-      value:
-        inputFile: urn:li:digitalmediaAsset:C5605AQH2...
   securitySchemes:
     OAuth2Auth:
       type: oauth2

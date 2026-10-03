@@ -82,6 +82,17 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    AudienceCount:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total audience count
+          example: 1500000
+        activeCount:
+          type: integer
+          description: Active member count
+          example: 1200000
     ErrorResponse:
       type: object
       properties:
@@ -94,17 +105,6 @@ components:
         code:
           type: string
           example: INVALID_PARAMS
-    AudienceCount:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total audience count
-          example: 1500000
-        activeCount:
-          type: integer
-          description: Active member count
-          example: 1200000
   securitySchemes:
     OAuth2Auth:
       type: oauth2

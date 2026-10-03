@@ -117,7 +117,50 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    RestliMethodHeader:
+      name: x-restli-method
+      in: header
+      required: true
+      description: Rest.li method type
+      schema:
+        type: string
+        enum:
+        - batch_update
+        - batch_partial_update
+        - batch_create
+      example: batch_update
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type
+      schema:
+        type: string
+      example: request
+    RequestIdParameter:
+      name: requestId
+      in: query
+      required: true
+      description: Request ID from push notification
+      schema:
+        type: string
+      example: req-12345-abcde
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
   schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
     ErrorResponse:
       type: object
       properties:
@@ -130,12 +173,6 @@ components:
         serviceErrorCode:
           type: integer
           example: 100
-    SuccessResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: SUCCESS
     IntegrationPatch:
       type: object
       properties:
@@ -156,43 +193,6 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/IntegrationPatch'
-  parameters:
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type
-      schema:
-        type: string
-      example: request
-    RestliMethodHeader:
-      name: x-restli-method
-      in: header
-      required: true
-      description: Rest.li method type
-      schema:
-        type: string
-        enum:
-        - batch_update
-        - batch_partial_update
-        - batch_create
-      example: batch_update
-    RequestIdParameter:
-      name: requestId
-      in: query
-      required: true
-      description: Request ID from push notification
-      schema:
-        type: string
-      example: req-12345-abcde
-    ContentTypeHeader:
-      name: Content-Type
-      in: header
-      required: true
-      description: Content type of request body
-      schema:
-        type: string
-      example: application/json
   examples:
     SuccessResponseExample:
       summary: Successful operation response

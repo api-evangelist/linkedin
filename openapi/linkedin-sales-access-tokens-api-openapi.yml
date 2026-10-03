@@ -53,6 +53,33 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    SalesAccessToken:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Short-lived, limited-scope OAuth token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        expiryTime:
+          type: integer
+          description: Time at which this token will become invalid (seconds since epoch)
+          example: 1640100000
+      required:
+      - token
+      - expiryTime
+    Paging:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 10
+        start:
+          type: integer
+          example: 0
+        links:
+          type: array
+          items:
+            type: string
     ErrorResponse:
       type: object
       properties:
@@ -68,19 +95,6 @@ components:
           type: string
           description: Error code
           example: INVALID_PARAMS
-    Paging:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 10
-        start:
-          type: integer
-          example: 0
-        links:
-          type: array
-          items:
-            type: string
     SalesAccessTokenResponse:
       type: object
       properties:
@@ -90,20 +104,6 @@ components:
             $ref: '#/components/schemas/SalesAccessToken'
         paging:
           $ref: '#/components/schemas/Paging'
-    SalesAccessToken:
-      type: object
-      properties:
-        token:
-          type: string
-          description: Short-lived, limited-scope OAuth token
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-        expiryTime:
-          type: integer
-          description: Time at which this token will become invalid (seconds since epoch)
-          example: 1640100000
-      required:
-      - token
-      - expiryTime
   examples:
     SalesAccessTokenResponseExample:
       summary: Sales access token response

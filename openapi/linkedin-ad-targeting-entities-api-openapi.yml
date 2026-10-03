@@ -162,183 +162,6 @@ paths:
     - url: https://api.linkedin.com/rest
       description: LinkedIn REST API Server
 components:
-  schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
-    AdTargetingEntitiesResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdTargetingEntity'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    AdTargetingFacet:
-      type: object
-      properties:
-        facetName:
-          type: string
-          description: Name of the targeting facet
-          example: jobFunctions
-        urn:
-          type: string
-          description: URN identifier for the facet
-          example: urn:li:adTargetingFacet:jobFunctions
-        entityTypes:
-          type: array
-          items:
-            type: string
-          description: Types of entities in this facet
-          example:
-          - FUNCTION
-        availableEntityFinders:
-          type: array
-          items:
-            type: string
-            enum:
-            - AD_TARGETING_FACET
-            - TYPEAHEAD
-            - SIMILAR_ENTITIES
-          description: Available methods to find entities
-          example:
-          - AD_TARGETING_FACET
-      required:
-      - facetName
-      - urn
-      - entityTypes
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          description: Starting index
-          example: 0
-        count:
-          type: integer
-          description: Number of results returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of results
-          example: 100
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/PagingLink'
-    AdTargetingFacetsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdTargetingFacet'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    AdTargetingEntity:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Display name of the entity
-          example: United States
-        urn:
-          type: string
-          description: URN identifier for the entity
-          example: urn:li:geo:103644278
-        facetUrn:
-          type: string
-          description: URN of the parent facet
-          example: urn:li:adTargetingFacet:locations
-      required:
-      - name
-      - urn
-      - facetUrn
-    PagingLink:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: next
-        href:
-          type: string
-          example: /rest/adTargetingEntities?q=typeahead&query=united%20states&start=10&count=10
-        type:
-          type: string
-          example: application/json
-    GetBingGeoLocationsResponse200:
-      type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  rel:
-                    type: string
-                  href:
-                    type: string
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              urn:
-                type: string
-              facetUrn:
-                type: string
-    GetAListOfResponse200:
-      type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items: {}
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              entityTypes:
-                type: array
-                items:
-                  type: string
-              facetName:
-                type: string
-              availableEntityFinders:
-                type: array
-                items:
-                  type: string
   examples:
     AdTargetingFacetsResponseExample:
       summary: List of ad targeting facets
@@ -704,6 +527,183 @@ components:
           availableEntityFinders:
           - TYPEAHEAD
           - AD_TARGETING_FACET
+  schemas:
+    AdTargetingFacetsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdTargetingFacet'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    AdTargetingFacet:
+      type: object
+      properties:
+        facetName:
+          type: string
+          description: Name of the targeting facet
+          example: jobFunctions
+        urn:
+          type: string
+          description: URN identifier for the facet
+          example: urn:li:adTargetingFacet:jobFunctions
+        entityTypes:
+          type: array
+          items:
+            type: string
+          description: Types of entities in this facet
+          example:
+          - FUNCTION
+        availableEntityFinders:
+          type: array
+          items:
+            type: string
+            enum:
+            - AD_TARGETING_FACET
+            - TYPEAHEAD
+            - SIMILAR_ENTITIES
+          description: Available methods to find entities
+          example:
+          - AD_TARGETING_FACET
+      required:
+      - facetName
+      - urn
+      - entityTypes
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of results returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of results
+          example: 100
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
+    AdTargetingEntitiesResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdTargetingEntity'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    AdTargetingEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Display name of the entity
+          example: United States
+        urn:
+          type: string
+          description: URN identifier for the entity
+          example: urn:li:geo:103644278
+        facetUrn:
+          type: string
+          description: URN of the parent facet
+          example: urn:li:adTargetingFacet:locations
+      required:
+      - name
+      - urn
+      - facetUrn
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /rest/adTargetingEntities?q=typeahead&query=united%20states&start=10&count=10
+        type:
+          type: string
+          example: application/json
+    GetBingGeoLocationsResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  rel:
+                    type: string
+                  href:
+                    type: string
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              urn:
+                type: string
+              facetUrn:
+                type: string
+    GetAListOfResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              entityTypes:
+                type: array
+                items:
+                  type: string
+              facetName:
+                type: string
+              availableEntityFinders:
+                type: array
+                items:
+                  type: string
   securitySchemes:
     OAuth2Auth:
       type: oauth2

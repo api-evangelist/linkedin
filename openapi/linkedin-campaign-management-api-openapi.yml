@@ -200,18 +200,31 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
+    Budget:
       type: object
       properties:
-        status:
-          type: integer
-          example: 400
-        message:
+        amount:
           type: string
-          example: Invalid request parameters
-        code:
+          description: Budget amount
+          example: '1000'
+        currencyCode:
           type: string
-          example: INVALID_PARAMS
+          description: Currency code
+          example: USD
+    CampaignUpdateRequest:
+      type: object
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: ARCHIVED
+                runSchedule:
+                  $ref: '#/components/schemas/RunSchedule'
     Paging:
       type: object
       properties:
@@ -228,20 +241,6 @@ components:
           type: array
           items:
             type: string
-    CampaignUpdateRequest:
-      type: object
-      properties:
-        patch:
-          type: object
-          properties:
-            $set:
-              type: object
-              properties:
-                status:
-                  type: string
-                  example: ARCHIVED
-                runSchedule:
-                  $ref: '#/components/schemas/RunSchedule'
     RunSchedule:
       type: object
       properties:
@@ -255,6 +254,18 @@ components:
           format: int64
           description: End timestamp in milliseconds
           example: 1648186989000
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
     Campaign:
       type: object
       properties:
@@ -313,17 +324,6 @@ components:
           $ref: '#/components/schemas/Budget'
         totalBudget:
           $ref: '#/components/schemas/Budget'
-    Budget:
-      type: object
-      properties:
-        amount:
-          type: string
-          description: Budget amount
-          example: '1000'
-        currencyCode:
-          type: string
-          description: Currency code
-          example: USD
   examples:
     CampaignArchiveExample:
       summary: Archive a campaign

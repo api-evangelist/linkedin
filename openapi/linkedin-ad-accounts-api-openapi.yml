@@ -217,22 +217,25 @@ paths:
         '204':
           description: No Content
 components:
+  examples:
+    AdAccountsResponseExample:
+      summary: List of ad accounts
+      value:
+        paging:
+          start: 0
+          count: 10
+          total: 2
+          links: []
+        elements:
+        - name: Test ad account
+          reference: urn:li:organization:11223344
+          id: 123456
+          test: false
+        - name: MDO ad account
+          reference: urn:li:organization:2355689
+          id: 456789
+          test: false
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
     AdAccount:
       type: object
       properties:
@@ -276,6 +279,21 @@ components:
           type: array
           items:
             type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     AdAccountsResponse:
       type: object
       properties:
@@ -297,24 +315,6 @@ components:
           properties:
             nextPageToken:
               type: string
-  examples:
-    AdAccountsResponseExample:
-      summary: List of ad accounts
-      value:
-        paging:
-          start: 0
-          count: 10
-          total: 2
-          links: []
-        elements:
-        - name: Test ad account
-          reference: urn:li:organization:11223344
-          id: 123456
-          test: false
-        - name: MDO ad account
-          reference: urn:li:organization:2355689
-          id: 456789
-          test: false
   parameters:
     linkedinVersion:
       name: Linkedin-Version
@@ -324,6 +324,12 @@ components:
       schema:
         type: string
         example: '202605'
+    adAccountID:
+      name: adAccountID
+      in: path
+      required: true
+      schema:
+        type: string
     restliProtocol:
       name: X-Restli-Protocol-Version
       in: header
@@ -332,12 +338,6 @@ components:
         type: string
         enum:
         - 2.0.0
-    adAccountID:
-      name: adAccountID
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     OAuth2Auth:
       type: oauth2

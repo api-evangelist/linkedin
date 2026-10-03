@@ -365,18 +365,14 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
+    AdAccountUserUpdateRequest:
       type: object
       properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        code:
-          type: string
-          example: INVALID_PARAMS
+        patch:
+          type: object
+          properties:
+            $set:
+              $ref: '#/components/schemas/AdAccountUser'
     Paging:
       type: object
       properties:
@@ -393,14 +389,31 @@ components:
           type: array
           items:
             type: string
-    AdAccountUserUpdateRequest:
+    AdAccountUserCreateRequest:
       type: object
       properties:
-        patch:
-          type: object
-          properties:
-            $set:
-              $ref: '#/components/schemas/AdAccountUser'
+        account:
+          type: string
+          description: URN of the sponsored account
+          example: urn:li:sponsoredAccount:123456
+        user:
+          type: string
+          description: URN of the person
+          example: urn:li:person:ABC123def
+        role:
+          type: string
+          enum:
+          - ACCOUNT_BILLING_ADMIN
+          - ACCOUNT_MANAGER
+          - CAMPAIGN_MANAGER
+          - CREATIVE_MANAGER
+          - VIEWER
+          description: Role to assign
+          example: VIEWER
+      required:
+      - account
+      - user
+      - role
     AdAccountUser:
       type: object
       properties:
@@ -450,31 +463,18 @@ components:
           - REQUESTED
           description: State of the role assignment
           example: APPROVED
-    AdAccountUserCreateRequest:
+    ErrorResponse:
       type: object
       properties:
-        account:
+        status:
+          type: integer
+          example: 400
+        message:
           type: string
-          description: URN of the sponsored account
-          example: urn:li:sponsoredAccount:123456
-        user:
+          example: Invalid request parameters
+        code:
           type: string
-          description: URN of the person
-          example: urn:li:person:ABC123def
-        role:
-          type: string
-          enum:
-          - ACCOUNT_BILLING_ADMIN
-          - ACCOUNT_MANAGER
-          - CAMPAIGN_MANAGER
-          - CREATIVE_MANAGER
-          - VIEWER
-          description: Role to assign
-          example: VIEWER
-      required:
-      - account
-      - user
-      - role
+          example: INVALID_PARAMS
   examples:
     AdAccountUserCreateExample:
       summary: Create ad account user

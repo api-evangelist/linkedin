@@ -167,33 +167,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    DmpSegmentCreateRequestExample:
-      summary: Create list upload DMP segment
-      value:
-        accessPolicy: PRIVATE
-        account: urn:li:sponsoredAccount:123456
-        destinations:
-        - destination: LINKEDIN
-        name: DMP segment for CSV uploads
-        sourcePlatform: LIST_UPLOAD
-        type: COMPANY_LIST_UPLOAD
   schemas:
-    ErrorResponse:
+    SegmentDestination:
       type: object
       properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
+        destination:
           type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
+          enum:
+          - LINKEDIN
+          description: Destination platform
+          example: LINKEDIN
     DmpSegmentCreateRequest:
       type: object
       properties:
@@ -239,6 +222,15 @@ components:
       - name
       - sourcePlatform
       - type
+    DmpSegmentsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/DmpSegment'
+        paging:
+          $ref: '#/components/schemas/Paging'
     Paging:
       type: object
       properties:
@@ -258,6 +250,21 @@ components:
           type: array
           items:
             type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     DmpSegment:
       type: object
       properties:
@@ -327,24 +334,17 @@ components:
       - account
       - type
       - sourcePlatform
-    DmpSegmentsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/DmpSegment'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    SegmentDestination:
-      type: object
-      properties:
-        destination:
-          type: string
-          enum:
-          - LINKEDIN
-          description: Destination platform
-          example: LINKEDIN
+  examples:
+    DmpSegmentCreateRequestExample:
+      summary: Create list upload DMP segment
+      value:
+        accessPolicy: PRIVATE
+        account: urn:li:sponsoredAccount:123456
+        destinations:
+        - destination: LINKEDIN
+        name: DMP segment for CSV uploads
+        sourcePlatform: LIST_UPLOAD
+        type: COMPANY_LIST_UPLOAD
   securitySchemes:
     OAuth2Auth:
       type: oauth2
