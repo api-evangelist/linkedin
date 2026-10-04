@@ -125,16 +125,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    SalesAnalyticsExportJobExample:
-      summary: Completed export job
-      value:
-        id: 987654321
-        status: COMPLETED
-        downloadUrl: https://media.licdn.com/exports/analytics_123.csv
-        expireAt: 1640200000
-        rowCount: 5000
   schemas:
+    SalesAnalyticsExportJobRequest:
+      type: object
+      properties:
+        contract:
+          type: string
+          description: Sales Navigator contract URN
+          example: urn:li:salesContract:12345
+        startAt:
+          type: integer
+          description: Start date of the exported data (milliseconds since epoch)
+          example: 1638316800000
+        endAt:
+          type: integer
+          description: End date of the exported data (milliseconds since epoch)
+          example: 1640908800000
+      required:
+      - contract
+      - startAt
+      - endAt
+    SalesAnalyticsExportJobResponse:
+      type: object
+      properties:
+        value:
+          $ref: '#/components/schemas/SalesAnalyticsExportJob'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     SalesAnalyticsExportJob:
       type: object
       properties:
@@ -172,45 +202,15 @@ components:
       required:
       - id
       - status
-    SalesAnalyticsExportJobResponse:
-      type: object
-      properties:
-        value:
-          $ref: '#/components/schemas/SalesAnalyticsExportJob'
-    SalesAnalyticsExportJobRequest:
-      type: object
-      properties:
-        contract:
-          type: string
-          description: Sales Navigator contract URN
-          example: urn:li:salesContract:12345
-        startAt:
-          type: integer
-          description: Start date of the exported data (milliseconds since epoch)
-          example: 1638316800000
-        endAt:
-          type: integer
-          description: End date of the exported data (milliseconds since epoch)
-          example: 1640908800000
-      required:
-      - contract
-      - startAt
-      - endAt
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
+  examples:
+    SalesAnalyticsExportJobExample:
+      summary: Completed export job
+      value:
+        id: 987654321
+        status: COMPLETED
+        downloadUrl: https://media.licdn.com/exports/analytics_123.csv
+        expireAt: 1640200000
+        rowCount: 5000
   securitySchemes:
     BearerAuth:
       type: http

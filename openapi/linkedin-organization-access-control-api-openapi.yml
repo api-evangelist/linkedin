@@ -61,38 +61,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Timestamp:
-      type: object
-      properties:
-        time:
-          type: integer
-          format: int64
-          example: 1702693664000
-    OrganizationAclResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationAcl'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 25
-        total:
-          type: integer
-          example: 100
-        links:
-          type: array
-          items:
-            type: object
     OrganizationAcl:
       type: object
       properties:
@@ -118,6 +86,29 @@ components:
           example: APPROVED
         created:
           $ref: '#/components/schemas/Timestamp'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 25
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: object
+    Timestamp:
+      type: object
+      properties:
+        time:
+          type: integer
+          format: int64
+          example: 1702693664000
     ErrorResponse:
       type: object
       properties:
@@ -130,39 +121,29 @@ components:
         serviceErrorCode:
           type: integer
           example: 100
+    OrganizationAclResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationAcl'
+        paging:
+          $ref: '#/components/schemas/Paging'
+  examples:
+    OrganizationAclResponseExample:
+      summary: Organization ACL response
+      value:
+        elements:
+        - organization: urn:li:organization:10002687
+          roleAssignee: urn:li:person:ABC123
+          role: ADMINISTRATOR
+          state: APPROVED
+        paging:
+          start: 0
+          count: 25
+          total: 1
   parameters:
-    LinkedInVersionHeader:
-      name: LinkedIn-Version
-      in: header
-      required: true
-      description: LinkedIn API version in YYYYMM format
-      schema:
-        type: string
-      example: '202312'
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for finder operations
-      schema:
-        type: string
-      example: roleAssignee
-    RestliProtocolVersionHeader:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      description: Rest.li protocol version
-      schema:
-        type: string
-      example: 2.0.0
-    CountParameter:
-      name: count
-      in: query
-      required: false
-      description: Number of results to return
-      schema:
-        type: integer
-      example: 25
     StartParameter:
       name: start
       in: query
@@ -183,19 +164,38 @@ components:
         - CONTENT_ADMIN
         - ANALYST
       example: ADMINISTRATOR
-  examples:
-    OrganizationAclResponseExample:
-      summary: Organization ACL response
-      value:
-        elements:
-        - organization: urn:li:organization:10002687
-          roleAssignee: urn:li:person:ABC123
-          role: ADMINISTRATOR
-          state: APPROVED
-        paging:
-          start: 0
-          count: 25
-          total: 1
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    CountParameter:
+      name: count
+      in: query
+      required: false
+      description: Number of results to return
+      schema:
+        type: integer
+      example: 25
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for finder operations
+      schema:
+        type: string
+      example: roleAssignee
   securitySchemes:
     BearerAuth:
       type: http

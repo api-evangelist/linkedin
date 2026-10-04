@@ -106,25 +106,23 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    AtsIntegrationUpdateRequestExample:
-      summary: Example ATS integration update request
-      value:
-        entities:
-          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
-            patch:
-              $set:
-                integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
-    AtsIntegrationResponseExample:
-      summary: Example ATS integration response
-      value:
-        results:
-          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
-            integrationContext: urn:li:contract:12345
-            integrationType: PREMIUM_JOB_POSTING
-            integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
-            status: ENABLED
   parameters:
+    IntegrationContextQuery:
+      name: ids[0].integrationContext
+      in: query
+      required: true
+      description: Integration context URN
+      schema:
+        type: string
+      example: urn:li:contract:12345
+    TenantTypeQuery:
+      name: ids[0].tenantType
+      in: query
+      required: true
+      description: Tenant type for the integration
+      schema:
+        type: string
+      example: JOBS
     DataProviderQuery:
       name: ids[0].dataProvider
       in: query
@@ -141,23 +139,39 @@ components:
       schema:
         type: string
       example: PREMIUM_JOB_POSTING
-    TenantTypeQuery:
-      name: ids[0].tenantType
-      in: query
-      required: true
-      description: Tenant type for the integration
-      schema:
-        type: string
-      example: JOBS
-    IntegrationContextQuery:
-      name: ids[0].integrationContext
-      in: query
-      required: true
-      description: Integration context URN
-      schema:
-        type: string
-      example: urn:li:contract:12345
   schemas:
+    AtsIntegrationPatch:
+      type: object
+      properties:
+        patch:
+          type: object
+          properties:
+            $set:
+              type: object
+              properties:
+                integrationName:
+                  type: string
+                  example: Customer Name - LinkedIn LTS Premium Job Posting Integration
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    AtsIntegrationResponse:
+      type: object
+      description: Response for ATS integration details
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AtsIntegrationDetail'
     AtsIntegrationDetail:
       type: object
       properties:
@@ -173,38 +187,6 @@ components:
         status:
           type: string
           example: ENABLED
-    AtsIntegrationResponse:
-      type: object
-      description: Response for ATS integration details
-      properties:
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/AtsIntegrationDetail'
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    AtsIntegrationPatch:
-      type: object
-      properties:
-        patch:
-          type: object
-          properties:
-            $set:
-              type: object
-              properties:
-                integrationName:
-                  type: string
-                  example: Customer Name - LinkedIn LTS Premium Job Posting Integration
     AtsIntegrationUpdateRequest:
       type: object
       description: Request body for updating ATS integrations
@@ -213,6 +195,24 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/AtsIntegrationPatch'
+  examples:
+    AtsIntegrationResponseExample:
+      summary: Example ATS integration response
+      value:
+        results:
+          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
+            integrationContext: urn:li:contract:12345
+            integrationType: PREMIUM_JOB_POSTING
+            integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
+            status: ENABLED
+    AtsIntegrationUpdateRequestExample:
+      summary: Example ATS integration update request
+      value:
+        entities:
+          integrationContext=urn:li:contract:12345&integrationType=PREMIUM_JOB_POSTING&tenantType=JOBS&dataProvider=ATS:
+            patch:
+              $set:
+                integrationName: Customer Name - LinkedIn LTS Premium Job Posting Integration
   securitySchemes:
     BearerAuth:
       type: http

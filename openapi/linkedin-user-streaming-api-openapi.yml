@@ -84,36 +84,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    StreamResponseExample:
-      summary: Successful stream response
-      value:
-        elements:
-        - status: 201
-        - status: 201
-        - status: 201
-        - status: 201
-    UserStreamRequestExample:
-      summary: Add multiple users to segment
-      value:
-        elements:
-        - action: ADD
-          userIds:
-          - idType: SHA256_EMAIL
-            idValue: 6b56c85c1ce461e7ef77e3a52f13a6bc09feb93a04ce0670f9909e8ffde01f3a
-        - action: ADD
-          userIds:
-          - idType: SHA256_EMAIL
-            idValue: 0100c74de9670c6bf2882502a486ec9e9d259fd090f19895974bae7efdc87913
-        - action: ADD
-          userIds:
-          - idType: SHA256_EMAIL
-            idValue: 89147c81369d80ff259ed23a7d6949f2ce34b5e62619d7e00e880db0495bbed0
-        - action: ADD
-          userIds:
-          - idType: SHA256_EMAIL
-            idValue: 4f123dc421f679369532452374c003dd9e825273e9929bd61060a65cd8587bb3
   schemas:
+    UserStreamElement:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+          - ADD
+          - REMOVE
+          description: Action to perform
+          example: ADD
+        userIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserId'
+      required:
+      - action
+      - userIds
     UserId:
       type: object
       properties:
@@ -132,32 +120,6 @@ components:
       required:
       - idType
       - idValue
-    UserStreamRequest:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserStreamElement'
-      required:
-      - elements
-    UserStreamElement:
-      type: object
-      properties:
-        action:
-          type: string
-          enum:
-          - ADD
-          - REMOVE
-          description: Action to perform
-          example: ADD
-        userIds:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserId'
-      required:
-      - action
-      - userIds
     ErrorResponse:
       type: object
       properties:
@@ -187,6 +149,44 @@ components:
           type: integer
           description: HTTP status code for this element
           example: 201
+    UserStreamRequest:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserStreamElement'
+      required:
+      - elements
+  examples:
+    UserStreamRequestExample:
+      summary: Add multiple users to segment
+      value:
+        elements:
+        - action: ADD
+          userIds:
+          - idType: SHA256_EMAIL
+            idValue: 6b56c85c1ce461e7ef77e3a52f13a6bc09feb93a04ce0670f9909e8ffde01f3a
+        - action: ADD
+          userIds:
+          - idType: SHA256_EMAIL
+            idValue: 0100c74de9670c6bf2882502a486ec9e9d259fd090f19895974bae7efdc87913
+        - action: ADD
+          userIds:
+          - idType: SHA256_EMAIL
+            idValue: 89147c81369d80ff259ed23a7d6949f2ce34b5e62619d7e00e880db0495bbed0
+        - action: ADD
+          userIds:
+          - idType: SHA256_EMAIL
+            idValue: 4f123dc421f679369532452374c003dd9e825273e9929bd61060a65cd8587bb3
+    StreamResponseExample:
+      summary: Successful stream response
+      value:
+        elements:
+        - status: 201
+        - status: 201
+        - status: 201
+        - status: 201
   securitySchemes:
     OAuth2Auth:
       type: oauth2

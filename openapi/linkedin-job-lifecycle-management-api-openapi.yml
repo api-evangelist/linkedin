@@ -61,25 +61,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  examples:
+    JobPostingTaskResponseExample:
+      summary: Example job posting task status response
+      value:
+        results:
+          urn:li:simpleJobPostingTask:12345678:
+            status: SUCCEEDED
+            jobPostingUrn: urn:li:jobPosting:2722131308
+  parameters:
+    TaskIdsQuery:
+      name: ids
+      in: query
+      required: true
+      description: Task URN(s) to check status
+      schema:
+        type: string
+      example: urn:li:simpleJobPostingTask:12345678
   schemas:
-    JobPostingTaskResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - PENDING
-          - SUCCEEDED
-          - FAILED
-          example: SUCCEEDED
-        jobPostingUrn:
-          type: string
-          description: URN of the created job posting
-          example: urn:li:jobPosting:2722131308
-        errorMessage:
-          type: string
-          description: Error message if task failed
-          example: example_value
     ErrorResponse:
       type: object
       properties:
@@ -100,23 +99,24 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/JobPostingTaskResult'
-  examples:
-    JobPostingTaskResponseExample:
-      summary: Example job posting task status response
-      value:
-        results:
-          urn:li:simpleJobPostingTask:12345678:
-            status: SUCCEEDED
-            jobPostingUrn: urn:li:jobPosting:2722131308
-  parameters:
-    TaskIdsQuery:
-      name: ids
-      in: query
-      required: true
-      description: Task URN(s) to check status
-      schema:
-        type: string
-      example: urn:li:simpleJobPostingTask:12345678
+    JobPostingTaskResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - SUCCEEDED
+          - FAILED
+          example: SUCCEEDED
+        jobPostingUrn:
+          type: string
+          description: URN of the created job posting
+          example: urn:li:jobPosting:2722131308
+        errorMessage:
+          type: string
+          description: Error message if task failed
+          example: example_value
   securitySchemes:
     BearerAuth:
       type: http

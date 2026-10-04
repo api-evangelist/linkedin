@@ -67,6 +67,15 @@ components:
       required:
       - token
       - expiryTime
+    SalesAccessTokenResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesAccessToken'
+        paging:
+          $ref: '#/components/schemas/Paging'
     Paging:
       type: object
       properties:
@@ -95,15 +104,6 @@ components:
           type: string
           description: Error code
           example: INVALID_PARAMS
-    SalesAccessTokenResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/SalesAccessToken'
-        paging:
-          $ref: '#/components/schemas/Paging'
   examples:
     SalesAccessTokenResponseExample:
       summary: Sales access token response

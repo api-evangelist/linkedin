@@ -295,61 +295,7 @@ paths:
         dispatcherRules: '{}'
         delay: 0
 components:
-  examples:
-    FindNonadministeredOrganizationResponse200Example:
-      summary: Example 200 response for FindNonadministeredOrganization
-      value:
-        results:
-          '3803':
-            name:
-              localized:
-                en_US: New Century
-              preferredLocale:
-                country: US
-                language: en
-            primaryOrganizationType: NONE
-            vanityName: new-century
-            locations:
-            - staffCountRange: SIZE_1
-              locationType: HEADQUARTERS
-              address:
-                country: US
-            - staffCountRange: SIZE_1
-              locationType: OTHER
-              address: {}
-            localizedName: New Century
-            id: 3803
-          '79988552':
-            name:
-              localized:
-                en_US: FirstDemoCompany
-              preferredLocale:
-                country: US
-                language: en
-            primaryOrganizationType: NONE
-            vanityName: firstdemocompany
-            locations: []
-            localizedName: FirstDemoCompany
-            id: 79988552
-        statuses:
-          '3803': 200
-          '79988552': 200
-        errors: {}
-    LookupByOrganizationPrimaryResponse200Example:
-      summary: Example 200 response for LookupByOrganizationPrimary
-      value:
-        primaryOrganizationType: NONE
-    RetrieveOrganizationFollowerCountResponse200Example:
-      summary: Example 200 response for RetrieveOrganizationFollowerCount
-      value:
-        firstDegreeSize: 0
   schemas:
-    LookupByOrganizationPrimaryResponse200:
-      type: object
-      properties:
-        primaryOrganizationType:
-          type: string
-          example: example_value
     FindNonadministeredOrganizationResponse200:
       type: object
       properties:
@@ -435,12 +381,66 @@ components:
         errors:
           type: object
           properties: {}
+    LookupByOrganizationPrimaryResponse200:
+      type: object
+      properties:
+        primaryOrganizationType:
+          type: string
+          example: example_value
     RetrieveOrganizationFollowerCountResponse200:
       type: object
       properties:
         firstDegreeSize:
           type: integer
           example: 42
+  examples:
+    RetrieveOrganizationFollowerCountResponse200Example:
+      summary: Example 200 response for RetrieveOrganizationFollowerCount
+      value:
+        firstDegreeSize: 0
+    FindNonadministeredOrganizationResponse200Example:
+      summary: Example 200 response for FindNonadministeredOrganization
+      value:
+        results:
+          '3803':
+            name:
+              localized:
+                en_US: New Century
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: NONE
+            vanityName: new-century
+            locations:
+            - staffCountRange: SIZE_1
+              locationType: HEADQUARTERS
+              address:
+                country: US
+            - staffCountRange: SIZE_1
+              locationType: OTHER
+              address: {}
+            localizedName: New Century
+            id: 3803
+          '79988552':
+            name:
+              localized:
+                en_US: FirstDemoCompany
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: NONE
+            vanityName: firstdemocompany
+            locations: []
+            localizedName: FirstDemoCompany
+            id: 79988552
+        statuses:
+          '3803': 200
+          '79988552': 200
+        errors: {}
+    LookupByOrganizationPrimaryResponse200Example:
+      summary: Example 200 response for LookupByOrganizationPrimary
+      value:
+        primaryOrganizationType: NONE
   securitySchemes:
     oauth2Auth:
       type: http

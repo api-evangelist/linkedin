@@ -125,27 +125,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  parameters:
-    RestliMethodHeader:
-      name: x-restli-method
-      in: header
-      required: true
-      description: Rest.li method type
-      schema:
-        type: string
-        enum:
-        - batch_update
-        - batch_partial_update
-        - batch_create
-      example: batch_update
-    ContentTypeHeader:
-      name: Content-Type
-      in: header
-      required: true
-      description: Content type of request body
-      schema:
-        type: string
-      example: application/json
+  examples:
+    SuccessResponseExample:
+      summary: Successful operation response
+      value:
+        status: SUCCESS
+    CandidateRequestExample:
+      summary: Example candidate sync request
+      value:
+        entities:
+          atsCandidateId=CAND-001&dataProvider=ATS&integrationContext=urn:li:organization:12345:
+            firstName: John
+            lastName: Doe
+            emailAddresses:
+            - john.doe@example.com
+            currentCompanyName: Tech Corp
+            currentJobTitle: Senior Software Engineer
+            atsCreatedAt: 1702693664000
+            atsLastModifiedAt: 1702693664000
   schemas:
     CandidateData:
       type: object
@@ -198,12 +195,27 @@ components:
           type: integer
           format: int64
           example: 1702693664000
-    SuccessResponse:
+    PhoneNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          example: 555-555-5555
+        extension:
+          type: string
+          example: '1234'
+    ErrorResponse:
       type: object
       properties:
         status:
+          type: integer
+          example: 400
+        message:
           type: string
-          example: SUCCESS
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
     CandidateRequest:
       type: object
       description: Request for syncing candidate data
@@ -236,45 +248,33 @@ components:
         country:
           type: string
           example: US
-    ErrorResponse:
+    SuccessResponse:
       type: object
       properties:
         status:
-          type: integer
-          example: 400
-        message:
           type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    PhoneNumber:
-      type: object
-      properties:
-        number:
-          type: string
-          example: 555-555-5555
-        extension:
-          type: string
-          example: '1234'
-  examples:
-    SuccessResponseExample:
-      summary: Successful operation response
-      value:
-        status: SUCCESS
-    CandidateRequestExample:
-      summary: Example candidate sync request
-      value:
-        entities:
-          atsCandidateId=CAND-001&dataProvider=ATS&integrationContext=urn:li:organization:12345:
-            firstName: John
-            lastName: Doe
-            emailAddresses:
-            - john.doe@example.com
-            currentCompanyName: Tech Corp
-            currentJobTitle: Senior Software Engineer
-            atsCreatedAt: 1702693664000
-            atsLastModifiedAt: 1702693664000
+          example: SUCCESS
+  parameters:
+    RestliMethodHeader:
+      name: x-restli-method
+      in: header
+      required: true
+      description: Rest.li method type
+      schema:
+        type: string
+        enum:
+        - batch_update
+        - batch_partial_update
+        - batch_create
+      example: batch_update
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
   securitySchemes:
     BearerAuth:
       type: http

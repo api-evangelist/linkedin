@@ -144,6 +144,14 @@ components:
           type: string
           format: uri
           example: https://media.licdn.com/...
+    ExportedCandidateResponse:
+      type: object
+      description: Response containing exported candidate data
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportedCandidate'
     Paging:
       type: object
       properties:
@@ -156,14 +164,6 @@ components:
         total:
           type: integer
           example: 250
-    ExportedCandidateResponse:
-      type: object
-      description: Response containing exported candidate data
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportedCandidate'
     Seatholder:
       type: object
       properties:
@@ -195,6 +195,23 @@ components:
         serviceErrorCode:
           type: integer
           example: 100
+  parameters:
+    RequestIdParameter:
+      name: requestId
+      in: query
+      required: true
+      description: Request ID from push notification
+      schema:
+        type: string
+      example: req-12345-abcde
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type
+      schema:
+        type: string
+      example: request
   examples:
     ExportedCandidateResponseExample:
       summary: Example exported candidate response
@@ -217,23 +234,6 @@ components:
           start: 0
           count: 100
           total: 1
-  parameters:
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type
-      schema:
-        type: string
-      example: request
-    RequestIdParameter:
-      name: requestId
-      in: query
-      required: true
-      description: Request ID from push notification
-      schema:
-        type: string
-      example: req-12345-abcde
   securitySchemes:
     BearerAuth:
       type: http

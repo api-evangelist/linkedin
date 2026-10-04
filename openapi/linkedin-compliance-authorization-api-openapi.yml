@@ -138,15 +138,27 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ComplianceAuthorizationResponse:
+    ComplianceAuthorizationRequest:
       type: object
       properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComplianceAuthorization'
-        paging:
-          $ref: '#/components/schemas/Paging'
+        member:
+          type: string
+          description: URN of the member to regulate
+          example: urn:li:person:ABC123def
+      required:
+      - member
+    PagingLink:
+      type: object
+      properties:
+        rel:
+          type: string
+          example: next
+        href:
+          type: string
+          example: /v2/complianceEvents?start=10&count=10
+        type:
+          type: string
+          example: application/json
     Paging:
       type: object
       properties:
@@ -166,6 +178,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PagingLink'
+    ComplianceAuthorizationResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceAuthorization'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     ComplianceAuthorization:
       type: object
       properties:
@@ -193,42 +229,6 @@ components:
       - developerApplication
       - member
       - status
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
-    PagingLink:
-      type: object
-      properties:
-        rel:
-          type: string
-          example: next
-        href:
-          type: string
-          example: /v2/complianceEvents?start=10&count=10
-        type:
-          type: string
-          example: application/json
-    ComplianceAuthorizationRequest:
-      type: object
-      properties:
-        member:
-          type: string
-          description: URN of the member to regulate
-          example: urn:li:person:ABC123def
-      required:
-      - member
   examples:
     ComplianceAuthorizationResponseExample:
       summary: Successful authorization response

@@ -103,40 +103,98 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  parameters:
-    IdsQuery:
-      name: ids
-      in: query
-      required: true
-      description: List of entity IDs to retrieve
-      schema:
-        type: string
-      example: List(10002687,10002688)
-    LinkedInVersionHeader:
-      name: LinkedIn-Version
-      in: header
-      required: true
-      description: LinkedIn API version in YYYYMM format
-      schema:
-        type: string
-      example: '202312'
-    RestliProtocolVersionHeader:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      description: Rest.li protocol version
-      schema:
-        type: string
-      example: 2.0.0
-    OrganizationIdPath:
-      name: organizationId
-      in: path
-      required: true
-      description: Organization identifier
-      schema:
-        type: string
-      example: '10002687'
   schemas:
+    ImageAsset:
+      type: object
+      properties:
+        downloadUrl:
+          type: string
+          format: uri
+          example: https://media.licdn.com/dms/image/...
+        downloadUrlExpiresAt:
+          type: integer
+          format: int64
+          example: 1710979200000
+        status:
+          type: string
+          enum:
+          - AVAILABLE
+          - PROCESSING
+          - FAILED
+          example: AVAILABLE
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          example: 123 Main Street
+        city:
+          type: string
+          example: San Francisco
+        geographicArea:
+          type: string
+          example: California
+        postalCode:
+          type: string
+          example: '94102'
+        country:
+          type: string
+          example: US
+    DateInfo:
+      type: object
+      properties:
+        year:
+          type: integer
+          example: 2001
+        month:
+          type: integer
+          example: 1
+        day:
+          type: integer
+          example: 15
+    BatchOrganizationResponse:
+      type: object
+      properties:
+        results:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/OrganizationResponse'
+        statuses:
+          type: object
+          additionalProperties:
+            type: integer
+        errors:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ErrorDetail'
+    Locale:
+      type: object
+      properties:
+        country:
+          type: string
+          example: US
+        language:
+          type: string
+          example: en
+    OrganizationLocation:
+      type: object
+      properties:
+        locationType:
+          type: string
+          enum:
+          - HEADQUARTERS
+          - OTHER
+          example: HEADQUARTERS
+        address:
+          $ref: '#/components/schemas/Address'
+        geoLocation:
+          type: string
+          example: urn:li:geo:101308755
+        staffCountRange:
+          type: string
+          example: SIZE_1
+        description:
+          $ref: '#/components/schemas/LocalizedString'
     OrganizationResponse:
       type: object
       description: Organization profile data
@@ -212,18 +270,36 @@ components:
           $ref: '#/components/schemas/Timestamp'
         lastModified:
           $ref: '#/components/schemas/Timestamp'
-    ErrorResponse:
+    LocalizedString:
       type: object
       properties:
-        status:
+        localized:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            en_US: Acme Corporation
+        preferredLocale:
+          $ref: '#/components/schemas/Locale'
+    Timestamp:
+      type: object
+      properties:
+        time:
           type: integer
-          example: 400
+          format: int64
+          example: 1702693664000
+    ErrorDetail:
+      type: object
+      properties:
+        code:
+          type: string
+          example: FORBIDDEN
         message:
           type: string
-          example: Invalid request parameters
-        serviceErrorCode:
+          example: Viewer doesn't have permission to access this resource
+        status:
           type: integer
-          example: 100
+          example: 403
     ImageReference:
       type: object
       properties:
@@ -246,127 +322,18 @@ components:
             height:
               type: integer
               example: 400
-    OrganizationLocation:
+    ErrorResponse:
       type: object
       properties:
-        locationType:
-          type: string
-          enum:
-          - HEADQUARTERS
-          - OTHER
-          example: HEADQUARTERS
-        address:
-          $ref: '#/components/schemas/Address'
-        geoLocation:
-          type: string
-          example: urn:li:geo:101308755
-        staffCountRange:
-          type: string
-          example: SIZE_1
-        description:
-          $ref: '#/components/schemas/LocalizedString'
-    Address:
-      type: object
-      properties:
-        line1:
-          type: string
-          example: 123 Main Street
-        city:
-          type: string
-          example: San Francisco
-        geographicArea:
-          type: string
-          example: California
-        postalCode:
-          type: string
-          example: '94102'
-        country:
-          type: string
-          example: US
-    ErrorDetail:
-      type: object
-      properties:
-        code:
-          type: string
-          example: FORBIDDEN
+        status:
+          type: integer
+          example: 400
         message:
           type: string
-          example: Viewer doesn't have permission to access this resource
-        status:
+          example: Invalid request parameters
+        serviceErrorCode:
           type: integer
-          example: 403
-    LocalizedString:
-      type: object
-      properties:
-        localized:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            en_US: Acme Corporation
-        preferredLocale:
-          $ref: '#/components/schemas/Locale'
-    Timestamp:
-      type: object
-      properties:
-        time:
-          type: integer
-          format: int64
-          example: 1702693664000
-    ImageAsset:
-      type: object
-      properties:
-        downloadUrl:
-          type: string
-          format: uri
-          example: https://media.licdn.com/dms/image/...
-        downloadUrlExpiresAt:
-          type: integer
-          format: int64
-          example: 1710979200000
-        status:
-          type: string
-          enum:
-          - AVAILABLE
-          - PROCESSING
-          - FAILED
-          example: AVAILABLE
-    BatchOrganizationResponse:
-      type: object
-      properties:
-        results:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/OrganizationResponse'
-        statuses:
-          type: object
-          additionalProperties:
-            type: integer
-        errors:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ErrorDetail'
-    DateInfo:
-      type: object
-      properties:
-        year:
-          type: integer
-          example: 2001
-        month:
-          type: integer
-          example: 1
-        day:
-          type: integer
-          example: 15
-    Locale:
-      type: object
-      properties:
-        country:
-          type: string
-          example: US
-        language:
-          type: string
-          example: en
+          example: 100
   examples:
     BatchOrganizationResponseExample:
       summary: Batch organization response
@@ -379,12 +346,6 @@ components:
         statuses:
           '10002687': 200
         errors: {}
-    ErrorResponseExample:
-      summary: Error response
-      value:
-        status: 400
-        message: Invalid request parameters
-        serviceErrorCode: 100
     OrganizationResponseExample:
       summary: Organization profile response
       value:
@@ -410,6 +371,45 @@ components:
           time: 1518028624160
         lastModified:
           time: 1702644474447
+    ErrorResponseExample:
+      summary: Error response
+      value:
+        status: 400
+        message: Invalid request parameters
+        serviceErrorCode: 100
+  parameters:
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
+    OrganizationIdPath:
+      name: organizationId
+      in: path
+      required: true
+      description: Organization identifier
+      schema:
+        type: string
+      example: '10002687'
+    IdsQuery:
+      name: ids
+      in: query
+      required: true
+      description: List of entity IDs to retrieve
+      schema:
+        type: string
+      example: List(10002687,10002688)
+    LinkedInVersionHeader:
+      name: LinkedIn-Version
+      in: header
+      required: true
+      description: LinkedIn API version in YYYYMM format
+      schema:
+        type: string
+      example: '202312'
   securitySchemes:
     BearerAuth:
       type: http

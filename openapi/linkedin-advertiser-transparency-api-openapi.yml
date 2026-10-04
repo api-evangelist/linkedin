@@ -64,6 +64,22 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   parameters:
+    MonthQuery:
+      name: month
+      in: query
+      required: false
+      description: Month for transparency data in YYYYMM format
+      schema:
+        type: integer
+      example: 202312
+    SponsoredAccountIdPath:
+      name: sponsoredaccount_id
+      in: path
+      required: true
+      description: The sponsored account identifier
+      schema:
+        type: string
+      example: '123456789'
     LinkedInVersionHeader:
       name: LinkedIn-Version
       in: header
@@ -80,23 +96,13 @@ components:
       schema:
         type: string
       example: 2.0.0
-    SponsoredAccountIdPath:
-      name: sponsoredaccount_id
-      in: path
-      required: true
-      description: The sponsored account identifier
-      schema:
-        type: string
-      example: '123456789'
-    MonthQuery:
-      name: month
-      in: query
-      required: false
-      description: Month for transparency data in YYYYMM format
-      schema:
-        type: integer
-      example: 202312
   examples:
+    ErrorResponseExample:
+      summary: Error response example
+      value:
+        status: 400
+        message: Invalid sponsored account ID
+        serviceErrorCode: 100
     AdvertiserTransparencyResponseExample:
       summary: Successful advertiser transparency response
       value:
@@ -107,12 +113,6 @@ components:
         currency: USD
         advertiserName: Acme Corporation
         country: United States
-    ErrorResponseExample:
-      summary: Error response example
-      value:
-        status: 400
-        message: Invalid sponsored account ID
-        serviceErrorCode: 100
   schemas:
     ErrorResponse:
       type: object

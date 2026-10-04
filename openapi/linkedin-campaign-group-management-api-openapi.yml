@@ -304,6 +304,19 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    RunSchedule:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+          description: Start timestamp in milliseconds
+          example: 1647927789001
+        end:
+          type: integer
+          format: int64
+          description: End timestamp in milliseconds
+          example: 1648186989000
     CampaignGroup:
       type: object
       properties:
@@ -336,17 +349,6 @@ components:
           $ref: '#/components/schemas/Budget'
         runSchedule:
           $ref: '#/components/schemas/RunSchedule'
-    Budget:
-      type: object
-      properties:
-        amount:
-          type: string
-          description: Budget amount
-          example: '1000'
-        currencyCode:
-          type: string
-          description: Currency code
-          example: USD
     Paging:
       type: object
       properties:
@@ -363,19 +365,6 @@ components:
           type: array
           items:
             type: string
-    RunSchedule:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int64
-          description: Start timestamp in milliseconds
-          example: 1647927789001
-        end:
-          type: integer
-          format: int64
-          description: End timestamp in milliseconds
-          example: 1648186989000
     ErrorResponse:
       type: object
       properties:
@@ -388,6 +377,17 @@ components:
         code:
           type: string
           example: INVALID_PARAMS
+    Budget:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: Budget amount
+          example: '1000'
+        currencyCode:
+          type: string
+          description: Currency code
+          example: USD
   examples:
     CampaignGroupUpdateExample:
       summary: Update campaign group budget

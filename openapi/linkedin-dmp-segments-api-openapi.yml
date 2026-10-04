@@ -168,15 +168,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    SegmentDestination:
-      type: object
-      properties:
-        destination:
-          type: string
-          enum:
-          - LINKEDIN
-          description: Destination platform
-          example: LINKEDIN
     DmpSegmentCreateRequest:
       type: object
       properties:
@@ -222,15 +213,6 @@ components:
       - name
       - sourcePlatform
       - type
-    DmpSegmentsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/DmpSegment'
-        paging:
-          $ref: '#/components/schemas/Paging'
     Paging:
       type: object
       properties:
@@ -265,6 +247,24 @@ components:
           type: string
           description: Error code
           example: INVALID_PARAMS
+    SegmentDestination:
+      type: object
+      properties:
+        destination:
+          type: string
+          enum:
+          - LINKEDIN
+          description: Destination platform
+          example: LINKEDIN
+    DmpSegmentsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/DmpSegment'
+        paging:
+          $ref: '#/components/schemas/Paging'
     DmpSegment:
       type: object
       properties:

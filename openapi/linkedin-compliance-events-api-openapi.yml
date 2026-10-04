@@ -85,40 +85,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          description: Starting index
-          example: 0
-        count:
-          type: integer
-          description: Number of elements returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of elements available
-          example: 100
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/PagingLink'
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
     ComplianceEvent:
       type: object
       properties:
@@ -203,6 +169,49 @@ components:
         type:
           type: string
           example: application/json
+    ComplianceEventsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceEvent'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of elements returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of elements available
+          example: 100
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PagingLink'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     MemberProfile:
       type: object
       properties:
@@ -218,15 +227,6 @@ components:
           type: string
           description: Professional headline
           example: Software Engineer at Tech Corp
-    ComplianceEventsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComplianceEvent'
-        paging:
-          $ref: '#/components/schemas/Paging'
   examples:
     ComplianceEventsResponseExample:
       summary: Compliance events response

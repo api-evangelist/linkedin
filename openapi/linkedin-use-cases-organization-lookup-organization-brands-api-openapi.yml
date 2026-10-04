@@ -374,90 +374,52 @@ paths:
         delay: 0
 components:
   schemas:
-    RetrieveAnAdministeredOrganizationResponse200:
+    FindAdministeredOrganizationBrandsResponse200:
       type: object
       properties:
-        vanityName:
-          type: string
-          example: Example Name
-        localizedName:
-          type: string
-          example: Example Name
-        website:
+        paging:
           type: object
           properties:
-            localized:
-              type: object
-              properties:
-                en_US:
-                  type: string
-            preferredLocale:
-              type: object
-              properties:
-                country:
-                  type: string
-                language:
-                  type: string
-        groups:
-          type: array
-          items: {}
-        versionTag:
-          type: string
-          example: example_value
-        defaultLocale:
-          type: object
-          properties:
-            country:
-              type: string
-            language:
-              type: string
-        alternativeNames:
-          type: array
-          items: {}
-        specialties:
-          type: array
-          items: {}
-        parentRelationship:
-          type: object
-          properties:
-            relationshipStatus:
-              type: string
-            parent:
-              type: string
-        localizedSpecialties:
-          type: array
-          items: {}
-        industries:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+            total:
+              type: integer
+        elements:
           type: array
           items:
-            type: string
-        name:
-          type: object
-          properties:
-            localized:
-              type: object
-              properties:
-                en_US:
-                  type: string
-            preferredLocale:
-              type: object
-              properties:
-                country:
-                  type: string
-                language:
-                  type: string
-        primaryOrganizationType:
-          type: string
-          example: example_value
-        id:
-          type: integer
-          example: 42
-        autoCreated:
-          type: boolean
-          example: true
-        localizedWebsite:
-          type: string
-          example: example_value
+            type: object
+            properties:
+              name:
+                type: object
+                properties:
+                  localized:
+                    type: object
+                    properties:
+                      en_US:
+                        type: string
+                  preferredLocale:
+                    type: object
+                    properties:
+                      country:
+                        type: string
+                      language:
+                        type: string
+              primaryOrganizationType:
+                type: string
+              vanityName:
+                type: string
+              locations:
+                type: array
+                items: {}
+              localizedName:
+                type: string
+              id:
+                type: integer
     BatchGetOnAdministeredResponse200:
       type: object
       properties:
@@ -558,52 +520,90 @@ components:
                   type: string
                 status:
                   type: integer
-    FindAdministeredOrganizationBrandsResponse200:
+    RetrieveAnAdministeredOrganizationResponse200:
       type: object
       properties:
-        paging:
+        vanityName:
+          type: string
+          example: Example Name
+        localizedName:
+          type: string
+          example: Example Name
+        website:
           type: object
           properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items: {}
-            total:
-              type: integer
-        elements:
+            localized:
+              type: object
+              properties:
+                en_US:
+                  type: string
+            preferredLocale:
+              type: object
+              properties:
+                country:
+                  type: string
+                language:
+                  type: string
+        groups:
+          type: array
+          items: {}
+        versionTag:
+          type: string
+          example: example_value
+        defaultLocale:
+          type: object
+          properties:
+            country:
+              type: string
+            language:
+              type: string
+        alternativeNames:
+          type: array
+          items: {}
+        specialties:
+          type: array
+          items: {}
+        parentRelationship:
+          type: object
+          properties:
+            relationshipStatus:
+              type: string
+            parent:
+              type: string
+        localizedSpecialties:
+          type: array
+          items: {}
+        industries:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: object
-                properties:
-                  localized:
-                    type: object
-                    properties:
-                      en_US:
-                        type: string
-                  preferredLocale:
-                    type: object
-                    properties:
-                      country:
-                        type: string
-                      language:
-                        type: string
-              primaryOrganizationType:
-                type: string
-              vanityName:
-                type: string
-              locations:
-                type: array
-                items: {}
-              localizedName:
-                type: string
-              id:
-                type: integer
+            type: string
+        name:
+          type: object
+          properties:
+            localized:
+              type: object
+              properties:
+                en_US:
+                  type: string
+            preferredLocale:
+              type: object
+              properties:
+                country:
+                  type: string
+                language:
+                  type: string
+        primaryOrganizationType:
+          type: string
+          example: example_value
+        id:
+          type: integer
+          example: 42
+        autoCreated:
+          type: boolean
+          example: true
+        localizedWebsite:
+          type: string
+          example: example_value
     BatchGetOnNonadministeredResponse200:
       type: object
       properties:
@@ -706,6 +706,37 @@ components:
           locations: []
           localizedName: Internal_EI_TestCompany
           id: 89757515
+    BatchGetOnNonadministeredResponse200Example:
+      summary: Example 200 response for BatchGetOnNonadministered
+      value:
+        results:
+          '35625943':
+            name:
+              localized:
+                en_US: Company LGF Showcase
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: BRAND
+            vanityName: company-lgf-showcase
+            localizedName: Company LGF Showcase
+            id: 35625943
+          '89758488':
+            name:
+              localized:
+                en_US: Internal_EI_Demo
+              preferredLocale:
+                country: US
+                language: en
+            primaryOrganizationType: BRAND
+            vanityName: internal-ei-demo
+            localizedName: Internal_EI_Demo
+            id: 89758488
+            localizedWebsite: https://internal-ei-test-company.com
+        statuses:
+          '35625943': 200
+          '89758488': 200
+        errors: {}
     BatchGetOnAdministeredResponse200Example:
       summary: Example 200 response for BatchGetOnAdministered
       value:
@@ -749,37 +780,6 @@ components:
           '35625943':
             message: Viewer don't have permission to the ADMIN_ONLY VisibilityReduction for urn:li:organization:35625943
             status: 403
-    BatchGetOnNonadministeredResponse200Example:
-      summary: Example 200 response for BatchGetOnNonadministered
-      value:
-        results:
-          '35625943':
-            name:
-              localized:
-                en_US: Company LGF Showcase
-              preferredLocale:
-                country: US
-                language: en
-            primaryOrganizationType: BRAND
-            vanityName: company-lgf-showcase
-            localizedName: Company LGF Showcase
-            id: 35625943
-          '89758488':
-            name:
-              localized:
-                en_US: Internal_EI_Demo
-              preferredLocale:
-                country: US
-                language: en
-            primaryOrganizationType: BRAND
-            vanityName: internal-ei-demo
-            localizedName: Internal_EI_Demo
-            id: 89758488
-            localizedWebsite: https://internal-ei-test-company.com
-        statuses:
-          '35625943': 200
-          '89758488': 200
-        errors: {}
     RetrieveAnAdministeredOrganizationResponse200Example:
       summary: Example 200 response for RetrieveAnAdministeredOrganization
       value:

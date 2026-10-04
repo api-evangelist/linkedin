@@ -71,25 +71,6 @@ components:
           clientId: 78abc123def456
           clientSecret: secretXYZ789
           uniqueForeignId: acme-corp-12345
-  parameters:
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for retrieving applications
-      schema:
-        type: string
-        enum:
-        - credentialsByUniqueForeignId
-      example: credentialsByUniqueForeignId
-    UniqueForeignIdParameter:
-      name: uniqueForeignId
-      in: query
-      required: true
-      description: Partner's unique identifier for the customer
-      schema:
-        type: string
-      example: acme-corp-12345
   schemas:
     GetApplicationResponse:
       type: object
@@ -99,6 +80,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApplicationCredentials'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          description: LinkedIn service-specific error code
+          example: 100
     ApplicationCredentials:
       type: object
       properties:
@@ -118,21 +114,25 @@ components:
           type: string
           description: Partner's unique identifier
           example: acme-corp-12345
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          description: LinkedIn service-specific error code
-          example: 100
+  parameters:
+    UniqueForeignIdParameter:
+      name: uniqueForeignId
+      in: query
+      required: true
+      description: Partner's unique identifier for the customer
+      schema:
+        type: string
+      example: acme-corp-12345
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type for retrieving applications
+      schema:
+        type: string
+        enum:
+        - credentialsByUniqueForeignId
+      example: credentialsByUniqueForeignId
   securitySchemes:
     OAuth2Auth:
       type: oauth2

@@ -58,51 +58,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    AccessTokenResponseExample:
-      summary: Successful access token response
-      value:
-        access_token: AQV8vPRN5zF9BxJ...
-        expires_in: 5184000
-        token_type: Bearer
-  parameters:
-    ContentTypeHeader:
-      name: Content-Type
-      in: header
-      required: true
-      description: Content type of request body
-      schema:
-        type: string
-      example: application/json
   schemas:
-    AccessTokenResponse:
-      type: object
-      description: Response containing access token
-      properties:
-        access_token:
-          type: string
-          description: OAuth 2.0 access token
-          example: AQV8vPRN5zF9BxJ...
-        expires_in:
-          type: integer
-          description: Token expiration time in seconds
-          example: 5184000
-        token_type:
-          type: string
-          description: Token type
-          example: Bearer
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
     AccessTokenRequest:
       type: object
       description: Request body for obtaining access token
@@ -124,6 +80,50 @@ components:
           type: string
           description: OAuth 2.0 client secret
           example: secretXYZ789
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    AccessTokenResponse:
+      type: object
+      description: Response containing access token
+      properties:
+        access_token:
+          type: string
+          description: OAuth 2.0 access token
+          example: AQV8vPRN5zF9BxJ...
+        expires_in:
+          type: integer
+          description: Token expiration time in seconds
+          example: 5184000
+        token_type:
+          type: string
+          description: Token type
+          example: Bearer
+  examples:
+    AccessTokenResponseExample:
+      summary: Successful access token response
+      value:
+        access_token: AQV8vPRN5zF9BxJ...
+        expires_in: 5184000
+        token_type: Bearer
+  parameters:
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
   securitySchemes:
     BearerAuth:
       type: http

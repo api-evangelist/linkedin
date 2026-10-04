@@ -66,6 +66,14 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   parameters:
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
     LinkedInVersionHeader:
       name: LinkedIn-Version
       in: header
@@ -74,14 +82,6 @@ components:
       schema:
         type: string
       example: '202312'
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type for finder operations
-      schema:
-        type: string
-      example: roleAssignee
     RestliProtocolVersionHeader:
       name: X-Restli-Protocol-Version
       in: header
@@ -98,15 +98,75 @@ components:
       schema:
         type: integer
       example: 25
-    StartParameter:
-      name: start
+    QueryTypeParameter:
+      name: q
       in: query
-      required: false
-      description: Pagination start index
+      required: true
+      description: Query type for finder operations
       schema:
-        type: integer
-      example: 0
+        type: string
+      example: roleAssignee
+  examples:
+    AnalyticsResponseExample:
+      summary: Analytics response
+      value:
+        elements:
+        - dateRange:
+            start:
+              year: 2023
+              month: 12
+              day: 1
+            end:
+              year: 2023
+              month: 12
+              day: 31
+          impressionCount: 15000
+          clickCount: 500
+          likeCount: 250
+          commentCount: 45
+          shareCount: 30
+          engagementRate: 0.055
+        paging:
+          start: 0
+          count: 25
   schemas:
+    AnalyticsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsRecord'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 25
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: object
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
     AnalyticsRecord:
       type: object
       properties:
@@ -148,66 +208,6 @@ components:
         day:
           type: integer
           example: 15
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 25
-        total:
-          type: integer
-          example: 100
-        links:
-          type: array
-          items:
-            type: object
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    AnalyticsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalyticsRecord'
-        paging:
-          $ref: '#/components/schemas/Paging'
-  examples:
-    AnalyticsResponseExample:
-      summary: Analytics response
-      value:
-        elements:
-        - dateRange:
-            start:
-              year: 2023
-              month: 12
-              day: 1
-            end:
-              year: 2023
-              month: 12
-              day: 31
-          impressionCount: 15000
-          clickCount: 500
-          likeCount: 250
-          commentCount: 45
-          shareCount: 30
-          engagementRate: 0.055
-        paging:
-          start: 0
-          count: 25
   securitySchemes:
     BearerAuth:
       type: http

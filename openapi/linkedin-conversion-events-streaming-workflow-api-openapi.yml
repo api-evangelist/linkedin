@@ -602,211 +602,51 @@ paths:
         dispatcherRules: '{}'
         delay: 0
 components:
-  schemas:
-    RetrieveAuthenticatedUsersSponsoredResponse200:
-      type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items: {}
-            total:
-              type: integer
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              user:
-                type: string
-              account:
-                type: string
-              role:
-                type: string
-    AssociateCampaignsToConversionRequest:
-      type: object
-      example:
-        campaign: urn:li:sponsoredCampaign:{{campaign_id}}
-        conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
-    StreamMultipleConversionEventsRequest:
-      type: object
-      example:
-        elements:
-        - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
-          conversionHappenedAt: 1695739275000
-          conversionValue:
-            currencyCode: USD
-            amount: '1500.0'
-          user:
-            userIds:
-            - idType: SHA256_EMAIL
-              idValue: bad8677b6c86f5d308ee82786c183482a5995f066694246c58c4df37b0cc41f1
-            - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
-              idValue: df5gf5-gh6t7-ph4j7h-fgf6n1
-            userInfo:
-              firstName: mike
-              lastName: smith
-              title: software engineer
-              companyName: microsoft
-              countryCode: US
-          eventId: abc12345
-        - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
-          conversionHappenedAt: 1695950057000
-          conversionValue:
-            currencyCode: USD
-            amount: '2000.0'
-          user:
-            userIds:
-            - idType: SHA256_EMAIL
-              idValue: dsfgrtg56u767ujy982fgnbmcsdocl46c58c56b650cik230bb9
-            - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
-              idValue: ufh8h5-gh6t7-ph4j7h-mkl86n1
-            userInfo:
-              firstName: jason
-              lastName: bourne
-              title: tech lead
-              companyName: linkedin
-              countryCode: US
-          eventId: xyz345
-    FetchActiveCampaignsResponse200:
-      type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  rel:
-                    type: string
-                  href:
-                    type: string
-            total:
-              type: integer
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              id:
-                type: integer
-    FetchExistingConversionRulesResponse200:
-      type: object
-      properties:
-        paging:
-          type: object
-          properties:
-            start:
-              type: integer
-            count:
-              type: integer
-            links:
-              type: array
-              items: {}
-            total:
-              type: integer
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              conversionMethod:
-                type: string
-              id:
-                type: integer
-              type:
-                type: string
-              campaigns:
-                type: array
-                items: {}
-              enabled:
-                type: boolean
-    CreateANewConversionRequest:
-      type: object
-      example:
-        name: Conversion API Segment 5
-        account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
-        conversionMethod: CONVERSIONS_API
-        postClickAttributionWindowSize: 90
-        viewThroughAttributionWindowSize: 30
-        attributionType: LAST_TOUCH_BY_CAMPAIGN
-        type: LEAD
-    StreamMultipleConversionEventsResponse200:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            type: object
-            properties:
-              status:
-                type: integer
-    AssociateCampaignsToConversionResponse204:
-      type: string
-    CreateANewConversionResponse201:
-      type: object
-      properties:
-        postClickAttributionWindowSize:
-          type: integer
-          example: 42
-        conversionMethod:
-          type: string
-          example: example_value
-        viewThroughAttributionWindowSize:
-          type: integer
-          example: 42
-        created:
-          type: integer
-          example: 42
-        type:
-          type: string
-          example: example_value
-        enabled:
-          type: boolean
-          example: true
-        associatedCampaigns:
-          type: array
-          items: {}
-        campaigns:
-          type: array
-          items: {}
-        name:
-          type: string
-          example: Example Name
-        id:
-          type: integer
-          example: 42
-        lastModified:
-          type: integer
-          example: 42
-        attributionType:
-          type: string
-          example: example_value
-        urlRules:
-          type: array
-          items: {}
-        account:
-          type: string
-          example: example_value
   examples:
+    AssociateCampaignsToConversionResponse204Example:
+      summary: Example 204 response for AssociateCampaignsToConversion
+      value: null
+    CreateANewConversionResponse201Example:
+      summary: Example 201 response for CreateANewConversion
+      value:
+        postClickAttributionWindowSize: 90
+        conversionMethod: CONVERSIONS_API
+        viewThroughAttributionWindowSize: 30
+        created: 1698115671440
+        type: LEAD
+        enabled: true
+        associatedCampaigns: []
+        campaigns: []
+        name: Conversion API Segment 5
+        id: 14488340
+        lastModified: 1698115671440
+        attributionType: LAST_TOUCH_BY_CAMPAIGN
+        urlRules: []
+        account: urn:li:sponsoredAccount:5012345
+    StreamMultipleConversionEventsResponse200Example:
+      summary: Example 200 response for StreamMultipleConversionEvents
+      value:
+        elements:
+        - status: 201
+        - status: 201
+    RetrieveAuthenticatedUsersSponsoredResponse200Example:
+      summary: Example 200 response for RetrieveAuthenticatedUsersSponsored
+      value:
+        paging:
+          start: 0
+          count: 2147483647
+          links: []
+          total: 3
+        elements:
+        - user: urn:li:person:abcd
+          account: urn:li:sponsoredAccount:5000123
+          role: VIEWER
+        - user: urn:li:person:abcd
+          account: urn:li:sponsoredAccount:5000234
+          role: ACCOUNT_BILLING_ADMIN
+        - user: urn:li:person:abcd
+          account: urn:li:sponsoredAccount:5000345
+          role: ACCOUNT_BILLING_ADMIN
     FetchActiveCampaignsResponse200Example:
       summary: Example 200 response for FetchActiveCampaigns
       value:
@@ -865,50 +705,210 @@ components:
           type: REQUEST_QUOTE
           campaigns: []
           enabled: false
-    StreamMultipleConversionEventsResponse200Example:
-      summary: Example 200 response for StreamMultipleConversionEvents
-      value:
+  schemas:
+    StreamMultipleConversionEventsRequest:
+      type: object
+      example:
         elements:
-        - status: 201
-        - status: 201
-    AssociateCampaignsToConversionResponse204Example:
-      summary: Example 204 response for AssociateCampaignsToConversion
-      value: null
-    RetrieveAuthenticatedUsersSponsoredResponse200Example:
-      summary: Example 200 response for RetrieveAuthenticatedUsersSponsored
-      value:
+        - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+          conversionHappenedAt: 1695739275000
+          conversionValue:
+            currencyCode: USD
+            amount: '1500.0'
+          user:
+            userIds:
+            - idType: SHA256_EMAIL
+              idValue: bad8677b6c86f5d308ee82786c183482a5995f066694246c58c4df37b0cc41f1
+            - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
+              idValue: df5gf5-gh6t7-ph4j7h-fgf6n1
+            userInfo:
+              firstName: mike
+              lastName: smith
+              title: software engineer
+              companyName: microsoft
+              countryCode: US
+          eventId: abc12345
+        - conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+          conversionHappenedAt: 1695950057000
+          conversionValue:
+            currencyCode: USD
+            amount: '2000.0'
+          user:
+            userIds:
+            - idType: SHA256_EMAIL
+              idValue: dsfgrtg56u767ujy982fgnbmcsdocl46c58c56b650cik230bb9
+            - idType: LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID
+              idValue: ufh8h5-gh6t7-ph4j7h-mkl86n1
+            userInfo:
+              firstName: jason
+              lastName: bourne
+              title: tech lead
+              companyName: linkedin
+              countryCode: US
+          eventId: xyz345
+    AssociateCampaignsToConversionResponse204:
+      type: string
+    FetchActiveCampaignsResponse200:
+      type: object
+      properties:
         paging:
-          start: 0
-          count: 2147483647
-          links: []
-          total: 3
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  rel:
+                    type: string
+                  href:
+                    type: string
+            total:
+              type: integer
         elements:
-        - user: urn:li:person:abcd
-          account: urn:li:sponsoredAccount:5000123
-          role: VIEWER
-        - user: urn:li:person:abcd
-          account: urn:li:sponsoredAccount:5000234
-          role: ACCOUNT_BILLING_ADMIN
-        - user: urn:li:person:abcd
-          account: urn:li:sponsoredAccount:5000345
-          role: ACCOUNT_BILLING_ADMIN
-    CreateANewConversionResponse201Example:
-      summary: Example 201 response for CreateANewConversion
-      value:
-        postClickAttributionWindowSize: 90
-        conversionMethod: CONVERSIONS_API
-        viewThroughAttributionWindowSize: 30
-        created: 1698115671440
-        type: LEAD
-        enabled: true
-        associatedCampaigns: []
-        campaigns: []
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              id:
+                type: integer
+    StreamMultipleConversionEventsResponse200:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: integer
+    CreateANewConversionResponse201:
+      type: object
+      properties:
+        postClickAttributionWindowSize:
+          type: integer
+          example: 42
+        conversionMethod:
+          type: string
+          example: example_value
+        viewThroughAttributionWindowSize:
+          type: integer
+          example: 42
+        created:
+          type: integer
+          example: 42
+        type:
+          type: string
+          example: example_value
+        enabled:
+          type: boolean
+          example: true
+        associatedCampaigns:
+          type: array
+          items: {}
+        campaigns:
+          type: array
+          items: {}
+        name:
+          type: string
+          example: Example Name
+        id:
+          type: integer
+          example: 42
+        lastModified:
+          type: integer
+          example: 42
+        attributionType:
+          type: string
+          example: example_value
+        urlRules:
+          type: array
+          items: {}
+        account:
+          type: string
+          example: example_value
+    FetchExistingConversionRulesResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+            total:
+              type: integer
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              conversionMethod:
+                type: string
+              id:
+                type: integer
+              type:
+                type: string
+              campaigns:
+                type: array
+                items: {}
+              enabled:
+                type: boolean
+    AssociateCampaignsToConversionRequest:
+      type: object
+      example:
+        campaign: urn:li:sponsoredCampaign:{{campaign_id}}
+        conversion: urn:lla:llaPartnerConversion:{{conversion_id}}
+    RetrieveAuthenticatedUsersSponsoredResponse200:
+      type: object
+      properties:
+        paging:
+          type: object
+          properties:
+            start:
+              type: integer
+            count:
+              type: integer
+            links:
+              type: array
+              items: {}
+            total:
+              type: integer
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                type: string
+              account:
+                type: string
+              role:
+                type: string
+    CreateANewConversionRequest:
+      type: object
+      example:
         name: Conversion API Segment 5
-        id: 14488340
-        lastModified: 1698115671440
+        account: urn:li:sponsoredAccount:{{sponsoredaccount_id}}
+        conversionMethod: CONVERSIONS_API
+        postClickAttributionWindowSize: 90
+        viewThroughAttributionWindowSize: 30
         attributionType: LAST_TOUCH_BY_CAMPAIGN
-        urlRules: []
-        account: urn:li:sponsoredAccount:5012345
+        type: LEAD
   securitySchemes:
     oauth2Auth:
       type: http

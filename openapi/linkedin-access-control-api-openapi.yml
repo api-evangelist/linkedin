@@ -218,6 +218,14 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   parameters:
+    ContentTypeHeader:
+      name: Content-Type
+      in: header
+      required: true
+      description: Content type of request body
+      schema:
+        type: string
+      example: application/json
     RestliMethodHeader:
       name: x-restli-method
       in: header
@@ -230,21 +238,12 @@ components:
         - batch_partial_update
         - batch_create
       example: batch_update
-    ContentTypeHeader:
-      name: Content-Type
-      in: header
-      required: true
-      description: Content type of request body
-      schema:
-        type: string
-      example: application/json
+  examples:
+    SuccessResponseExample:
+      summary: Successful operation response
+      value:
+        status: SUCCESS
   schemas:
-    SuccessResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: SUCCESS
     ErrorResponse:
       type: object
       properties:
@@ -257,17 +256,18 @@ components:
         serviceErrorCode:
           type: integer
           example: 100
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
     EntityAclRequest:
       type: object
       description: Request for upserting entity ACLs
       properties:
         entities:
           type: object
-  examples:
-    SuccessResponseExample:
-      summary: Successful operation response
-      value:
-        status: SUCCESS
   securitySchemes:
     BearerAuth:
       type: http

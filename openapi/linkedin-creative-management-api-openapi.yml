@@ -67,43 +67,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Creative:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Creative URN
-          example: urn:li:sponsoredCreative:777888999
-        campaign:
-          type: string
-          description: Parent campaign URN
-          example: urn:li:sponsoredCampaign:444555666
-        reference:
-          type: string
-          description: Reference URN (e.g., UGC post)
-          example: urn:li:ugcPost:123456789
-        status:
-          type: string
-          enum:
-          - ACTIVE
-          - PAUSED
-          - DRAFT
-          - ARCHIVED
-          - CANCELLED
-          - PENDING_DELETION
-          - REMOVED
-          description: Creative status
-          example: ACTIVE
-        type:
-          type: string
-          enum:
-          - SPONSORED_STATUS_UPDATE
-          - SPONSORED_VIDEO
-          - CAROUSEL
-          - TEXT_AD
-          - MESSAGE_AD
-          description: Creative type
-          example: SPONSORED_VIDEO
     CreativeCreateRequest:
       type: object
       properties:
@@ -141,6 +104,43 @@ components:
         code:
           type: string
           example: INVALID_PARAMS
+    Creative:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Creative URN
+          example: urn:li:sponsoredCreative:777888999
+        campaign:
+          type: string
+          description: Parent campaign URN
+          example: urn:li:sponsoredCampaign:444555666
+        reference:
+          type: string
+          description: Reference URN (e.g., UGC post)
+          example: urn:li:ugcPost:123456789
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - PAUSED
+          - DRAFT
+          - ARCHIVED
+          - CANCELLED
+          - PENDING_DELETION
+          - REMOVED
+          description: Creative status
+          example: ACTIVE
+        type:
+          type: string
+          enum:
+          - SPONSORED_STATUS_UPDATE
+          - SPONSORED_VIDEO
+          - CAROUSEL
+          - TEXT_AD
+          - MESSAGE_AD
+          description: Creative type
+          example: SPONSORED_VIDEO
   securitySchemes:
     OAuth2Auth:
       type: oauth2
