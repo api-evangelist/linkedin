@@ -4,6 +4,7 @@ generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
 - Media, Entertainment & Telecom Content
+- Software & Technology
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -11,7 +12,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 29
+edge_count: 32
 edges:
 - tag: Apply Connect Jobs
   spec_file: linkedin-apply-connect-jobs-api-openapi.yml
@@ -44,6 +45,14 @@ edges:
     learner logins''; getLearningActivityReports with schemas LearningActivity, LearnerDetails'
   reason: Operations report learner course completions and consumption for organizations with LinkedIn
     Learning licences — corporate training/learning administration and reporting.
+- tag: Ad Campaigns
+  spec_file: linkedin-ad-campaigns-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.88
+  evidence: 'adCampaigns_create  Create a campaign ... schemas: AdCampaign'
+  reason: Create/update/search of paid ad campaigns under an ad account — digital marketing campaign management.
 - tag: Application Synchronization
   spec_file: linkedin-application-synchronization-api-openapi.yml
   capability_id: BC-300.10
@@ -55,6 +64,15 @@ edges:
     with LinkedIn Recruiter"
   reason: 'Here "Application" genuinely means a job application: operations sync ATS job applications
     and upload candidate resumes, squarely recruiting/hiring workflow, i.e. Talent Acquisition Management.'
+- tag: Ad Campaign Groups
+  spec_file: linkedin-ad-campaign-groups-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.85
+  evidence: POST /rest/adAccounts/{adAccountID}/adCampaignGroups  adCampaignGroups_create  Create a campaign
+    group
+  reason: Manages LinkedIn advertising campaign groups — paid digital media campaign structure management.
 - tag: Use Cases > Sponsored
   spec_file: linkedin-use-cases-sponsored-api-openapi.yml
   capability_id: BC-400.40
@@ -77,6 +95,15 @@ edges:
   reason: Full CRUD over sponsored ad creatives — paid digital advertising asset management, squarely
     Digital Marketing Management (paid media).
   recovered_from: capability-edges-sweep.json
+- tag: Ad Creatives
+  spec_file: linkedin-ad-creatives-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.82
+  evidence: POST /rest/adAccounts/{adAccountID}/adCreatives  adCreatives_create  Create a creative
+  reason: Manages ad creative assets for paid LinkedIn campaigns; digital marketing execution (creative/content
+    for paid media).
 - tag: Ad Targeting Entities
   spec_file: linkedin-ad-targeting-entities-api-openapi.yml
   capability_id: BC-400.60
