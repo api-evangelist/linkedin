@@ -144,6 +144,33 @@ components:
             atsCreatedAt: 1702693664000
             atsLastModifiedAt: 1702693664000
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+    PhoneNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          example: 555-555-5555
+        extension:
+          type: string
+          example: '1234'
     CandidateData:
       type: object
       properties:
@@ -195,35 +222,6 @@ components:
           type: integer
           format: int64
           example: 1702693664000
-    PhoneNumber:
-      type: object
-      properties:
-        number:
-          type: string
-          example: 555-555-5555
-        extension:
-          type: string
-          example: '1234'
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    CandidateRequest:
-      type: object
-      description: Request for syncing candidate data
-      properties:
-        entities:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/CandidateData'
     Address:
       type: object
       properties:
@@ -248,12 +246,14 @@ components:
         country:
           type: string
           example: US
-    SuccessResponse:
+    CandidateRequest:
       type: object
+      description: Request for syncing candidate data
       properties:
-        status:
-          type: string
-          example: SUCCESS
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CandidateData'
   parameters:
     RestliMethodHeader:
       name: x-restli-method

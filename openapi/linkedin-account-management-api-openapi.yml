@@ -260,20 +260,73 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    AdAccountCreateExample:
-      summary: Create test ad account
-      value:
-        currency: USD
-        name: XYZ Company
-        notifiedOnCampaignOptimization: true
-        notifiedOnCreativeApproval: true
-        notifiedOnCreativeRejection: true
-        notifiedOnEndOfCampaign: true
-        reference: urn:li:organization:12345678
-        type: BUSINESS
-        test: true
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
+    AdAccountCreateRequest:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: USD
+        name:
+          type: string
+          example: XYZ Company
+        notifiedOnCampaignOptimization:
+          type: boolean
+          example: true
+        notifiedOnCreativeApproval:
+          type: boolean
+          example: true
+        notifiedOnCreativeRejection:
+          type: boolean
+          example: true
+        notifiedOnEndOfCampaign:
+          type: boolean
+          example: true
+        reference:
+          type: string
+          example: urn:li:organization:12345678
+        type:
+          type: string
+          enum:
+          - BUSINESS
+          - ENTERPRISE
+          example: BUSINESS
+        test:
+          type: boolean
+          example: true
+      required:
+      - currency
+      - name
+      - reference
+      - type
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: string
     AdAccount:
       type: object
       properties:
@@ -327,72 +380,19 @@ components:
         notifiedOnEndOfCampaign:
           type: boolean
           example: true
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 10
-        total:
-          type: integer
-          example: 100
-        links:
-          type: array
-          items:
-            type: string
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        code:
-          type: string
-          example: INVALID_PARAMS
-    AdAccountCreateRequest:
-      type: object
-      properties:
-        currency:
-          type: string
-          example: USD
-        name:
-          type: string
-          example: XYZ Company
-        notifiedOnCampaignOptimization:
-          type: boolean
-          example: true
-        notifiedOnCreativeApproval:
-          type: boolean
-          example: true
-        notifiedOnCreativeRejection:
-          type: boolean
-          example: true
-        notifiedOnEndOfCampaign:
-          type: boolean
-          example: true
-        reference:
-          type: string
-          example: urn:li:organization:12345678
-        type:
-          type: string
-          enum:
-          - BUSINESS
-          - ENTERPRISE
-          example: BUSINESS
-        test:
-          type: boolean
-          example: true
-      required:
-      - currency
-      - name
-      - reference
-      - type
+  examples:
+    AdAccountCreateExample:
+      summary: Create test ad account
+      value:
+        currency: USD
+        name: XYZ Company
+        notifiedOnCampaignOptimization: true
+        notifiedOnCreativeApproval: true
+        notifiedOnCreativeRejection: true
+        notifiedOnEndOfCampaign: true
+        reference: urn:li:organization:12345678
+        type: BUSINESS
+        test: true
   securitySchemes:
     OAuth2Auth:
       type: oauth2

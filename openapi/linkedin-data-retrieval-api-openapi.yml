@@ -115,6 +115,49 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    Seatholder:
+      type: object
+      properties:
+        seatUrn:
+          type: string
+          example: urn:li:seat:12345
+        firstName:
+          type: string
+          example: Jane
+        lastName:
+          type: string
+          example: Recruiter
+        emailAddress:
+          type: string
+          format: email
+          example: jane.recruiter@company.com
+        active:
+          type: boolean
+          example: true
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 100
+        total:
+          type: integer
+          example: 250
     SeatholdersResponse:
       type: object
       description: Response containing recruiter seatholders
@@ -152,66 +195,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExportedCandidate'
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 100
-        total:
-          type: integer
-          example: 250
-    Seatholder:
-      type: object
-      properties:
-        seatUrn:
-          type: string
-          example: urn:li:seat:12345
-        firstName:
-          type: string
-          example: Jane
-        lastName:
-          type: string
-          example: Recruiter
-        emailAddress:
-          type: string
-          format: email
-          example: jane.recruiter@company.com
-        active:
-          type: boolean
-          example: true
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-  parameters:
-    RequestIdParameter:
-      name: requestId
-      in: query
-      required: true
-      description: Request ID from push notification
-      schema:
-        type: string
-      example: req-12345-abcde
-    QueryTypeParameter:
-      name: q
-      in: query
-      required: true
-      description: Query type
-      schema:
-        type: string
-      example: request
   examples:
     ExportedCandidateResponseExample:
       summary: Example exported candidate response
@@ -234,6 +217,23 @@ components:
           start: 0
           count: 100
           total: 1
+  parameters:
+    RequestIdParameter:
+      name: requestId
+      in: query
+      required: true
+      description: Request ID from push notification
+      schema:
+        type: string
+      example: req-12345-abcde
+    QueryTypeParameter:
+      name: q
+      in: query
+      required: true
+      description: Query type
+      schema:
+        type: string
+      example: request
   securitySchemes:
     BearerAuth:
       type: http

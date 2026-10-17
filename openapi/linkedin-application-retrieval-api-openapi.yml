@@ -62,24 +62,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  examples:
-    GetApplicationResponseExample:
-      summary: Example response for retrieving application credentials
-      value:
-        elements:
-        - applicationUrn: urn:li:developerApplication:12345678
-          clientId: 78abc123def456
-          clientSecret: secretXYZ789
-          uniqueForeignId: acme-corp-12345
   schemas:
-    GetApplicationResponse:
-      type: object
-      description: Response containing application credentials and details
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicationCredentials'
     ErrorResponse:
       type: object
       properties:
@@ -95,6 +78,14 @@ components:
           type: integer
           description: LinkedIn service-specific error code
           example: 100
+    GetApplicationResponse:
+      type: object
+      description: Response containing application credentials and details
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationCredentials'
     ApplicationCredentials:
       type: object
       properties:
@@ -133,6 +124,15 @@ components:
         enum:
         - credentialsByUniqueForeignId
       example: credentialsByUniqueForeignId
+  examples:
+    GetApplicationResponseExample:
+      summary: Example response for retrieving application credentials
+      value:
+        elements:
+        - applicationUrn: urn:li:developerApplication:12345678
+          clientId: 78abc123def456
+          clientSecret: secretXYZ789
+          uniqueForeignId: acme-corp-12345
   securitySchemes:
     OAuth2Auth:
       type: oauth2

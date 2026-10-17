@@ -91,18 +91,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    AudienceInsightsResponse:
+    RequestMetaData:
       type: object
       properties:
-        value:
-          type: object
-          properties:
-            audienceInsight:
-              $ref: '#/components/schemas/AudienceInsight'
-            totalAudienceCount:
-              type: integer
-              description: Total count of the target audience
-              example: 5500000
+        sponsoredAccount:
+          type: string
+          description: URN of the sponsored account
+          example: urn:li:sponsoredAccount:123456789
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
     AudienceInsightsRequest:
       type: object
       properties:
@@ -120,13 +130,17 @@ components:
           required:
           - targetingCriteria
           - groupBy
-    RequestMetaData:
+    AudienceInsight:
       type: object
       properties:
-        sponsoredAccount:
+        segmentations:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsightSegmentation'
+        groupedBy:
           type: string
-          description: URN of the sponsored account
-          example: urn:li:sponsoredAccount:123456789
+          description: Facet URN the insights are grouped by
+          example: urn:li:adTargetingFacet:interests
     TargetingCriteria:
       type: object
       properties:
@@ -144,32 +158,18 @@ components:
                       type: array
                       items:
                         type: string
-    AudienceInsight:
+    AudienceInsightsResponse:
       type: object
       properties:
-        segmentations:
-          type: array
-          items:
-            $ref: '#/components/schemas/InsightSegmentation'
-        groupedBy:
-          type: string
-          description: Facet URN the insights are grouped by
-          example: urn:li:adTargetingFacet:interests
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
+        value:
+          type: object
+          properties:
+            audienceInsight:
+              $ref: '#/components/schemas/AudienceInsight'
+            totalAudienceCount:
+              type: integer
+              description: Total count of the target audience
+              example: 5500000
     InsightSegmentation:
       type: object
       properties:
@@ -186,25 +186,6 @@ components:
           description: URN of the segment value
           example: urn:li:interest:71363
   examples:
-    AudienceInsightsRequestExample:
-      summary: Request for interests of Finance directors in US
-      value:
-        request:
-          requestMetaData:
-            sponsoredAccount: urn:li:sponsoredAccount:123456789
-          targetingCriteria:
-            include:
-              and:
-              - or:
-                  urn:li:adTargetingFacet:locations:
-                  - urn:li:geo:103644278
-              - or:
-                  urn:li:adTargetingFacet:interfaceLocales:
-                  - urn:li:locale:en_US
-              - or:
-                  urn:li:adTargetingFacet:jobFunctions:
-                  - urn:li:function:10
-          groupBy: urn:li:adTargetingFacet:interests
     AudienceInsightsResponseExample:
       summary: Audience insights response with top interests
       value:
@@ -228,6 +209,25 @@ components:
               value: urn:li:interest:1537154
             groupedBy: urn:li:adTargetingFacet:interests
           totalAudienceCount: 5500000
+    AudienceInsightsRequestExample:
+      summary: Request for interests of Finance directors in US
+      value:
+        request:
+          requestMetaData:
+            sponsoredAccount: urn:li:sponsoredAccount:123456789
+          targetingCriteria:
+            include:
+              and:
+              - or:
+                  urn:li:adTargetingFacet:locations:
+                  - urn:li:geo:103644278
+              - or:
+                  urn:li:adTargetingFacet:interfaceLocales:
+                  - urn:li:locale:en_US
+              - or:
+                  urn:li:adTargetingFacet:jobFunctions:
+                  - urn:li:function:10
+          groupBy: urn:li:adTargetingFacet:interests
   securitySchemes:
     OAuth2Auth:
       type: oauth2

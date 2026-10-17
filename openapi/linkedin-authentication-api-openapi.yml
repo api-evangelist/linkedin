@@ -59,27 +59,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    AccessTokenRequest:
-      type: object
-      description: Request body for obtaining access token
-      required:
-      - grant_type
-      - client_id
-      - client_secret
-      properties:
-        grant_type:
-          type: string
-          enum:
-          - client_credentials
-          example: client_credentials
-        client_id:
-          type: string
-          description: OAuth 2.0 client ID
-          example: 78abc123def456
-        client_secret:
-          type: string
-          description: OAuth 2.0 client secret
-          example: secretXYZ789
     ErrorResponse:
       type: object
       properties:
@@ -108,13 +87,27 @@ components:
           type: string
           description: Token type
           example: Bearer
-  examples:
-    AccessTokenResponseExample:
-      summary: Successful access token response
-      value:
-        access_token: AQV8vPRN5zF9BxJ...
-        expires_in: 5184000
-        token_type: Bearer
+    AccessTokenRequest:
+      type: object
+      description: Request body for obtaining access token
+      required:
+      - grant_type
+      - client_id
+      - client_secret
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - client_credentials
+          example: client_credentials
+        client_id:
+          type: string
+          description: OAuth 2.0 client ID
+          example: 78abc123def456
+        client_secret:
+          type: string
+          description: OAuth 2.0 client secret
+          example: secretXYZ789
   parameters:
     ContentTypeHeader:
       name: Content-Type
@@ -124,6 +117,13 @@ components:
       schema:
         type: string
       example: application/json
+  examples:
+    AccessTokenResponseExample:
+      summary: Successful access token response
+      value:
+        access_token: AQV8vPRN5zF9BxJ...
+        expires_in: 5184000
+        token_type: Bearer
   securitySchemes:
     BearerAuth:
       type: http

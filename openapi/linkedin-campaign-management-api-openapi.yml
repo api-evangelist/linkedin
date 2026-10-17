@@ -200,19 +200,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    RunSchedule:
+    ErrorResponse:
       type: object
       properties:
-        start:
+        status:
           type: integer
-          format: int64
-          description: Start timestamp in milliseconds
-          example: 1647927789001
-        end:
-          type: integer
-          format: int64
-          description: End timestamp in milliseconds
-          example: 1648186989000
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        code:
+          type: string
+          example: INVALID_PARAMS
     Campaign:
       type: object
       properties:
@@ -271,6 +270,30 @@ components:
           $ref: '#/components/schemas/Budget'
         totalBudget:
           $ref: '#/components/schemas/Budget'
+    RunSchedule:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+          description: Start timestamp in milliseconds
+          example: 1647927789001
+        end:
+          type: integer
+          format: int64
+          description: End timestamp in milliseconds
+          example: 1648186989000
+    Budget:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: Budget amount
+          example: '1000'
+        currencyCode:
+          type: string
+          description: Currency code
+          example: USD
     Paging:
       type: object
       properties:
@@ -287,18 +310,6 @@ components:
           type: array
           items:
             type: string
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        code:
-          type: string
-          example: INVALID_PARAMS
     CampaignUpdateRequest:
       type: object
       properties:
@@ -313,17 +324,6 @@ components:
                   example: ARCHIVED
                 runSchedule:
                   $ref: '#/components/schemas/RunSchedule'
-    Budget:
-      type: object
-      properties:
-        amount:
-          type: string
-          description: Budget amount
-          example: '1000'
-        currencyCode:
-          type: string
-          description: Currency code
-          example: USD
   examples:
     CampaignArchiveExample:
       summary: Archive a campaign

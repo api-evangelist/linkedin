@@ -88,6 +88,44 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    StreamResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamResultElement'
+    CompanyStreamRequest:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyStreamElement'
+      required:
+      - elements
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    StreamResultElement:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code for this element
+          example: 201
     CompanyStreamElement:
       type: object
       properties:
@@ -113,44 +151,6 @@ components:
       required:
       - action
       - companyName
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
-    StreamResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/StreamResultElement'
-    StreamResultElement:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code for this element
-          example: 201
-    CompanyStreamRequest:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyStreamElement'
-      required:
-      - elements
   examples:
     CompanyStreamRequestExample:
       summary: Add multiple companies to segment

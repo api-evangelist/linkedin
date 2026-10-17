@@ -65,15 +65,86 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid request parameters
+        serviceErrorCode:
+          type: integer
+          example: 100
+    DateInfo:
+      type: object
+      properties:
+        year:
+          type: integer
+          example: 2001
+        month:
+          type: integer
+          example: 1
+        day:
+          type: integer
+          example: 15
+    AnalyticsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsRecord'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 25
+        total:
+          type: integer
+          example: 100
+        links:
+          type: array
+          items:
+            type: object
+    AnalyticsRecord:
+      type: object
+      properties:
+        dateRange:
+          type: object
+          properties:
+            start:
+              $ref: '#/components/schemas/DateInfo'
+            end:
+              $ref: '#/components/schemas/DateInfo'
+        impressionCount:
+          type: integer
+          example: 15000
+        clickCount:
+          type: integer
+          example: 500
+        likeCount:
+          type: integer
+          example: 250
+        commentCount:
+          type: integer
+          example: 45
+        shareCount:
+          type: integer
+          example: 30
+        engagementRate:
+          type: number
+          format: double
+          example: 0.055
   parameters:
-    StartParameter:
-      name: start
-      in: query
-      required: false
-      description: Pagination start index
-      schema:
-        type: integer
-      example: 0
     LinkedInVersionHeader:
       name: LinkedIn-Version
       in: header
@@ -82,14 +153,6 @@ components:
       schema:
         type: string
       example: '202312'
-    RestliProtocolVersionHeader:
-      name: X-Restli-Protocol-Version
-      in: header
-      required: true
-      description: Rest.li protocol version
-      schema:
-        type: string
-      example: 2.0.0
     CountParameter:
       name: count
       in: query
@@ -98,6 +161,22 @@ components:
       schema:
         type: integer
       example: 25
+    StartParameter:
+      name: start
+      in: query
+      required: false
+      description: Pagination start index
+      schema:
+        type: integer
+      example: 0
+    RestliProtocolVersionHeader:
+      name: X-Restli-Protocol-Version
+      in: header
+      required: true
+      description: Rest.li protocol version
+      schema:
+        type: string
+      example: 2.0.0
     QueryTypeParameter:
       name: q
       in: query
@@ -129,85 +208,6 @@ components:
         paging:
           start: 0
           count: 25
-  schemas:
-    AnalyticsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalyticsRecord'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 25
-        total:
-          type: integer
-          example: 100
-        links:
-          type: array
-          items:
-            type: object
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: Invalid request parameters
-        serviceErrorCode:
-          type: integer
-          example: 100
-    AnalyticsRecord:
-      type: object
-      properties:
-        dateRange:
-          type: object
-          properties:
-            start:
-              $ref: '#/components/schemas/DateInfo'
-            end:
-              $ref: '#/components/schemas/DateInfo'
-        impressionCount:
-          type: integer
-          example: 15000
-        clickCount:
-          type: integer
-          example: 500
-        likeCount:
-          type: integer
-          example: 250
-        commentCount:
-          type: integer
-          example: 45
-        shareCount:
-          type: integer
-          example: 30
-        engagementRate:
-          type: number
-          format: double
-          example: 0.055
-    DateInfo:
-      type: object
-      properties:
-        year:
-          type: integer
-          example: 2001
-        month:
-          type: integer
-          example: 1
-        day:
-          type: integer
-          example: 15
   securitySchemes:
     BearerAuth:
       type: http

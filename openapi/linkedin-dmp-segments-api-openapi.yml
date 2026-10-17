@@ -168,6 +168,30 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error message
+          example: Invalid request parameters
+        code:
+          type: string
+          description: Error code
+          example: INVALID_PARAMS
+    DmpSegmentsResponse:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/DmpSegment'
+        paging:
+          $ref: '#/components/schemas/Paging'
     DmpSegmentCreateRequest:
       type: object
       properties:
@@ -213,58 +237,6 @@ components:
       - name
       - sourcePlatform
       - type
-    Paging:
-      type: object
-      properties:
-        start:
-          type: integer
-          description: Starting index
-          example: 0
-        count:
-          type: integer
-          description: Number of results returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of results
-          example: 2
-        links:
-          type: array
-          items:
-            type: string
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 400
-        message:
-          type: string
-          description: Error message
-          example: Invalid request parameters
-        code:
-          type: string
-          description: Error code
-          example: INVALID_PARAMS
-    SegmentDestination:
-      type: object
-      properties:
-        destination:
-          type: string
-          enum:
-          - LINKEDIN
-          description: Destination platform
-          example: LINKEDIN
-    DmpSegmentsResponse:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/DmpSegment'
-        paging:
-          $ref: '#/components/schemas/Paging'
     DmpSegment:
       type: object
       properties:
@@ -334,6 +306,34 @@ components:
       - account
       - type
       - sourcePlatform
+    SegmentDestination:
+      type: object
+      properties:
+        destination:
+          type: string
+          enum:
+          - LINKEDIN
+          description: Destination platform
+          example: LINKEDIN
+    Paging:
+      type: object
+      properties:
+        start:
+          type: integer
+          description: Starting index
+          example: 0
+        count:
+          type: integer
+          description: Number of results returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of results
+          example: 2
+        links:
+          type: array
+          items:
+            type: string
   examples:
     DmpSegmentCreateRequestExample:
       summary: Create list upload DMP segment
