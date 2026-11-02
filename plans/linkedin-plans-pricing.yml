@@ -1,0 +1,304 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: LinkedIn
+providerId: linkedin
+created: '2026-05-04'
+# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
+# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
+method: generated
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - Business
+  - Careers
+  - Marketing
+  - Professional Networking
+  - Recruiting
+  - Social Media
+description: LinkedIn does not charge per-call for its public APIs. Access is gated by program approval
+  rather than tiered pricing. Consumer-facing products (Sign In, Share, Verified) are free. Marketing,
+  Talent, Sales Navigator, Learning, and Compliance APIs are gated through partner programs and access
+  tiers (Development, Standard, Enterprise) — what costs money is the underlying LinkedIn product (ad
+  spend, Recruiter / Sales Navigator / Learning seats), not the API itself.
+sources:
+  - https://www.linkedin.com/developers/products
+  - https://learn.microsoft.com/en-us/linkedin/marketing/quick-start
+  - https://learn.microsoft.com/en-us/linkedin/shared/api-guide/concepts/rate-limits
+plans:
+  - id: linkedin-consumer-free
+    name: Consumer APIs (Sign In / Share / Verified)
+    type: freemium
+    description: Free developer access to Sign In with LinkedIn, Share on LinkedIn, and Verified on LinkedIn.
+      No charge per call; subject to LinkedIn API Terms of Use.
+    entries:
+      - label: Per API call
+        name: api_call
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Sign In with LinkedIn
+      - name: Share on LinkedIn
+      - name: Verified on LinkedIn
+      - name: Free developer access
+  - id: linkedin-marketing-development
+    name: Marketing API — Development Tier
+    type: freemium
+    description: Default tier assigned to all newly approved Marketing API apps. Free; lower daily call
+      ceilings; intended for build-and-test before upgrade to Standard.
+    entries:
+      - label: Per API call
+        name: api_call
+        type: metered
+        metric: request
+        limit: see Developer Portal Analytics
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Advertising API
+      - name: Community Management API
+      - name: Lead Sync API
+      - name: Conversions API
+      - name: Event Management API
+      - name: App-level + member-level daily caps
+  - id: linkedin-marketing-standard
+    name: Marketing API — Standard Tier
+    type: enterprise
+    description: Production tier, free of API fees, but requires upgrade application (video demo of campaign
+      create / edit / optimize). Higher daily caps than Development. Cost flows through LinkedIn ad
+      spend, not API usage.
+    entries:
+      - label: Per API call
+        name: api_call
+        type: metered
+        metric: request
+        limit: see Developer Portal Analytics
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Higher application + member daily quotas
+      - name: Approved for production traffic
+      - name: Tier upgrade required (video demo)
+  - id: linkedin-talent-recruiter
+    name: Talent Solutions APIs (Recruiter System Connect / Job Posting)
+    type: enterprise
+    description: API access bundled with LinkedIn Talent Solutions / Recruiter contracts. API itself
+      is not metered; cost is the underlying Recruiter / Recruiter Lite / Job Posting subscription.
+    entries:
+      - label: Per API call
+        name: api_call
+        type: metered
+        metric: request
+        limit: see Developer Portal Analytics
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Recruiter seat (underlying product)
+        name: recruiter_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+    elements:
+      - name: Recruiter System Connect
+      - name: Job Posting API
+      - name: Talent Solutions partner program
+  - id: linkedin-sales-navigator
+    name: Sales Navigator APIs (CRM Sync / Display / Analytics)
+    type: enterprise
+    description: API access tied to a Sales Navigator Advanced / Advanced Plus contract. Cost is the
+      Sales Navigator seat subscription, not API usage.
+    entries:
+      - label: Per API call
+        name: api_call
+        type: metered
+        metric: request
+        limit: see Developer Portal Analytics
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Sales Navigator seat
+        name: sales_nav_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+    elements:
+      - name: CRM Sync
+      - name: Display API
+      - name: Analytics API
+  - id: linkedin-learning
+    name: Learning Solutions APIs
+    type: enterprise
+    description: API access available to LinkedIn Learning enterprise customers. Cost is the per-seat
+      Learning subscription.
+    entries:
+      - label: Per API call
+        name: api_call
+        type: metered
+        metric: request
+        limit: see Developer Portal Analytics
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Learning seat
+        name: learning_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+    elements:
+      - name: Activity Reports API
+      - name: Content / Course APIs
+  - id: linkedin-compliance
+    name: Compliance / Message Archiving APIs
+    type: enterprise
+    description: Available to approved compliance / archiving vendors. No per-call API fee; eligibility
+      requires partnership approval.
+    entries:
+      - label: Per API call
+        name: api_call
+        type: metered
+        metric: request
+        limit: see Developer Portal Analytics
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Compliance API
+      - name: Message Archiving API
+      - name: Vendor approval required
+  - id: linkedin-portability
+    name: Regulatory Data Portability APIs
+    type: freemium
+    description: Free APIs for LinkedIn members and approved processors to export regulated data (GDPR
+      / DMA / similar). No fee.
+    entries:
+      - label: Per API call
+        name: api_call
+        type: metered
+        metric: request
+        limit: see Developer Portal Analytics
+        timeFrame: day
+        geo: EU
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Member data export
+      - name: GDPR / DMA compliance
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units:
+  - request
+  - seat
+  plans:
+  - name: Consumer APIs (Sign In / Share / Verified)
+    access: freemium
+    model: metered
+    model_how: derived
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Marketing API — Development Tier
+    access: freemium
+    model: metered
+    model_how: derived
+    units:
+    - request
+    periods:
+    - day
+  - name: Marketing API — Standard Tier
+    access: enterprise
+    model: metered
+    model_how: derived
+    units:
+    - request
+    periods:
+    - day
+  - name: Talent Solutions APIs (Recruiter System Connect / Job Posting)
+    access: enterprise
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    - seat
+    periods:
+    - day
+    - month
+  - name: Sales Navigator APIs (CRM Sync / Display / Analytics)
+    access: enterprise
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    - seat
+    periods:
+    - day
+    - month
+  - name: Learning Solutions APIs
+    access: enterprise
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    - seat
+    periods:
+    - day
+    - month
+  - name: Compliance / Message Archiving APIs
+    access: enterprise
+    model: metered
+    model_how: derived
+    units:
+    - request
+    periods:
+    - day
+  - name: Regulatory Data Portability APIs
+    access: freemium
+    model: metered
+    model_how: derived
+    units:
+    - request
+    periods:
+    - day
